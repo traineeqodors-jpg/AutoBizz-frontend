@@ -59,7 +59,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
 
         <div className="flex lg:hidden gap-3">
           <a
-            href={`http://192.168.0.37:5000${doc?.docUrl}`}
+            href={`${import.meta.env.VITE_BACKEND_URL}${doc?.docUrl}`}
             target="_blank"
             rel="noreferrer"
             className="p-2.5 bg-white border border-gray-100 text-btn-100 rounded-xl shadow-sm active:scale-95"

@@ -81,7 +81,7 @@ function EditOrgDetails() {
             >
               {/* Actual Image */}
               <img
-                src={`http://192.168.0.37:5000${user?.profileImage}`}
+                src={`${import.meta.env.VITE_BACKEND_URL}${user?.profileImage}`}
                 alt="Profile"
                 className="w-full h-full object-contain "
               />
