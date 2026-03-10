@@ -6,7 +6,7 @@ import { useGetMeQuery, useUpdateOrgMutation } from '../features/slices/orgSlice
 import { useRef, useState } from "react";
 
 function EditOrgDetails() {
-  const token = JSON.parse(localStorage.getItem("token"));
+
   const [updateImage, { isLoading: imageIsLOading }] = useUpdateOrgMutation();
 
    const fileInputRef = useRef(null);
@@ -35,7 +35,7 @@ function EditOrgDetails() {
       data,
       isLoading: userLoading,
     } = useGetMeQuery(undefined, {
-      skip: !token,
+      skip: !localStorage.getItem("isLoggedIn"),
     });
 
   const user = data?.data;

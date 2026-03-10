@@ -47,11 +47,7 @@ const LoginPage = () => {
     // Login API call
     try {
       const response = await login(input).unwrap();
-      dispatch(orgApi.util.invalidateTags(["orgUser"]));
-      localStorage.setItem(
-        "token",
-        JSON.stringify(response?.data?.accessToken),
-      );
+      localStorage.setItem("isLoggedIn" , 'true')
       toast.success(response?.message);
       navigate("/");
     } catch (error) {

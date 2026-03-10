@@ -9,9 +9,9 @@ import AIChat from "../components/AIChat";
 import { useGetMeQuery } from "../features/slices/orgSlice";
 
 const RootLayout = () => {
-  const token = localStorage.getItem("token");
+  
   // We skip: !token to prevent the 401 error on logout
-  const { data } = useGetMeQuery(undefined, { skip: !token });
+  const { data } = useGetMeQuery(undefined, { skip: !localStorage.getItem("isLoggedIn") });
   const navigation = useNavigation();
 
   // If React Router is doing a 'loader' transition, show the spinner

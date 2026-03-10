@@ -11,7 +11,7 @@ const MyDocument = () => {
 
   //API Calls
 
-  const { data, isLoading } = useGetMyDocumentsQuery();    //fetch documents
+  const { data, isLoading } = useGetMyDocumentsQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")});    //fetch documents
   const [deleteDocument, { isLoading: isDeleting }] = useDeleteDocumentMutation(); //delete documents
 
 

@@ -1,11 +1,3 @@
-import "./App.css";
-import RootLayout from "./layouts/RootLayout";
-import Home from "./pages/Home";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/signupPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
@@ -15,14 +7,18 @@ import { useGetMeQuery } from "./features/slices/orgSlice";
 import LoadingElement from "./components/LoadingElement";
 import EditOrgDetails from "./pages/EditOrgDetails";
 import MyDocument from "./pages/MyDocument";
+import { createBrowserRouter , RouterProvider , Navigate } from "react-router-dom";
+import RootLayout from "./layouts/RootLayout"
+import Home from "./pages/Home";
+import "./App.css"
 
 const AuthGuard = ({ children, requireAuth }) => {
-  const token = localStorage.getItem("token");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   // If there's no token, don't even run the query
   
   const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
-    skip: !token,
+    skip: !isLoggedIn,
   });
 
   if (isLoading || isFetching) return <LoadingElement />;
@@ -31,14 +27,14 @@ const AuthGuard = ({ children, requireAuth }) => {
 
   if (requireAuth) {
     // If we have no token OR no data, boot to login
-    return token && isAuthenticated ? (
+    return isLoggedIn && isAuthenticated ? (
       children
     ) : (
       <Navigate to="/login" replace />
     );
   } else {
     // For Login/Register: if we have both, boot to home
-    return token && isAuthenticated ? <Navigate to="/" replace /> : children;
+    return isLoggedIn && isAuthenticated ? <Navigate to="/" replace /> : children;
   }
 };
 

@@ -6,17 +6,6 @@ export const orgDetailsApi = createApi({
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://localhost:3000/api/orgDetails",
     baseUrl: `${import.meta.env.VITE_BACKEND_URL}/api/orgDetails`,
-    prepareHeaders: (headers, { getState }) => {
-      const token = JSON.parse(localStorage.getItem("token"));
-
-      // If a token exists, set the Authorization header
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-
-      // Return the modified headers
-      return headers;
-    },
   }),
 
   tagTypes: ["orgDetails"],
@@ -28,7 +17,7 @@ export const orgDetailsApi = createApi({
         method: "get",
         credentials: "include",
       }),
-      providesTags: ["orgDetails"],
+  
     }),
 
     addOrgDetails: build.mutation({
@@ -39,7 +28,6 @@ export const orgDetailsApi = createApi({
         credentials: "include",
       }),
 
-      invalidatesTags: ["orgDetails"],
     }),
   }),
 });

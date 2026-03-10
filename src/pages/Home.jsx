@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import OrgInfo from "../components/OrgInfo"
 
 const Home = () => {
-  const token = localStorage.getItem("token");
+ 
   const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
-    skip: !token,
+    skip: !localStorage.getItem("isLoggedIn"),
   });
   const user = data?.data;
   

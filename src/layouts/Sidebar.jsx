@@ -10,10 +10,10 @@ const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+ 
 
   const { data, isLoading: userLoading, isFetching } = useGetMeQuery(undefined, { 
-  skip: !token 
+  skip: !localStorage.getItem("isLoggedIn") 
 });
 
   if (userLoading) {
@@ -25,17 +25,16 @@ const Sidebar = () => {
     const handleLogout = async () => {
       try {
         
-        dispatch({ type: "auth/logout" });
-        dispatch(orgApi.util.resetApiState());
-        await logout().unwrap();
-        localStorage.removeItem("token");
+        const response = await logout().unwrap();
+      localStorage.removeItem("isLoggedIn");
+      dispatch({ type: "auth/logout" });
+      toast.success(response?.message);
+      navigate("/login", { replace: true });
+
       } catch (error) {
         console.warn("Server logout failed, cleaning up locally.");
       }
-      finally {
-        navigate("/login");
-        toast.success("Logged out successfully");
-      }
+      
     };
 
 
