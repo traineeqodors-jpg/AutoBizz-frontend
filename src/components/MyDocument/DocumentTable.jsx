@@ -51,15 +51,33 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
     "Untitled Document";
 
   return (
-    <tr className="group hover:bg-slate-50/80 transition-all duration-200 border-b border-gray-50 last:border-0">
-      <td className="px-6 py-4">
-        <div className={`p-3.5 rounded-2xl w-fit text-2xl shadow-sm ${color}`}>
+    <tr className="flex flex-col lg:table-row group hover:bg-slate-50/80 transition-all duration-200 border-b border-gray-100 lg:border-gray-50 last:border-0 p-4 lg:p-0">
+      <td className="px-0 lg:px-6 py-2 lg:py-4 flex justify-between items-center lg:table-cell">
+        <div className={`p-3 rounded-2xl w-fit text-2xl shadow-sm ${color}`}>
           {icon}
         </div>
+
+        <div className="flex lg:hidden gap-3">
+          <a
+            href={`http://192.168.0.37:5000${doc?.docUrl}`}
+            target="_blank"
+            rel="noreferrer"
+            className="p-2.5 bg-white border border-gray-100 text-btn-100 rounded-xl shadow-sm active:scale-95"
+          >
+            <FaExternalLinkAlt size={16} />
+          </a>
+          <button
+            onClick={() => openDeleteModal(doc)}
+            className="p-2.5 bg-white border border-gray-100 text-red-500 rounded-xl shadow-sm active:scale-95"
+          >
+            <FaTrash size={16} />
+          </button>
+        </div>
       </td>
-      <td className="px-4 py-4">
+
+      <td className="px-0 lg:px-4 py-2 lg:py-4">
         <div className="flex flex-col">
-          <span className="text-[15px] font-bold text-text group-hover:text-btn-100 transition-colors truncate max-w-xs">
+          <span className="text-[15px] font-bold text-text group-hover:text-btn-100 transition-colors truncate max-w-[250px] sm:max-w-xs lg:max-w-md">
             {cleanName}
           </span>
           <div className="flex items-center gap-2 mt-1">
@@ -74,20 +92,21 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
           </div>
         </div>
       </td>
-      <td className="px-6 py-4 text-right">
-        <div className="flex justify-end gap-3 opacity-100 transition-opacity duration-300">
+
+      <td className="hidden lg:table-cell px-6 py-4 text-right">
+        <div className="flex justify-end gap-3 transition-opacity duration-300">
           <a
             href={`http://192.168.0.37:5000${doc?.docUrl}`}
             target="_blank"
             rel="noreferrer"
             className="p-2.5 bg-white border border-gray-100 text-btn-100 shadow-sm hover:bg-btn-100 hover:text-white rounded-xl transition-all active:scale-95"
-            title="View Document"
+            title="View"
           >
             <FaExternalLinkAlt size={14} />
           </a>
           <button
             onClick={() => openDeleteModal(doc)}
-            className="p-2.5 bg-white border border-gray-100 text-red-500 shadow-sm hover:bg-red-500 hover:text-white rounded-xl transition-all active:scale-95 cursor-pointer"
+            className="p-2.5 bg-white border border-gray-100 text-red-500 shadow-sm hover:bg-red-500 hover:text-white rounded-xl transition-all active:scale-95"
             title="Delete"
           >
             <FaTrash size={14} />

@@ -5,6 +5,7 @@ import {DatePicker} from 'react-datepicker'
 import { useAddOrgDetailsMutation, useGetOrgDetailsQuery } from '../features/slices/orgDetailsSlice';
 import { toast } from 'react-toastify';
 import LoadingElement from './LoadingElement';
+import DocuementUploadDialog from './DocuementUploadDialog';
 
 function AdditionalDetails() {
 
@@ -14,7 +15,7 @@ function AdditionalDetails() {
   const [status, setStatus] = useState("");
   const { data, isLoading, refetch } = useGetOrgDetailsQuery();
   const [updateInfo, { isLoading: updateLoading }] = useAddOrgDetailsMutation(); 
-
+  const dialogRef = useRef(null);
   const timeoutRef = useRef(null)
 
   useEffect(() => {
@@ -145,7 +146,7 @@ function AdditionalDetails() {
                 <DatePicker
                   calendarClassName="custom-calendar-style"
                   className="w-full bg-transparent border px-4 border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1"
-                  selected={new Date(year, 0, 1)}
+                  selected={new Date(year || new Date().getFullYear(), 0, 1)}
                   maxDate={new Date()}
                   filterDate={(date) =>
                     date.getFullYear() <= new Date().getFullYear()
@@ -161,12 +162,22 @@ function AdditionalDetails() {
             <p className="text-xs text-text/60">AI Summary</p>
             <div className="w-full flex justify-center items-center p-4 h-[40vh] shadow border border-gray-300">
               <p className="text-text/70">
-                Upload Documents to get AI generated summary!
+                <button
+                  onClick={() => dialogRef.current?.showModal()}
+                  className="text-btn-50 hover:underline cursor-pointer"
+                >
+                  Upload Documents
+                </button>{" "}
+                to get AI generated SOP!
               </p>
             </div>
           </div>
         </div>
       )}
+      <DocuementUploadDialog
+        onClick={() => dialogRef.current?.showModal()}
+        dialogRef={dialogRef}
+      />
     </div>
   );
 }

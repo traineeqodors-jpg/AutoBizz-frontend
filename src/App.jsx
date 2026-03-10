@@ -20,6 +20,7 @@ const AuthGuard = ({ children, requireAuth }) => {
   const token = localStorage.getItem("token");
 
   // If there's no token, don't even run the query
+  
   const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
     skip: !token,
   });
