@@ -77,7 +77,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
 
       <td className="px-0 lg:px-4 py-2 lg:py-4">
         <div className="flex flex-col">
-          <span className="text-[15px] font-bold text-text group-hover:text-btn-100 transition-colors truncate max-w-[250px] sm:max-w-xs lg:max-w-md">
+          <span className="text-[15px] font-bold text-text group-hover:text-btn-100 transition-colors truncate max-w-62.5 sm:max-w-xs lg:max-w-md">
             {cleanName}
           </span>
           <div className="flex items-center gap-2 mt-1">
