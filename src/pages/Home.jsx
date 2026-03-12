@@ -1,7 +1,8 @@
 import React from "react";
 import { useGetMeQuery } from "../features/slices/orgSlice";
 import { useNavigate } from "react-router-dom";
-import OrgInfo from "../components/OrgInfo"
+import OrgInfo from "../components/Home/OrgInfo"
+import SupportCard from "../components/Home/SupportCard";
 
 const Home = () => {
  
@@ -28,7 +29,9 @@ const Home = () => {
                 <li>Location : {user?.country}</li>
               </ul>
             </div>
-            <div className="h-40 w-full shadow-md/10 rounded-2xl p-5 bg-white"></div>
+            
+             <SupportCard />
+            
           </div>
         </div>
 

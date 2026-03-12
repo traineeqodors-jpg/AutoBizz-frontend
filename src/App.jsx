@@ -15,7 +15,7 @@ import "./App.css"
 const AuthGuard = ({ children, requireAuth }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-  // If there's no token, don't even run the query
+  // If there's no isLoggedIn, don't even run the query
   
   const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
     skip: !isLoggedIn,
@@ -26,7 +26,7 @@ const AuthGuard = ({ children, requireAuth }) => {
   const isAuthenticated = !!data;
 
   if (requireAuth) {
-    // If we have no token OR no data, boot to login
+    // If we have no isLoggedIn OR no data, boot to login
     return isLoggedIn && isAuthenticated ? (
       children
     ) : (

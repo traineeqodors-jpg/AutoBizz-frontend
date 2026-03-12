@@ -96,7 +96,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
       <td className="hidden lg:table-cell px-6 py-4 text-right">
         <div className="flex justify-end gap-3 transition-opacity duration-300">
           <a
-            href={`http://192.168.0.37:5000${doc?.docUrl}`}
+            href={`${import.meta.env.VITE_BACKEND_URL}${doc?.docUrl}`}
             target="_blank"
             rel="noreferrer"
             className="p-2.5 bg-white border border-gray-100 text-btn-100 shadow-sm hover:bg-btn-100 hover:text-white rounded-xl transition-all active:scale-95"

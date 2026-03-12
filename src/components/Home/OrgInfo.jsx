@@ -3,9 +3,9 @@ import { FaEdit, FaPlus } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { IoCloseSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useUploadDocumentsMutation } from "../features/slices/documentSlice";
+import { useUploadDocumentsMutation } from "../../features/slices/documentSlice";
 import { toast } from "react-toastify";
-import DocuementUploadDialog from "./DocuementUploadDialog";
+import DocuementUploadDialog from "../DocuementUploadDialog";
 
 const OrgInfo = ({ user }) => {
   const dialogRef = useRef(null);
