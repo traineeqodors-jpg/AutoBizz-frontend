@@ -3,12 +3,14 @@ import { orgApi } from "../features/slices/orgSlice";
 import { resetPasswordApi } from "../features/slices/resetPasswordSlice";
 import { documentApi } from "../features/slices/documentSlice";
 import { orgDetailsApi } from "../features/slices/orgDetailsSlice";
+import { callLogApi } from "../features/slices/callLogSlice";
 
 const appReducer = combineReducers({
   [orgApi.reducerPath]: orgApi.reducer,
   [resetPasswordApi.reducerPath]: resetPasswordApi.reducer,
   [documentApi.reducerPath]: documentApi.reducer,
   [orgDetailsApi.reducerPath]: orgDetailsApi.reducer,
+  [callLogApi.reducerPath] : callLogApi.reducer
 });
 
 const rootReducer = (state, action) => {
@@ -26,5 +28,6 @@ export const store = configureStore({
       .concat(orgApi.middleware)
       .concat(resetPasswordApi.middleware)
       .concat(documentApi.middleware)
-      .concat(orgDetailsApi.middleware),
+      .concat(orgDetailsApi.middleware)
+      .concat(callLogApi.middleware)
 });

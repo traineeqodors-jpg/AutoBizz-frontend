@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useResetPasswordMutation } from "../features/slices/resetPasswordSlice";
 
 const ResetPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   const [input, setInput] = useState({
-    password: "",
+    newPassword: "",
     confirmPassword: "",
   });
 
-  //   Hnadling Form Change
+  // Getting Token From URL Params
+  const { token } = useParams();
+
+  const [resetPass, { isLoading }] = useResetPasswordMutation();
+
+  const navigate = useNavigate();
+
+  //   Handling Form Change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -21,25 +30,46 @@ const ResetPasswordPage = () => {
   };
 
   //   Handle Form Submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validations for Empty Fields
-    if (!input.password.trim() || !input.confirmPassword.trim()) {
+    if (!input.newPassword.trim() || !input.confirmPassword.trim()) {
       return toast.error("Please Fill all the Fields");
     }
 
     //Validation for Length
-    if (input.password.length < 7 || input.confirmPassword.length < 7) {
+    if (input.newPassword.length < 7 || input.confirmPassword.length < 7) {
       return toast.error("Password must be atleast 7 Character Long");
     }
 
-    // Match Password
-    if (input.password.trim() !== input.confirmPassword.trim()) {
-      return toast.error("Password and Confirm Password doesn't match!");
+    // Password REGEX Validation
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*_\-])[a-zA-Z0-9!@#$%^&*_\-]{7,}$/;
+
+    if (!passwordRegex.test(input.newPassword)) {
+      return setPasswordError(
+        "Password must contain at least one number and one special character",
+      );
+    } else {
+      setPasswordError("");
     }
 
-    console.log(input);
+    // Match Password
+    if (input.newPassword.trim() !== input.confirmPassword.trim()) {
+      return setPasswordError("Password and Confirm Password doesn't match!");
+    } else {
+      setPasswordError("");
+    }
+
+    try {
+      const response = await resetPass({ input, token }).unwrap();
+      toast.success(response?.message);
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
   };
   return (
     <>
@@ -61,8 +91,8 @@ const ResetPasswordPage = () => {
           <div className="sm:flex justify-center-safe w-full space-y-2">
             <div className="w-full sm:w-20 flex items-center-safe m-0">
               <label
-                htmlFor="password"
-                name="password"
+                htmlFor="newPassword"
+                name="newPassword"
                 className="text-sm font-semibold text-gray-700 m-0"
               >
                 New Password
@@ -72,10 +102,10 @@ const ResetPasswordPage = () => {
             <div className="relative flex-4">
               <input
                 type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
+                id="newPassword"
+                name="newPassword"
                 placeholder="••••••••"
-                value={input.password}
+                value={input.newPassword}
                 onChange={handleChange}
                 className="w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
               />
@@ -128,13 +158,17 @@ const ResetPasswordPage = () => {
               </button>
             </div>
           </div>
+          <div className="bg-red-100 px-2 rounded-lg">
+            <span className=" text-red-400 text-sm ">{passwordError}</span>
+          </div>
 
           {/* Submit Button */}
           <button
+            disabled={isLoading}
             type="submit"
-            className="w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5 transition-all"
+            className={`${isLoading && "opacity-60"} cursor-pointer w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-2`}
           >
-            Reset Password
+            {isLoading ? "Resetting Password..." : "Reset Password"}
           </button>
           <div>
             <p className="float-end text-sm">

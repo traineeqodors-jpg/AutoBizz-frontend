@@ -36,10 +36,10 @@ const Home = () => {
         </div>
 
         <div className="rounded-2xl flex md:flex-row flex-col flex-wrap gap-3 justify-evenly w-full items-stretch flex-1 min-h-0">
-          <div className="bg-white md:w-[50%] w-full md:flex-1 flex-3 rounded-2xl shadow-sm">
+          <div className="bg-white md:w-[50%] w-full md:flex-1 flex-3 rounded-2xl shadow-sm p-5">
             Recent Members
           </div>
-          <div className="bg-white md:w-[50%] w-full flex-3 rounded-2xl shadow-sm">
+          <div className="bg-white md:w-[50%] w-full flex-3 rounded-2xl shadow-sm p-5">
             Analytics
           </div>
         </div>

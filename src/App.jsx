@@ -11,6 +11,7 @@ import { createBrowserRouter , RouterProvider , Navigate } from "react-router-do
 import RootLayout from "./layouts/RootLayout"
 import Home from "./pages/Home";
 import "./App.css"
+import CallLog from "./pages/CallLog";
 
 const AuthGuard = ({ children, requireAuth }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/orgprofile", element: <EditOrgDetails /> },
       { path: "/documents", element: <MyDocument /> },
+      {path : "/callLogs" , element:<CallLog />}
     ],
   },
   {

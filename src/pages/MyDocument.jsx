@@ -3,9 +3,10 @@ import { useDeleteDocumentMutation, useGetMyDocumentsQuery } from "../features/s
 import LoadingElement from "../components/LoadingElement";
 import { toast } from "react-toastify";
 import DocumentTable from "../components/MyDocument/DocumentTable";
-import DocumentDeleteDialog from "../components/MyDocument/DocumentDeleteDialog";
+import DocumentDeleteDialog from "../components/Dialog/DeleteDialog";
 import { IoSearchOutline } from "react-icons/io5";
 import DocumentSearch from "../components/MyDocument/DocumentSearch";
+import DeleteDialog from "../components/Dialog/DeleteDialog";
 
 const MyDocument = () => {
 
@@ -109,8 +110,8 @@ const MyDocument = () => {
         </div>
       </div>
 
-      <DocumentDeleteDialog
-        targetDoc={targetDoc}
+      <DeleteDialog
+        targetElement={targetDoc}
         confirmDelete={confirmDelete}
         closeDeleteModal={closeDeleteModal}
         deleteModalRef={deleteModalRef}

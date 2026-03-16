@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useForgotPasswordMutation } from "../features/slices/resetPasswordSlice";
 
 const ForgetPasswordPage = () => {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const [forgotPassword, { isLoading, isSuccess }] =
+    useForgotPasswordMutation();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validations for Empty Fields
@@ -18,7 +22,14 @@ const ForgetPasswordPage = () => {
       return toast.error("Please enter a valid email address");
     }
 
-    console.log(email);
+    try {
+      const response = await forgotPassword(email).unwrap();
+       console.log(response)
+      toast.success(response?.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
   };
   return (
     <>
@@ -31,15 +42,19 @@ const ForgetPasswordPage = () => {
             <h1 className="text-2xl font-semibold text-text tracking-tight">
               Reset Your Password
             </h1>
-            <p className="text-sm text-gray-400">
-              Enter your email associated with your account and we'll email you
-              link to reset your password.
-            </p>
+
             {/* After Sending EMail */}
-            <p className="text-sm text-gray-400">
-              The Password Reset Link has Been Sent to your email:
-              <span className="block">example@gamil.com</span>
-            </p>
+            {isSuccess ? (
+              <p className="text-sm text-green-600 bg-green-200 rounded-2xl p-3">
+                The Password Reset Link has Been Sent to your email:
+                <span className="block">{email}</span>
+              </p>
+            ) : (
+              <p className="text-sm text-gray-400">
+                Enter your email associated with your account and we'll email
+                you link to reset your password.
+              </p>
+            )}
           </div>
 
           {/* Email Field */}
@@ -59,10 +74,11 @@ const ForgetPasswordPage = () => {
           </div>
 
           <button
+            disabled={isLoading}
             type="submit"
-            className="w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5 transition-all"
+            className={`${isLoading && "opacity-60"} cursor-pointer w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-2`}
           >
-            Send Link
+            {isLoading ? "Sending..." : "Send Link"}
           </button>
           <div>
             <p className="float-end text-sm">
