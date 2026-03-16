@@ -18,6 +18,8 @@ import SearchFilterCallLog from "../components/CallLog/SearchFilterCallLog";
 import EmptyCallLog from "../components/CallLog/EmptyCallLog";
 import DocumentDeleteDialog from "../components/Dialog/DeleteDialog";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
+import LoadingElement from "../components/LoadingElement";
+import DetailModal from "../components/CallLog/DetailModal";
 
 const CallLog = () => {
   const { data, isLoading } = useGetAllCallLogsQuery(undefined, {
@@ -37,20 +39,29 @@ const CallLog = () => {
   });
   const [selectedLog, setSelectedLog] = useState(null);
 
-  // Sorting & Filtering Logic
   const processedLogs = useMemo(() => {
-    let filtered = [...logs].filter(
-      (log) =>
-        (log.from.includes(searchTerm) || log.to.includes(searchTerm)) &&
-        (statusFilter === "all" || log.status === statusFilter),
-    );
+    let filtered = [...logs].filter((log) => {
+      // Safely handle null/undefined values for 'from' and 'to'
+      const fromNumber = log.from || "";
+      const toNumber = log.to || "";
+
+      const matchesSearch =
+        fromNumber.includes(searchTerm) || toNumber.includes(searchTerm);
+
+      const matchesStatus =
+        statusFilter === "all" || log.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    });
 
     if (sortConfig.key) {
       filtered.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key])
-          return sortConfig.direction === "asc" ? -1 : 1;
-        if (a[sortConfig.key] > b[sortConfig.key])
-          return sortConfig.direction === "asc" ? 1 : -1;
+        // Safe access for sorting as well
+        const valA = a[sortConfig.key] ?? "";
+        const valB = b[sortConfig.key] ?? "";
+
+        if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
+        if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
         return 0;
       });
     }
@@ -91,9 +102,7 @@ const CallLog = () => {
 
   if (isLoading)
     return (
-      <div className="p-10 text-center text-gray-500 font-bold">
-        Loading logs...
-      </div>
+     <LoadingElement />
     );
 
   return (
@@ -175,44 +184,10 @@ const CallLog = () => {
         setSelectedLog={setSelectedLog}
       />
 
-      {/* Detail Modal - Matching LoginPage Style */}
+      {/* Detail Modal - */}
       {selectedLog && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-sm transition-all"
-          onClick={() => setSelectedLog(null)}
-        >
-          <div
-            className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-              <h2 className="text-xl font-bold text-text tracking-tight">
-                Call Transcript
-              </h2>
-              <button
-                onClick={() => setSelectedLog(null)}
-                className="p-2 text-gray-400 hover:bg-white rounded-full transition-all"
-              >
-                <IoClose size={24} />
-              </button>
-            </div>
-            <div className="p-8 space-y-6">
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-gray-700 leading-relaxed italic text-sm min-h-[100px] flex items-center justify-center text-center">
-                {selectedLog.transcript
-                  ? `"${selectedLog.transcript}"`
-                  : "No transcript available for this call."}
-              </div>
-              <button
-                onClick={() => setSelectedLog(null)}
-                className="w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95"
-              >
-                Close Detail
-              </button>
-            </div>
-          </div>
-        </div>
+      <DetailModal setSelectedLog={setSelectedLog} selectedLog={selectedLog}/>
       )}
-
       <DeleteDialog
         targetElement={selectedLog}
         confirmDelete={confirmDelete}

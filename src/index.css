@@ -33,3 +33,7 @@
   background-color: #3b82f6 !important;
   color: white;
 }
+
+.hideScrollBar::-webkit-scrollbar {
+  display: none;
+}

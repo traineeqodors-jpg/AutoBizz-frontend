@@ -16,7 +16,7 @@ function DocuementUploadDialog({ dialogRef }) {
 
      setLocalError(""); 
 
-    if (!docFile || docFile.length === 0) {
+    if (!docFile ) {
       setLocalError("Please select at least one file to upload.");
       return;
     }
@@ -39,7 +39,9 @@ function DocuementUploadDialog({ dialogRef }) {
       // Set the error message locally instead of using toast.error
       setLocalError(err?.data?.message || "An unexpected error occurred during upload.");
     }
-       e.target.reset();
+
+        e.target.reset();
+     
   };
 
   return (
@@ -52,7 +54,7 @@ function DocuementUploadDialog({ dialogRef }) {
         <form onSubmit={handleSubmit} className="w-full space-y-6 p-2">
           {/* Heading Container */}
           <div className="w-full flex flex-row-reverse">
-            <button onClick={() => dialogRef.current?.close()}>
+            <button type="button" onClick={() => {dialogRef.current?.close() }}>
               <IoCloseSharp className="text-black size-4" />
             </button>
           </div>
@@ -96,7 +98,7 @@ function DocuementUploadDialog({ dialogRef }) {
           )}
           <button 
           disabled={docuementLoading}
-          className={`${docuementLoading ? "opacity-80" : "opacity-100"}w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}>
+          className={`${docuementLoading ? "opacity-80" : "opacity-100"} w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}>
            
            {docuementLoading ? "Uploading .." : "Upload" } 
           </button>

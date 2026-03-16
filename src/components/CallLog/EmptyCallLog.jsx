@@ -23,7 +23,7 @@ const EmptyCallLog = ({
           <p className="text-gray-500 max-w-xs mx-auto text-sm">
             {searchTerm || statusFilter !== "all"
               ? "We couldn't find any calls matching your current filters."
-              : "Your communication history is empty. Once you start making calls, they will appear here."}
+              : "Your  AI communication history is empty. Once customers start making calls, they will appear here."}
           </p>
         </div>
 
