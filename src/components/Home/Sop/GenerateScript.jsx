@@ -13,8 +13,6 @@ function GenerateScript({
   genScriptRef,
   handleScriptGeneration,
   documents,
-  setAiContext,
-  aiContext,
   genVideoRef,
   script,
   setVideoScript,

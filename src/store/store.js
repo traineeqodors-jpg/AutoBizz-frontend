@@ -6,7 +6,8 @@ import { orgDetailsApi } from "../features/slices/orgDetailsSlice";
 import { scriptGenerationApi } from "../features/slices/scriptGenerationSlice";
 import { videoGenerationApi } from "../features/slices/videoGenerationSlice";
 import { callLogApi } from "../features/slices/callLogSlice";
-
+import { leadApi } from "../features/slices/leadSlice";
+ 
 const appReducer = combineReducers({
   [orgApi.reducerPath]: orgApi.reducer,
   [resetPasswordApi.reducerPath]: resetPasswordApi.reducer,
@@ -14,19 +15,20 @@ const appReducer = combineReducers({
   [orgDetailsApi.reducerPath]: orgDetailsApi.reducer,
   [scriptGenerationApi.reducerPath]: scriptGenerationApi.reducer,
   [videoGenerationApi.reducerPath]: videoGenerationApi.reducer,
-  [callLogApi.reducerPath] : callLogApi.reducer
+  [callLogApi.reducerPath]: callLogApi.reducer,
+  [leadApi.reducerPath]: leadApi.reducer,
 });
-
+ 
 const rootReducer = (state, action) => {
   if (action.type === "auth/logout") {
     state = undefined;
   }
   return appReducer(state, action);
 };
-
+ 
 export const store = configureStore({
   reducer: rootReducer,
-
+ 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(orgApi.middleware)
@@ -36,4 +38,6 @@ export const store = configureStore({
       .concat(scriptGenerationApi.middleware)
       .concat(videoGenerationApi.middleware)
       .concat(callLogApi.middleware)
+      .concat(leadApi.middleware),
 });
+ 

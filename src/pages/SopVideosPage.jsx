@@ -27,12 +27,12 @@ const SopVideosPage = () => {
             />
           </div>
         </div>
-        <div className="h-full w-full grid md:grid-cols-[repeat(auto-fill,minmax(250px,270px))] gap-10 justify-center bg-white py-5 px-3 sm:py-10 rounded-3xl shadow-sm border border-white">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 max-w-7xl mx-auto p-4">
           {/* Card */}
           {/* Ready Video */}
-          <SopVideoCard title="Company Intro" status="ready" />
-          <SopVideoCard title="Company Intro" status="ready" />
-          <SopVideoCard title="Company Intro" status="ready" />
+          <SopVideoCard title="Company Intro" status="ready" src="sop1.mp4" />
+          <SopVideoCard title="Company Intro" status="ready" src="sop4.mp4"/>
+          <SopVideoCard title="Company Intro" status="ready" src="sop3.mp4"/>
  
           {/* Generating Video */}
           <SopVideoCard title="New Marketing SOP" status="pending" />

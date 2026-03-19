@@ -30,17 +30,13 @@ function GenerateSOP() {
 
   const genScriptRef = useRef(null);
 
-  useEffect(() => {
-    if (isLoading) return;
-    setVideoScript(script?.data);
-  }, [isLoading, isFetching]);
 
   async function handleSOPVideoGeneration(e) {
     e.preventDefault();
     try {
       const response = await generateVideo(videoScript).unwrap();
       console.log(response);
-      genRef.current?.close();
+      genVideoRef.current?.close();
     } catch (err) {
       console.error("Failed to generate video:", err);
     }

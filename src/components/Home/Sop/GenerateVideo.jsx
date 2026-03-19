@@ -64,6 +64,7 @@ function GenerateVideo({
         </div>
         {isLoading || isFetching ? null : (
           <button
+          disabled={videoLoading}
             className={`w-full py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
           >
             {videoLoading ? `Generating Video` : `Generate Video`} <GrMagic />

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-import { IoLogIn } from "react-icons/io5";
+import { IoCall, IoLogIn } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
@@ -145,7 +145,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                 `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
-              <IoMdDocument className="size-5" />
+              <IoCall className="size-5" />
               Call History
             </NavLink>
           </li>
