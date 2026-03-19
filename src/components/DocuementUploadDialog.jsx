@@ -48,7 +48,7 @@ function DocuementUploadDialog({ dialogRef }) {
     <>
       <dialog
         ref={dialogRef}
-        className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:backdrop-blur-sm backdrop:bg-text/30 space-y-5"
+        className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:bg-black/40 space-y-5"
       >
         {/* Form  */}
         <form onSubmit={handleSubmit} className="w-full space-y-6 p-2">

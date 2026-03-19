@@ -4,7 +4,7 @@ import { IoClose } from 'react-icons/io5';
 const DetailModal = ({setSelectedLog , selectedLog}) => {
   return (
      <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-sm transition-all"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop:bg-black/40 transition-all"
           onClick={() => setSelectedLog(null)}
         >
           <div

@@ -38,6 +38,7 @@ const CallLog = () => {
     direction: "desc",
   });
   const [selectedLog, setSelectedLog] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null)
 
   const processedLogs = useMemo(() => {
     let filtered = [...logs].filter((log) => {
@@ -76,21 +77,21 @@ const CallLog = () => {
   };
 
   const openDeleteModal = (log) => {
-    setSelectedLog(log);
+    setDeleteTarget(log);
     deleteModalRef.current?.showModal();
   };
 
   //close delete modal
   const closeDeleteModal = () => {
     deleteModalRef.current?.close();
-    setSelectedLog(null);
+    selectedLog(null);
   };
 
   //handle delete
   const confirmDelete = async () => {
-    if (!selectedLog) return;
+    if (!deleteTarget) return;
     try {
-      await deleteCallLog(selectedLog.id).unwrap();
+      await deleteCallLog(deleteTarget.id).unwrap();
       toast.success("Document permanently removed");
       closeDeleteModal();
     } catch (err) {
@@ -106,63 +107,60 @@ const CallLog = () => {
     );
 
   return (
-    <div className="w-full p-5">
-      {/* Header & Controls - Matching Login Page Styles */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-text tracking-tight">
-            Call History
-          </h1>
-          <p className="text-gray-500 text-sm italic">
-            Showing {processedLogs.length} recent calls
-          </p>
-        </div>
-
-        <SearchFilterCallLog
-          setSearchTerm={setSearchTerm}
-          setStatusFilter={setStatusFilter}
-        />
+   <div className="min-h-screen w-full bg-back p-3 sm:p-6 lg:p-8">
+  <div className="max-w-6xl mx-auto space-y-6">
+    
+    {/* Header & Controls - Updated to match Document Search layout */}
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-white">
+      <div>
+        <h1 className="text-2xl font-bold text-text tracking-tight">
+          Call History
+        </h1>
+        <p className="text-text/40 text-sm italic">
+          Showing {processedLogs.length} recent calls
+        </p>
       </div>
 
-      {isEmpty && (
-        <EmptyCallLog
-          setSearchTerm={setSearchTerm}
-          setStatusFilter={setStatusFilter}
-          searchTerm={searchTerm}
-          statusFilter={statusFilter}
-        />
-      )}
+      <SearchFilterCallLog
+        setSearchTerm={setSearchTerm}
+        setStatusFilter={setStatusFilter}
+        searchTerm={searchTerm}
+        statusFilter={statusFilter}
+      />
+    </div>
 
-      {/* Desktop View */}
-      {!isEmpty && (
+    {isEmpty ? (
+      <EmptyCallLog
+        setSearchTerm={setSearchTerm}
+        setStatusFilter={setStatusFilter}
+        searchTerm={searchTerm}
+        statusFilter={statusFilter}
+      />
+    ) : (
+      <div className="bg-white shadow-xl shadow-text/5 rounded-2xl sm:rounded-3xl overflow-hidden border border-white">
+        {/* Desktop View */}
         <div className="hidden md:block overflow-x-auto">
-          <table className="w-full text-left border-separate border-spacing-y-3">
+          <table className="w-full text-left border-separate border-spacing-0">
             <thead>
-              <tr className="text-gray-400 text-[10px] uppercase tracking-widest font-bold px-6">
-                <th className="px-6 py-2">Call Detail</th>
+              <tr className="bg-slate-50/50 text-text/40 text-[11px] uppercase tracking-widest font-bold">
+                <th className="px-6 py-5">Call Detail</th>
                 <th
-                  className="px-6 py-2 cursor-pointer hover:text-btn-100"
+                  className="px-6 py-5 cursor-pointer hover:text-btn-100 transition-colors"
                   onClick={() => toggleSort("createdAt")}
                 >
                   <div className="flex items-center gap-2">
                     Date{" "}
                     {sortConfig.key === "createdAt" ? (
-                      sortConfig.direction === "asc" ? (
-                        <FaSortAmountUp />
-                      ) : (
-                        <FaSortAmountDown />
-                      )
-                    ) : (
-                      ""
-                    )}
+                      sortConfig.direction === "asc" ? <FaSortAmountUp /> : <FaSortAmountDown />
+                    ) : null}
                   </div>
                 </th>
-                <th className="px-6 py-2">Duration</th>
-                <th className="px-6 py-2">Status</th>
-                <th className="px-6 py-2 text-right">Actions</th>
+                <th className="px-6 py-5">Duration</th>
+                <th className="px-6 py-5">Status</th>
+                <th className="px-6 py-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-slate-100">
               {processedLogs.map((log) => (
                 <CallLogTable
                   key={log.id}
@@ -175,27 +173,31 @@ const CallLog = () => {
             </tbody>
           </table>
         </div>
-      )}
 
-      {/* Mobile View */}
-      <MobileCallLogView
-        processedLogs={processedLogs}
-        openDeleteModal={openDeleteModal}
-        setSelectedLog={setSelectedLog}
-      />
+        {/* Mobile View - Kept consistent but wrapped in same container */}
+        <div className="md:hidden">
+            <MobileCallLogView
+                processedLogs={processedLogs}
+                openDeleteModal={openDeleteModal}
+                setSelectedLog={setSelectedLog}
+            />
+        </div>
+      </div>
+    )}
+  </div>
 
-      {/* Detail Modal - */}
-      {selectedLog && (
-      <DetailModal setSelectedLog={setSelectedLog} selectedLog={selectedLog}/>
-      )}
-      <DeleteDialog
-        targetElement={selectedLog}
-        confirmDelete={confirmDelete}
-        closeDeleteModal={closeDeleteModal}
-        deleteModalRef={deleteModalRef}
-        isDeleting={isDeleting}
-      />
-    </div>
+  {/* Modals */}
+  {selectedLog && (
+    <DetailModal setSelectedLog={setSelectedLog} selectedLog={selectedLog}/>
+  )}
+  <DeleteDialog
+    targetElement={deleteTarget}
+    confirmDelete={confirmDelete}
+    closeDeleteModal={closeDeleteModal}
+    deleteModalRef={deleteModalRef}
+    isDeleting={isDeleting}
+  />
+</div>
   );
 };
 

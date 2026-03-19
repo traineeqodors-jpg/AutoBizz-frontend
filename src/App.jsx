@@ -12,6 +12,8 @@ import RootLayout from "./layouts/RootLayout"
 import Home from "./pages/Home";
 import "./App.css"
 import CallLog from "./pages/CallLog";
+import AboutUs from "./pages/AboutUs";
+import SopVideosPage from "./pages/SopVideosPage";
 
 const AuthGuard = ({ children, requireAuth }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -52,7 +54,10 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/orgprofile", element: <EditOrgDetails /> },
       { path: "/documents", element: <MyDocument /> },
-      {path : "/callLogs" , element:<CallLog />}
+      {path : "/callLogs" , element:<CallLog />},
+      {path : "/about" , element:<AboutUs />},
+       {path : "/sop" , element:<SopVideosPage />},
+
     ],
   },
   {

@@ -14,7 +14,7 @@ const DeleteDialog = ({
   return (
     <dialog
       ref={deleteModalRef}
-      className="w-[90%] max-w-sm rounded-[2.5rem] bg-white m-auto p-6 shadow-2xl backdrop:backdrop-blur-sm backdrop:bg-gray-900/40 animate-in fade-in zoom-in duration-200"
+      className="w-[90%] max-w-sm rounded-[2.5rem] bg-white m-auto p-6 shadow-2xl backdrop:bg-black/40  animate-in fade-in zoom-in duration-200"
     >
       <div className="flex flex-col items-center text-center">
         {/* Smaller, cleaner icon container */}
@@ -43,7 +43,7 @@ const DeleteDialog = ({
             disabled={isDeleting}
             className="flex-1 py-3 text-sm bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl shadow-md shadow-red-200 transition-all disabled:opacity-50"
           >
-            {isDeleting ? "..." : "Delete"}
+            {isDeleting ? "Deleting..." : "Delete"}
           </button>
         </div>
       </div>

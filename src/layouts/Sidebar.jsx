@@ -5,6 +5,7 @@ import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
+import { BiSolidVideos } from "react-icons/bi";
  
 const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
@@ -84,6 +85,30 @@ const Sidebar = () => {
             >
               <IoMdDocument className="size-5" />
               My Documents
+            </NavLink>
+          </li>
+
+                    <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
+            <NavLink
+              to="/sop"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+              }
+            >
+              <BiSolidVideos className="size-5" />
+              SOP Videos
+            </NavLink>
+          </li>
+
+           <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+              }
+            >
+              <IoMdDocument className="size-5" />
+              About Us
             </NavLink>
           </li>
 

@@ -9,7 +9,7 @@ const EmptyCallLog = ({
 }) => {
  
     return (
-      <div className="w-full flex flex-col items-center justify-center py-20 px-6 bg-gray-50/50 rounded-[3rem] border-2 border-dashed border-gray-200">
+      <div className="w-full flex flex-col items-center justify-center py-20 px-6 bg-white rounded-[3rem] border-2  border-gray-200">
         {/* Icon with Login Side Styling */}
         <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center text-btn-100 mb-6 transform -rotate-6">
           <IoCallOutline size={48} />

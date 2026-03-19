@@ -10,13 +10,10 @@ import DocuementUploadDialog from "../DocuementUploadDialog";
 const OrgInfo = ({ user }) => {
   const dialogRef = useRef(null);
   const navigate = useNavigate();
-  
-  
+
   const fullname = user?.firstName
     ? `${user.firstName} ${user.lastName}`
     : null;
-
-  
 
   return (
     <div className="w-full shadow-md/10 rounded-2xl bg-white flex flex-col gap-2 sm:flex-row justify-between">
@@ -39,13 +36,12 @@ const OrgInfo = ({ user }) => {
         <button
           type="button"
           onClick={() => dialogRef.current?.showModal()}
-          className="flex flex-wrap md:px-4 md:py-2 p-3 rounded-2xl md:text-lg sm:text-sm text-xs bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
+          className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg sm:text-sm text-xs bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
         >
           Upload Documents <FiPlus />
         </button>
       </div>
       <DocuementUploadDialog dialogRef={dialogRef} />
-      
     </div>
   );
 };

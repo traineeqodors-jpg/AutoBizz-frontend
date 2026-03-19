@@ -3,6 +3,8 @@ import { orgApi } from "../features/slices/orgSlice";
 import { resetPasswordApi } from "../features/slices/resetPasswordSlice";
 import { documentApi } from "../features/slices/documentSlice";
 import { orgDetailsApi } from "../features/slices/orgDetailsSlice";
+import { scriptGenerationApi } from "../features/slices/scriptGenerationSlice";
+import { videoGenerationApi } from "../features/slices/videoGenerationSlice";
 import { callLogApi } from "../features/slices/callLogSlice";
 
 const appReducer = combineReducers({
@@ -10,6 +12,8 @@ const appReducer = combineReducers({
   [resetPasswordApi.reducerPath]: resetPasswordApi.reducer,
   [documentApi.reducerPath]: documentApi.reducer,
   [orgDetailsApi.reducerPath]: orgDetailsApi.reducer,
+  [scriptGenerationApi.reducerPath]: scriptGenerationApi.reducer,
+  [videoGenerationApi.reducerPath]: videoGenerationApi.reducer,
   [callLogApi.reducerPath] : callLogApi.reducer
 });
 
@@ -29,5 +33,7 @@ export const store = configureStore({
       .concat(resetPasswordApi.middleware)
       .concat(documentApi.middleware)
       .concat(orgDetailsApi.middleware)
+      .concat(scriptGenerationApi.middleware)
+      .concat(videoGenerationApi.middleware)
       .concat(callLogApi.middleware)
 });

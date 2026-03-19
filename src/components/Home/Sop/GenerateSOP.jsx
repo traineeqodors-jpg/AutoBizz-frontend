@@ -1,0 +1,82 @@
+import React, { useEffect, useRef, useState } from "react";
+import { GrMagic } from "react-icons/gr";
+import { useGenerateVideoMutation } from "../../../features/slices/videoGenerationSlice";
+import { useGetMyDocumentsQuery } from "../../../features/slices/documentSlice";
+import {useGenerateScriptMutation} from "../../../features/slices/scriptGenerationSlice"
+import GenerateVideo from "./GenerateVideo";
+import GenerateScript from "./GenerateScript";
+
+function GenerateSOP() {
+  const [aiContext, setAiContext] = useState(null);
+
+
+  const [script, { isLoading, isFetching, }] = useGenerateScriptMutation();
+
+
+
+  const { data, isLoading: docsLoading } = useGetMyDocumentsQuery(undefined, {
+    skip: !localStorage.getItem("isLoggedIn"),
+  }); //fetch documents
+
+  const documents = data?.data || [];
+ 
+
+  const [generateVideo, { isLoading: videoLoading }] =
+    useGenerateVideoMutation();
+
+  const [videoScript, setVideoScript] = useState("");
+
+  const genVideoRef = useRef(null);
+
+  const genScriptRef = useRef(null);
+
+  useEffect(() => {
+    if (isLoading) return;
+    setVideoScript(script?.data);
+  }, [isLoading, isFetching]);
+
+  async function handleSOPVideoGeneration(e) {
+    e.preventDefault();
+    try {
+      const response = await generateVideo(videoScript).unwrap();
+      console.log(response);
+      genRef.current?.close();
+    } catch (err) {
+      console.error("Failed to generate video:", err);
+    }
+  }
+
+  return (
+    <div className="w-full flex rounded-2xl">
+      <button
+        onClick={() => genScriptRef.current?.showModal()}
+        className="  flex gap-3 cursor-pointer justify-center items-center px-2 py-3 lg:text-lg sm:text-md text-sm hover:inset-shadow-sm/40 bg-btn-200 text-white w-full rounded-2xl"
+      >
+        Generate SOP Video <GrMagic />
+      </button>
+
+      <GenerateScript
+        genScriptRef={genScriptRef}
+        genVideoRef={genVideoRef}
+        script={script}
+        documents={documents}
+        aiContext={aiContext}
+        setAiContext={setAiContext}
+        setVideoScript={setVideoScript}
+      />
+
+      <GenerateVideo
+        genVideoRef={genVideoRef}
+        genScriptRef={genScriptRef}
+        isLoading={isLoading}
+        isFetching={isFetching}
+        videoScript={videoScript}
+        setVideoScript={setVideoScript}
+        videoLoading={videoLoading}
+        handleSOPVideoGeneration={handleSOPVideoGeneration}
+      />
+    </div>
+  );
+}
+
+export default GenerateSOP;

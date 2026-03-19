@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
+import { BiSolidVideos } from "react-icons/bi";
  
 const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   const dialogRef = useRef(null);
@@ -101,6 +102,36 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
             >
               <IoMdDocument className="size-5" />
               My Documents
+            </NavLink>
+          </li>
+
+             <li
+            onClick={() => setIsDialogOpen(false)}
+            className="w-full transition-all text-text/80 bg-btn-100/10 rounded-xl overflow-hidden shadow-md/10"
+          >
+            <NavLink
+              to="/sop"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+              }
+            >
+              <BiSolidVideos className="size-5" />
+              SOP Videos
+            </NavLink>
+          </li>
+
+              <li
+            onClick={() => setIsDialogOpen(false)}
+            className="w-full transition-all text-text/80 bg-btn-100/10 rounded-xl overflow-hidden shadow-md/10"
+          >
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+              }
+            >
+              <IoMdDocument className="size-5" />
+              About Us
             </NavLink>
           </li>
 
