@@ -42,7 +42,7 @@ const CallLog = () => {
 
   const processedLogs = useMemo(() => {
     let filtered = [...logs].filter((log) => {
-      // Safely handle null/undefined values for 'from' and 'to'
+
       const fromNumber = log.from || "";
       const toNumber = log.to || "";
 
@@ -57,7 +57,7 @@ const CallLog = () => {
 
     if (sortConfig.key) {
       filtered.sort((a, b) => {
-        // Safe access for sorting as well
+      
         const valA = a[sortConfig.key] ?? "";
         const valB = b[sortConfig.key] ?? "";
 

@@ -134,11 +134,12 @@ const LoginPage = () => {
               >
                 Forget Password ?{" "}
               </NavLink>
-              <button
+             <button
+                disabled={isLoading}
                 type="submit"
-                className="w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-4"
+                className={`${isLoading && "opacity-60"} w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-4`}
               >
-                Sign In
+                {isLoading ? "Signing in..." : "Sign In"}
               </button>
             </div>
 

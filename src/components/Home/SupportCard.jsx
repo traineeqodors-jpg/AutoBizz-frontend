@@ -1,7 +1,7 @@
 import React from "react";
 import { HiOutlinePhoneIncoming } from "react-icons/hi";
 
-const SupportCard = ({ phoneNumber = "+1 (555) 000-0000" }) => {
+const SupportCard = () => {
   return (
     <div className="h-40 w-full bg-white rounded-2xl shadow-md/10 p-5 flex flex-col justify-between border border-gray-100 group hover:shadow-lg transition-all duration-300">
       {/* Top Section: Matches "Organization Details" header style */}
@@ -31,8 +31,8 @@ const SupportCard = ({ phoneNumber = "+1 (555) 000-0000" }) => {
         </p>
         {/* The Number: Bold and Clear like your Business Name display */}
         <div className="w-full py-2.5 px-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-start group-hover:border-btn-100/20 transition-colors">
-          <span className="text-text text-xl font-bold tracking-wider">
-            {phoneNumber}
+          <span className="text-text sm:text-xl text-mb  font-bold tracking-wider">
+            {import.meta.env.VITE_AI_SUPPORT_NUMBER}
           </span>
         </div>
       </div>

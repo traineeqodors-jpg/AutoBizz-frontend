@@ -16,13 +16,13 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-back w-full flex flex-col items-center p-4 gap-3">
+      <div className="min-h-screen bg-back w-full flex flex-col items-center p-4 gap-3 ">
         <div className="bg-white p-3 rounded-2xl flex flex-wrap justify-center gap-4 w-full items-center min-h-75">
           <OrgInfo user={user} />
           <div className="grid md:grid-cols-2 gap-5 w-full rounded-2xl">
             {/* Businexx Details */}
             <OrgCard user={user} />
-            <SupportCard />
+            <SupportCard/>
           </div>
         </div>
         
