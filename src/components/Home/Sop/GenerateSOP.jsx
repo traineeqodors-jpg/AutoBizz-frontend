@@ -5,6 +5,7 @@ import { useGetMyDocumentsQuery } from "../../../features/slices/documentSlice";
 import {useGenerateScriptMutation} from "../../../features/slices/scriptGenerationSlice"
 import GenerateVideo from "./GenerateVideo";
 import GenerateScript from "./GenerateScript";
+import { toast } from "react-toastify";
 
 function GenerateSOP() {
   const [aiContext, setAiContext] = useState(null);
@@ -35,7 +36,7 @@ function GenerateSOP() {
     e.preventDefault();
     try {
       const response = await generateVideo(videoScript).unwrap();
-      console.log(response);
+      toast.success("Generating your SOP Video")
       genVideoRef.current?.close();
     } catch (err) {
       console.error("Failed to generate video:", err);

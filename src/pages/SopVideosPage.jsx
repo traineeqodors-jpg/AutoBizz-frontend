@@ -2,8 +2,12 @@
 import React from "react";
 import SopVideoCard from "../components/SopVidoesPage/SopVideoCard";
 import { IoSearchOutline } from "react-icons/io5";
+import { useGetAllVideosQuery } from "../features/slices/videoGenerationSlice";
  
 const SopVideosPage = () => {
+
+  const { data: videos, isLoading } = useGetAllVideosQuery();
+  
   return (
     <div className="min-h-screen  bg-back w-full p-3 sm:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -17,7 +21,7 @@ const SopVideosPage = () => {
               Safe storage for your business assets
             </p>
           </div>
- 
+
           <div className="relative group w-full md:w-72">
             <IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 text-text/40 group-focus-within:text-btn-100 transition-colors size-5" />
             <input
@@ -27,15 +31,12 @@ const SopVideosPage = () => {
             />
           </div>
         </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 max-w-7xl mx-auto p-4">
+        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-10 justify-center bg-white py-5 px-3 sm:py-10 rounded-3xl shadow-sm border border-white">
           {/* Card */}
           {/* Ready Video */}
-          <SopVideoCard title="Company Intro" status="ready" src="sop1.mp4" />
-          <SopVideoCard title="Company Intro" status="ready" src="sop4.mp4"/>
-          <SopVideoCard title="Company Intro" status="ready" src="sop3.mp4"/>
- 
-          {/* Generating Video */}
-          <SopVideoCard title="New Marketing SOP" status="pending" />
+          {
+            isLoading ? <div>Loading...</div> : videos.map((video)=>(<SopVideoCard key={video.id} video={video} />))
+         }
         </div>
       </div>
     </div>
