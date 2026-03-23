@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
-import { IoChatbox } from 'react-icons/io5';
-import { RxCross2 } from 'react-icons/rx';
-import Messaging from './Messaging';
+
+import React, { useState } from "react";
+import { IoChatbox } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import Messaging from "./Messaging";
 
 function AIChat() {
-    const [chatIsOpen, setChatIsOpen] = useState(false);
+  const [chatIsOpen, setChatIsOpen] = useState(false);
+
+  const [chatHistory, setChatHistory] = useState([]);
   return (
     <>
       <div
@@ -16,11 +19,15 @@ function AIChat() {
             onClick={() => setChatIsOpen(true)}
           />
         ) : (
-          <Messaging setChatIsOpen={setChatIsOpen} />
+          <Messaging
+            setChatIsOpen={setChatIsOpen}
+            chat={chatHistory}
+            setChat={setChatHistory}
+          />
         )}
       </div>
     </>
   );
 }
 
-export default AIChat
+export default AIChat;

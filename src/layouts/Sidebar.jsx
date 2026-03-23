@@ -43,9 +43,13 @@ const Sidebar = () => {
       <div className="hidden lg:block max-h-screen h-screen shrink-0 w-70 bg-btn-100/10 overflow-auto p-4 inset-shadow-sm/20">
         <div className="flex justify-center-safe items-center-safe">
           {/* Logo */}
-          <div className="bg-white p-3 rounded-full">
-            <img src="/vite.svg" alt="" className="object-contain" />
-          </div>
+          <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
+              <img
+                src="/autoBizz.png"
+                alt="Logo"
+                className="size-20 object-cover"
+              />
+            </div>
           <h1 className="text-2xl font-bold text-text ms-5">AutoBizz</h1>
         </div>
  

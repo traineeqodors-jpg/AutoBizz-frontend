@@ -59,9 +59,13 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       >
         {/* Logo and Close Button */}
         <div className="flex justify-center-safe items-center-safe">
-          <div className="bg-white p-3 rounded-full ">
-            <img src="/vite.svg" alt="" className="object-contain" />
-          </div>
+          <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
+              <img
+                src="/autoBizz.png"
+                alt="Logo"
+                className="size-20 object-cover"
+              />
+            </div>
           <h1 className="text-2xl font-bold text-text ms-5">AutoBizz</h1>
           <button
             onClick={() => setIsDialogOpen(false)}

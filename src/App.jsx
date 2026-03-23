@@ -3,43 +3,19 @@ import SignupPage from "./pages/signupPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import OtpVerification from "./pages/OtpVerification";
-import { useGetMeQuery } from "./features/slices/orgSlice";
-import LoadingElement from "./components/LoadingElement";
 import EditOrgDetails from "./pages/EditOrgDetails";
 import MyDocument from "./pages/MyDocument";
-import { createBrowserRouter , RouterProvider , Navigate } from "react-router-dom";
-import RootLayout from "./layouts/RootLayout"
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
-import "./App.css"
+import "./App.css";
 import CallLog from "./pages/CallLog";
 import AboutUs from "./pages/AboutUs";
 import SopVideosPage from "./pages/SopVideosPage";
-
-const AuthGuard = ({ children, requireAuth }) => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-  // If there's no isLoggedIn, don't even run the query
-  
-  const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
-    skip: !isLoggedIn,
-  });
-
-  if (isLoading || isFetching) return <LoadingElement />;
-
-  const isAuthenticated = !!data;
-
-  if (requireAuth) {
-    // If we have no isLoggedIn OR no data, boot to login
-    return isLoggedIn && isAuthenticated ? (
-      children
-    ) : (
-      <Navigate to="/login" replace />
-    );
-  } else {
-    // For Login/Register: if we have both, boot to home
-    return isLoggedIn && isAuthenticated ? <Navigate to="/" replace /> : children;
-  }
-};
+import AuthGuard from "./components/AuthGuard";
 
 // 2. Define the router ONCE outside the component
 const router = createBrowserRouter([
@@ -54,10 +30,9 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/orgprofile", element: <EditOrgDetails /> },
       { path: "/documents", element: <MyDocument /> },
-      {path : "/callLogs" , element:<CallLog />},
-      {path : "/about" , element:<AboutUs />},
-       {path : "/sop" , element:<SopVideosPage />},
-
+      { path: "/callLogs", element: <CallLog /> },
+      { path: "/about", element: <AboutUs /> },
+      { path: "/sop", element: <SopVideosPage /> },
     ],
   },
   {

@@ -62,7 +62,9 @@ const ContactUs = () => {
       const response = await addLead(input).unwrap();
  
       console.log(response);
-      toast.success(response?.message);
+      toast.success(response?.message , {
+        toastId : "123"
+      });
       setInput({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (error) {
       console.log(error);

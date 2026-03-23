@@ -23,11 +23,11 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row gap-3 sm:justify-around tracking-wider p-5">
           {/* Logo */}
           <div className="flex-1 flex flex-col justify-center-safe items-center-safe">
-            <div className="bg-white p-6 rounded-full shadow-inner mb-2">
+            <div className="bg-white flex items-center justify-center size-25 rounded-full shadow-inner mb-2 overflow-hidden">
               <img
-                src="/vite.svg"
+                src="/autoBizz.png"
                 alt="Logo"
-                className="w-20 h-20 object-contain"
+                className="size-25 object-cover"
               />
             </div>
             <h1 className="font-bold text-xl ">AutoBizz</h1>

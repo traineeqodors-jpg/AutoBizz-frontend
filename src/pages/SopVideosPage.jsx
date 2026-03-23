@@ -1,13 +1,62 @@
- 
-import React from "react";
+import { useMemo, useState } from "react";
 import SopVideoCard from "../components/SopVidoesPage/SopVideoCard";
 import { IoSearchOutline } from "react-icons/io5";
-import { useGetAllVideosQuery } from "../features/slices/videoGenerationSlice";
- 
-const SopVideosPage = () => {
+import {
+  useDeleteVideoMutation,
+  useGetAllVideosQuery,
+} from "../features/slices/videoGenerationSlice";
+import SearchFIlterVideos from "../components/SopVidoesPage/SearchFIlterVideos";
+import GenerateSOP from "../components/Home/Sop/GenerateSOP";
+import { toast } from "react-toastify";
 
-  const { data: videos, isLoading } = useGetAllVideosQuery();
-  
+const SopVideosPage = () => {
+  // Filtering State
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  const { data: videos = [], isLoading } = useGetAllVideosQuery();
+
+  const [deleteVideo, { isLoading: deletingVideo }] = useDeleteVideoMutation();
+
+  // Memoized Filter Logic
+  const processedVideos = useMemo(() => {
+    if (!videos) return [];
+
+    return videos.filter((video) => {
+      // Define status
+      const isPending = video?.videoUrl === null;
+      const isFailed = video?.videoUrl === "failed";
+      const isSuccess = !!video?.videoUrl && video?.videoUrl !== "failed";
+
+      // Map the dropdown 'statusFilter' to your logic
+      let matchesStatus = true;
+
+      if (statusFilter === "completed") {
+        matchesStatus = isSuccess;
+      } else if (statusFilter === "in-progress") {
+        matchesStatus = isPending;
+      } else if (statusFilter === "failed") {
+        matchesStatus = isFailed;
+      }
+
+      // // 3. Search check
+      // const matchesSearch = (video.title || "")
+      //   .toLowerCase()
+      //   .includes(searchTerm.toLowerCase());
+
+      return matchesStatus;
+    });
+  }, [videos, statusFilter]);
+
+  async function handleDeleteVideo(videoId) {
+    try {
+      const response = await deleteVideo(videoId).unwrap();
+      toast.success(response?.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
+  }
+
   return (
     <div className="min-h-screen  bg-back w-full p-3 sm:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -22,26 +71,44 @@ const SopVideosPage = () => {
             </p>
           </div>
 
-          <div className="relative group w-full md:w-72">
-            <IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 text-text/40 group-focus-within:text-btn-100 transition-colors size-5" />
-            <input
-              type="text"
-              placeholder="Search Videos..."
-              className="w-full bg-back py-3 pl-12 pr-4 rounded-2xl border-transparent focus:border-btn-100/50 focus:ring-4 focus:ring-btn-100/5 outline-none transition-all text-sm font-medium"
-            />
-          </div>
+          {/* Search and Filter */}
+          <SearchFIlterVideos
+            setStatusFilter={setStatusFilter}
+            statusFilter={statusFilter}
+          />
         </div>
+
         <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-10 justify-center bg-white py-5 px-3 sm:py-10 rounded-3xl shadow-sm border border-white">
-          {/* Card */}
-          {/* Ready Video */}
-          {
-            isLoading ? <div>Loading...</div> : videos.map((video)=>(<SopVideoCard key={video.id} video={video} />))
-         }
+          {/* Video Card */}
+          {isLoading ? (
+            <div className="loader col-span-full mx-auto"></div>
+          ) : processedVideos?.length < 1 ? (
+            <div className="py-20 lg:py-21 text-center px-4 col-span-full mx-auto">
+              <div className="bg-back w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-text/20">
+                <IoSearchOutline className="size-8 sm:size-10" />
+              </div>
+              <h3 className="text-lg font-bold text-text">No Videos found</h3>
+              <p className="text-text/40 text-sm mt-1">
+                Try adjusting your search filters or Generate new video.
+              </p>
+              <div className="mt-3">
+                <GenerateSOP />
+              </div>
+            </div>
+          ) : (
+            processedVideos?.map((video) => (
+              <SopVideoCard
+                key={video.id}
+                video={video}
+                handleDeleteVideo={handleDeleteVideo}
+                deletingVideo={deletingVideo}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
   );
 };
- 
+
 export default SopVideosPage;
- 

@@ -1,23 +1,21 @@
 import { IoIosWarning } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import ViewScript from "../Home/Sop/ViewScript";
 
-const SopVideoCard = ({ video }) => {
-
-  
+const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
   const [openMenu, setOpenMenu] = useState(false);
+
+  const viewScriptRef = useRef(null);
 
   const isPending = video?.videoUrl === null;
   const isFailed = video?.videoUrl === "failed";
-  
 
   return (
     <div className="relative max-w-70.5 min-h-70.5 flex flex-col items-center-safe gap-2 overflow-hidden rounded-2xl shadow-md/20 bg-white border border-gray-300 p-2">
       {/* Options btn */}
       <div
         className="absolute right-2 top-5 z-11"
-        onMouseEnter={() => setOpenMenu(true)}
-        onMouseLeave={() => setOpenMenu(false)}
         onClick={() => setOpenMenu(!openMenu)}
       >
         <button
@@ -28,15 +26,26 @@ const SopVideoCard = ({ video }) => {
         </button>
 
         {openMenu && (
-          <div className="absolute right-0 top-6 w-32 bg-white border rounded shadow-lg p-2">
+          <div className="absolute right-0 top-6 w-32 bg-back/90 border border-gray-300 rounded-lg shadow-lg p-2">
             <ul className="text-sm">
-              <li className="hover:bg-gray-100 p-1 cursor-pointer text-red-500">
+              <li
+                onClick={() => handleDeleteVideo(video.id)}
+                className={`hover:bg-black/20 rounded-md p-1 cursor-pointer text-red-500 ${deletingVideo && "pointer-events-none opacity-60"}`}
+              >
                 Delete
+              </li>
+              <li
+                onClick={() => viewScriptRef.current?.showModal()}
+                className={`hover:bg-black/20 rounded-md  p-1 cursor-pointer text-text ${deletingVideo && "pointer-events-none opacity-60"}`}
+              >
+                View Script
               </li>
             </ul>
           </div>
         )}
       </div>
+
+      <ViewScript viewScriptRef={viewScriptRef} script={video?.videoScript} />
 
       {/* DIsplay based state */}
       {isPending ? (
@@ -66,7 +75,13 @@ const SopVideoCard = ({ video }) => {
         </div>
       )}
 
-    
+      {video?.videoUrl !== "failed" && video?.videoUrl && (
+        <div className="px-2 w-full flex flex-col gap-1 py-2">
+          <h3 className="text-sm font-semibold tracking-widest line-clamp-1 text-text/90">
+            {video?.videoId.slice(0, 20)}...
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

@@ -45,7 +45,7 @@ const Navbar = () => {
     <>
       <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center-safe bg-back/20 border-b border-gray-300 relative">
         <div>
-          <img src="/vite.svg" alt="Logo" className="size-10" />
+          <img src="/autoBizz.png" alt="Logo" className="size-20" />
         </div>
  
         {/* Menu Buttons */}

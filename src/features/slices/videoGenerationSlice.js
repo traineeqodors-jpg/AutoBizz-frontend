@@ -14,11 +14,9 @@ export const videoGenerationApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      // CRITICAL: Extract the actual array from your ApiResponse wrapper
       transformResponse: (response) => response.data,
       providesTags: ["video"],
 
-      // 1. CHANGE: Use updateCachedData instead of dispatch for cleaner code
       async onCacheEntryAdded(
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -30,13 +28,11 @@ export const videoGenerationApi = createApi({
 
           socket.on("video_updated", (newVideoData) => {
             updateCachedData((draft) => {
-              // 2. CHECK: Ensure 'v.videoId' matches your Sequelize column name exactly
               const video = draft.find(
                 (v) => v.videoId === newVideoData.videoId,
               );
               if (video) {
-                // 3. CHANGE: Ensure status is updated so the UI stops showing "Loading/Processing"
-                // video.status = "completed";
+
                 video.videoUrl = newVideoData.videoUrl;
               }
             });
@@ -48,6 +44,15 @@ export const videoGenerationApi = createApi({
         await cacheEntryRemoved;
         socket.close();
       },
+    }),
+
+    deleteVideo: build.mutation({
+      query: (videoId) => ({
+        url: `/${videoId}`,
+        method: "delete",
+        credentials: "include"
+      }),
+      invalidatesTags: ["video"]
     }),
 
     generateVideo: build.mutation({
@@ -63,5 +68,4 @@ export const videoGenerationApi = createApi({
   }),
 });
 
-export const { useGenerateVideoMutation, useGetAllVideosQuery } =
-  videoGenerationApi;
+export const { useGenerateVideoMutation, useGetAllVideosQuery, useDeleteVideoMutation } = videoGenerationApi;
