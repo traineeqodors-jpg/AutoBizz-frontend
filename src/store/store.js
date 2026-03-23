@@ -6,7 +6,7 @@ import { orgDetailsApi } from "../features/slices/orgDetailsSlice";
 import { scriptGenerationApi } from "../features/slices/scriptGenerationSlice";
 import { videoGenerationApi } from "../features/slices/videoGenerationSlice";
 import { callLogApi } from "../features/slices/callLogSlice";
-import { leadApi } from "../features/slices/leadSlice";
+
  
 const appReducer = combineReducers({
   [orgApi.reducerPath]: orgApi.reducer,
@@ -16,7 +16,7 @@ const appReducer = combineReducers({
   [scriptGenerationApi.reducerPath]: scriptGenerationApi.reducer,
   [videoGenerationApi.reducerPath]: videoGenerationApi.reducer,
   [callLogApi.reducerPath]: callLogApi.reducer,
-  [leadApi.reducerPath]: leadApi.reducer,
+  
 });
  
 const rootReducer = (state, action) => {
@@ -38,6 +38,5 @@ export const store = configureStore({
       .concat(scriptGenerationApi.middleware)
       .concat(videoGenerationApi.middleware)
       .concat(callLogApi.middleware)
-      .concat(leadApi.middleware),
 });
  

@@ -6,7 +6,7 @@ import {
   IoSend,
 } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { useAddLeadMutation } from "../../features/slices/leadSlice";
+
  
 const ContactUs = () => {
   const [input, setInput] = useState({
@@ -17,7 +17,7 @@ const ContactUs = () => {
     message: "",
   });
  
-  const [addLead, { isLoading }] = useAddLeadMutation();
+  
  
   // Handling Input
   const handleChange = (e) => {
@@ -56,22 +56,18 @@ const ContactUs = () => {
       return toast.error("Message must be at least 10 characters long");
     }
  
-    try {
+  
       // Success Logic
       console.log("Contact Form Data:", input);
-      const response = await addLead(input).unwrap();
+    
  
       console.log(response);
-      toast.success(response?.message , {
-        toastId : "123"
-      });
       setInput({ name: "", email: "", phone: "", subject: "", message: "" });
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.data?.message);
-    }
+  
+  
  
-    // Reset form after success
+ 
+  
     
   };
  
@@ -186,7 +182,7 @@ const ContactUs = () => {
               </div>
  
               <button
-              disabled={isLoading}
+              
                 type="submit"
                 className="w-full md:w-max px-8 py-4 bg-btn-100 hover:bg-btn-200 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
               >
