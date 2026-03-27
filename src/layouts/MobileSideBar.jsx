@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-import { IoCall, IoLogIn } from "react-icons/io5";
+import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
@@ -121,6 +121,21 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
             >
               <BiSolidVideos className="size-5" />
               SOP Videos
+            </NavLink>
+          </li>
+
+            <li
+            onClick={() => setIsDialogOpen(false)}
+            className="w-full transition-all text-text/80 bg-btn-100/10 rounded-xl overflow-hidden shadow-md/10"
+          >
+            <NavLink
+              to="/leads"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+              }
+            >
+                <IoPeopleSharp className="size-5" />
+              Leads
             </NavLink>
           </li>
 

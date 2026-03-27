@@ -11,9 +11,20 @@ export const callLogApi = createApi({
 
   endpoints: (build) => ({
     getAllCallLogs: build.query({
-      query: () => ({
+     query: (params = {}) => ({
         url: "/",
         method: "get",
+        params: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          search: params.search || undefined,
+          role: params.role || undefined,
+          status: params.status || undefined,
+          startDate: params.startDate || undefined,
+          endDate: params.endDate || undefined,
+          sortBy: params.sortBy || "createdAt",
+          order: params.order || "DESC",
+        },
         credentials: "include",
       }),
       providesTags: ["callLog"],

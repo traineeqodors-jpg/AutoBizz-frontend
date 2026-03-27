@@ -6,7 +6,7 @@ import countriesData from "../JSON data/country.json";
 
 const ProfileInfo = ({ user, onSave }) => {
 
-  const hiddenFields = ["id", "createdAt", "updatedAt", "role", "profileImage"];
+  const hiddenFields = ["id", "createdAt", "updatedAt", "role", "profileImage" , "googleRefreshToken"];
   
   const [isEditing, setIsEditing] = useState(false);
   
