@@ -282,7 +282,7 @@ function LeadManagement() {
                   </div>
                 ) : (
                   leads.map((lead) => (
-                    <MobileLeadsView key={lead?.id} lead={lead} />
+                    <MobileLeadsView key={lead?.id} lead={lead} openDeleteModal={openDeleteModal} />
                   ))
                 )}
               </div>

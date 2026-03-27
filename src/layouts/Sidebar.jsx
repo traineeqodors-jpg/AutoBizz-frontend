@@ -1,4 +1,4 @@
-import { FaGoogle, FaHome } from "react-icons/fa";
+import { FaCalendarAlt, FaGoogle, FaHome } from "react-icons/fa";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -11,12 +11,12 @@ import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
 import { useGoogleLogin } from "@react-oauth/google";
- 
+
 const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
+
   const {
     data,
     isLoading: userLoading,
@@ -24,16 +24,16 @@ const Sidebar = () => {
   } = useGetMeQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
   });
- 
+
   const [googleToken, { isLoading: gooleLoading, isSuccess }] =
     useGoogleTokenMutation();
- 
+
   if (userLoading) {
     return null;
   }
- 
+
   const user = data?.data;
- 
+
   // Handle Logout
   const handleLogout = async () => {
     try {
@@ -46,9 +46,9 @@ const Sidebar = () => {
       console.warn("Server logout failed, cleaning up locally.");
     }
   };
- 
+
   const showGoogleOverlay = user && user.googleRefreshToken === null;
- 
+
   // Login with google
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (response) => {
@@ -66,7 +66,7 @@ const Sidebar = () => {
       console.log(error);
     },
   });
- 
+
   return (
     <>
       <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 overflow-auto p-4 inset-shadow-sm/20">
@@ -81,9 +81,9 @@ const Sidebar = () => {
           </div>
           <h1 className="text-2xl font-bold text-text ms-5">AutoBizz</h1>
         </div>
- 
+
         <hr className="border-gray-300 my-5" />
- 
+
         <ul className="w-full space-y-4 ">
           <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
             <NavLink
@@ -96,7 +96,7 @@ const Sidebar = () => {
               Home
             </NavLink>
           </li>
- 
+
           {!user && (
             <li className="w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 ">
               <NavLink
@@ -108,7 +108,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
           )}
- 
+
           <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
             <NavLink
               to="/documents"
@@ -120,7 +120,7 @@ const Sidebar = () => {
               My Documents
             </NavLink>
           </li>
- 
+
           <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
             <NavLink
               to="/sop"
@@ -132,7 +132,7 @@ const Sidebar = () => {
               SOP Videos
             </NavLink>
           </li>
- 
+
           <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl overflow-hidden hover:shadow-md/10 ">
             <NavLink
               to="/leads"
@@ -144,7 +144,19 @@ const Sidebar = () => {
               Leads
             </NavLink>
           </li>
- 
+
+          <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl overflow-hidden hover:shadow-md/10 ">
+            <NavLink
+              to="/calendar"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+              }
+            >
+              <FaCalendarAlt className="size-5" />
+              Calendar
+            </NavLink>
+          </li>
+
           <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
             <NavLink
               to="/callLogs"
@@ -156,7 +168,7 @@ const Sidebar = () => {
               Call History
             </NavLink>
           </li>
- 
+
           <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl overflow-hidden hover:shadow-md/10 ">
             <NavLink
               to="/about"
@@ -168,7 +180,7 @@ const Sidebar = () => {
               About Us
             </NavLink>
           </li>
- 
+
           {!user && (
             <li className="w-full hover:-translate-y-0.5 transition-all bg-text rounded-xl overflow-hidden shadow-md/20 px-3 py-2 hover:shadow-lg/10">
               <NavLink to="/register" className="block w-full text-white">
@@ -176,7 +188,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
           )}
- 
+
           <li
             className={`${isLoading && "opacity-60"}w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
           >
@@ -194,6 +206,5 @@ const Sidebar = () => {
     </>
   );
 };
- 
+
 export default Sidebar;
- 

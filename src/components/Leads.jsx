@@ -12,6 +12,9 @@ function Leads() {
 
   const leads = data?.data?.leads || [];
 
+  console.log(leads);
+  
+
   return (
     <div className="bg-white w-full h-full rounded-2xl p-5">
       <div className="flex justify-between items-center mb-6">
@@ -49,10 +52,10 @@ function Leads() {
               </div>
               <div className="text-right sm:flex-col flex flex-row gap-3 justify-around">
                 <span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-green-100 text-green-700">
-                  {lead.status || "New"}
+                  {lead?.status || "New"}
                 </span>
                 <p className="text-xs font-bold text-gray-700 mt-1">
-                  Score: {lead.score || 0}
+                  Score: {lead?.confidence_score || 0}
                 </p>
               </div>
             </div>

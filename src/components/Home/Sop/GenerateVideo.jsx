@@ -11,7 +11,8 @@ function GenerateVideo({
   setVideoScript,
   videoLoading,
   genScriptRef,
-  handleSOPVideoGeneration
+  handleSOPVideoGeneration,
+  activeRequestRef,
 }) {
   return (
     <dialog
@@ -25,13 +26,27 @@ function GenerateVideo({
       >
         {/* Heading Container */}
         <div className="w-full flex flex-row justify-between">
-          <button onClick={() => {
-            genVideoRef.current?.close(); 
-            genScriptRef.current?.showModal();
-          }} type="button">
+          <button
+            onClick={() => {
+              // Abort the specific RTK Query request if it exists
+              activeRequestRef.current?.abort();
+
+              //  UI Navigation
+              genVideoRef.current?.close();
+              genScriptRef.current?.showModal();
+            }}
+            type="button"
+          >
             <IoMdArrowRoundBack className="text-black size-4 cursor-pointer" />
           </button>
-          <button onClick={() => genVideoRef.current?.close()} type="button">
+          <button
+            onClick={() => {
+              // Abort the specific RTK Query request if it exists
+              activeRequestRef.current?.abort();
+              genVideoRef.current?.close();
+            }}
+            type="button"
+          >
             <IoCloseSharp className="text-black size-4 cursor-pointer" />
           </button>
         </div>
@@ -64,8 +79,8 @@ function GenerateVideo({
         </div>
         {isLoading || isFetching ? null : (
           <button
-          disabled={videoLoading}
-            className={`w-full py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
+            disabled={videoLoading}
+            className={`w-full ${videoLoading && "opacity-60"} py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
           >
             {videoLoading ? `Generating Video` : `Generate Video`} <GrMagic />
           </button>

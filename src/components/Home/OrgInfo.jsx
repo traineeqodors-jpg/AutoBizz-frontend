@@ -17,7 +17,7 @@ const OrgInfo = ({ user }) => {
 
   return (
     <div className="w-full shadow-md/10 rounded-2xl bg-white flex flex-col gap-2 sm:flex-row justify-between">
-      <div className="w-full shadow-md/10 rounded-2xl p-5 bg-back flex sm:flex-row flex-col gap-3 justify-between self-start">
+      <div className="w-full shadow-md/10 rounded-2xl p-5 bg-white flex sm:flex-row flex-col gap-3 justify-between self-start">
         <h2 className="md:text-2xl lg:text-xl text-lg font-semibold text-text">
           <p className="flex sm:gap-3 gap-1 items-center flex-wrap">
             <span>Welcome {fullname ?? "User"}</span>
