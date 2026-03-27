@@ -7,9 +7,10 @@ const SupportCard = () => {
       {/* Top Section: Matches "Organization Details" header style */}
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <h2 className="text-text text-lg font-semibold tracking-tight">
+          <h1 className="text-lg sm:text-xl font-black text-text tracking-tight">
             Voice Support
-          </h2>
+          </h1>
+ 
           <div className="flex items-center gap-1.5">
             <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
             <span className="text-text/60 text-sm font-medium">

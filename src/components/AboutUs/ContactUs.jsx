@@ -105,7 +105,7 @@ const ContactUs = () => {
             <ContactInfoCard 
               icon={<IoCallOutline size={24} />}
               title="Call Us"
-              detail="+1 (555) 000-0000"
+              detail={import.meta.env.VITE_AI_SUPPORT_NUMBER}
               subDetail="Mon-Fri, 9am - 6pm"
             />
             <ContactInfoCard 

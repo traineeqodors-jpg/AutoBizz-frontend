@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaRegCalendarAlt, FaSearch } from "react-icons/fa";
 
 const LeadFilter = ({
   searchTerm,
@@ -10,7 +10,7 @@ const LeadFilter = ({
 }) => {
   return (
     <>
-      {/* --- Filter Panel (Styled like Login Inputs) --- */}
+    
       <div className="bg-white p-6 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="col-span-1 md:col-span-2 space-y-2">
@@ -26,7 +26,7 @@ const LeadFilter = ({
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                🔍
+                <FaSearch />
               </span>
             </div>
           </div>
@@ -60,7 +60,7 @@ const LeadFilter = ({
               placeholder="e.g. 50"
               onKeyDown={(e) => {
                 if (e.key === "-" || e.key === "e") {
-                  // Blocks minus and scientific notation
+                 
                   e.preventDefault();
                 }
               }}

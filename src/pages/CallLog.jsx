@@ -14,7 +14,7 @@ import DeleteDialog from "../components/Dialog/DeleteDialog";
 import LoadingElement from "../components/LoadingElement";
 import DetailModal from "../components/CallLog/DetailModal";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion , AnimatePresence} from "framer-motion";
 
 const CallLog = () => {
   // 1. State for Backend Filtering (Updated with Dates)
@@ -49,7 +49,6 @@ const CallLog = () => {
 
   const logs = data?.data?.logs || [];
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
-  const shouldShowPagination = pagination?.totalPages > 1;
   const [selectedLog, setSelectedLog] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
@@ -122,9 +121,10 @@ const CallLog = () => {
         <div className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm border border-white">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-text tracking-tight">
-                Call History
-              </h1>
+            <h1 className="text-2xl font-black text-text tracking-tight">
+                  Call History
+                </h1>
+ 
               <p className="text-text/40 text-sm italic font-medium">
                 Total records: {pagination.totalItems}
               </p>
@@ -192,6 +192,21 @@ const CallLog = () => {
             setStatusFilter={handleStatusFilter}
           />
         ) : (
+          <AnimatePresence mode="wait">
+                      <motion.div
+                        key={
+                          filters.page +
+                          filters.search +
+                          filters.status +
+                          filters.sortBy +
+                          filters.startDate +
+                          filters.endDate
+                        }
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.2 }}
+                      >
           <div className="bg-white shadow-xl shadow-text/5 rounded-3xl overflow-hidden border border-white">
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left border-separate border-spacing-0">
@@ -235,7 +250,7 @@ const CallLog = () => {
             </div>
 
             {/* Pagination Controls */}
-            {shouldShowPagination && (
+           
               <>
                 <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-100 flex items-center justify-between">
                   <span className="text-xs font-bold text-text/40 uppercase">
@@ -259,8 +274,10 @@ const CallLog = () => {
                   </div>
                 </div>
               </>
-            )}
+          
           </div>
+          </motion.div>
+          </AnimatePresence>
         )}
       </div>
 

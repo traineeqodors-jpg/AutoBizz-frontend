@@ -1,4 +1,4 @@
-import { FaGoogle, FaHome } from "react-icons/fa";
+import { FaCalendarAlt, FaGoogle, FaHome } from "react-icons/fa";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -142,6 +142,18 @@ const Sidebar = () => {
             >
               <IoPeopleSharp className="size-5" />
               Leads
+            </NavLink>
+          </li>
+ 
+          <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl overflow-hidden hover:shadow-md/10 ">
+            <NavLink
+              to="/calendar"
+              className={({ isActive }) =>
+                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+              }
+            >
+              <FaCalendarAlt className="size-5" />
+              Calendar
             </NavLink>
           </li>
  
