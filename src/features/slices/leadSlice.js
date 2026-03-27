@@ -19,6 +19,15 @@ export const leadsApi = createApi({
       }),
       invalidateTags: ["leads"],
     }),
+    addLeadForm : build.mutation({
+        query : (formData) => ({
+          url : "/form",
+          method : "post",
+          body : formData,
+          credentials : "include",
+        }),
+        invalidatesTags  :["leads"]
+    }),
 
     getAllLeads: build.query({
       query: (params = {}) => ({
@@ -51,4 +60,4 @@ export const leadsApi = createApi({
   }),
 });
 
-export const { useAddLeadCsvMutation, useGetAllLeadsQuery , useDeleteLeadMutation } = leadsApi;
+export const { useAddLeadCsvMutation, useGetAllLeadsQuery , useDeleteLeadMutation , useAddLeadFormMutation } = leadsApi;

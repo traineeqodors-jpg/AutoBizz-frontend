@@ -40,26 +40,28 @@ function Analysis() {
       ],
     });
   
-    return (
-      <div className="chart-container h-[40vh]">
-        <Bar
-          data={chartData}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              title: {
-                display: true,
-                text: "Leads Generation",
-              },
-              legend: {
-                display: true,
-              },
-            },
-          }}
-        />
-      </div>
-    );
+   return (
+     <div className="relative w-full h-full">
+       <Bar
+         data={chartData}
+         options={{
+           responsive: true,
+           maintainAspectRatio: false, // Critical: Allows chart to fill the container height
+           plugins: {
+             legend: {
+               position: "bottom", // Saves horizontal space on mobile
+               labels: { boxWidth: 10, font: { size: 11 } },
+             },
+           },
+           scales: {
+             x: { grid: { display: false } }, // Cleaner look
+             y: { beginAtZero: true },
+           },
+         }}
+       />
+     </div>
+   );
+
 }
 
 export default Analysis;

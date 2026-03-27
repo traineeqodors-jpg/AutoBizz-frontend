@@ -6,9 +6,9 @@ const MobileLeadsView = ({ leads }) => {
   return (
     <>
       <div className="md:hidden flex flex-col gap-4">
-        {leads.length !== 0 && (
+        {leads?.length !== 0 && (
           <>
-            {leads.map((lead) => (
+            {leads?.map((lead) => (
               
                 <div  key={lead?.id} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm space-y-4">
                   <div className="flex justify-between items-center">

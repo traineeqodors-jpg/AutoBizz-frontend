@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useUploadDocumentsMutation } from "../features/slices/documentSlice";
 import { toast } from "react-toastify";
@@ -38,9 +38,12 @@ function DocuementUploadDialog({ dialogRef }) {
       console.error("Upload failed:", err);
       // Set the error message locally instead of using toast.error
       setLocalError(err?.data?.message || "An unexpected error occurred during upload.");
+         
+      
     }
 
         e.target.reset();
+     
      
   };
 
@@ -54,8 +57,8 @@ function DocuementUploadDialog({ dialogRef }) {
         <form onSubmit={handleSubmit} className="w-full space-y-6 p-2">
           {/* Heading Container */}
           <div className="w-full flex flex-row-reverse">
-            <button type="button" onClick={() => {dialogRef.current?.close() }}>
-              <IoCloseSharp className="text-black size-4" />
+            <button type="button" onClick={() => {dialogRef.current?.close() , setLocalError("")}}>
+              <IoCloseSharp className="text-black size-4 cursor-pointer" />
             </button>
           </div>
           <div className="text-center mb-8">

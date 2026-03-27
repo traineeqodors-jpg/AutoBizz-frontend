@@ -78,7 +78,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
       {video?.videoUrl !== "failed" && video?.videoUrl && (
         <div className="px-2 w-full flex flex-col gap-1 py-2">
           <h3 className="text-sm font-semibold tracking-widest line-clamp-1 text-text/90">
-            {video?.videoId.slice(0, 20)}...
+            {video?.videoUrl}...
           </h3>
         </div>
       )}

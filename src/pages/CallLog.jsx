@@ -14,6 +14,7 @@ import DeleteDialog from "../components/Dialog/DeleteDialog";
 import LoadingElement from "../components/LoadingElement";
 import DetailModal from "../components/CallLog/DetailModal";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const CallLog = () => {
   // 1. State for Backend Filtering (Updated with Dates)
@@ -103,6 +104,12 @@ const CallLog = () => {
   if (isLoading) return <LoadingElement />;
 
   return (
+     <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-back w-full flex flex-col items-center gap-5"
+    >
     <div className="min-h-screen w-full bg-back p-3 sm:p-6 lg:p-8 relative">
       {isFetching && !isLoading && (
         <div className="absolute top-0 left-0 w-full h-1 bg-btn-100/20 overflow-hidden z-50">
@@ -110,7 +117,7 @@ const CallLog = () => {
         </div>
       )}
 
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* Header & Filters Section */}
         <div className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm border border-white">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -144,7 +151,7 @@ const CallLog = () => {
                   name="startDate"
                   value={filters.startDate}
                   onChange={handleDateChange}
-                  className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-[140px] appearance-none"
+                  className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
                 />
                 <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
               </div>
@@ -161,7 +168,7 @@ const CallLog = () => {
                   name="endDate"
                   value={filters.endDate}
                   onChange={handleDateChange}
-                  className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-[140px] appearance-none"
+                  className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
                 />
                 <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
               </div>
@@ -271,6 +278,7 @@ const CallLog = () => {
         isDeleting={isDeleting}
       />
     </div>
+    </motion.div>
   );
 };
 

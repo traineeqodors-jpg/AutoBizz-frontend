@@ -16,7 +16,7 @@ import CallLog from "./pages/CallLog";
 import AboutUs from "./pages/AboutUs";
 import SopVideosPage from "./pages/SopVideosPage";
 import AuthGuard from "./components/AuthGuard";
-import LeadManagement from "./pages/LeadManagement";
+import LeadManagement from "./pages/LeadManagement"
 import LeadCalendar from "./pages/LeadCalender";
 
 // 2. Define the router ONCE outside the component
@@ -35,8 +35,8 @@ const router = createBrowserRouter([
       { path: "/callLogs", element: <CallLog /> },
       { path: "/about", element: <AboutUs /> },
       { path: "/sop", element: <SopVideosPage /> },
-          { path: "/leads", element: <LeadManagement /> },
-          { path: "/calendar", element: <LeadCalendar /> },
+      { path: "/leads", element: <LeadManagement /> },
+      {path : "/calendar" , element : <LeadCalendar />}
     ],
   },
   {

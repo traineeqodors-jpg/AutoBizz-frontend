@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { GrMagic } from "react-icons/gr";
 import { IoCloseSharp } from "react-icons/io5";
@@ -16,14 +17,13 @@ function GenerateScript({
   genVideoRef,
   script,
   setVideoScript,
+  activeRequestRef,
 }) {
- 
- 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [query, setQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
- 
+
   // Logic to add a file
   const addFile = (file) => {
     if (!selectedFiles.find((f) => f.id === file.id)) {
@@ -31,33 +31,31 @@ function GenerateScript({
     }
     setIsDropdownOpen(false);
   };
- 
+
   // Logic to remove a file
   const removeFile = (fileId) => {
     setSelectedFiles(selectedFiles.filter((f) => f.id !== fileId));
   };
- 
+
   //select all
   const handleSelectAll = () => {
     setSelectedFiles(documents);
     setIsDropdownOpen(false);
   };
- 
+
   async function handleScriptGeneration(e) {
     e.preventDefault();
- 
+
     if (selectedFiles.length <= 0) {
       setErrorMsg("Please select atleast one document!");
       return;
     }
- 
+
     if (query.trim() == "") {
       setErrorMsg("Please enter video topic!");
       return;
     }
- 
-    console.log("Submit");
-    
+
     try {
       setErrorMsg("");
       const payload = {
@@ -66,27 +64,38 @@ function GenerateScript({
       };
       genScriptRef.current?.close();
       genVideoRef.current?.showModal();
- 
-      const response = await script(payload).unwrap();
- 
+
+      // Store the returned promise object in the ref
+      const promise = script(payload);
+      activeRequestRef.current = promise;
+
+      const response = await promise.unwrap();
       setVideoScript(response?.data);
     } catch (error) {
-      setErrorMsg("No context found in the selected document!");
+      // Check if the error was a manual cancellation
+      if (error.name === "AbortError" || error.status === "FETCH_ERROR") {
+        console.log("Request was cancelled");
+        return;
+      }
+
+      setErrorMsg(error?.data?.message);
       genVideoRef.current?.close();
       genScriptRef.current?.showModal();
+    } finally {
+      activeRequestRef.current = null;
     }
- 
+
     // Add your ragRetrieval call here
   }
- 
+
   return (
     <dialog
       ref={genScriptRef}
-      className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:bg-text/40 space-y-5"
+      className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:bg-text/40 space-y-5 hideScrollBar"
     >
       <form className="w-full space-y-6 p-2" onSubmit={handleScriptGeneration}>
         {/* Heading Container */}
-        <div className="w-full flex flex-row-reverse">
+        <div className="w-full flex flex-row-reverse hideScrollBar">
           <button onClick={() => genScriptRef.current?.close()} type="button">
             <IoCloseSharp className="text-black size-4 cursor-pointer" />
           </button>
@@ -106,7 +115,7 @@ function GenerateScript({
               {selectedFiles.length} Selected
             </span>
           </div>
- 
+
           <div className="relative">
             {/* Tag/Input Container */}
             <div className="min-h-13.75 p-2.5 flex flex-wrap gap-2 border-2 border-gray-200 rounded-2xl focus-within:border-btn-50 transition-all bg-gray-50/30">
@@ -139,7 +148,7 @@ function GenerateScript({
                   No files selected...
                 </span>
               )}
- 
+
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -148,7 +157,7 @@ function GenerateScript({
                 + Browse Files
               </button>
             </div>
- 
+
             {/* Dropdown Menu */}
             {isDropdownOpen && (
               <>
@@ -205,7 +214,7 @@ function GenerateScript({
             )}
           </div>
         </div>
- 
+
         {/* Query Input Section */}
         <div className="flex flex-col gap-2">
           <label className="text-sm font-bold text-gray-700 ml-1">
@@ -221,14 +230,14 @@ function GenerateScript({
             />
           </div>
         </div>
- 
+
         {errorMsg && (
-                   <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl animate-in fade-in slide-in-from-top-1">
-                     <FaExclamationCircle className="shrink-0" />
-                     <p className="text-sm font-medium">{errorMsg}</p>
-                   </div>
-                 )}
- 
+          <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl animate-in fade-in slide-in-from-top-1">
+            <FaExclamationCircle className="shrink-0" />
+            <p className="text-sm font-medium">{errorMsg}</p>
+          </div>
+        )}
+
         <button
           className={`w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
         >

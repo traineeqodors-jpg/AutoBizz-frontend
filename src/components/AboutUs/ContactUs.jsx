@@ -6,6 +6,8 @@ import {
   IoSend,
 } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { useGetMeQuery } from "../../features/slices/orgSlice";
+import { useAddLeadFormMutation } from "../../features/slices/leadSlice";
 
  
 const ContactUs = () => {
@@ -15,9 +17,13 @@ const ContactUs = () => {
     phone: "",
     subject: "",
     message: "",
+    orgId : 0
   });
  
-  
+  const[addForm , {isLoading : formLoading}] = useAddLeadFormMutation()
+  const { data, isLoading} = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")})
+  const orgId = data?.data?.id
+
  
   // Handling Input
   const handleChange = (e) => {
@@ -57,16 +63,25 @@ const ContactUs = () => {
     }
  
   
+      input.orgId = orgId ? orgId : 0;
+
+
       // Success Logic
       console.log("Contact Form Data:", input);
     
  
-      console.log(response);
-      setInput({ name: "", email: "", phone: "", subject: "", message: "" });
+      //setInput({ name: "", email: "", phone: "", subject: "", message: "" });
   
   
+    try {
+      const response = await addForm(input).unwrap()
+      console.log(response)
+      toast.success(response?.message)
+    } catch (error) {
+      console.log(error?.data?.message)
+    }
  
- 
+    setInput({ name: "", email: "", phone: "", subject: "", message: "" });
   
     
   };
@@ -80,42 +95,39 @@ const ContactUs = () => {
             Get in Touch
           </h1>
           <p className="text-text/50 max-w-lg mx-auto">
-            Have questions about our products? Our team is here to help you
-            24/7.
+            Have questions about our products? Our team is here to help you 24/7.
           </p>
         </div>
- 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 xl:gap-8 space-y-5">
           {/* Contact Info Cards */}
           <div className="space-y-4">
-            <ContactInfoCard
+            <ContactInfoCard 
               icon={<IoCallOutline size={24} />}
               title="Call Us"
-              detail={import.meta.env.VITE_AI_SUPPORT_NUMBER}
-              subDetail="Online 24/7"
+              detail="+1 (555) 000-0000"
+              subDetail="Mon-Fri, 9am - 6pm"
             />
-            <ContactInfoCard
+            <ContactInfoCard 
               icon={<IoMailOutline size={24} />}
               title="Email Us"
               detail="support@yourapp.com"
               subDetail="Online 24/7"
             />
-            <ContactInfoCard
+            <ContactInfoCard 
               icon={<IoLocationOutline size={24} />}
               title="Visit Us"
               detail="123 Tech Avenue"
               subDetail="San Francisco, CA"
             />
           </div>
- 
+
           {/* Contact Form */}
           <div className="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-10 shadow-xl shadow-text/5 border border-white">
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">
-                    Full Name
-                  </label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Full Name</label>
                   <input
                     type="text"
                     name="name"
@@ -126,9 +138,7 @@ const ContactUs = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">
-                    Email Address
-                  </label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Email Address</label>
                   <input
                     type="email"
                     name="email"
@@ -139,24 +149,20 @@ const ContactUs = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">
-                    Phone Number
-                  </label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Phone Number</label>
                   <input
                     type="tel"
                     name="phone"
                     value={input.phone}
                     onChange={handleChange}
                     className="w-full bg-back/50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
-                    placeholder="00000-000000"
+                    placeholder="+1 (555) 000-0000"
                   />
                 </div>
               </div>
- 
+
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">
-                  Subject
-                </label>
+                <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Subject</label>
                 <input
                   type="text"
                   name="subject"
@@ -166,11 +172,9 @@ const ContactUs = () => {
                   placeholder="How can we help?"
                 />
               </div>
- 
+
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">
-                  Message
-                </label>
+                <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Message</label>
                 <textarea
                   name="message"
                   rows="5"
@@ -180,9 +184,8 @@ const ContactUs = () => {
                   placeholder="Type your message here..."
                 ></textarea>
               </div>
- 
+
               <button
-              
                 type="submit"
                 className="w-full md:w-max px-8 py-4 bg-btn-100 hover:bg-btn-200 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
               >
