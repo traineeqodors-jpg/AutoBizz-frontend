@@ -15,13 +15,13 @@ const AboutUs = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen bg-back w-full flex flex-col items-center gap-5"
+        className="min-h-screen  w-full flex flex-col items-center gap-5 "
       >
-        <div className=" bg-back p-4 sm:p-8 lg:p-12">
+        <div className=" bg-back dark:bg-gray-800 p-4 sm:p-8 lg:p-12">
           <div className="max-w-7xl mx-auto space-y-20">
             {/* 5. TEAM SECTION */}
             <div className="text-center py-10">
-              <h2 className="text-xl font-bold text-text tracking-tight">
+              <h2 className="text-xl font-bold text-text dark:text-white tracking-tight">
                 The Minds Behind the Voice
               </h2>
               <div className="flex justify-center gap-8 mt-10">
@@ -43,16 +43,18 @@ const AboutUs = () => {
 /* TEAM AVATAR COMPONENT */
 const TeamAvatar = ({ name, role }) => (
   <div className="group relative">
-      <div className="size-16 bg-white border-2 border-slate-100 rounded-full flex items-center justify-center shadow-sm group-hover:border-btn-100 transition-colors overflow-hidden">
-          <div className="size-full bg-slate-50 flex items-center justify-center font-bold text-text/20 text-xl">
-              {name[0]}
-          </div>
+    <div className="size-16 bg-white dark:bg-gray-800 border-2 border-slate-100 rounded-full flex items-center justify-center shadow-sm group-hover:border-btn-100 transition-colors overflow-hidden">
+      <div className="size-full bg-slate-50 flex items-center justify-center font-bold text-text/20 text-xl">
+        {name[0]}
       </div>
-      <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-center w-max">
-          <p className="font-bold text-text text-xs">{name}</p>
-          <p className="text-btn-100 text-[9px] font-bold uppercase tracking-widest">{role}</p>
-      </div>
+    </div>
+    <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-center w-max">
+      <p className="font-bold text-text dark:text-white text-xs">{name}</p>
+      <p className="text-btn-100 text-[9px] font-bold uppercase tracking-widest">
+        {role}
+      </p>
+    </div>
   </div>
-)
+);
 
 export default AboutUs;

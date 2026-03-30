@@ -3,14 +3,9 @@ import React from "react";
 const FormLeftSIde = () => {
   return (
     <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back p-10 ">
-     
-       <div className="bg-white flex items-center justify-center size-35 rounded-full shadow-inner mb-2 overflow-hidden">
-              <img
-                src="/autoBizz.png"
-                alt="Logo"
-                className="size-35 object-cover"
-              />
-            </div>
+      <div className="bg-white  flex items-center justify-center size-35 rounded-full shadow-inner mb-2 overflow-hidden">
+        <img src="/autoBizz.png" alt="Logo" className="size-35 object-cover" />
+      </div>
       <h2 className="text-2xl font-extrabold text-text mb-2">AutoBizz</h2>
       <p className="text-gray-500 max-w-xs mb-10">
         The all-in-one platform to scale your business operations.

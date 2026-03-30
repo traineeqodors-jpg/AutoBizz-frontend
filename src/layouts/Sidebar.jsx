@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
 import { useGoogleLogin } from "@react-oauth/google";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
@@ -47,29 +48,10 @@ const Sidebar = () => {
     }
   };
 
-  const showGoogleOverlay = user && user.googleRefreshToken === null;
-
-  // Login with google
-  const handleGoogleLogin = useGoogleLogin({
-    onSuccess: async (response) => {
-      try {
-        console.log("Send this to BackEnd : ", response.code);
-        const res = await googleToken(response.code).unwrap();
-        toast.success(res?.message);
-      } catch (error) {
-        toast.error(error?.data?.message);
-      }
-    },
-    flow: "auth-code",
-    scope: "https://www.googleapis.com/auth/calendar.events",
-    onError: (error) => {
-      console.log(error);
-    },
-  });
 
   return (
     <>
-      <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 overflow-auto p-4 inset-shadow-sm/20">
+      <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 dark:bg-gray-900 overflow-auto p-4 inset-shadow-sm/20">
         <div className="flex justify-center-safe items-center-safe">
           {/* Logo */}
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
@@ -79,7 +61,7 @@ const Sidebar = () => {
               className="size-20 object-cover"
             />
           </div>
-          <h1 className="text-2xl font-bold text-text ms-5">AutoBizz</h1>
+          <h1 className="text-2xl font-bold text-text dark:text-white ms-5">AutoBizz</h1>
         </div>
 
         <hr className="border-gray-300 my-5" />
@@ -89,7 +71,7 @@ const Sidebar = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <FaHome className="size-5" />
@@ -113,7 +95,7 @@ const Sidebar = () => {
             <NavLink
               to="/documents"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <IoMdDocument className="size-5" />
@@ -125,7 +107,7 @@ const Sidebar = () => {
             <NavLink
               to="/sop"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <BiSolidVideos className="size-5" />
@@ -137,7 +119,7 @@ const Sidebar = () => {
             <NavLink
               to="/leads"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <IoPeopleSharp className="size-5" />
@@ -149,7 +131,7 @@ const Sidebar = () => {
             <NavLink
               to="/calendar"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <FaCalendarAlt className="size-5" />
@@ -161,7 +143,7 @@ const Sidebar = () => {
             <NavLink
               to="/callLogs"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <IoCall className="size-5" />
@@ -173,7 +155,7 @@ const Sidebar = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 px-3 py-2 `
+                `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
             >
               <IoMdDocument className="size-5" />
@@ -190,7 +172,7 @@ const Sidebar = () => {
           )}
 
           <li
-            className={`${isLoading && "opacity-60"}w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
+            className={`${isLoading && "opacity-60"}w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80 dark:text-gray-200  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
           >
             <button
               disabled={isLoading}
@@ -202,6 +184,7 @@ const Sidebar = () => {
             </button>
           </li>
         </ul>
+        <ThemeToggle />
       </div>
     </>
   );

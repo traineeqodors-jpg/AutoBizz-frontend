@@ -33,7 +33,7 @@ const RootLayout = () => {
         <main className="flex-1 flex flex-col shrink-0 overflow-y-auto scheme-dark scroll-smooth">
           <div className="flex flex-col h-screen overflow-hidden">
             <Navbar />
-            <div className="grow overflow-auto">
+            <div className="grow overflow-auto bg-back dark:bg-gray-800">
               <Outlet />
 
               <AIChat />

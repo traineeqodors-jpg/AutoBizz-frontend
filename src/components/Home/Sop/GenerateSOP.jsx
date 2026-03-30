@@ -51,7 +51,7 @@ function GenerateSOP() {
     <div className="w-full flex rounded-2xl">
       <button
         onClick={() => genScriptRef.current?.showModal()}
-        className="  flex gap-3 cursor-pointer justify-center items-center px-2 py-3 lg:text-lg sm:text-md text-sm hover:inset-shadow-sm/40 bg-btn-200 text-white w-full rounded-2xl"
+        className="flex gap-3 cursor-pointer justify-center items-center px-2 py-3 lg:text-lg sm:text-md text-sm hover:inset-shadow-sm/40 bg-btn-200 dark:bg-btn-300 text-white w-full rounded-2xl"
       >
         Generate SOP Video <GrMagic />
       </button>

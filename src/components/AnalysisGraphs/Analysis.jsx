@@ -41,7 +41,7 @@ function Analysis() {
     });
   
    return (
-     <div className="relative w-full h-full">
+     <div className="relative w-full h-full ">
        <Bar
          data={chartData}
          options={{

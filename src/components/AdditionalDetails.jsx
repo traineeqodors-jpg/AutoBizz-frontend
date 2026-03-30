@@ -83,90 +83,87 @@ function AdditionalDetails() {
   }
   
 
-  return (
-    <div className="w-full bg-white rounded-2xl shadow-md/10 gap-5 overflow-hidden">
-      <h3 className="text-xl text-text flex gap-2 p-4 bg-gray-100 border-b items-center border-gray-300 w-full">
-        <div className="flex flex-row gap-3 items-center">
-          <TbInfoCircleFilled className="size-5 text-btn-100" />
-          <p>Additional Informations</p>
-        </div>
-      </h3>
-      {isLoading ? (
-        <LoadingElement />
-      ) : (
-        <div className="p-4 flex flex-col gap-4">
-          <form>
-            <div className="relative w-full">
-              <textarea
-                name="description"
-                className="w-full bg-transparent border px-4 border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-3 tracking-wide mt-1"
-                rows={5}
-                placeholder="Describe your business..."
-                value={description}
-                onChange={handleInformationChange}
-              />
-              <div className="absolute bottom-2 right-2 text-xs font-semibold bg-white px-1">
-                {status === "Saving..." && (
-                  <span className="text-orange-500 animate-pulse">
-                    Saving...
-                  </span>
-                )}
-                {status === "Saved" && (
-                  <span className="text-green-600">Saved!</span>
-                )}
-                {status === "Error saving" && (
-                  <span className="text-red-500">Failed to save</span>
-                )}
-              </div>
-            </div>
-            <div className="flex md:flex-row flex-col gap-2">
-              <div className="flex flex-col flex-1 gap-1">
-                <label className="text-xs text-text/60">
-                  Business Category
-                </label>
-                <select
-                  name="category"
-                  value={category || ""}
-                  onChange={handleInformationChange}
-                  className="flex-1 bg-transparent border px-4 border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1"
-                >
-                  <option value="" disabled>
-                    - Category -
-                  </option>
-                  {businessesCategory.business_categories.map((b) => (
-                    <option key={b.id} value={b.id}>
-                      {b.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+ return (
+   <div className="w-full bg-white dark:bg-gray-900 rounded-2xl shadow-md/10 gap-5 overflow-hidden">
+     <h3 className="text-xl text-text flex gap-2 p-4 bg-gray-50 dark:bg-gray-700 border-b items-center border-gray-300 w-full">
+       <div className="flex flex-row gap-3 items-center">
+         <TbInfoCircleFilled className="size-5 text-btn-100" />
+         <p className="font-bold dark:text-white">Additional Informations</p>
+       </div>
+     </h3>
+     {isLoading ? (
+       <LoadingElement />
+     ) : (
+       <div className="p-5 flex flex-col">
+         <form className="space-y-4">
+           <div className="relative w-full">
+             <textarea
+               name="description"
+               className="w-full bg-transparent border px-4 border-gray-300 dark:bg-gray-800 dark:text-white focus:outline-none focus:bg-gray-700 focus:border-btn-100 font-medium py-3 tracking-wide mt-1 rounded-lg"
+               rows={5}
+               placeholder="Describe your business..."
+               value={description}
+               onChange={handleInformationChange}
+             />
+             <div className="absolute bottom-2 right-2 text-xs font-semibold bg-white dark:bg-gray-500 rounded px-1">
+               {status === "Saving..." && (
+                 <span className="text-orange-500 animate-pulse">
+                   Saving...
+                 </span>
+               )}
+               {status === "Saved" && (
+                 <span className="text-green-600">Saved!</span>
+               )}
+               {status === "Error saving" && (
+                 <span className="text-red-500">Failed to save</span>
+               )}
+             </div>
+           </div>
+           <div className="flex md:flex-row flex-col gap-3">
+             <div className="flex flex-col flex-2 gap-1">
+               <label className="text-xs text-text/60 dark:text-gray-300">
+                 Business Category
+               </label>
+               <select
+                 name="category"
+                 value={category || ""}
+                 onChange={handleInformationChange}
+                 className="flex-1 dark:text-white bg-transparent border px-4 border-gray-300 dark:bg-gray-800 focus:outline-none focus:border-btn-100 focus:dark:bg-gray-700 font-medium py-2 rounded-lg"
+               >
+                 <option value="" disabled>
+                   - Category -
+                 </option>
+                 {businessesCategory.business_categories.map((b) => (
+                   <option key={b.id} value={b.id}>
+                     {b.name}
+                   </option>
+                 ))}
+               </select>
+             </div>
 
-              <div className="flex flex-col gap-1">
-                <label className="text-xs text-text/60">Started in year</label>
-                <DatePicker
-                  calendarClassName="custom-calendar-style"
-                  className="w-full bg-transparent border px-4 border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1"
-                  selected={new Date(year || new Date().getFullYear(), 0, 1)}
-                  maxDate={new Date()}
-                  filterDate={(date) =>
-                    date.getFullYear() <= new Date().getFullYear()
-                  }
-                  onChange={(date) => handleYearChange(date)}
-                  showYearPicker
-                  dateFormat="yyyy"
-                />
-              </div>
-            </div>
-          </form>
-          
-        </div>
-      )}
-      <DocuementUploadDialog
-        onClick={() => dialogRef.current?.showModal()}
-        dialogRef={dialogRef}
-      />
-    </div>
-  );
+             <div className="flex flex-col flex-1 gap-1">
+               <label className="text-xs text-text/60 dark:text-gray-300">
+                 Started in year
+               </label>
+               <DatePicker
+                 calendarClassName="custom-calendar-style"
+                 className="w-full bg-transparent border px-4 border-gray-300 dark:bg-gray-800 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-2 rounded-lg"
+                 selected={new Date(year || new Date().getFullYear(), 0, 1)}
+                 maxDate={new Date()}
+                 filterDate={(date) =>
+                   date.getFullYear() <= new Date().getFullYear()
+                 }
+                 onChange={(date) => handleYearChange(date)}
+                 showYearPicker
+                 dateFormat="yyyy"
+               />
+             </div>
+           </div>
+         </form>
+       </div>
+     )}
+   </div>
+ );
 }
 
 export default AdditionalDetails

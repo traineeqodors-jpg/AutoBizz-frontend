@@ -14,18 +14,18 @@ import LeadFilter from "../components/leads/LeadFilter";
 import { useGetMeQuery } from "../features/slices/orgSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
-import { motion} from "framer-motion"
- 
+import { motion } from "framer-motion";
+
 function LeadManagement() {
   // 1. Local states for UI and API params
   const [uploadCSV, { isLoading }] = useAddLeadCsvMutation();
- 
+
   const { data: user } = useGetMeQuery();
- 
+
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
- 
+
   const [deleteLead, { isLoading: isDeleting }] = useDeleteLeadMutation();
- 
+
   const [fileName, setFileName] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // For immediate input typing
   const [filters, setFilters] = useState({
@@ -39,11 +39,11 @@ function LeadManagement() {
     sortBy: "createdAt",
     order: "DESC",
   });
- 
+
   const [deleteTarget, setDeleteTarget] = useState(null);
   const deleteModalRef = useRef(null);
   const scrollRef = useRef(null);
- 
+
   // Debounce Search
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -51,7 +51,7 @@ function LeadManagement() {
     }, 700);
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
- 
+
   // Get Data RTK Query Hook
   const {
     data,
@@ -60,11 +60,11 @@ function LeadManagement() {
   } = useGetAllLeadsQuery(filters, {
     skip: !isGoogleLinked,
   });
- 
+
   const leads = data?.data?.leads || [];
- 
+
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
- 
+
   // scroll function
   const scrollToTop = () => {
     setTimeout(() => {
@@ -76,22 +76,22 @@ function LeadManagement() {
       }
     }, 50);
   };
- 
+
   // On change Filter
   const updateFilter = (e) => {
     const { name, value } = e.target;
- 
+
     if ((name === "minScore" && value < 0) || value > 100) {
       return;
     }
- 
+
     setFilters((prev) => ({ ...prev, [name]: value, page: 1 }));
   };
- 
+
   const handlePageChange = (newPage) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
   };
- 
+
   const resetFilters = () => {
     setSearchTerm("");
     setFilters({
@@ -106,42 +106,42 @@ function LeadManagement() {
       order: "DESC",
     });
   };
- 
+
   // File Upload
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
- 
+
     if (file) {
       setFileName(file.name);
       console.log("File selected:", file.name);
       const formData = new FormData();
       formData.append("file", file);
- 
+
       console.log(formData.get("file"));
- 
+
       try {
         const response = await uploadCSV(formData).unwrap();
         toast.success(response?.message);
       } catch (error) {
         console.log(error);
- 
+
         toast.error(error?.data?.message);
       }
     }
   };
- 
+
   // Open Delete Modal
   const openDeleteModal = (leadId) => {
     setDeleteTarget(leadId);
     deleteModalRef.current?.showModal();
   };
- 
+
   //close delete modal
   const closeDeleteModal = () => {
     deleteModalRef.current?.close();
     setDeleteTarget(null);
   };
- 
+
   //handle delete
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -153,7 +153,7 @@ function LeadManagement() {
       toast.error(err?.data?.message);
     }
   };
- 
+
   // Login with google
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (response) => {
@@ -171,26 +171,23 @@ function LeadManagement() {
       console.log(error);
     },
   });
- 
+
   return (
-     <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8"
-        >
-    <div
-      className={`min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8 font-sans relative`}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen w-full p-3 sm:p-6 lg:p-8 relative"
     >
       <div className="max-w-7xl mx-auto space-y-6">
         {/* If Not Connceted to Google */}
         {!isGoogleLinked && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 backdrop-blur-md p-2">
-            <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
-              <h2 className="text-xl font-bold mb-2">
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 dark:bg-gray-800/40 backdrop-blur-md p-2">
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
+              <h2 className="text-xl font-bold mb-2 dark:text-white">
                 Google Calendar Required
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-500 mb-6">
                 Link your account to manage leads and meetings.
               </p>
               <button
@@ -202,10 +199,10 @@ function LeadManagement() {
             </div>
           </div>
         )}
- 
+
         <LeadHeader handleFileUpload={handleFileUpload} fileName={fileName} />
         <LeadCards data={data} />
- 
+
         {/* Filters & Search Section */}
         <LeadFilter
           searchTerm={searchTerm}
@@ -214,10 +211,10 @@ function LeadManagement() {
           updateFilter={updateFilter}
           resetFilters={resetFilters}
         />
- 
+
         {/* Main Content Area */}
         <div
-          className="bg-white shadow-xl shadow-text/5 rounded-2xl overflow-hidden border border-slate-100 relative"
+          className="bg-white dark:bg-gray-900 shadow-xl shadow-text/5 rounded-2xl overflow-hidden border border-slate-100 dark:border-gray-600 relative"
           ref={scrollRef}
         >
           {/* show loading when refetching */}
@@ -226,7 +223,7 @@ function LeadManagement() {
               <div className="h-full bg-blue-500"></div>
             </div>
           )}
- 
+
           {leadsLoading ? (
             <div className="flex justify-center items-center h-64">
               <div className="loader"></div>
@@ -235,8 +232,8 @@ function LeadManagement() {
             <>
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-center border-separate border-spacing-0">
-                  <thead className="bg-slate-50/80 sticky top-0 z-10">
-                    <tr className="text-slate-500 text-[11px] uppercase tracking-widest font-bold">
+                  <thead className="bg-slate-50/80 dark:bg-gray-700 sticky top-0 z-10">
+                    <tr className="text-slate-500 dark:text-gray-100 text-[11px] uppercase tracking-widest font-bold">
                       <th className="px-6 py-4 border-b">Lead Name</th>
                       <th className="px-6 py-4 border-b">Company</th>
                       <th className="px-6 py-4 border-b">Contacts</th>
@@ -270,7 +267,7 @@ function LeadManagement() {
                   </tbody>
                 </table>
               </div>
- 
+
               <div className="md:hidden space-y-3 p-2">
                 {!isGoogleLinked ? (
                   <div className="py-20 text-slate-400 text-center">
@@ -282,20 +279,24 @@ function LeadManagement() {
                   </div>
                 ) : (
                   leads.map((lead) => (
-                    <MobileLeadsView key={lead?.id} lead={lead} openDeleteModal={openDeleteModal} />
+                    <MobileLeadsView
+                      key={lead?.id}
+                      lead={lead}
+                      openDeleteModal={openDeleteModal}
+                    />
                   ))
                 )}
               </div>
- 
+
               {/* Pagination Controls */}
-              <div className="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <span className="text-sm text-slate-500">
+              <div className="px-6 py-4 bg-slate-50/50 dark:bg-gray-700 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span className="text-sm text-slate-500 dark:text-white">
                   Showing page{" "}
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {filters.page}
                   </span>{" "}
                   of{" "}
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {pagination.totalPages || 1}
                   </span>
                 </span>
@@ -334,11 +335,8 @@ function LeadManagement() {
         confirmDelete={confirmDelete}
         isDeleting={isDeleting}
       />
-    </div>
     </motion.div>
   );
 }
- 
+
 export default LeadManagement;
- 
- 

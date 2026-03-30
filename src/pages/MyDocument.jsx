@@ -9,7 +9,7 @@ import DocumentTable from "../components/MyDocument/DocumentTable";
 import { IoSearchOutline } from "react-icons/io5";
 import DocumentSearch from "../components/MyDocument/DocumentSearch";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 
 const MyDocument = () => {
   //API Calls
@@ -69,60 +69,57 @@ const MyDocument = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8"
+      className="min-h-screen w-full p-3 sm:p-6 lg:p-8 "
     >
-        <div className="max-w-7xl mx-auto space-y-6">
-          <DocumentSearch
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-          />
+      <div className="max-w-7xl mx-auto space-y-6">
+        <DocumentSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-          <div className="bg-white shadow-xl shadow-text/5 rounded-2xl sm:rounded-3xl overflow-hidden border border-white">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-separate border-spacing-0 flex flex-col lg:table">
-                <thead className="hidden lg:table-header-group">
-                  <tr className="bg-slate-50/50 text-text/40 text-[11px] uppercase tracking-widest font-bold">
-                    <th className="px-6 py-5">Format</th>
-                    <th className="px-4 py-5">Document Details</th>
-                    <th className="px-6 py-5 text-right">Manage</th>
-                  </tr>
-                </thead>
+        <div className="bg-white dark:bg-gray-900 dark:border-gray-900 shadow-xl shadow-text/5 rounded-2xl sm:rounded-3xl overflow-hidden border border-white">
+          <div className="overflow-x-auto">
+            <table className="w-full text-center border-separate border-spacing-0 flex flex-col md:table">
+              <thead className="hidden md:table-header-group ">
+                <tr className="bg-slate-50/80 dark:bg-gray-700 text-text/70 dark:text-white text-[11px] uppercase tracking-widest font-bold">
+                  <th className="px-6 py-5 border-b">Format</th>
+                  <th className="px-4 py-5 border-b">Document Details</th>
+                  <th className="px-6 py-5 border-b">Manage</th>
+                </tr>
+              </thead>
 
-                <tbody className="divide-y divide-slate-100 flex flex-col lg:table-row-group">
-                  {filteredDocs.map((doc) => (
-                    <DocumentTable
-                      key={doc.id}
-                      doc={doc}
-                      openDeleteModal={openDeleteModal}
-                    />
-                  ))}
-                </tbody>
-              </table>
+              <tbody className="divide-y divide-slate-100 flex flex-col md:table-row-group">
+                {filteredDocs.map((doc) => (
+                  <DocumentTable
+                    key={doc.id}
+                    doc={doc}
+                    openDeleteModal={openDeleteModal}
+                  />
+                ))}
+              </tbody>
+            </table>
 
-              {filteredDocs.length === 0 && (
-                <div className="py-20 lg:py-24 text-center px-4">
-                  <div className="bg-back w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-text/20">
-                    <IoSearchOutline className="size-8 sm:size-10" />
-                  </div>
-                  <h3 className="text-lg font-bold text-text">
-                    No documents found
-                  </h3>
-                  <p className="text-text/40 text-sm mt-1">
-                    Try adjusting your search filters or upload a new file.
-                  </p>
+            {filteredDocs.length === 0 && (
+              <div className="py-20 lg:py-24 text-center px-4">
+                <div className="bg-back dark:bg-gray-900 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-text/20 dark:text-gray-500">
+                  <IoSearchOutline className="size-8 sm:size-10" />
                 </div>
-              )}
-            </div>
+                <h3 className="text-lg font-bold text-text dark:text-white">
+                  No documents found
+                </h3>
+                <p className="text-text/40 text-sm mt-1 dark:text-gray-500">
+                  Try adjusting your search filters or upload a new file.
+                </p>
+              </div>
+            )}
           </div>
         </div>
+      </div>
 
-        <DeleteDialog
-          targetElement={targetDoc}
-          confirmDelete={confirmDelete}
-          closeDeleteModal={closeDeleteModal}
-          deleteModalRef={deleteModalRef}
-          isDeleting={isDeleting}
-        />
+      <DeleteDialog
+        targetElement={targetDoc}
+        confirmDelete={confirmDelete}
+        closeDeleteModal={closeDeleteModal}
+        deleteModalRef={deleteModalRef}
+        isDeleting={isDeleting}
+      />
     </motion.div>
   );
 };
