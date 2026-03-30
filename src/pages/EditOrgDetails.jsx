@@ -55,8 +55,7 @@ function EditOrgDetails() {
   };
 
   return (
-   
-    <div className="min-h-screen bg-back w-full">
+    <div className="min-h-screen w-full">
       {/* 1. Corrected max-width and centered container */}
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
@@ -66,8 +65,7 @@ function EditOrgDetails() {
           className="grid w-full gap-4 sm:gap-6 p-3 sm:p-5"
         >
           {/* Header Card: Stack on mobile (flex-col), row on tablet+ (sm:flex-row) */}
-          <div className="w-full bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-            
+          <div className="w-full bg-white dark:bg-gray-900 dark:shadow-md dark:shadow-gray-700/30 rounded-2xl shadow-sm border dark:border-none border-slate-100 p-5 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
             {/* PROFILE IMAGE SECTION: Smaller on mobile (size-24), larger on tablet (sm:size-32) */}
             <div className="relative group size-24 sm:size-32 shrink-0">
               <div
@@ -80,7 +78,7 @@ function EditOrgDetails() {
                   className="w-full h-full object-contain"
                 />
               </div>
- 
+
               {/* Edit Overlay: Added 'hidden sm:flex' if you want it desktop only, or keep as is for touch */}
               <div className="absolute inset-0 bg-black/40 rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                 <div
@@ -110,7 +108,7 @@ function EditOrgDetails() {
                 className="hidden"
               />
             </div>
- 
+
             {/* Business Info: Full width and centered on mobile */}
             <div className="w-full min-w-0">
               <h2 className="text-xl sm:text-2xl font-bold text-text capitalize tracking-tight wrap-break-word">
@@ -125,7 +123,7 @@ function EditOrgDetails() {
           <ProfileInfo key={user?._id || 'loading'} user={user} onSave={handleProfileSave} />
           <AdditionalDetails />
         </motion.div>
- 
+
         {/* POPUP MODAL */}
         <AnimatePresence>
           {isPreviewOpen && (
@@ -137,33 +135,33 @@ function EditOrgDetails() {
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="bg-white rounded-3xl shadow-2xl max-w-sm sm:max-w-md w-full overflow-hidden relative"
+                className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-sm sm:max-w-md w-full overflow-hidden relative"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Close Icon */}
                 <button
                   onClick={() => setIsPreviewOpen(false)}
-                  className="absolute top-4 right-4 z-10 bg-white/90 p-2 rounded-full text-text shadow-md border border-slate-100"
+                  className="absolute top-4 right-4 z-10 bg-white/90 p-2 rounded-full text-text shadow-md border border-slate-100 cursor-pointer"
                 >
                   <IoCloseOutline size={20} />
                 </button>
- 
-                <div className="w-full aspect-square bg-slate-50 flex items-center justify-center p-6">
+
+                <div className="w-full aspect-square bg-slate-50 dark:bg-gray-800 flex items-center justify-center p-6">
                   <img
                     src={profileImageUrl}
                     alt="Full Preview"
                     className="max-w-full max-h-full object-contain rounded-xl shadow-inner"
                   />
                 </div>
- 
+
                 <div className="p-6 text-center">
-                  <h3 className="font-bold text-text text-lg sm:text-xl mb-4 capitalize">
+                  <h3 className="font-bold text-text dark:text-white text-lg sm:text-xl mb-4 capitalize">
                     {fullname}
                   </h3>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button
                       onClick={() => setIsPreviewOpen(false)}
-                      className="order-2 sm:order-1 flex-1 py-3 px-4 bg-slate-100 text-text font-bold rounded-xl hover:bg-slate-200 transition-colors"
+                      className="order-2 sm:order-1 flex-1 py-3 px-4 bg-slate-100 text-text font-bold rounded-xl hover:bg-slate-200 transition-colors cursor-pointer"
                     >
                       Close
                     </button>
@@ -172,7 +170,7 @@ function EditOrgDetails() {
                         setIsPreviewOpen(false);
                         fileInputRef.current.click();
                       }}
-                      className="order-1 sm:order-2 flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2"
+                      className="order-1 sm:order-2 flex-1 py-3 px-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <IoCameraOutline size={18} /> Change
                     </button>
@@ -184,7 +182,6 @@ function EditOrgDetails() {
         </AnimatePresence>
       </div>
     </div>
-  
   );
 }
 

@@ -17,7 +17,7 @@ export const leadsApi = createApi({
         body: formData,
         credentials: "include",
       }),
-      invalidateTags: ["leads"],
+      invalidatesTags: ["leads"],
     }),
     addLeadForm : build.mutation({
         query : (formData) => ({

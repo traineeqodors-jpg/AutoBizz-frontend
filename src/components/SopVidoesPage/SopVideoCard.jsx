@@ -8,11 +8,14 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
 
   const viewScriptRef = useRef(null);
 
+  console.log(video);
+  
+
   const isPending = video?.videoUrl === null;
   const isFailed = video?.videoUrl === "failed";
 
   return (
-    <div className="relative max-w-70.5 min-h-70.5 flex flex-col items-center-safe gap-2 overflow-hidden rounded-2xl shadow-md/20 bg-white border border-gray-300 p-2">
+    <div className="relative max-w-70.5 min-h-70.5 flex flex-col items-center-safe gap-2 overflow-hidden rounded-2xl shadow-md/20 bg-white dark:bg-gray-800 dark:border-0 border border-gray-300 p-2">
       {/* Options btn */}
       <div
         className="absolute right-2 top-5 z-11"
@@ -22,7 +25,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
           type="button"
           className="cursor-pointer rounded-full hover:ring ring-gray-400"
         >
-          <BsThreeDotsVertical className="size-5" />
+          <BsThreeDotsVertical className="size-5 dark:text-white" />
         </button>
 
         {openMenu && (
@@ -61,7 +64,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
         </div>
       ) : isFailed ? (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 backdrop-blur-md">
-          <span className="text-red-400 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
+          <span className="text-red-400 dark:text-red-900 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
             <IoIosWarning className="size-7" />
             Failed to Generate.
           </span>
@@ -77,8 +80,8 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
 
       {video?.videoUrl !== "failed" && video?.videoUrl && (
         <div className="px-2 w-full flex flex-col gap-1 py-2">
-          <h3 className="text-sm font-semibold tracking-widest line-clamp-1 text-text/90">
-            {video?.videoUrl}...
+          <h3 className="text-sm font-semibold tracking-widest line-clamp-1 text-text/90 dark:text-white/90">
+            {video?.videoUrl}
           </h3>
         </div>
       )}

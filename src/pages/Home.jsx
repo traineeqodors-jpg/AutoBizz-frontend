@@ -30,7 +30,7 @@ const Home = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8"
+      className="min-h-screen  w-full p-3 sm:p-6 lg:p-8 "
     >
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
@@ -46,15 +46,15 @@ const Home = () => {
         <GenerateSOP />
 
         {/* Change the parent div to this */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 w-full items-stretch">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 w-full items-stretch ">
           {/* Recent Leads: Full width on mobile, 1/3 on desktop */}
-          <div className="xl:col-span-1 shadow-sm border border-gray-100 rounded-2xl bg-white overflow-hidden">
+          <div className="xl:col-span-1 shadow-sm border dark:border-0 border-gray-100 rounded-2xl bg-white dark:bg-gray-900 overflow-hidden">
             <Leads />
           </div>
 
           {/* Analytics: Full width on mobile, 2/3 on desktop */}
-          <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm p-6 flex flex-col border border-gray-100">
-            <h2 className="font-bold text-lg mb-4 text-gray-800">Analytics</h2>
+          <div className="xl:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6 flex flex-col border dark:border-0 border-gray-100">
+            <h2 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Analytics</h2>
             {/* min-h-[300px] ensures it doesn't collapse on mobile */}
             <div className="flex-1 min-h-75 md:min-h-100 w-full">
               <Analysis />

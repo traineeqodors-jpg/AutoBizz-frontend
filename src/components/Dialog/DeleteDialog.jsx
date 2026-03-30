@@ -14,7 +14,7 @@ const DeleteDialog = ({
   return (
     <dialog
       ref={deleteModalRef}
-      className="w-[90%] max-w-sm rounded-[2.5rem] bg-white m-auto p-0 overflow-hidden shadow-2xl backdrop:bg-black/40"
+       className="w-[90%] max-w-sm rounded-2xl bg-white dark:bg-gray-900 m-auto p-6 shadow-2xl backdrop:bg-black/40 dark:backdrop:bg-gray-700/40  animate-in fade-in zoom-in duration-200"
     >
       {/* Container for animation */}
       <motion.div
@@ -29,10 +29,10 @@ const DeleteDialog = ({
         </div>
 
         <div className="space-y-1 px-2">
-          <h2 className="text-xl font-bold text-text tracking-tight">Confirm Delete</h2>
+          <h2 className="text-xl font-bold text-text dark:text-white tracking-tight">Confirm Delete</h2>
           <p className="text-gray-500 text-sm leading-relaxed">
             Are you sure you want to remove <br />
-            <span className="font-bold text-text">"{displayName}"</span>?
+             <span className="font-bold text-text dark:text-gray-300"></span>
           </p>
         </div>
 
@@ -47,7 +47,7 @@ const DeleteDialog = ({
           <button
             onClick={confirmDelete}
             disabled={isDeleting}
-            className="flex-1 py-3 text-sm bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl shadow-md shadow-red-200 transition-all disabled:opacity-50 active:scale-95"
+             className="flex-1 py-3 text-sm cursor-pointer bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl shadow-md dark:shadow-none shadow-red-200 transition-all disabled:opacity-50"
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </button>

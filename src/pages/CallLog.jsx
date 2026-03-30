@@ -109,7 +109,7 @@ const CallLog = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.1 }}
-      className="min-h-screen bg-back w-full flex flex-col items-center gap-5"
+      className="min-h-screen bg-back w-full  p-3 sm:p-6 lg:p-8 relative flex flex-col items-center gap-5"
     >
     <div className="min-h-screen w-full bg-back p-3 sm:p-6 lg:p-8 relative">
       {isFetching && !isLoading && (
@@ -120,14 +120,14 @@ const CallLog = () => {
 
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header & Filters Section */}
-        <div className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm border border-white">
+        <div className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm dark:bg-gray-900 dark:border-0 border border-white">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-            <h1 className="text-2xl font-black text-text tracking-tight">
+            <h1 className="text-2xl font-black text-text tracking-tight dark:text-white ">
                   Call History
                 </h1>
  
-              <p className="text-text/40 text-sm italic font-medium">
+              <p className="text-text/40 text-sm dark:text-white/70 italic font-medium">
                 Total records: {pagination.totalItems}
               </p>
             </div>
@@ -144,7 +144,7 @@ const CallLog = () => {
             <div className="flex flex-col sm:flex-row sm:justify-evenly  items-center gap-4 pt-4 border-t border-slate-50">
               {/* From Date */}
               <div className="flex items-center gap-2">
-                <label className="text-[10px] uppercase font-black text-text/40 tracking-wider w-10">
+                <label className="text-[10px] uppercase font-black text-text/40 tracking-wider dark:text-white/70 w-10">
                   From:
                 </label>
                 <div className="relative flex items-center group">
@@ -154,7 +154,7 @@ const CallLog = () => {
                     value={filters.startDate}
                     onChange={handleDateChange}
                     onClick={(e) => e.target.showPicker()}
-                    className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
+                    className="pl-3 pr-10 py-2 bg-slate-50 dark:bg-gray-800 dark:border-0 dark:text-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
                   />
                   <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
                 </div>
@@ -162,7 +162,7 @@ const CallLog = () => {
  
               {/* To Date */}
               <div className="flex items-center gap-2">
-                <label className="text-[10px] uppercase font-black text-text/40 tracking-wider w-10">
+                <label className="text-[10px] uppercase  dark:text-white/70 font-black text-text/40 tracking-wider w-10">
                   To:
                 </label>
                 <div className="relative flex items-center group">
@@ -172,7 +172,7 @@ const CallLog = () => {
                     value={filters.endDate}
                       onClick={(e) => e.target.showPicker()}
                     onChange={handleDateChange}
-                    className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
+                    className="pl-3 pr-10 dark:bg-gray-800 dark:border-0 dark:text-white py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
                   />
                   <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
                 </div>
@@ -211,11 +211,11 @@ const CallLog = () => {
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.2 }}
                       >
-          <div className="bg-white shadow-xl shadow-text/5 rounded-3xl overflow-hidden border border-white">
+          <div className="bg-white shadow-xl shadow-text/5 dark:bg-gray-900 dark:border-0 rounded-3xl overflow-hidden border border-white">
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left border-separate border-spacing-0">
                 <thead>
-                  <tr className="bg-slate-50/50 text-text/40 text-[11px] uppercase tracking-widest font-black">
+                  <tr className="bg-slate-50/50 dark:bg-gray-700 dark:text-white text-text/40 text-[11px] uppercase tracking-widest font-black">
                     <th className="px-6 py-5">Call Detail</th>
                     <th
                       className="px-6 py-5 cursor-pointer hover:text-btn-100 transition-colors"

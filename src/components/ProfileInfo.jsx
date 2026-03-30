@@ -84,11 +84,11 @@ const ProfileInfo = ({ user, onSave }) => {
   if (!user) return null;
 
   return (
-    <div className="w-full bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
-      <div className="text-xl text-text flex gap-2 p-4 bg-gray-50 border-b justify-between items-center border-gray-200 w-full">
+    <div className="w-full bg-white dark:bg-gray-900 rounded-2xl shadow-sm overflow-hidden border border-slate-100 dark:border-none dark:shadow-sm dark:shadow-gray-700/30">
+      <div className="text-xl text-text flex gap-2 p-4 bg-gray-50 dark:bg-gray-700 border-b justify-between items-center border-gray-200 w-full">
         <div className="flex flex-row gap-3 items-center">
           <FaUser className="size-5 text-btn-100" />
-          <p className="font-bold">
+          <p className="font-bold dark:text-white">
             {isEditing ? `Edit Profile` : `Profile Info`}
           </p>
         </div>
@@ -134,7 +134,7 @@ const ProfileInfo = ({ user, onSave }) => {
           .map(([key, value]) => (
             <div
               key={key}
-              className="bg-back/40 py-2 px-4 rounded-xl flex items-center gap-3 border border-transparent focus-within:border-btn-100 min-w-0 w-full"
+              className="bg-back/40 dark:bg-gray-700 py-2 px-4 rounded-xl flex items-center gap-3 border border-transparent focus-within:border-btn-100 min-w-0 w-full"
             >
               {/* Icon - Fixed width to prevent shrinking */}
               <div className="shrink-0">
@@ -150,14 +150,14 @@ const ProfileInfo = ({ user, onSave }) => {
 
               {/* Text Container - min-w-0 is the secret fix for flex overflows */}
               <div className="flex-1 min-w-0">
-                <p className="text-text/60 text-[10px] uppercase font-bold tracking-tight">
+                <p className="text-text/60 dark:text-gray-400 text-[10px] uppercase font-bold tracking-tight">
                   {key.replace(/([A-Z])/g, " $1")}
                 </p>
 
                 {isEditing ? (
                   renderInputField(key, formFields[key])
                 ) : (
-                  <p className="font-medium text-sm sm:text-base wrap-break-words">
+                  <p className="font-medium dark:text-white text-sm sm:text-base wrap-break-words">
                     {formatDisplayValue(key, value)}
                   </p>
                 )}

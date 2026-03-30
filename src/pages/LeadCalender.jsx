@@ -142,8 +142,8 @@ const LeadCalendar = () => {
       >
         {toolbar.label}
       </motion.h3>
- 
-      <div className="flex box-border bg-back p-1 rounded-2xl gap-1 shadow-inner border border-white">
+
+      <div className="flex bg-back p-1.5 rounded-2xl gap-1 shadow-inner border border-white">
         {["month", "week", "day", "agenda"].map((v) => (
           <button
             key={v}
@@ -165,18 +165,18 @@ const LeadCalendar = () => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2 }}
-      className="min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8 relative"
+      transition={{ duration: 0.1 }}
+      className="min-h-screen w-full p-3 sm:p-6 lg:p-8 relative"
     >
       <div className="max-w-7xl mx-auto space-y-6">
         {/* If Not Connceted to Google */}
         {!isGoogleLinked && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 backdrop-blur-md p-2">
-            <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
-              <h2 className="text-xl font-bold mb-2">
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 dark:bg-gray-800/40 backdrop-blur-md p-2">
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
+              <h2 className="text-xl font-bold mb-2 dark:text-white">
                 Google Calendar Required
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 dark:text-gray-500 mb-6">
                 Link your account to manage leads and meetings.
               </p>
               <button
@@ -188,13 +188,13 @@ const LeadCalendar = () => {
             </div>
           </div>
         )}
-        <div className="h-[88vh] bg-back p-2 sm:p-10 rounded-3xl border-2 border-white shadow-2xl flex flex-col overflow-hidden">
-          <div className="flex items-center gap-5 mb-8">
+        <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white shadow-2xl flex flex-col overflow-hidden">
+          <div className="flex items-center gap-5 mb-8 p-2">
             <div className="bg-btn-100 p-4 rounded-3xl shadow-2xl shadow-cyan-500/30">
               <IoCalendarOutline className="text-white" size={28} />
             </div>
             <div>
-              <h2 className="text-3xl font-black text-text tracking-tighter leading-none">
+              <h2 className="text-3xl font-black text-text dark:text-white tracking-tighter leading-none">
                 Calendar
               </h2>
               <p className="text-[11px] font-black text-btn-100 uppercase tracking-[0.3em] mt-1.5">
@@ -202,7 +202,7 @@ const LeadCalendar = () => {
               </p>
             </div>
           </div>
- 
+
           <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-2 sm:p-8 shadow-inner border border-white/50 overflow-hidden relative">
             <AnimatePresence mode="wait" custom={direction}>
               {isLoading ? (
@@ -210,15 +210,14 @@ const LeadCalendar = () => {
                   key="loader"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{duration : 0.1}}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-50 bg-white/40 backdrop-blur-xl flex items-center justify-center"
+                  className="absolute inset-0 z-50 bg-white/40  backdrop-blur-xl flex items-center justify-center"
                 >
                   <div className="w-16 h-16 border-8 border-back border-t-btn-100 rounded-full animate-spin" />
                 </motion.div>
               ) : (
                 <motion.div
-                  key={`${view}-${date.getTime()}`}
+                  key={`${view}-${date.getTime()}`} // Unique key forces re-animation
                   custom={direction}
                   variants={viewVariants}
                   initial="initial"

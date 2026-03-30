@@ -86,34 +86,35 @@ const ContactUs = () => {
   };
  
   return (
-    <div className="min-h-screen bg-back p-4 sm:p-8 lg:p-12">
+    <div className="min-h-screen bg-back dark:bg-gray-800 p-4 sm:p-8 lg:p-12">
       <div className="max-w-5xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-text tracking-tight mb-3">
+          <h1 className="text-4xl font-bold text-text dark:text-white tracking-tight mb-3">
             Get in Touch
           </h1>
-          <p className="text-text/50 max-w-lg mx-auto">
-            Have questions about our products? Our team is here to help you 24/7.
+          <p className="text-text/50 dark:text-gray-200 max-w-lg mx-auto">
+            Have questions about our products? Our team is here to help you
+            24/7.
           </p>
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-3 xl:gap-8 space-y-5">
           {/* Contact Info Cards */}
           <div className="space-y-4">
-            <ContactInfoCard 
+            <ContactInfoCard
               icon={<IoCallOutline size={24} />}
               title="Call Us"
               detail={import.meta.env.VITE_AI_SUPPORT_NUMBER}
               subDetail="Mon-Fri, 9am - 6pm"
             />
-            <ContactInfoCard 
+            <ContactInfoCard
               icon={<IoMailOutline size={24} />}
               title="Email Us"
               detail="support@yourapp.com"
               subDetail="Online 24/7"
             />
-            <ContactInfoCard 
+            <ContactInfoCard
               icon={<IoLocationOutline size={24} />}
               title="Visit Us"
               detail="123 Tech Avenue"
@@ -122,71 +123,81 @@ const ContactUs = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-10 shadow-xl shadow-text/5 border border-white">
+          <div className="lg:col-span-2 bg-white dark:bg-gray-900 dark:border-0 rounded-3xl p-6 sm:p-10 shadow-xl shadow-text/5 border border-white">
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Full Name</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 dark:text-white ml-1">
+                    Full Name
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={input.name}
                     onChange={handleChange}
-                    className="w-full bg-back/50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
+                    className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
                     placeholder="John Doe"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Email Address</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 dark:text-white ml-1">
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={input.email}
                     onChange={handleChange}
-                    className="w-full bg-back/50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
+                    className="w-full bg-back/50 border dark:bg-gray-100 border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
                     placeholder="john@example.com"
                   />
                 </div>
                 <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Phone Number</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-text/40 dark:text-white ml-1">
+                    Phone Number
+                  </label>
                   <input
                     type="tel"
                     name="phone"
                     value={input.phone}
                     onChange={handleChange}
-                    className="w-full bg-back/50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
+                    className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Subject</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-text/40 dark:text-white ml-1">
+                  Subject
+                </label>
                 <input
                   type="text"
                   name="subject"
                   value={input.subject}
                   onChange={handleChange}
-                  className="w-full bg-back/50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
+                  className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
                   placeholder="How can we help?"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text/40 ml-1">Message</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-text/40 dark:text-white ml-1">
+                  Message
+                </label>
                 <textarea
                   name="message"
                   rows="5"
                   value={input.message}
                   onChange={handleChange}
-                  className="w-full bg-back/50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text resize-none"
+                  className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text resize-none"
                   placeholder="Type your message here..."
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full md:w-max px-8 py-4 bg-btn-100 hover:bg-btn-200 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
+                className="w-full md:w-max px-8 py-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
               >
                 Send Message
                 <IoSend />
@@ -200,12 +211,16 @@ const ContactUs = () => {
 };
  
 const ContactInfoCard = ({ icon, title, detail, subDetail }) => (
-  <div className="bg-white p-6 rounded-2xl border border-slate-50 flex items-start gap-4 hover:shadow-md transition-all">
+  <div className="bg-white dark:bg-gray-900 dark:border-0 p-6 rounded-2xl border border-slate-50 flex items-start gap-4 hover:shadow-md transition-all">
     <div className="p-3 bg-btn-100/10 text-btn-100 rounded-xl">{icon}</div>
     <div>
-      <h3 className="font-bold text-text mb-1">{title}</h3>
-      <p className="text-text text-sm font-medium">{detail}</p>
-      <p className="text-text/40 text-xs mt-1">{subDetail}</p>
+      <h3 className="font-bold text-text dark:text-slate-50 mb-1">{title}</h3>
+      <p className="text-text dark:text-slate-50 text-sm font-medium">
+        {detail}
+      </p>
+      <p className="text-text/40 dark:text-slate-50/40 text-xs mt-1">
+        {subDetail}
+      </p>
     </div>
   </div>
 );

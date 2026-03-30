@@ -51,18 +51,23 @@ function DocuementUploadDialog({ dialogRef }) {
     <>
       <dialog
         ref={dialogRef}
-        className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:bg-black/40 space-y-5"
+        className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5 backdrop:bg-black/40 dark:backdrop:bg-gray-700/40 space-y-5"
       >
         {/* Form  */}
         <form onSubmit={handleSubmit} className="w-full space-y-6 p-2">
           {/* Heading Container */}
           <div className="w-full flex flex-row-reverse">
-            <button type="button" onClick={() => {dialogRef.current?.close() , setLocalError("")}}>
-              <IoCloseSharp className="text-black size-4 cursor-pointer" />
+            <button
+              type="button"
+              onClick={() => {
+                (dialogRef.current?.close(), setLocalError(""));
+              }}
+            >
+              <IoCloseSharp className="text-black dark:text-white size-4 cursor-pointer" />
             </button>
           </div>
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-text tracking-tight">
+            <h1 className="text-3xl font-bold text-text dark:text-white tracking-tight">
               Business Document
             </h1>
             <p className="text-gray-500 mt-2">
@@ -75,7 +80,7 @@ function DocuementUploadDialog({ dialogRef }) {
           <div className="space-y-2">
             <label
               htmlFor="files"
-              className="block w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-500 cursor-pointer hover:bg-gray-100 transition-all"
+              className="block w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-white cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-all"
             >
               {/* This text will always be visible */}
               {docFile ? docFile?.name : "Click to upload a file"}
@@ -85,11 +90,11 @@ function DocuementUploadDialog({ dialogRef }) {
               type="file"
               id="files"
               className="hidden" // Hides the ugly default input
-             
               accept=".pdf, .doc, .docx"
-              onChange={(e) => {setDocFile(e.target.files[0]);
-                  setLocalError("");}
-              }
+              onChange={(e) => {
+                setDocFile(e.target.files[0]);
+                setLocalError("");
+              }}
             />
           </div>
 
@@ -99,11 +104,11 @@ function DocuementUploadDialog({ dialogRef }) {
               <p className="text-sm font-medium">{localError}</p>
             </div>
           )}
-          <button 
-          disabled={docuementLoading}
-          className={`${docuementLoading ? "opacity-80" : "opacity-100"} w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}>
-           
-           {docuementLoading ? "Uploading .." : "Upload" } 
+          <button
+            disabled={docuementLoading}
+            className={`${docuementLoading ? "opacity-80" : "opacity-100"} w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
+          >
+            {docuementLoading ? "Uploading .." : "Upload"}
           </button>
         </form>
       </dialog>

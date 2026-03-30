@@ -8,6 +8,8 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 
 
@@ -23,6 +25,7 @@
   --color-btn-50: #00c7d1;
   --color-btn-100: #00adb5;
   --color-btn-200: #00969e;
+  --color-btn-300: #007980;
   --color-text: #393e46;
   --color-sidebar: #edfeff;
 }

@@ -11,13 +11,15 @@ const MobileLeadsView = ({ lead, openDeleteModal }) => {
   return (
     <>
       <div className="md:hidden flex flex-col gap-4">
-        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-500 shadow-sm space-y-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-gray-50 text-btn-100 rounded-xl">
                 <FaUser className="size-5" />
               </div>
-              <p className="font-bold text-text text-sm">{lead?.name}</p>
+              <p className="font-bold text-text dark:text-white text-sm">
+                {lead?.name}
+              </p>
             </div>
             <span
               className={`px-2 py-1 rounded-lg text-[8px] font-bold uppercase ${leadStatus === "Hot" && "bg-red-100 text-red-600"}
@@ -26,18 +28,18 @@ const MobileLeadsView = ({ lead, openDeleteModal }) => {
               {leadStatus}
             </span>
           </div>
-          <div className="flex justify-between flex-wrap text-xs text-gray-500 px-1 font-medium gap-3">
+          <div className="flex justify-between flex-wrap text-xs text-gray-500 dark:text-gray-400 px-1 font-medium gap-3">
             <span>{lead?.company}</span>
             <span className="font-bold">Score : {lead?.confidence_score}</span>
           </div>
-          <div className="flex justify-between flex-wrap text-xs text-gray-500 px-1 font-medium gap-3">
+          <div className="flex justify-between flex-wrap text-xs text-gray-500 dark:text-gray-400 px-1 font-medium gap-3">
             <span>{lead?.phone}</span>
             <span>{lead?.email}</span>
           </div>
 
           <button
             onClick={() => openDeleteModal(lead?.id)}
-            className="w-full flex items-center justify-center gap-2 py-3 bg-red-50 text-red-600 font-bold rounded-xl text-xs active:scale-95 transition-all cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-red-50 dark:bg-gray-700 text-red-600 font-bold rounded-xl text-xs active:scale-95 transition-all cursor-pointer"
           >
             <IoTrashOutline /> Delete
           </button>

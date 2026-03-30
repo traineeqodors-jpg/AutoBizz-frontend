@@ -11,11 +11,14 @@ function Leads() {
   });
 
   const leads = data?.data?.leads || [];
+  
 
   return (
-    <div className="bg-white w-full h-full rounded-2xl p-5">
+    <div className="bg-white dark:bg-gray-900 w-full h-full rounded-2xl p-5">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="font-bold text-gray-800 text-lg">Recent Leads</h3>
+        <h3 className="font-bold text-gray-800 dark:text-white text-lg">
+          Recent Leads
+        </h3>
         <Link
           to="/leads"
           className="text-blue-600 text-sm font-medium hover:underline"
@@ -30,8 +33,8 @@ function Leads() {
         ) : (
           leads.map((lead) => (
             <div
-              key={lead?._id || lead?.id}
-              className="flex sm:flex-row flex-col flex-wrap  gap-4 justify-between items-baseline p-3 hover:bg-gray-50 rounded-xl transition-colors border border-transparent hover:border-gray-100"
+              key={lead._id || lead.id}
+              className="flex sm:flex-row flex-col flex-wrap  gap-4 justify-between items-baseline p-3 hover:bg-gray-50 dark:hover:bg-gray-500 rounded-xl transition-colors border border-transparent hover:border-gray-100"
             >
               <div className="flex items-center gap-3 justify-evenly">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
@@ -39,11 +42,11 @@ function Leads() {
                   {lead?.name?.split(" ")[1]?.charAt(0) || "L"}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">
-                    {lead?.name || "Unknown"}
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {lead.name || "Unknown"}
                   </p>
-                  <p className="text-xs text-gray-500 font-medium">
-                    {lead?.email}
+                  <p className="text-xs text-gray-500 dark:text-white font-medium">
+                    {lead.email}
                   </p>
                 </div>
               </div>
