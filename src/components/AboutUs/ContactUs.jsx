@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   IoMailOutline,
   IoCallOutline,
@@ -20,8 +20,8 @@ const ContactUs = () => {
     orgId : 0
   });
  
-  const[addForm , {isLoading : formLoading}] = useAddLeadFormMutation()
-  const { data, isLoading} = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")})
+  const[addForm ] = useAddLeadFormMutation()
+  const { data} = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")})
   const orgId = data?.data?.id
 
  
@@ -52,7 +52,7 @@ const ContactUs = () => {
     }
  
     // 3. Phone Validation (Login Style)
-    const phoneRegex = /^[0-9\+]{10,15}$/;
+    const phoneRegex = /^[0-9]{10,15}$/;
     if (!phoneRegex.test(input.phone)) {
       return toast.error("Please enter a valid phone number");
     }
@@ -62,9 +62,8 @@ const ContactUs = () => {
       return toast.error("Message must be at least 10 characters long");
     }
  
-  
-      input.orgId = orgId ? orgId : 0;
-
+      
+    setInput({...input , orgId : orgId ? orgId : 0})
 
       // Success Logic
       console.log("Contact Form Data:", input);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -45,7 +45,7 @@ const ResetPasswordPage = () => {
 
     // Password REGEX Validation
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*_\-])[a-zA-Z0-9!@#$%^&*_\-]{7,}$/;
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,}$/;
 
     if (!passwordRegex.test(input.newPassword)) {
       return setPasswordError(

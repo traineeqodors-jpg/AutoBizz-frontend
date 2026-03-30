@@ -11,7 +11,7 @@ export const meetingsApi = createApi({
     
     // Fetch all meetings for an organization
     getAllMeetings: builder.query({
-      query: (params) => ({
+      query: () => ({
         url: "/",
         method: "GET",
 

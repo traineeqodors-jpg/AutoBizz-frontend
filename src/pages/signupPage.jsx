@@ -4,6 +4,7 @@ import FormLeftSIde from "../components/FormLeftSIde";
 import SignupForm from "../components/SignupForm";
 import { orgApi, useRegisterOrgMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const [input, setInput] = useState({
@@ -22,6 +23,7 @@ const SignupPage = () => {
   const [register, { isLoading }] = useRegisterOrgMutation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   //   Handling Input Chnage
   const handleChange = (e) => {
@@ -98,7 +100,7 @@ const SignupPage = () => {
 
     // Password REGEX Validation
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*_\-])[a-zA-Z0-9!@#$%^&*_\-]{7,}$/;
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,}$/;
 
     if (!passwordRegex.test(input.password)) {
       return setPasswordError(

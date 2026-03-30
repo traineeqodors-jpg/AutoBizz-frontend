@@ -1,11 +1,11 @@
-import React from "react";
+
 import { IoCallOutline, IoEyeSharp, IoTrashOutline } from "react-icons/io5";
 
 const CallLogTable = ({ log, openDeleteModal, setSelectedLog }) => {
   return (
     <tr
       key={log.id}
-      className="bg-white hover:shadow-md transition-all group border border-gray-100 cursor-default"
+      className="bg-white  transition-all group border border-gray-100 cursor-default"
     >
       <td className="px-6 py-5 rounded-l-3xl border-y border-l border-gray-100">
         <div className="flex items-center gap-3">

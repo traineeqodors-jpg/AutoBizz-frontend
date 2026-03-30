@@ -1,9 +1,9 @@
-import React from "react";
+
 import { HiOutlinePhoneIncoming } from "react-icons/hi";
 
 const SupportCard = () => {
   return (
-    <div className="h-40 w-full bg-white rounded-2xl shadow-md/10 p-5 flex flex-col justify-between border border-gray-100 group hover:shadow-lg transition-all duration-300">
+    <div className="h-40 w-full bg-white rounded-2xl shadow-md/10 p-5 flex flex-col justify-between border border-gray-100 group hover:shadow-lg">
       {/* Top Section: Matches "Organization Details" header style */}
       <div className="flex items-start justify-between">
         <div className="space-y-1">
@@ -20,7 +20,7 @@ const SupportCard = () => {
         </div>
 
         {/* Icon container matches your existing dashboard accenting */}
-        <div className="p-2.5 bg-gray-50 rounded-xl text-btn-100 group-hover:bg-btn-100/10 transition-colors">
+        <div className="p-2.5 bg-gray-50 rounded-xl text-btn-100 group-hover:bg-btn-100/10 ">
           <HiOutlinePhoneIncoming size={20} />
         </div>
       </div>
@@ -31,7 +31,7 @@ const SupportCard = () => {
           Direct Support Line
         </p>
         {/* The Number: Bold and Clear like your Business Name display */}
-        <div className="w-full py-2.5 px-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-start group-hover:border-btn-100/20 transition-colors">
+        <div className="w-full py-2.5 px-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-start group-hover:border-btn-100/20 ">
           <span className="text-text sm:text-xl text-mb  font-bold tracking-wider">
             {import.meta.env.VITE_AI_SUPPORT_NUMBER}
           </span>

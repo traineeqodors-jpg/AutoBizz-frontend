@@ -1,16 +1,15 @@
-import { FaCalendarAlt, FaGoogle, FaHome } from "react-icons/fa";
+import { FaCalendarAlt, FaHome } from "react-icons/fa";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   useGetMeQuery,
-  useGoogleTokenMutation,
   useLogoutMutation,
 } from "../features/slices/orgSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
-import { useGoogleLogin } from "@react-oauth/google";
+
  
 const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
@@ -19,22 +18,16 @@ const Sidebar = () => {
  
   const {
     data,
-    isLoading: userLoading,
-    isFetching,
+ 
+    
   } = useGetMeQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
   });
  
-  const [googleToken, { isLoading: gooleLoading, isSuccess }] =
-    useGoogleTokenMutation();
- 
-  if (userLoading) {
-    return null;
-  }
- 
+
   const user = data?.data;
  
-  // Handle Logout
+ 
   const handleLogout = async () => {
     try {
       const response = await logout().unwrap();
@@ -43,29 +36,12 @@ const Sidebar = () => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally.");
+      console.warn("Server logout failed, cleaning up locally." , error);
     }
   };
  
-  const showGoogleOverlay = user && user.googleRefreshToken === null;
  
-  // Login with google
-  const handleGoogleLogin = useGoogleLogin({
-    onSuccess: async (response) => {
-      try {
-        console.log("Send this to BackEnd : ", response.code);
-        const res = await googleToken(response.code).unwrap();
-        toast.success(res?.message);
-      } catch (error) {
-        toast.error(error?.data?.message);
-      }
-    },
-    flow: "auth-code",
-    scope: "https://www.googleapis.com/auth/calendar.events",
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+
  
   return (
     <>

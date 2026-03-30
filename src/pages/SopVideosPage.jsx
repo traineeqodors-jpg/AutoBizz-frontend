@@ -8,6 +8,8 @@ import {
 import SearchFIlterVideos from "../components/SopVidoesPage/SearchFIlterVideos";
 import GenerateSOP from "../components/Home/Sop/GenerateSOP";
 import { toast } from "react-toastify";
+
+
 import { motion } from "framer-motion";
 
 const SopVideosPage = () => {

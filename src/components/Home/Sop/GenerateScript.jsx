@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import  { useState } from "react";
 import { GrMagic } from "react-icons/gr";
 import { IoCloseSharp } from "react-icons/io5";
 import {
@@ -7,12 +6,10 @@ import {
   IoMdDocument,
   IoMdCheckmarkCircleOutline,
 } from "react-icons/io";
-import { toast } from "react-toastify";
 import { FaExclamationCircle } from "react-icons/fa";
- 
+
 function GenerateScript({
   genScriptRef,
-  handleScriptGeneration,
   documents,
   genVideoRef,
   script,
@@ -70,8 +67,12 @@ function GenerateScript({
       activeRequestRef.current = promise;
 
       const response = await promise.unwrap();
+      console.log(response);
+
       setVideoScript(response?.data);
     } catch (error) {
+      console.log(error);
+
       // Check if the error was a manual cancellation
       if (error.name === "AbortError" || error.status === "FETCH_ERROR") {
         console.log("Request was cancelled");
@@ -84,19 +85,23 @@ function GenerateScript({
     } finally {
       activeRequestRef.current = null;
     }
-
-    // Add your ragRetrieval call here
   }
 
   return (
     <dialog
       ref={genScriptRef}
-      className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:bg-text/40 space-y-5 hideScrollBar"
+      className="w-lg rounded-3xl bg-back m-auto p-5 backdrop:bg-text/40 space-y-5"
     >
       <form className="w-full space-y-6 p-2" onSubmit={handleScriptGeneration}>
         {/* Heading Container */}
-        <div className="w-full flex flex-row-reverse hideScrollBar">
-          <button onClick={() => genScriptRef.current?.close()} type="button">
+        <div className="w-full flex flex-row-reverse">
+          <button
+            onClick={() => {
+              // Close the dialog
+              genScriptRef.current?.close();
+            }}
+            type="button"
+          >
             <IoCloseSharp className="text-black size-4 cursor-pointer" />
           </button>
         </div>
@@ -247,6 +252,5 @@ function GenerateScript({
     </dialog>
   );
 }
- 
+
 export default GenerateScript;
- 

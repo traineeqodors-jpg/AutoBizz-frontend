@@ -5,8 +5,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import FormLeftSIde from "../components/FormLeftSIde";
 import SocialLogin from "../components/SocialLogin";
-import { orgApi, useLoginOrgMutation } from "../features/slices/orgSlice";
-import { useDispatch } from "react-redux";
+import {  useLoginOrgMutation } from "../features/slices/orgSlice";
+
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const [login, { isLoading }] = useLoginOrgMutation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+ 
 
   //   Handling Input Chnage
   const handleChange = (e) => {

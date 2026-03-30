@@ -1,53 +1,36 @@
-import React, { useRef, useState } from "react";
-import { IoLogOut, IoMenu } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
-import {
-  orgApi,
-  useGetMeQuery,
-  useLogoutMutation,
-} from "../features/slices/orgSlice";
- 
+import { useState } from "react";
+import { IoMenu } from "react-icons/io5";
+
+import { useGetMeQuery } from "../features/slices/orgSlice";
+
 import MobileSideBar from "./MobileSideBar";
- 
+
 const Navbar = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const token = localStorage.getItem("token");
- 
+
   const {
-    data,
+    
     isLoading: userLoading,
-    isFetching,
+   
   } = useGetMeQuery(undefined, {
     skip: !token,
   });
- 
+
   if (userLoading) {
     return null;
   }
- 
-  const user = data?.data;
- 
-  // const handleLogout = async () => {
-  //   try {
-  //     await logout().unwrap();
-  //   } catch (error) {
-  //     console.warn("Server logout failed, cleaning up locally.");
-  //   } finally {
-  //     localStorage.removeItem("token");
- 
-  //     dispatch(orgApi.util.resetApiState());
- 
-  //     toast.success("Logged out successfully");
-  //   }
-  // };
- 
+
+
+
+
   return (
     <>
       <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center-safe bg-back/20 border-b border-gray-300 relative">
         <div>
           <img src="/autoBizz.png" alt="Logo" className="size-20" />
         </div>
- 
+
         {/* Menu Buttons */}
         <div className="flex justify-center-safe items-center-safe gap-7 text-lg">
           {/* <button
@@ -62,7 +45,7 @@ const Navbar = () => {
               Login
             </NavLink>
           )} */}
- 
+
           <button
             onClick={() => setIsDialogOpen(!isDialogOpen)}
             className="decoration-2 underline-offset-2 hover:translate-y-0.5 transition-all cursor-pointer"
@@ -70,7 +53,7 @@ const Navbar = () => {
             <IoMenu className="size-8" />
           </button>
         </div>
- 
+
         {/* Mobile Menu */}
         {/* {isOpen && (
           <ul className="w-full flex flex-col sm:hidden absolute top-full left-0 bg-black/60 backdrop-blur-xs gap-5 p-5 text-center rounded-b-xl text-white">
@@ -114,7 +97,7 @@ const Navbar = () => {
             )}
           </ul>
         )} */}
- 
+
         {/* Mobile SideBar */}
         {isDialogOpen && (
           <MobileSideBar
@@ -126,6 +109,5 @@ const Navbar = () => {
     </>
   );
 };
- 
+
 export default Navbar;
- 

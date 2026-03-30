@@ -7,6 +7,7 @@ import { store } from "./store/store.js";
 import { Bounce, ToastContainer } from "react-toastify";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+
 createRoot(document.getElementById("root")).render(
   <>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>

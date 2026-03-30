@@ -8,6 +8,8 @@ import {
 import { useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoCloseOutline, IoCameraOutline } from "react-icons/io5";
+
+
 import { motion, AnimatePresence } from "framer-motion";
 
 function EditOrgDetails() {
@@ -16,6 +18,8 @@ function EditOrgDetails() {
   const fileInputRef = useRef(null);
 
   const handleImageChange = async (event) => {
+
+   
     const file = event.target.files?.[0];
     if (!file) return;
     const formData = new FormData();
@@ -109,7 +113,7 @@ function EditOrgDetails() {
  
             {/* Business Info: Full width and centered on mobile */}
             <div className="w-full min-w-0">
-              <h2 className="text-xl sm:text-2xl font-bold text-text capitalize tracking-tight break-words">
+              <h2 className="text-xl sm:text-2xl font-bold text-text capitalize tracking-tight wrap-break-word">
                 {businessName}
               </h2>
               <span className="inline-block mt-1 bg-green-50 border border-green-100 px-3 py-1 uppercase tracking-widest font-bold text-[10px] text-green-600 rounded-lg">
@@ -118,7 +122,7 @@ function EditOrgDetails() {
             </div>
           </div>
  
-          <ProfileInfo user={user} onSave={handleProfileSave} />
+          <ProfileInfo key={user?._id || 'loading'} user={user} onSave={handleProfileSave} />
           <AdditionalDetails />
         </motion.div>
  

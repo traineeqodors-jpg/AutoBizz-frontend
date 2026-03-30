@@ -1,16 +1,16 @@
-import React, { useMemo, useState, useCallback } from "react";
+import  { useMemo, useState, useCallback } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
-  IoVideocam,
+  
   IoChevronBack,
   IoChevronForward,
   IoCalendarOutline,
-  IoPersonOutline,
-  IoTodayOutline,
 } from "react-icons/io5";
 import { useGetAllMeetingsQuery } from "../features/slices/meetingSlice";
+
+
 import { motion, AnimatePresence } from "framer-motion";
 import {
   useGetMeQuery,
@@ -39,7 +39,7 @@ const viewVariants = {
     opacity: 0,
     x: direction > 0 ? -50 : 50,
     filter: "blur(10px)",
-    transition: { duration: 0.2 },
+    transition: { duration: 0.1 },
   }),
 };
  
@@ -51,7 +51,7 @@ const LeadCalendar = () => {
   
     const { data, isLoading } = useGetAllMeetingsQuery(undefined , {skip : !isGoogleLinked});
  
-  const [googleToken, { isLoading: googleLoading }] = useGoogleTokenMutation();
+  const [googleToken] = useGoogleTokenMutation();
  
   // Track state to trigger animations on change
   const [view, setView] = useState("month");
@@ -70,21 +70,21 @@ const LeadCalendar = () => {
     }));
   }, [data]);
  
-  // Handle Navigation with Direction
+  
   const onNavigate = useCallback((newDate, action) => {
     if (action === "PREV") setDirection(-1);
     else if (action === "NEXT") setDirection(1);
-    else setDirection(0); // Today
+    else setDirection(0); 
     setDate(newDate);
   }, []);
  
-  // Handle View Change
+  
   const onView = useCallback((newView) => {
-    setDirection(0); // Reset direction for view jump
+    setDirection(0); 
     setView(newView);
   }, []);
  
-  // Login with google
+  
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (response) => {
       try {
@@ -135,7 +135,9 @@ const LeadCalendar = () => {
       <motion.h3
         key={toolbar.label}
         initial={{ y: -10, opacity: 0 }}
+        transition={{duration : 0.1}}
         animate={{ y: 0, opacity: 1 }}
+        
         className="text-sm font-black uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
       >
         {toolbar.label}
@@ -163,7 +165,7 @@ const LeadCalendar = () => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.2 }}
       className="min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8 relative"
     >
       <div className="max-w-7xl mx-auto space-y-6">
@@ -208,6 +210,7 @@ const LeadCalendar = () => {
                   key="loader"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
+                  transition={{duration : 0.1}}
                   exit={{ opacity: 0 }}
                   className="absolute inset-0 z-50 bg-white/40 backdrop-blur-xl flex items-center justify-center"
                 >
@@ -215,7 +218,7 @@ const LeadCalendar = () => {
                 </motion.div>
               ) : (
                 <motion.div
-                  key={`${view}-${date.getTime()}`} // Unique key forces re-animation
+                  key={`${view}-${date.getTime()}`}
                   custom={direction}
                   variants={viewVariants}
                   initial="initial"

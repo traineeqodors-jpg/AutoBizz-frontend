@@ -5,6 +5,8 @@ import SupportCard from "../components/Home/SupportCard";
 import OrgCard from "../components/Home/OrgCard";
 import Analysis from "../components/AnalysisGraphs/Analysis";
 import Leads from "../components/Leads";
+
+
 import { motion } from "framer-motion"; // Ensure correct import
 
 const Home = () => {

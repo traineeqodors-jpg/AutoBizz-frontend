@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import  { useRef } from "react";
+import { FaEdit} from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
-import { IoCloseSharp } from "react-icons/io5";
+
 import { useNavigate } from "react-router-dom";
-import { useUploadDocumentsMutation } from "../../features/slices/documentSlice";
-import { toast } from "react-toastify";
+
 import DocuementUploadDialog from "../DocuementUploadDialog";
 
 const OrgInfo = ({ user }) => {
@@ -18,11 +17,11 @@ const OrgInfo = ({ user }) => {
   return (
     <div className="w-full shadow-md/10 rounded-2xl bg-white flex flex-col gap-2 sm:flex-row justify-between">
       <div className="w-full shadow-md/10 rounded-2xl p-5 bg-white flex sm:flex-row flex-col gap-3 justify-between self-start">
-        <h2 className="md:text-2xl lg:text-xl text-lg font-semibold text-text">
+        <div className="md:text-2xl lg:text-xl text-lg font-semibold text-text">
           <p className="flex sm:gap-3 gap-1 items-center flex-wrap">
-            <h1 className="text-xl sm:text-2xl font-black text-text tracking-tight">
+            <span className="text-xl sm:text-2xl font-black text-text tracking-tight">
               Welcome {fullname ?? "User"}
-            </h1>
+            </span>
             <FaEdit
               className="text-btn-200 hover:scale-105 cursor-pointer"
               onClick={() => navigate("/orgprofile")}
@@ -34,7 +33,7 @@ const OrgInfo = ({ user }) => {
               {user?.businessName}
             </span>
           </p>
-        </h2>
+        </div>
         <button
           type="button"
           onClick={() => dialogRef.current?.showModal()}

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { IoClose } from 'react-icons/io5';
 
 const DetailModal = ({setSelectedLog , selectedLog}) => {
@@ -29,7 +29,6 @@ const DetailModal = ({setSelectedLog , selectedLog}) => {
                 {selectedLog.transcript ? (
                   selectedLog.transcript.split("\n").map((line, index) => {
                     const isUser = line.startsWith("User:");
-                    const isAI = line.startsWith("AI:");
                     const message = line.replace(/^(User:|AI:)\s*/, "");
 
                     return (

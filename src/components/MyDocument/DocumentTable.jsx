@@ -1,5 +1,3 @@
-
-
 import {
   FaTrash,
   FaExternalLinkAlt,
@@ -8,8 +6,6 @@ import {
   FaFilePowerpoint,
   FaFileAlt,
 } from "react-icons/fa";
-
-
 
 const DocumentTable = ({ doc, openDeleteModal }) => {
   const getFileIcon = (type) => {
@@ -51,13 +47,15 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
     "Untitled Document";
 
   return (
-    <tr className="flex flex-col lg:table-row group hover:bg-slate-50/80 transition-all duration-200 border-b border-gray-100 lg:border-gray-50 last:border-0 p-4 lg:p-0">
-      <td className="px-0 lg:px-6 py-2 lg:py-4 flex justify-between items-center lg:table-cell">
-        <div className={`p-3 rounded-2xl w-fit text-2xl shadow-sm ${color}`}>
+    <tr className="flex flex-col md:table-row group hover:bg-slate-50/80 transition-all duration-200 border-b border-gray-100 md:border-gray-50 last:border-0 p-4 md:p-0">
+      <td className="px-0 md:px-6 py-2 md:py-4 flex justify-between items-center md:table-cell">
+        <div
+          className={`p-3 rounded-2xl w-fit text-2xl shadow-sm ${color} md:mx-auto`}
+        >
           {icon}
         </div>
 
-        <div className="flex lg:hidden gap-3">
+        <div className="flex md:hidden gap-3">
           <a
             href={`${import.meta.env.VITE_BACKEND_URL}${doc?.docUrl}`}
             target="_blank"
@@ -75,12 +73,16 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
         </div>
       </td>
 
-      <td className="px-0 lg:px-4 py-2 lg:py-4">
+      <td className="px-0 md:px-4 py-2 md:py-4 ">
         <div className="flex flex-col">
-          <span className="text-[15px] font-bold text-text group-hover:text-btn-100 transition-colors truncate max-w-62.5 sm:max-w-xs lg:max-w-md">
+          <a
+            href={`${import.meta.env.VITE_BACKEND_URL}${doc?.docUrl}`}
+            target="_blank"
+            className="text-[15px] font-bold text-text group-hover:text-btn-100 transition-colors truncate text-left md:text-center"
+          >
             {cleanName}
-          </span>
-          <div className="flex items-center gap-2 mt-1">
+          </a>
+          <div className="flex items-center gap-2 mt-1 md:mx-auto">
             <span
               className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${color} bg-opacity-20`}
             >
@@ -93,8 +95,8 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
         </div>
       </td>
 
-      <td className="hidden lg:table-cell px-6 py-4 text-right">
-        <div className="flex justify-end gap-3 transition-opacity duration-300">
+      <td className="hidden md:table-cell px-6 py-4 text-right">
+        <div className="flex justify-end gap-3 transition-opacity duration-300 md:justify-center-safe">
           <a
             href={`${import.meta.env.VITE_BACKEND_URL}${doc?.docUrl}`}
             target="_blank"

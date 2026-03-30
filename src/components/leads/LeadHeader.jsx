@@ -1,11 +1,11 @@
 import { Upload } from "lucide-react";
-import React from "react";
+
 
 function LeadHeader({ handleFileUpload, fileName }) {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-white">
       <div>
-         <h1 className="text-2xl font-blacl text-text tracking-tight">
+         <h1 className="text-2xl font-black text-text tracking-tight">
            Lead Management
           </h1>
         <p className="text-sm text-text/50 font-medium">

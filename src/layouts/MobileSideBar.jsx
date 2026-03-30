@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef } from "react";
 import { FaHome } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
+import { toast } from "react-toastify";
  
 const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   const dialogRef = useRef(null);
@@ -41,7 +42,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally.");
+      console.warn("Server logout failed, cleaning up locally." , error);
     }
   };
  

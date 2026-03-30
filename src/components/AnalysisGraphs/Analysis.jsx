@@ -2,13 +2,13 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { useState } from "react";
 import { Data } from "../../JSON data/data.js";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar} from "react-chartjs-2";
 
 Chart.register(CategoryScale);
 
 
 function Analysis() {
-    const [chartData, setChartData] = useState({
+    const [chartData] = useState({
       labels: Data.map((data) => data.month),
       datasets: [
         {

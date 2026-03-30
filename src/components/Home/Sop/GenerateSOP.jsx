@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GrMagic } from "react-icons/gr";
 import { useGenerateVideoMutation } from "../../../features/slices/videoGenerationSlice";
 import { useGetMyDocumentsQuery } from "../../../features/slices/documentSlice";
-import {useGenerateScriptMutation} from "../../../features/slices/scriptGenerationSlice"
+import { useGenerateScriptMutation } from "../../../features/slices/scriptGenerationSlice";
 import GenerateVideo from "./GenerateVideo";
 import GenerateScript from "./GenerateScript";
 import { toast } from "react-toastify";
@@ -10,17 +10,15 @@ import { toast } from "react-toastify";
 function GenerateSOP() {
   const [aiContext, setAiContext] = useState(null);
 
+  const [script, { isLoading, isFetching }] = useGenerateScriptMutation();
 
-  const [script, { isLoading, isFetching, }] = useGenerateScriptMutation();
+  const activeRequestRef = useRef(null);
 
-
-
-  const { data, isLoading: docsLoading } = useGetMyDocumentsQuery(undefined, {
+  const { data } = useGetMyDocumentsQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
-  }); //fetch documents
+  }); 
 
   const documents = data?.data || [];
- 
 
   const [generateVideo, { isLoading: videoLoading }] =
     useGenerateVideoMutation();
@@ -31,12 +29,23 @@ function GenerateSOP() {
 
   const genScriptRef = useRef(null);
 
+  useEffect(() => {
+
+    const currentRequest = activeRequestRef.current;
+
+    return () => {
+      if(currentRequest){
+          currentRequest.abort()
+      }
+     
+    };
+  }, []);
 
   async function handleSOPVideoGeneration(e) {
     e.preventDefault();
     try {
-      const response = await generateVideo(videoScript).unwrap();
-      toast.success("Generating your SOP Video")
+       await generateVideo(videoScript).unwrap();
+      toast.success("Generating your SOP Video");
       genVideoRef.current?.close();
     } catch (err) {
       console.error("Failed to generate video:", err);
@@ -60,6 +69,7 @@ function GenerateSOP() {
         aiContext={aiContext}
         setAiContext={setAiContext}
         setVideoScript={setVideoScript}
+        activeRequestRef={activeRequestRef}
       />
 
       <GenerateVideo
@@ -70,6 +80,7 @@ function GenerateSOP() {
         videoScript={videoScript}
         setVideoScript={setVideoScript}
         videoLoading={videoLoading}
+        activeRequestRef={activeRequestRef}
         handleSOPVideoGeneration={handleSOPVideoGeneration}
       />
     </div>

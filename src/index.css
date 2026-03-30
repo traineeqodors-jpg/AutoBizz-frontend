@@ -13,29 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 } */
 /* Force the calendar icon to be visible and black */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: block !important;
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: auto;
-    /* This makes the icon visible and black on light backgrounds */
-    filter: invert(0) brightness(1); 
-    opacity: 1 !important;
-    margin-right: 12px;
-}
+
 
 /* For browsers that support mask-image (Safari/Chrome) */
-input[type="date"] {
-    position: relative;
-    appearance: none;
-    -webkit-appearance: none;
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
 }
 
 

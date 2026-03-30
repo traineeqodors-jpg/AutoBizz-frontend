@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import {
   useDeleteCallLogMutation,
@@ -14,6 +14,8 @@ import DeleteDialog from "../components/Dialog/DeleteDialog";
 import LoadingElement from "../components/LoadingElement";
 import DetailModal from "../components/CallLog/DetailModal";
 import { FaRegCalendarAlt } from "react-icons/fa";
+
+
 import { motion , AnimatePresence} from "framer-motion";
 
 const CallLog = () => {
@@ -106,7 +108,7 @@ const CallLog = () => {
      <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.1 }}
       className="min-h-screen bg-back w-full flex flex-col items-center gap-5"
     >
     <div className="min-h-screen w-full bg-back p-3 sm:p-6 lg:p-8 relative">
@@ -139,51 +141,53 @@ const CallLog = () => {
           </div>
 
           {/* Date Filter Bar */}
-          <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-50">
-            {/* From Date */}
-            <div className="flex items-center gap-2">
-              <label className="text-[10px] uppercase font-black text-text/40 tracking-wider">
-                From:
-              </label>
-              <div className="relative flex items-center group">
-                <input
-                  type="date"
-                  name="startDate"
-                  value={filters.startDate}
-                  onChange={handleDateChange}
-                  className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
-                />
-                <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
+            <div className="flex flex-col sm:flex-row sm:justify-evenly  items-center gap-4 pt-4 border-t border-slate-50">
+              {/* From Date */}
+              <div className="flex items-center gap-2">
+                <label className="text-[10px] uppercase font-black text-text/40 tracking-wider w-10">
+                  From:
+                </label>
+                <div className="relative flex items-center group">
+                  <input
+                    type="date"
+                    name="startDate"
+                    value={filters.startDate}
+                    onChange={handleDateChange}
+                    onClick={(e) => e.target.showPicker()}
+                    className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
+                  />
+                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
+                </div>
               </div>
-            </div>
-
-            {/* To Date */}
-            <div className="flex items-center gap-2">
-              <label className="text-[10px] uppercase font-black text-text/40 tracking-wider">
-                To:
-              </label>
-              <div className="relative flex items-center group">
-                <input
-                  type="date"
-                  name="endDate"
-                  value={filters.endDate}
-                  onChange={handleDateChange}
-                  className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
-                />
-                <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
+ 
+              {/* To Date */}
+              <div className="flex items-center gap-2">
+                <label className="text-[10px] uppercase font-black text-text/40 tracking-wider w-10">
+                  To:
+                </label>
+                <div className="relative flex items-center group">
+                  <input
+                    type="date"
+                    name="endDate"
+                    value={filters.endDate}
+                      onClick={(e) => e.target.showPicker()}
+                    onChange={handleDateChange}
+                    className="pl-3 pr-10 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
+                  />
+                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
+                </div>
               </div>
+ 
+              {/* Clear Button */}
+              {(filters.startDate || filters.endDate) && (
+                <button
+                  onClick={clearDateFilters}
+                  className="text-[10px] font-black uppercase text-red-500 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
+                >
+                  Clear Dates
+                </button>
+              )}
             </div>
-
-            {/* Clear Button */}
-            {(filters.startDate || filters.endDate) && (
-              <button
-                onClick={clearDateFilters}
-                className="text-[10px] font-black uppercase text-red-500 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
-              >
-                Clear Dates
-              </button>
-            )}
-          </div>
         </div>
 
         {logs.length === 0 ? (

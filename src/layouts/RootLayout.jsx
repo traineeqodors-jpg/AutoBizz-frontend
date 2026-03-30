@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Navigate, Outlet, useNavigate, useNavigation } from "react-router-dom";
+
+import {  Outlet, useNavigation } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import LoadingElement from "../components/LoadingElement";
-import MobileSideBar from "./MobileSideBar";
+
 import AIChat from "../components/AIChat";
 import { useGetMeQuery } from "../features/slices/orgSlice";
 

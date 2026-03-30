@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import cookies from "js-cookie";
+
 
 export const orgDetailsApi = createApi({
   reducerPath: "orgDetailsApi",
