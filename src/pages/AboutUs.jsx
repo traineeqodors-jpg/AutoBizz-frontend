@@ -36,20 +36,34 @@ const AboutUs = () => {
 
 
 /* TEAM AVATAR COMPONENT */
-const TeamAvatar = ({ name, role }) => (
-  <div className="group relative">
-    <div className="size-16 bg-white dark:bg-gray-800 border-2 border-slate-100 rounded-full flex items-center justify-center shadow-sm group-hover:border-btn-100 transition-colors overflow-hidden">
-      <div className="size-full bg-slate-50 flex items-center justify-center font-bold text-text/20 text-xl">
-        {name[0]}
+const TeamAvatar = ({ name, role }) => {
+  const [show, setShow] = useState(false);
+
+    useEffect(() => {
+    if (show) {
+      const timer = setTimeout(() => setShow(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [show]);
+
+  
+  return (
+    <div className="group relative cursor-pointer" onClick={() => setShow(!show)}>
+      <div className={`size-20 max-sm:size-15  bg-white border-2 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-sm transition-all overflow-hidden ${show ? "border-btn-100 scale-110" : "border-slate-100 group-hover:border-btn-100"}`}>
+        <div className="size-full bg-slate-50 flex items-center justify-center font-black text-text/20 text-2xl uppercase">
+          {name[0]}
+        </div>
+      </div>
+      
+      <div className={`absolute top-full mt-4 left-1/2 -translate-x-1/2 transition-all duration-300 text-center w-max pointer-events-none
+        ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0"}
+      `}>
+        <p className="font-bold text-text dark:text-white text-sm">{name}</p>
+        <p className="text-btn-100 text-[10px] font-bold uppercase tracking-widest">{role}</p>
       </div>
     </div>
-    <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-center w-max">
-      <p className="font-bold text-text dark:text-white text-xs">{name}</p>
-      <p className="text-btn-100 text-[9px] font-bold uppercase tracking-widest">
-        {role}
-      </p>
-    </div>
-  </div>
-);
+  );
+}
+
 
 export default AboutUs;

@@ -7,9 +7,11 @@ import {
   useLogoutMutation,
 } from "../features/slices/orgSlice";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
+import { MdDarkMode, MdSunny } from "react-icons/md";
+import { toggleTheme } from "../features/slices/themeSlice";
 
 
 
@@ -17,6 +19,8 @@ const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isDark = useSelector((state) => state.theme.isDark);
 
   const {
     data,
@@ -43,14 +47,14 @@ const Sidebar = () => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally.");
+      console.warn("Server logout failed, cleaning up locally." , error);
     }
   };
 
 
   return (
     <>
-      <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 dark:bg-gray-900 overflow-auto p-4 inset-shadow-sm/20">
+      <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 dark:bg-gray-900 overflow-auto p-4 inset-shadow-sm/20 relative">
         <div className="flex justify-center-safe items-center-safe">
           {/* Logo */}
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
@@ -183,6 +187,22 @@ const Sidebar = () => {
             </button>
           </li>
         </ul>
+
+        <div className="absolute bottom-0 left-0 p-5 w-full">
+          <hr className="border-gray-300 my-5" />
+ 
+          <button
+            className="p-2 bg-btn-200 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
+            onClick={() => dispatch(toggleTheme())}
+          >
+            Theme
+            {isDark ? (
+              <MdDarkMode className="size-6 animate-[spin_0.5s_ease-in-out_1]" />
+            ) : (
+              <MdSunny className="size-6 animate-[spin_0.5s_ease-in-out_1] text-yellow-400" />
+            )}
+          </button>
+        </div>
      
       </div>
     </>

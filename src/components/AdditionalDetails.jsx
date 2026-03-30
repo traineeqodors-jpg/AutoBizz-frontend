@@ -97,7 +97,8 @@ function AdditionalDetails() {
                className="w-full bg-transparent border px-4 border-gray-300 dark:bg-gray-800 dark:text-white focus:outline-none focus:bg-gray-700 focus:border-btn-100 font-medium py-3 tracking-wide mt-1 rounded-lg"
                rows={5}
                placeholder="Describe your business..."
-               value={description}
+              value={description !== null ? description : (data?.data?.description || "")}
+
                onChange={handleInformationChange}
              />
              <div className="absolute bottom-2 right-2 text-xs font-semibold bg-white dark:bg-gray-500 rounded px-1">
@@ -121,7 +122,7 @@ function AdditionalDetails() {
                </label>
                <select
                  name="category"
-                 value={category || ""}
+                value={category !== null ? category : (data?.data?.orgCategory || "")}
                  onChange={handleInformationChange}
                  className="flex-1 dark:text-white bg-transparent border px-4 border-gray-300 dark:bg-gray-800 focus:outline-none focus:border-btn-100 focus:dark:bg-gray-700 font-medium py-2 rounded-lg"
                >
@@ -143,7 +144,7 @@ function AdditionalDetails() {
                <DatePicker
                  calendarClassName="custom-calendar-style"
                  className="w-full bg-transparent border px-4 border-gray-300 dark:bg-gray-800 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-2 rounded-lg"
-                 selected={new Date(year || new Date().getFullYear(), 0, 1)}
+                 selected={new Date(year || data?.data?.startedInYear || new Date().getFullYear(), 0, 1)}
                  maxDate={new Date()}
                  filterDate={(date) =>
                    date.getFullYear() <= new Date().getFullYear()

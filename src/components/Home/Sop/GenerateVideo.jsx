@@ -11,6 +11,7 @@ function GenerateVideo({
   setVideoScript,
   videoLoading,
   genScriptRef,
+  activeRequestRef,
   handleSOPVideoGeneration
 }) {
   return (
@@ -27,13 +28,15 @@ function GenerateVideo({
         <div className="w-full flex flex-row justify-between">
           <button onClick={() => {
             genVideoRef.current?.close(); 
+            activeRequestRef.current?.abort();
             genScriptRef.current?.showModal();
+             
           }} type="button">
             <IoMdArrowRoundBack className="text-black dark:text-white size-4 cursor-pointer" />
           </button>
           <button
             onClick={() => {
-              // Abort the specific RTK Query request if it exists
+             
               activeRequestRef.current?.abort();
               genVideoRef.current?.close();
             }}

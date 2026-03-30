@@ -190,14 +190,14 @@ const ContactUs = () => {
                   rows="5"
                   value={input.message}
                   onChange={handleChange}
-                  className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text resize-none"
+                  className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100  text-text resize-none"
                   placeholder="Type your message here..."
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full md:w-max px-8 py-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
+                className="w-full md:w-max px-8 py-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl l flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
               >
                 Send Message
                 <IoSend />
@@ -211,7 +211,7 @@ const ContactUs = () => {
 };
  
 const ContactInfoCard = ({ icon, title, detail, subDetail }) => (
-  <div className="bg-white dark:bg-gray-900 dark:border-0 p-6 rounded-2xl border border-slate-50 flex items-start gap-4 hover:shadow-md transition-all">
+  <div className="bg-white dark:bg-gray-900 dark:border-0 p-6 rounded-2xl border border-slate-50 flex items-start gap-4 hover:shadow-md">
     <div className="p-3 bg-btn-100/10 text-btn-100 rounded-xl">{icon}</div>
     <div>
       <h3 className="font-bold text-text dark:text-slate-50 mb-1">{title}</h3>

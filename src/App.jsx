@@ -18,6 +18,8 @@ import SopVideosPage from "./pages/SopVideosPage";
 import AuthGuard from "./components/AuthGuard";
 import LeadManagement from "./pages/LeadManagement"
 import LeadCalendar from "./pages/LeadCalender";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 // 2. Define the router ONCE outside the component
 const router = createBrowserRouter([
@@ -61,6 +63,19 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+    const isDark = useSelector((state) => state.theme.isDark);
+ 
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isDark) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
   return <RouterProvider router={router} />;
 };
 

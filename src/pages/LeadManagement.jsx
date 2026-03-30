@@ -206,7 +206,7 @@ function LeadManagement() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.1 }}
-      className="min-h-screen bg-back w-full p-3 sm:p-6 lg:p-8 relative"
+      className="min-h-screen  w-full p-3 sm:p-6 lg:p-8 relative"
     >
       <div className="max-w-7xl mx-auto space-y-6">
         {/* If Not Connceted to Google */}

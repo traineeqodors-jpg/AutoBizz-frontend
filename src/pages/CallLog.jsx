@@ -109,9 +109,9 @@ const CallLog = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.1 }}
-      className="min-h-screen bg-back w-full  p-3 sm:p-6 lg:p-8 relative flex flex-col items-center gap-5"
+      className="min-h-screen  w-full  p-3 sm:p-6 lg:p-8 relative flex flex-col items-center gap-5"
     >
-    <div className="min-h-screen w-full bg-back p-3 sm:p-6 lg:p-8 relative">
+    <div className="min-h-screen w-full  p-3 sm:p-6 lg:p-8 relative">
       {isFetching && !isLoading && (
         <div className="absolute top-0 left-0 w-full h-1 bg-btn-100/20 overflow-hidden z-50">
           <div className="h-full bg-btn-100 animate-pulse w-1/3"></div>
@@ -154,9 +154,9 @@ const CallLog = () => {
                     value={filters.startDate}
                     onChange={handleDateChange}
                     onClick={(e) => e.target.showPicker()}
-                    className="pl-3 pr-10 py-2 bg-slate-50 dark:bg-gray-800 dark:border-0 dark:text-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
+                    className="pl-3 pr-10 py-2 bg-slate-50 dark:bg-gray-800 dark:border-0 dark:text-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20  cursor-pointer w-35 appearance-none"
                   />
-                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
+                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500" />
                 </div>
               </div>
  
@@ -172,9 +172,9 @@ const CallLog = () => {
                     value={filters.endDate}
                       onClick={(e) => e.target.showPicker()}
                     onChange={handleDateChange}
-                    className="pl-3 pr-10 dark:bg-gray-800 dark:border-0 dark:text-white py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20 transition-all cursor-pointer w-35 appearance-none"
+                    className="pl-3 pr-10 dark:bg-gray-800 dark:border-0 dark:text-white py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20  cursor-pointer w-35 appearance-none"
                   />
-                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500 transition-colors" />
+                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500" />
                 </div>
               </div>
  

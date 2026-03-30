@@ -8,8 +8,10 @@ import { videoGenerationApi } from "../features/slices/videoGenerationSlice";
 import { callLogApi } from "../features/slices/callLogSlice";
 import { leadsApi } from "../features/slices/leadSlice";
 import { meetingsApi } from "../features/slices/meetingSlice";
+import themeReducer from "../features/slices/themeSlice"
 
 const appReducer = combineReducers({
+  theme: themeReducer,
   [orgApi.reducerPath]: orgApi.reducer,
   [resetPasswordApi.reducerPath]: resetPasswordApi.reducer,
   [documentApi.reducerPath]: documentApi.reducer,
@@ -23,7 +25,8 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === "auth/logout") {
-    state = undefined;
+    const { theme } = state;
+    state = { theme };
   }
   return appReducer(state, action);
 };
