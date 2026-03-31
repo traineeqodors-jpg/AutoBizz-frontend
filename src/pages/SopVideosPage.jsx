@@ -9,7 +9,6 @@ import SearchFIlterVideos from "../components/SopVidoesPage/SearchFIlterVideos";
 import GenerateSOP from "../components/Home/Sop/GenerateSOP";
 import { toast } from "react-toastify";
 
-
 import { motion } from "framer-motion";
 
 const SopVideosPage = () => {
@@ -40,11 +39,6 @@ const SopVideosPage = () => {
       } else if (statusFilter === "failed") {
         matchesStatus = isFailed;
       }
-
-      // // 3. Search check
-      // const matchesSearch = (video.title || "")
-      //   .toLowerCase()
-      //   .includes(searchTerm.toLowerCase());
 
       return matchesStatus;
     });
@@ -95,7 +89,9 @@ const SopVideosPage = () => {
               <div className="bg-back w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-text/20">
                 <IoSearchOutline className="size-8 sm:size-10" />
               </div>
-              <h3 className="text-lg font-bold text-text dark:text-white">No Videos found</h3>
+              <h3 className="text-lg font-bold text-text dark:text-white">
+                No Videos found
+              </h3>
               <p className="text-text/40 dark:text-gray-50/40 text-sm mt-1">
                 Try adjusting your search filters or Generate new video.
               </p>

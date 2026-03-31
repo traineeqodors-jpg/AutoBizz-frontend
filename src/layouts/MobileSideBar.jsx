@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { FaCalendarAlt, FaHome } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
@@ -43,7 +42,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally." , error);
+      console.warn("Server logout failed, cleaning up locally.", error);
     }
   };
 
@@ -63,7 +62,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
         <div className="flex justify-center-safe items-center-safe">
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
             <img
-              src="/autoBizz.png"
+              src="/autoBizz.webp"
               alt="Logo"
               className="size-20 object-cover"
             />

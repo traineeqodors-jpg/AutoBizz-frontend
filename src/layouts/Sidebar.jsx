@@ -13,8 +13,6 @@ import { BiSolidVideos } from "react-icons/bi";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import { toggleTheme } from "../features/slices/themeSlice";
 
-
-
 const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useDispatch();
@@ -22,15 +20,9 @@ const Sidebar = () => {
 
   const isDark = useSelector((state) => state.theme.isDark);
 
-  const {
-    data,
-    isLoading: userLoading,
-   
-  } = useGetMeQuery(undefined, {
+  const { data, isLoading: userLoading } = useGetMeQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
   });
-
- 
 
   if (userLoading) {
     return null;
@@ -47,10 +39,9 @@ const Sidebar = () => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally." , error);
+      console.warn("Server logout failed, cleaning up locally.", error);
     }
   };
-
 
   return (
     <>
@@ -59,12 +50,14 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
             <img
-              src="/autoBizz.png"
+              src="/autoBizz.webp"
               alt="Logo"
               className="size-20 object-cover"
             />
           </div>
-          <h1 className="text-2xl font-bold text-text dark:text-white ms-5">AutoBizz</h1>
+          <h1 className="text-2xl font-bold text-text dark:text-white ms-5">
+            AutoBizz
+          </h1>
         </div>
 
         <hr className="border-gray-300 my-5" />
@@ -190,7 +183,7 @@ const Sidebar = () => {
 
         <div className="absolute bottom-0 left-0 p-5 w-full">
           <hr className="border-gray-300 my-5" />
- 
+
           <button
             className="p-2 bg-btn-200 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
             onClick={() => dispatch(toggleTheme())}
@@ -203,7 +196,6 @@ const Sidebar = () => {
             )}
           </button>
         </div>
-     
       </div>
     </>
   );

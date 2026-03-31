@@ -1,15 +1,13 @@
-
 import { IoCallOutline, IoEyeSharp, IoTrashOutline } from "react-icons/io5";
 
 const CallLogTable = ({ log, openDeleteModal, setSelectedLog }) => {
   return (
     <tr
       key={log.id}
-     
       className="bg-white dark:bg-gray-900 dark:border-0   group border border-gray-100 cursor-default dark:hover:bg-gray-700/40"
     >
       <td className="px-6 py-5 dark:rounded-none dark:border-0 rounded-l-3xl border-y border-l border-gray-100">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center-safe gap-3">
           <div className="p-2.5 bg-gray-50 dark:bg-gray-200 text-btn-100 rounded-xl group-hover:bg-btn-100 group-hover:text-white">
             <IoCallOutline size={20} />
           </div>
@@ -22,7 +20,7 @@ const CallLogTable = ({ log, openDeleteModal, setSelectedLog }) => {
         </div>
       </td>
 
-      <td className="px-6 py-5 border-y dark:text-gray-300 dark:rounded-none dark:border-0 border-gray-100 text-sm text-gray-600 font-medium">
+      <td className="px-6 py-5 border-y dark:text-gray-300 dark:rounded-none dark:border-0 border-gray-100 text-sm text-gray-600 font-medium text-center">
         {new Date(log.createdAt).toLocaleDateString()}
       </td>
 
@@ -43,7 +41,7 @@ const CallLogTable = ({ log, openDeleteModal, setSelectedLog }) => {
       </td>
 
       <td className="px-6 py-5 rounded-r-3xl border-y border-r dark:rounded-none dark:border-0 border-gray-100 text-right">
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-center gap-2">
           {/* VIEW BUTTON */}
           <button
             onClick={(e) => {

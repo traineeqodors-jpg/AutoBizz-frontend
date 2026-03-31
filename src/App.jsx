@@ -1,25 +1,24 @@
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/signupPage";
-import ForgetPasswordPage from "./pages/ForgetPasswordPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import OtpVerification from "./pages/OtpVerification";
-import EditOrgDetails from "./pages/EditOrgDetails";
-import MyDocument from "./pages/MyDocument";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
-import Home from "./pages/Home";
 import "./App.css";
-import CallLog from "./pages/CallLog";
-import AboutUs from "./pages/AboutUs";
-import SopVideosPage from "./pages/SopVideosPage";
 import AuthGuard from "./components/AuthGuard";
-import LeadManagement from "./pages/LeadManagement"
-import LeadCalendar from "./pages/LeadCalender";
+
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import LoadingElement from "./components/ui/LoadingElement";
+
+const Home = lazy(() => import("./pages/Home"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/signupPage"));
+const LeadManagement = lazy(() => import("./pages/LeadManagement"));
+const LeadCalendar = lazy(() => import("./pages/LeadCalender"));
+const SopVideosPage = lazy(() => import("./pages/SopVideosPage"));
+const MyDocument = lazy(() => import("./pages/MyDocument"));
+const EditOrgDetails = lazy(() => import("./pages/EditOrgDetails"));
+const AboutUs = lazy(() => import("./pages/AboutUs"));
+const CallLog = lazy(() => import("./pages/CallLog"));
+const ForgetPasswordPage = lazy(() => import("./pages/ForgetPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 
 // 2. Define the router ONCE outside the component
 const router = createBrowserRouter([
@@ -38,7 +37,7 @@ const router = createBrowserRouter([
       { path: "/about", element: <AboutUs /> },
       { path: "/sop", element: <SopVideosPage /> },
       { path: "/leads", element: <LeadManagement /> },
-      {path : "/calendar" , element : <LeadCalendar />}
+      { path: "/calendar", element: <LeadCalendar /> },
     ],
   },
   {
@@ -59,12 +58,11 @@ const router = createBrowserRouter([
   },
   { path: "/resetpassword", element: <ForgetPasswordPage /> },
   { path: "/resetpassword/:token", element: <ResetPasswordPage /> },
-  { path: "/otp", element: <OtpVerification /> },
 ]);
 
 const App = () => {
-    const isDark = useSelector((state) => state.theme.isDark);
- 
+  const isDark = useSelector((state) => state.theme.isDark);
+
   useEffect(() => {
     const root = window.document.documentElement;
     if (isDark) {
@@ -76,7 +74,11 @@ const App = () => {
     }
   }, [isDark]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<LoadingElement />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 export default App;

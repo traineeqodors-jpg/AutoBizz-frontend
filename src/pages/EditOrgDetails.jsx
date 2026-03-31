@@ -9,7 +9,6 @@ import { useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoCloseOutline, IoCameraOutline } from "react-icons/io5";
 
-
 import { motion, AnimatePresence } from "framer-motion";
 
 function EditOrgDetails() {
@@ -18,8 +17,6 @@ function EditOrgDetails() {
   const fileInputRef = useRef(null);
 
   const handleImageChange = async (event) => {
-
-   
     const file = event.target.files?.[0];
     if (!file) return;
     const formData = new FormData();
@@ -43,7 +40,7 @@ function EditOrgDetails() {
     ? `${user.firstName} ${user.lastName}`
     : "User Name";
 
-  const [update] = useUpdateOrgMutation();
+  const [update, { isLoading: updatingUser }] = useUpdateOrgMutation();
 
   const handleProfileSave = async (updatedDetails) => {
     try {
@@ -119,8 +116,12 @@ function EditOrgDetails() {
               </span>
             </div>
           </div>
- 
-          <ProfileInfo key={user?._id || 'loading'} user={user} onSave={handleProfileSave} />
+
+          <ProfileInfo
+            key={user?._id || "loading"}
+            user={user}
+            onSave={handleProfileSave}
+          />
           <AdditionalDetails />
         </motion.div>
 

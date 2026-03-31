@@ -28,7 +28,7 @@ const LeadFilter = ({
               </span>
             </div>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Status
@@ -44,7 +44,7 @@ const LeadFilter = ({
               <option value="contacted">Contacted</option>
             </select>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Min Score
@@ -57,7 +57,6 @@ const LeadFilter = ({
               placeholder="e.g. 50"
               onKeyDown={(e) => {
                 if (e.key === "-" || e.key === "e") {
-                  // Blocks minus and scientific notation
                   e.preventDefault();
                 }
               }}
@@ -66,7 +65,7 @@ const LeadFilter = ({
               className="w-full py-3 px-4 text-text dark:text-white text-sm rounded-xl border border-gray-200 bg-gray-50  dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
             />
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               From Date
@@ -85,7 +84,7 @@ const LeadFilter = ({
               </div>
             </div>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               To Date
@@ -104,7 +103,7 @@ const LeadFilter = ({
               </div>
             </div>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Sort By
@@ -121,7 +120,7 @@ const LeadFilter = ({
               <option value="email">Email</option>
             </select>
           </div>
- 
+
           <div className="flex items-end">
             <button
               onClick={resetFilters}
@@ -135,5 +134,5 @@ const LeadFilter = ({
     </>
   );
 };
- 
+
 export default LeadFilter;

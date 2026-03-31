@@ -1,8 +1,6 @@
-
-
-function OrgCard({user}) {
+function OrgCard({ user }) {
   return (
-    <div className="h-40 w-full shadow-md/10 rounded-2xl p-5 bg-white dark:bg-gray-900   space-y-3">
+    <div className="h-40 w-full shadow-md/10 rounded-2xl p-5 bg-white dark:bg-gray-900 space-y-3">
       <h2 className="text-text dark:text-white text-lg font-semibold">
         Organization Details
       </h2>
@@ -15,4 +13,4 @@ function OrgCard({user}) {
   );
 }
 
-export default OrgCard
+export default OrgCard;

@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaIndustry, FaUser, FaUserEdit, FaCheck } from "react-icons/fa";
 import { MdOutlinePlace } from "react-icons/md";
 import { ImCross } from "react-icons/im";
@@ -14,8 +14,6 @@ const ProfileInfo = ({ user, onSave }) => {
   ];
   const [isEditing, setIsEditing] = useState(false);
   const [formFields, setFormFields] = useState(user);
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +45,7 @@ const ProfileInfo = ({ user, onSave }) => {
 
   const renderInputField = (key, value) => {
     const baseClass =
-      "w-full bg-transparent border-b border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1";
+      "w-full bg-transparent border-b border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1 dark:text-white";
 
     if (key === "businessSize" || key === "orgSize") {
       return (
@@ -96,16 +94,15 @@ const ProfileInfo = ({ user, onSave }) => {
         {isEditing ? (
           <div className="flex gap-4 items-center justify-center">
             <form onSubmit={handleSubmit}>
-                <button
-               type="submit"
-              className="flex flex-col items-center text-green-600 hover:text-green-700"
-            >
-              <FaCheck size={12} />
-              <span className="text-[10px] font-bold uppercase">Save</span>
-            </button>
-
+              <button
+                type="submit"
+                className="flex flex-col items-center text-green-600 hover:text-green-700"
+              >
+                <FaCheck size={12} />
+                <span className="text-[10px] font-bold uppercase">Save</span>
+              </button>
             </form>
-          
+
             <button
               onClick={() => {
                 setIsEditing(false);

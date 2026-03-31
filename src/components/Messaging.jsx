@@ -1,4 +1,4 @@
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
 import { RiRobot3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
@@ -28,8 +28,7 @@ function Messaging({ setChatIsOpen, chat, setChat }) {
     setChat([...chat, userMessage]);
     setInput("");
 
-    // 2. Simulate/Fetch AI Response
-    // In a real app, you'd fetch() your Pinecone/Node.js route here
+    // Simulate/Fetch AI Response
     setTimeout(() => {
       const aiResponse = {
         role: "ai",
@@ -52,7 +51,7 @@ function Messaging({ setChatIsOpen, chat, setChat }) {
         />
       </div>
 
-      {/* 4. Attach ref and keep normal flex-col */}
+      {/* Attach ref and keep normal flex-col */}
       <div
         ref={scrollRef}
         className="h-[50vh] sm:w-md bg-white p-2 sm:p-5 font-medium flex flex-col gap-3 overflow-y-auto"

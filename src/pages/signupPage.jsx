@@ -105,9 +105,6 @@ const SignupPage = () => {
       return setPasswordError(
         "Password must contain at least one number and one special character",
       );
-      // return toast.error(
-      //   "Password must contain at least one number and one special character",
-      // );
     } else {
       setPasswordError("");
     }

@@ -1,15 +1,13 @@
-import  { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
-  
   IoChevronBack,
   IoChevronForward,
   IoCalendarOutline,
 } from "react-icons/io5";
 import { useGetAllMeetingsQuery } from "../features/slices/meetingSlice";
-
 
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -19,9 +17,9 @@ import {
 import { useGoogleLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
- 
+
 const localizer = momentLocalizer(moment);
- 
+
 // Animation Variants for the whole Calendar View
 const viewVariants = {
   initial: (direction) => ({
@@ -42,22 +40,24 @@ const viewVariants = {
     transition: { duration: 0.1 },
   }),
 };
- 
+
 const LeadCalendar = () => {
-  
- 
-  const { data: user } = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")});
+  const { data: user } = useGetMeQuery(undefined, {
+    skip: !localStorage.getItem("isLoggedIn"),
+  });
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
-  
-    const { data, isLoading } = useGetAllMeetingsQuery(undefined , {skip : !isGoogleLinked});
- 
+
+  const { data, isLoading } = useGetAllMeetingsQuery(undefined, {
+    skip: !isGoogleLinked,
+  });
+
   const [googleToken] = useGoogleTokenMutation();
- 
+
   // Track state to trigger animations on change
   const [view, setView] = useState("month");
   const [date, setDate] = useState(new Date());
   const [direction, setDirection] = useState(1);
- 
+
   const events = useMemo(() => {
     const meetings = data?.data?.meetings || [];
     return meetings.map((m) => ({
@@ -69,33 +69,30 @@ const LeadCalendar = () => {
       leadName: m.lead?.name,
     }));
   }, [data]);
- 
-  
+
   const onNavigate = useCallback((newDate, action) => {
     if (action === "PREV") setDirection(-1);
     else if (action === "NEXT") setDirection(1);
-    else setDirection(0); 
+    else setDirection(0);
     setDate(newDate);
   }, []);
- 
-  
+
   const onView = useCallback((newView) => {
-    setDirection(0); 
+    setDirection(0);
     setView(newView);
   }, []);
- 
-  
+
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (response) => {
       try {
         console.log("Send this to BackEnd : ", response.code);
         const res = await googleToken(response.code).unwrap();
         console.log(res);
- 
+
         toast.success(res?.message);
       } catch (error) {
         console.log(error);
- 
+
         toast.error(error?.data?.message);
       }
     },
@@ -105,7 +102,7 @@ const LeadCalendar = () => {
       console.log(error);
     },
   });
- 
+
   const CustomToolbar = (toolbar) => (
     <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
       <div className="flex items-center gap-2">
@@ -131,13 +128,12 @@ const LeadCalendar = () => {
           </button>
         </div>
       </div>
- 
+
       <motion.h3
         key={toolbar.label}
         initial={{ y: -10, opacity: 0 }}
-        transition={{duration : 0.1}}
+        transition={{ duration: 0.1 }}
         animate={{ y: 0, opacity: 1 }}
-        
         className="text-sm font-black uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
       >
         {toolbar.label}
@@ -160,7 +156,7 @@ const LeadCalendar = () => {
       </div>
     </div>
   );
- 
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -203,7 +199,7 @@ const LeadCalendar = () => {
             </div>
           </div>
 
-          <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-2 sm:p-8 shadow-inner border border-white/50 overflow-hidden relative">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-2xl p-2 sm:p-8 shadow-inner border border-white/50 overflow-hidden relative">
             <AnimatePresence mode="wait" custom={direction}>
               {isLoading ? (
                 <motion.div
@@ -211,19 +207,19 @@ const LeadCalendar = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-50 bg-white/40  backdrop-blur-xl flex items-center justify-center"
+                  className="absolute inset-0 z-50 bg-white/40 backdrop-blur-xl flex items-center justify-center"
                 >
                   <div className="w-16 h-16 border-8 border-back border-t-btn-100 rounded-full animate-spin" />
                 </motion.div>
               ) : (
                 <motion.div
-                  key={`${view}-${date.getTime()}`} // Unique key forces re-animation
+                  key={`${view}-${date.getTime()}`}
                   custom={direction}
                   variants={viewVariants}
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  className="h-full"
+                  className="h-full "
                 >
                   <Calendar
                     localizer={localizer}
@@ -252,6 +248,5 @@ const LeadCalendar = () => {
     </motion.div>
   );
 };
- 
+
 export default LeadCalendar;
- 

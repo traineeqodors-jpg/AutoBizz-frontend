@@ -8,9 +8,6 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
 
   const viewScriptRef = useRef(null);
 
-  console.log(video);
-  
-
   const isPending = video?.videoUrl === null;
   const isFailed = video?.videoUrl === "failed";
 
@@ -50,20 +47,18 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
 
       <ViewScript viewScriptRef={viewScriptRef} script={video?.videoScript} />
 
-      {/* DIsplay based state */}
+      {/* Display cards based on Video state */}
       {isPending ? (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 backdrop-blur-md">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 dark:bg-gray-700 backdrop-blur-md">
           <div className="relative flex items-center justify-center">
             <div className="w-12 h-12 border-4 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
-
-            {/* <div className="absolute w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></div> */}
           </div>
           <p className="mt-3 text-xs font-bold text-btn-100 tracking-wider uppercase animate-pulse">
             Processing high-quality AI video...
           </p>
         </div>
       ) : isFailed ? (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 backdrop-blur-md">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 dark:bg-gray-700 backdrop-blur-md">
           <span className="text-red-400 dark:text-red-900 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
             <IoIosWarning className="size-7" />
             Failed to Generate.

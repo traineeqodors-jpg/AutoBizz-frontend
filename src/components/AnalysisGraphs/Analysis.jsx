@@ -1,67 +1,81 @@
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
 import { useState } from "react";
 import { Data } from "../../JSON data/data.js";
-import { Bar} from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
-Chart.register(CategoryScale);
-
+// Register only what you use
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 function Analysis() {
-    const [chartData] = useState({
-      labels: Data.map((data) => data.month),
-      datasets: [
-        {
-          label: "Leads Generated ",
-          data: Data.map((data) => data.leadsGenerated),
-          backgroundColor: [
-            "rgba(75,192,192,1)",
-            "#ecf0f1",
-            "#50AF95",
-            "#f3ba2f",
-            "#2a71d0",
-          ],
-          borderColor: "gray",
-          borderWidth: 1,
-        },
-        {
-          label: "Active deals ",
-          data: Data.map((data) => data.activeDeals),
-          backgroundColor: [
-            "rgba(75,192,167,1)",
-            "#ecf0f1",
-            "#50AF95",
-            "#f3ba2f",
-            "#2a71d0",
-          ],
-          borderColor: "blue",
-          borderWidth: 1,
-        },
-      ],
-    });
-  
-   return (
-     <div className="relative w-full h-full ">
-       <Bar
-         data={chartData}
-         options={{
-           responsive: true,
-           maintainAspectRatio: false, // Critical: Allows chart to fill the container height
-           plugins: {
-             legend: {
-               position: "bottom", // Saves horizontal space on mobile
-               labels: { boxWidth: 10, font: { size: 11 } },
-             },
-           },
-           scales: {
-             x: { grid: { display: false } }, // Cleaner look
-             y: { beginAtZero: true },
-           },
-         }}
-       />
-     </div>
-   );
+  const [chartData, setChartData] = useState({
+    labels: Data.map((data) => data.month),
+    datasets: [
+      {
+        label: "Leads Generated ",
+        data: Data.map((data) => data.leadsGenerated),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "gray",
+        borderWidth: 1,
+      },
+      {
+        label: "Active deals ",
+        data: Data.map((data) => data.activeDeals),
+        backgroundColor: [
+          "rgba(75,192,167,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "blue",
+        borderWidth: 1,
+      },
+    ],
+  });
 
+  return (
+    <div className="w-full h-full rounded-2xl p-5 flex flex-col">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
+          Leads Analysis Graph
+        </h3>
+      </div>
+
+      <div className="relative flex-1 w-full min-h-0">
+        <Bar
+          data={chartData}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+            },
+          }}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Analysis;
