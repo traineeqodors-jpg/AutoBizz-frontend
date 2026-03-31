@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-import { useUploadDocumentsMutation } from "../features/slices/documentSlice";
+import { useUploadDocumentsMutation } from "../../features/slices/documentSlice";
 import { toast } from "react-toastify";
 import { FaExclamationCircle } from "react-icons/fa";
 

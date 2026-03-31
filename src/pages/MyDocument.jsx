@@ -3,7 +3,7 @@ import {
   useDeleteDocumentMutation,
   useGetMyDocumentsQuery,
 } from "../features/slices/documentSlice";
-import LoadingElement from "../components/LoadingElement";
+import LoadingElement from "../components/ui/LoadingElement";
 import { toast } from "react-toastify";
 import DocumentTable from "../components/MyDocument/DocumentTable";
 import { IoSearchOutline } from "react-icons/io5";

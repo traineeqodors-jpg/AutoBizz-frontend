@@ -19,8 +19,8 @@ const MobileCallLogView = ({processedLogs , setSelectedLog , openDeleteModal}) =
                  <span>{log.duration}s</span>
                </div>
                <div className="grid grid-cols-2 gap-3">
-                 <button onClick={() => setSelectedLog(log)} className="flex items-center justify-center gap-2 py-3 bg-gray-50 dark:bg-gray-700 dark:border-0 dark:text-white text-text font-bold rounded-xl text-xs border border-gray-100 active:scale-95 transition-all"><IoEyeSharp/> View</button>
-                 <button onClick={() => openDeleteModal(log)} className="flex items-center justify-center gap-2 py-3 bg-red-50 text-red-600 font-bold rounded-xl text-xs active:scale-95 transition-all"><IoTrashOutline/> Delete</button>
+                 <button onClick={() => setSelectedLog(log)} className="flex items-center justify-center gap-2 py-3 bg-gray-50 dark:bg-gray-700 dark:border-0 dark:text-white text-text font-bold rounded-xl text-xs border border-gray-100 active:scale-95"><IoEyeSharp/> View</button>
+                 <button onClick={() => openDeleteModal(log)} className="flex items-center justify-center gap-2 py-3 bg-red-50 text-red-600 font-bold rounded-xl text-xs active:scale-95"><IoTrashOutline/> Delete</button>
                </div>
              </div>
            ))}

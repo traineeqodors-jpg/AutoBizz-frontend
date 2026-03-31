@@ -1,7 +1,7 @@
 
 import  { useState } from "react";
 import { IoChatbox } from "react-icons/io5";
-import Messaging from "./Messaging";
+import Messaging from "../Messaging";
 
 function AIChat() {
   const [chatIsOpen, setChatIsOpen] = useState(false);

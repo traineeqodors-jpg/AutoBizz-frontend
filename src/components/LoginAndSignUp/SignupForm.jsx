@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-import SocialLogin from "../components/SocialLogin";
-import countries from "../JSON data/country.json";
+import SocialLogin from "./SocialLogin";
+import countries from "../../JSON data/country.json";
 import { useState } from "react";
 
 const SignupForm = ({
@@ -18,8 +18,10 @@ const SignupForm = ({
     <form onSubmit={handleSubmit} className="w-full space-y-5" noValidate>
       {/* Form Headings */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-text tracking-tight">SignUp</h1>
-        <p className="text-gray-500 mt-2">
+        <h1 className="text-3xl font-bold text-text tracking-tight dark:text-white">
+          SignUp
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-2">
           Please enter your details to sign up
         </p>
       </div>
@@ -30,7 +32,7 @@ const SignupForm = ({
         <div className="space-y-2 flex-1">
           <label
             htmlFor="firstName"
-            className="text-sm font-semibold text-gray-700 ml-1"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
             First Name
           </label>
@@ -41,14 +43,14 @@ const SignupForm = ({
             value={input.firstName}
             onChange={handleChange}
             placeholder="First Name"
-            className="w-full py-3 px-4 text-text rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
           />
         </div>
         {/* Last Name */}
         <div className="space-y-2 flex-1">
           <label
             htmlFor="lastName"
-            className="text-sm font-semibold text-gray-700 ml-1"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
             Last Name
           </label>
@@ -59,7 +61,7 @@ const SignupForm = ({
             value={input.lastName}
             onChange={handleChange}
             placeholder="Last Name"
-            className="w-full text-text py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
           />
         </div>
       </div>
@@ -70,7 +72,7 @@ const SignupForm = ({
         <div className="space-y-2 w-full lg:w-[60%]">
           <label
             htmlFor="orgName"
-            className="text-sm font-semibold text-gray-700 ml-1"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
             Organization Name
           </label>
@@ -81,14 +83,14 @@ const SignupForm = ({
             value={input.orgName}
             onChange={handleChange}
             placeholder="Org. Name"
-            className="w-full text-text py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
           />
         </div>
         {/*  Organization Size */}
         <div className="space-y-2 w-full lg:w-[40%]">
           <label
             htmlFor="orgSize"
-            className="text-sm font-semibold text-gray-700 ml-1"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
             Organization Size
           </label>
@@ -97,7 +99,7 @@ const SignupForm = ({
             id="orgSize"
             value={input.orgSize || ""}
             onChange={handleChange}
-            className={`${!input.orgSize ? "text-gray-400/90" : "text-text"} w-full  py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all`}
+            className={`${!input.orgSize ? "text-gray-400/90" : "text-text dark:text-white"} w-full  py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all`}
           >
             <option value="" disabled className="text-gray-400">
               --
@@ -116,7 +118,7 @@ const SignupForm = ({
         <div className="space-y-2 flex-1">
           <label
             htmlFor="country"
-            className="text-sm font-semibold text-gray-700 ml-1"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
             country
           </label>
@@ -125,7 +127,7 @@ const SignupForm = ({
             id="country"
             value={input.country || ""}
             onChange={handleChange}
-            className={`${!input.country ? "text-gray-400/90" : "text-text"} w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all`}
+            className={`${!input.country ? "text-gray-400/90" : "text-text dark:text-white"} w-full  py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all`}
           >
             <option value="" disabled className="text-gray-400">
               - Country -
@@ -147,7 +149,7 @@ const SignupForm = ({
         <div className="space-y-2 flex-1">
           <label
             htmlFor="phone"
-            className="text-sm font-semibold text-gray-700 ml-1"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
             Phone
           </label>
@@ -158,7 +160,7 @@ const SignupForm = ({
             value={input.phone}
             onChange={handleChange}
             placeholder="1234567890"
-            className="w-full text-text py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
           />
         </div>
       </div>
@@ -167,7 +169,7 @@ const SignupForm = ({
       <div className="space-y-2">
         <label
           htmlFor="email"
-          className="text-sm font-semibold text-gray-700 ml-1"
+          className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
         >
           Email
         </label>
@@ -178,7 +180,7 @@ const SignupForm = ({
           value={input.email}
           onChange={handleChange}
           placeholder="hello@example.com"
-          className="w-full text-text py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+          className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
         />
       </div>
 
@@ -186,8 +188,7 @@ const SignupForm = ({
       <div className="space-y-2">
         <label
           htmlFor="password"
-          name="password"
-          className="text-sm font-semibold text-gray-700 ml-1"
+          className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
         >
           Password
         </label>
@@ -199,14 +200,18 @@ const SignupForm = ({
             value={input.password}
             onChange={handleChange}
             placeholder="••••••••"
-            className="w-full text-text py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
           />
           <button
             type="button"
             className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-btn-100 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <FaEyeSlash size={20} /> : <IoEyeSharp size={20} />}
+            {!showPassword ? (
+              <FaEyeSlash size={20} />
+            ) : (
+              <IoEyeSharp size={20} />
+            )}
           </button>
         </div>
         <div className="bg-red-100 px-2 rounded-lg">

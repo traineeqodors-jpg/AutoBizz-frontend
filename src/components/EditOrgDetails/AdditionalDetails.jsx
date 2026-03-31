@@ -1,10 +1,10 @@
 import  { useEffect, useRef, useState } from 'react'
 import { TbInfoCircleFilled } from "react-icons/tb";
-import businessesCategory from "../JSON data/businesses.json"; 
+import businessesCategory from "../../JSON data/businesses.json"; 
 import {DatePicker} from 'react-datepicker'
-import { useAddOrgDetailsMutation, useGetOrgDetailsQuery } from '../features/slices/orgDetailsSlice';
+import { useAddOrgDetailsMutation, useGetOrgDetailsQuery } from '../../features/slices/orgDetailsSlice';
 import { toast } from 'react-toastify';
-import LoadingElement from './LoadingElement';
+import LoadingElement from '../ui/LoadingElement';
 
 
 function AdditionalDetails() {

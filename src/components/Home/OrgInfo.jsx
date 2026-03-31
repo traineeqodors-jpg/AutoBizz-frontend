@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { FaEdit } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import DocuementUploadDialog from "../DocuementUploadDialog";
+import DocuementUploadDialog from "./DocuementUploadDialog";
 
 const OrgInfo = ({ user }) => {
   const dialogRef = useRef(null);

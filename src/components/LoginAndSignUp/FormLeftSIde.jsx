@@ -1,13 +1,15 @@
-
+import React from "react";
 
 const FormLeftSIde = () => {
   return (
-    <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back p-10 ">
-      <div className="bg-white  flex items-center justify-center size-35 rounded-full shadow-inner mb-2 overflow-hidden">
+    <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back dark:bg-gray-700 p-10 ">
+      <div className="bg-white flex items-center justify-center size-35 rounded-full shadow-inner mb-2 overflow-hidden">
         <img src="/autoBizz.png" alt="Logo" className="size-35 object-cover" />
       </div>
-      <h2 className="text-2xl font-extrabold text-text mb-2">AutoBizz</h2>
-      <p className="text-gray-500 max-w-xs mb-10">
+      <h2 className="text-2xl font-extrabold text-text dark:text-white mb-2">
+        AutoBizz
+      </h2>
+      <p className="text-gray-500 dark:text-gray-400 max-w-xs mb-10">
         The all-in-one platform to scale your business operations.
       </p>
 
@@ -22,8 +24,8 @@ const FormLeftSIde = () => {
           />
 
           <div>
-            <p className="text-lg">Business Automation</p>
-            <p className="text-xs break-all text-justify line-clamp-2">
+            <p className="text-lg dark:text-white">Business Automation</p>
+            <p className="text-xs break-all text-justify line-clamp-2 dark:text-gray-400">
               Users register and upload business context. The system utilizes
               Generative AI to create training videos and organize compliance
               data.
@@ -40,8 +42,8 @@ const FormLeftSIde = () => {
           />
 
           <div>
-            <p className="text-lg">Customer Service</p>
-            <p className="text-xs break-all text-justify line-clamp-2">
+            <p className="text-lg dark:text-white">Customer Service</p>
+            <p className="text-xs break-all text-justify line-clamp-2 dark:text-gray-400">
               Provisioning of a unique phone number where an AI Voice Assistant
               handles customer inquiries 24/7 based on the business's specific
               context.
@@ -58,8 +60,8 @@ const FormLeftSIde = () => {
           />
 
           <div>
-            <p className="text-lg">Sales & Lead Management</p>
-            <p className="text-xs break-all text-justify line-clamp-2">
+            <p className="text-lg dark:text-white">Sales & Lead Management</p>
+            <p className="text-xs break-all text-justify line-clamp-2 dark:text-gray-400">
               Auto-generating product listings and uses AI to qualify leads
               through text or voice, scheduling high-scoring prospects directly
               onto the user's calendar.

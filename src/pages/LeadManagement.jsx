@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import LeadHeader from "../components/leads/LeadHeader";
-import MobileLeadsView from "../components/leads/MobileLeadsView";
-import LeadTable from "../components/leads/LeadTable";
+import LeadHeader from "../components/Leads/LeadHeader";
+import MobileLeadsView from "../components/Leads/MobileLeadsView";
+import LeadTable from "../components/Leads/LeadTable";
 import {
   useAddLeadCsvMutation,
   useDeleteLeadMutation,
   useGetAllLeadsQuery,
 } from "../features/slices/leadSlice";
-import LeadCards from "../components/leads/LeadCards";
+import LeadCards from "../components/Leads/LeadCards";
 import { toast } from "react-toastify";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
-import LeadFilter from "../components/leads/LeadFilter";
+import LeadFilter from "../components/Leads/LeadFilter";
 import {
   useGetMeQuery,
   useGoogleTokenMutation,

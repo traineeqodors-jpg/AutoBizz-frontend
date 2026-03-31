@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import AdditionalDetails from "../components/AdditionalDetails";
-import ProfileInfo from "../components/ProfileInfo";
+import AdditionalDetails from "../components/EditOrgDetails/AdditionalDetails";
+import ProfileInfo from "../components/EditOrgDetails/ProfileInfo";
 import {
   useGetMeQuery,
   useUpdateOrgMutation,

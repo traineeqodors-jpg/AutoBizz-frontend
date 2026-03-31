@@ -11,7 +11,7 @@ import MobileCallLogView from "../components/CallLog/MobileCallLogView";
 import SearchFilterCallLog from "../components/CallLog/SearchFilterCallLog";
 import EmptyCallLog from "../components/CallLog/EmptyCallLog";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
-import LoadingElement from "../components/LoadingElement";
+import LoadingElement from "../components/ui/LoadingElement";
 import DetailModal from "../components/CallLog/DetailModal";
 import { FaRegCalendarAlt } from "react-icons/fa";
 

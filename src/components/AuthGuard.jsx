@@ -1,5 +1,5 @@
 import { useGetMeQuery } from '../features/slices/orgSlice';
-import LoadingElement from './LoadingElement';
+import LoadingElement from './ui/LoadingElement';
 import { Navigate } from 'react-router-dom';
 
 const AuthGuard = ({ children, requireAuth }) => {

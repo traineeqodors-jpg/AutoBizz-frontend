@@ -3,9 +3,9 @@ import {  Outlet, useNavigation } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import LoadingElement from "../components/LoadingElement";
+import LoadingElement from "../components/ui/LoadingElement";
 
-import AIChat from "../components/AIChat";
+import AIChat from "../components/ui/AIChat";
 import { useGetMeQuery } from "../features/slices/orgSlice";
 import { BiAngry } from "react-icons/bi";
 

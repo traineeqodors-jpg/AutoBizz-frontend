@@ -3,10 +3,10 @@ import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import FormLeftSIde from "../components/FormLeftSIde";
-import SocialLogin from "../components/SocialLogin";
-import {  useLoginOrgMutation } from "../features/slices/orgSlice";
-
+import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
+import SocialLogin from "../components/LoginAndSignUp/SocialLogin";
+import { orgApi, useLoginOrgMutation } from "../features/slices/orgSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const [login, { isLoading }] = useLoginOrgMutation();
   const navigate = useNavigate();
- 
+  const dispatch = useDispatch();
 
   //   Handling Input Chnage
   const handleChange = (e) => {
@@ -47,7 +47,7 @@ const LoginPage = () => {
     // Login API call
     try {
       const response = await login(input).unwrap();
-      localStorage.setItem("isLoggedIn" , 'true')
+      localStorage.setItem("isLoggedIn", "true");
       toast.success(response?.message);
       navigate("/");
     } catch (error) {
@@ -56,9 +56,9 @@ const LoginPage = () => {
     }
   };
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">
       {/* Main Card Container */}
-      <div className="w-full sm:max-w-lg lg:max-w-5xl flex flex-col md:flex-row bg-white rounded-3xl shadow-2xl overflow-hidden min-h-137.5">
+      <div className="w-full sm:max-w-lg lg:max-w-5xl flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden min-h-137.5">
         {/* Left Side: Image */}
         <FormLeftSIde />
 
@@ -66,10 +66,10 @@ const LoginPage = () => {
         <div className="flex-1 flex flex-col justify-center p-8 sm:p-10">
           <form onSubmit={handleSubmit} className="w-full space-y-6" noValidate>
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-text tracking-tight">
+              <h1 className="text-3xl font-bold text-text dark:text-white tracking-tight">
                 Sign In
               </h1>
-              <p className="text-gray-500 mt-2">
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
                 Please enter your details to sign in
               </p>
             </div>
@@ -78,7 +78,7 @@ const LoginPage = () => {
             <div className="space-y-2">
               <label
                 htmlFor="email"
-                className="text-sm font-semibold text-gray-700 ml-1"
+                className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
               >
                 Email
               </label>
@@ -89,7 +89,7 @@ const LoginPage = () => {
                 value={input.email}
                 onChange={handleChange}
                 placeholder="hello@example.com"
-                className="w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+                className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
               />
             </div>
 
@@ -98,7 +98,7 @@ const LoginPage = () => {
               <label
                 htmlFor="password"
                 name="password"
-                className="text-sm font-semibold text-gray-700 ml-1"
+                className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
               >
                 Password
               </label>
@@ -110,14 +110,14 @@ const LoginPage = () => {
                   value={input.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+                  className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
                 />
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-btn-100 transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
+                  {!showPassword ? (
                     <FaEyeSlash size={20} />
                   ) : (
                     <IoEyeSharp size={20} />
@@ -134,7 +134,7 @@ const LoginPage = () => {
               >
                 Forget Password ?{" "}
               </NavLink>
-             <button
+              <button
                 disabled={isLoading}
                 type="submit"
                 className={`${isLoading && "opacity-60"} w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-4`}

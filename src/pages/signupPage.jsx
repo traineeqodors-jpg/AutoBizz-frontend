@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import FormLeftSIde from "../components/FormLeftSIde";
-import SignupForm from "../components/SignupForm";
+import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
+import SignupForm from "../components/LoginAndSignUp/SignupForm";
 import { orgApi, useRegisterOrgMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +18,12 @@ const SignupPage = () => {
     password: "",
   });
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
 
   // Mutation Hook
   const [register, { isLoading }] = useRegisterOrgMutation();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
 
   //   Handling Input Chnage
   const handleChange = (e) => {
@@ -35,7 +35,6 @@ const SignupPage = () => {
   //   Handling Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     // Validations for Empty Fields
     if (
@@ -100,7 +99,7 @@ const SignupPage = () => {
 
     // Password REGEX Validation
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,}$/;
+      /^(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{7,}$/;
 
     if (!passwordRegex.test(input.password)) {
       return setPasswordError(
@@ -136,9 +135,9 @@ const SignupPage = () => {
   };
   return (
     <>
-      <div className="min-h-screen w-full flex items-center justify-center bg-gray-50  p-4">
+      <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">
         {/* Main Container */}
-        <div className="w-full sm:max-w-lg lg:max-w-5xl flex rounded-3xl shadow-2xl overflow-hidden min-h-137.5 bg-white ">
+        <div className="w-full sm:max-w-lg lg:max-w-5xl flex rounded-3xl shadow-2xl overflow-hidden min-h-137.5 bg-white dark:bg-gray-900">
           {/* left side : Image  */}
           <FormLeftSIde />
 
