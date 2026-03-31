@@ -9,6 +9,7 @@ import { callLogApi } from "../features/slices/callLogSlice";
 import { leadsApi } from "../features/slices/leadSlice";
 import { meetingsApi } from "../features/slices/meetingSlice";
 import themeReducer from "../features/slices/themeSlice"
+import leadFilterReducer from "../features/extraSlices/leadFilterSlice";
 
 const appReducer = combineReducers({
   theme: themeReducer,
@@ -21,6 +22,7 @@ const appReducer = combineReducers({
   [callLogApi.reducerPath]: callLogApi.reducer,
   [leadsApi.reducerPath]: leadsApi.reducer,
     [meetingsApi.reducerPath]: meetingsApi.reducer,
+    leadFilters: leadFilterReducer,
 });
 
 const rootReducer = (state, action) => {

@@ -1,7 +1,7 @@
 import { IoIosWarning } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRef, useState } from "react";
-import ViewScript from "../Home/Sop/ViewScript";
+import ViewScript from "../SopVidoesPage/ViewScript"
 
 const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -29,7 +29,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
         </button>
 
         {openMenu && (
-          <div className="absolute right-0 top-6 w-32 bg-back/90 border border-gray-300 rounded-lg shadow-lg p-2">
+          <div className="absolute right-0 top-6 w-32 dark:bg-gray-700  bg-back/90 border border-gray-300 rounded-lg shadow-lg p-2">
             <ul className="text-sm">
               <li
                 onClick={() => handleDeleteVideo(video.id)}
@@ -39,7 +39,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
               </li>
               <li
                 onClick={() => viewScriptRef.current?.showModal()}
-                className={`hover:bg-black/20 rounded-md  p-1 cursor-pointer text-text ${deletingVideo && "pointer-events-none opacity-60"}`}
+                className={`hover:bg-black/20 rounded-md  p-1 dark:text-white cursor-pointer text-text ${deletingVideo && "pointer-events-none opacity-60"}`}
               >
                 View Script
               </li>

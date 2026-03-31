@@ -47,7 +47,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
     "Untitled Document";
 
   return (
-    <tr className="flex flex-col md:table-row group hover:bg-slate-50/80 dark:hover:bg-gray-700/40 transition-all duration-200 border-b border-gray-100 md:border-gray-50 last:border-0 p-4 md:p-0">
+    <tr className="flex flex-col md:table-row group hover:bg-slate-50/80 dark:hover:bg-gray-700/40  duration-200 border-b border-gray-100 md:border-gray-50 last:border-0 p-4 md:p-0">
       <td className="px-0 md:px-6 py-2 md:py-4 flex justify-between items-center md:table-cell">
         <div
           className={`p-3 rounded-2xl w-fit text-2xl shadow-sm ${color} md:mx-auto`}
@@ -78,7 +78,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
           <a
             href={`${import.meta.env.VITE_BACKEND_URL}${doc?.docUrl}`}
             target="_blank"
-            className="text-[15px] cursor-pointer font-bold text-text dark:text-white/80 group-hover:text-btn-100 transition-colors truncate text-left md:text-center"
+            className="text-[15px] cursor-pointer font-bold text-text dark:text-white/80 group-hover:text-btn-100  truncate text-left md:text-center"
           >
             {cleanName}
           </a>

@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaIndustry, FaUser, FaUserEdit, FaCheck } from "react-icons/fa";
 import { MdOutlinePlace } from "react-icons/md";
 import { ImCross } from "react-icons/im";
@@ -23,6 +23,7 @@ const ProfileInfo = ({ user, onSave }) => {
   };
 
   const handleSubmit = (e) => {
+    
     e.preventDefault();
     if (onSave) onSave(formFields);
     setIsEditing(false);
@@ -47,7 +48,7 @@ const ProfileInfo = ({ user, onSave }) => {
 
   const renderInputField = (key, value) => {
     const baseClass =
-      "w-full bg-transparent border-b border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1";
+      "w-full bg-transparent border-b border-gray-300 dark:text-white  focus:outline-none focus:border-btn-100 font-medium py-1";
 
     if (key === "businessSize" || key === "orgSize") {
       return (
@@ -55,7 +56,7 @@ const ProfileInfo = ({ user, onSave }) => {
           name={key}
           value={value || ""}
           onChange={handleChange}
-          className={baseClass}
+          className="w-full bg-transparent border-b border-gray-300 dark:text-white focus:dark:bg-gray-900  focus:outline-none focus:border-btn-100 font-medium py-1"
         >
           <option value="" disabled>
             -- Size --
@@ -76,7 +77,7 @@ const ProfileInfo = ({ user, onSave }) => {
         onChange={handleChange}
         className={baseClass}
         // Disable country if you don't want them editing it here
-        disabled={key === "country"}
+        disabled={key === "country" || key === "email"}
       />
     );
   };
@@ -95,9 +96,10 @@ const ProfileInfo = ({ user, onSave }) => {
 
         {isEditing ? (
           <div className="flex gap-4 items-center justify-center">
-            <form onSubmit={handleSubmit}>
-                <button
-               type="submit"
+            <form onSubmit={handleSubmit}
+            >
+              <button
+               
               className="flex flex-col items-center text-green-600 hover:text-green-700"
             >
               <FaCheck size={12} />
@@ -105,7 +107,7 @@ const ProfileInfo = ({ user, onSave }) => {
             </button>
 
             </form>
-          
+            
             <button
               onClick={() => {
                 setIsEditing(false);

@@ -2,15 +2,15 @@ import { IoTrashOutline } from "react-icons/io5";
 
 const LeadTable = ({ lead, openDeleteModal, isSelected }) => {
   const getStatusBadge = (score) => {
-    if (score >= 100) return "Hot";
     if (score >= 50) return "Warm";
+    if (score >= 20) return "Contacted";
     return "Cold";
   };
-  const leadStatus = getStatusBadge(lead?.score);
+  const leadStatus = getStatusBadge(lead?.confidence_score);
 
  return (
    <tr
-     className={`transition-all group border border-gray-100 cursor-default text-text/90 dark:text-gray-300 font-medium
+     className={`group border border-gray-100 cursor-default text-text/90 dark:text-gray-300 font-medium
       ${isSelected ? "bg-sidebar" : "bg-white dark:bg-gray-900 hover:bg-slate-50/50 dark:hover:bg-gray-700/40"}`}
    >
      <td className="px-6 py-5 rounded-l-3xl dark:rounded-none border-y border-l border-gray-100 dark:border-none text-sm">
@@ -35,7 +35,8 @@ const LeadTable = ({ lead, openDeleteModal, isSelected }) => {
      <td className="px-6 py-5 border-y border-gray-100 dark:border-none">
        <span
          className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider ${leadStatus === "Hot" && "bg-red-100 text-red-600"}
-          ${leadStatus === "Warm" && "bg-orange-100 text-orange-600"} ${leadStatus === "Cold" && "bg-blue-100 text-blue-600"}`}
+          ${leadStatus === "Warm" && "bg-orange-100 text-orange-600"} ${leadStatus === "Cold" && "bg-blue-100 text-blue-600"}
+          ${leadStatus === "Contacted" && "bg-indigo-100 text-indigo-600"}`}
        >
          {leadStatus}
        </span>

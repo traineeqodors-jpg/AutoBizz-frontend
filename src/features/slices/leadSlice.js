@@ -4,11 +4,8 @@ export const leadsApi = createApi({
   reducerPath: "leadApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_BACKEND_URL}/api/lead`,
-    // baseUrl: `http://localhost:5000/api/document`,
   }),
-
   tagTypes: ["leads"],
-
   endpoints: (build) => ({
     addLeadCsv: build.mutation({
       query: (formData) => ({
@@ -17,47 +14,55 @@ export const leadsApi = createApi({
         body: formData,
         credentials: "include",
       }),
-      invalidatesTags: ["leads"],
-    }),
-    addLeadForm : build.mutation({
-        query : (formData) => ({
-          url : "/form",
-          method : "post",
-          body : formData,
-          credentials : "include",
-        }),
-        invalidatesTags  :["leads"]
-    }),
 
-    getAllLeads: build.query({
-      query: (params = {}) => ({
-        url: `/`,
-        params: {
-          page: params.page || 1,
-          limit: params.limit || 10,
-          search: params.search || undefined,
-          status: params.status || undefined,
-          minScore: params.minScore || undefined,
-          startDate: params.startDate || undefined,
-          endDate: params.endDate || undefined,
-          sortBy: params.sortBy || "createdAt",
-          order: params.order || "DESC",
-        },
+      invalidatesTags: (result, error) => (error ? [] : ["leads"]),
+    }),
+    addLeadForm: build.mutation({
+      query: (formData) => ({
+        url: "/form",
+        method: "post",
+        body: formData,
         credentials: "include",
       }),
+      invalidatesTags: (result, error) => (error ? [] : ["leads"]),
+    }),
+    // In leadSlice.js
+    getAllLeads: build.query({
+      query: (params) => {
+       
+        const cleanParams = Object.fromEntries(
+          Object.entries(params).filter(
+            ([_, v]) => v !== "" && v !== null && v !== undefined,
+          ),
+        );
+
+    
+        if (cleanParams.minScore) {
+          cleanParams.minScore = parseInt(cleanParams.minScore, 0);
+        }
+
+        return {
+          url: `/`,
+          params: cleanParams,
+          credentials: "include",
+        };
+      },
       providesTags: ["leads"],
     }),
-
-    deleteLead : build.mutation({
-        query : (id) => ({
-          url : `/${id}`,
-          method : "DELETE",
-          credentials : "include"
-        }),
-        invalidatesTags : ["leads"]
-        
+    deleteLead: build.mutation({
+      query: (id) => ({
+        url: `/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: (result, error) => (error ? [] : ["leads"]),
     }),
   }),
 });
 
-export const { useAddLeadCsvMutation, useGetAllLeadsQuery , useDeleteLeadMutation , useAddLeadFormMutation } = leadsApi;
+export const {
+  useAddLeadCsvMutation,
+  useGetAllLeadsQuery,
+  useDeleteLeadMutation,
+  useAddLeadFormMutation,
+} = leadsApi;

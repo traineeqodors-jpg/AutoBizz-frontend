@@ -175,7 +175,7 @@ const Sidebar = () => {
           )}
 
           <li
-            className={`${isLoading && "opacity-60"}w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80 dark:text-gray-200  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
+            className={`${isLoading && "opacity-60"}w-full hover:-translate-y-0.5  hover:bg-btn-100/30 text-text/80 dark:text-gray-200  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
           >
             <button
               disabled={isLoading}

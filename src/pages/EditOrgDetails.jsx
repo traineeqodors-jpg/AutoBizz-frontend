@@ -9,7 +9,6 @@ import { useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoCloseOutline, IoCameraOutline } from "react-icons/io5";
 
-
 import { motion, AnimatePresence } from "framer-motion";
 
 function EditOrgDetails() {
@@ -18,8 +17,6 @@ function EditOrgDetails() {
   const fileInputRef = useRef(null);
 
   const handleImageChange = async (event) => {
-
-   
     const file = event.target.files?.[0];
     if (!file) return;
     const formData = new FormData();
@@ -61,7 +58,7 @@ function EditOrgDetails() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2 }}
           className="grid w-full gap-4 sm:gap-6 p-3 sm:p-5"
         >
           {/* Header Card: Stack on mobile (flex-col), row on tablet+ (sm:flex-row) */}
@@ -70,13 +67,18 @@ function EditOrgDetails() {
             <div className="relative group size-24 sm:size-32 shrink-0">
               <div
                 onClick={() => setIsPreviewOpen(true)}
-                className="w-full h-full bg-white rounded-full border-2 border-slate-100 overflow-hidden cursor-pointer shadow-sm hover:border-blue-400 transition-all flex items-center justify-center"
+                className="relative w-full h-full bg-white rounded-full border-2 border-slate-100 overflow-hidden cursor-pointer shadow-sm hover:border-blue-400 transition-all flex items-center justify-center"
               >
                 <img
                   src={profileImageUrl}
                   alt="Profile"
                   className="w-full h-full object-contain"
                 />
+
+                {/* Label contained at the bottom of the circle */}
+                <div className="absolute bottom-0 w-full bg-gray-800/40 py-1 text-center text-[10px] font-medium text-white backdrop-blur-sm">
+                  View
+                </div>
               </div>
 
               {/* Edit Overlay: Added 'hidden sm:flex' if you want it desktop only, or keep as is for touch */}
@@ -119,8 +121,12 @@ function EditOrgDetails() {
               </span>
             </div>
           </div>
- 
-          <ProfileInfo key={user?._id || 'loading'} user={user} onSave={handleProfileSave} />
+
+          <ProfileInfo
+            key={user?._id || "loading"}
+            user={user}
+            onSave={handleProfileSave}
+          />
           <AdditionalDetails />
         </motion.div>
 

@@ -123,7 +123,7 @@ const ContactUs = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2 bg-white dark:bg-gray-900 dark:border-0 rounded-3xl p-6 sm:p-10 shadow-xl shadow-text/5 border border-white">
+           <div className="lg:col-span-2 bg-white dark:bg-gray-900 dark:border-0 rounded-3xl p-6 sm:p-10 shadow-xl shadow-text/5 border border-white">
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
@@ -162,7 +162,7 @@ const ContactUs = () => {
                     value={input.phone}
                     onChange={handleChange}
                     className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="15550000000"
                   />
                 </div>
               </div>
@@ -190,14 +190,14 @@ const ContactUs = () => {
                   rows="5"
                   value={input.message}
                   onChange={handleChange}
-                  className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100  text-text resize-none"
+                  className="w-full bg-back/50 dark:bg-gray-100 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:border-btn-100 transition-all text-text resize-none"
                   placeholder="Type your message here..."
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full md:w-max px-8 py-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl l flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
+                className="w-full md:w-max px-8 py-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
               >
                 Send Message
                 <IoSend />

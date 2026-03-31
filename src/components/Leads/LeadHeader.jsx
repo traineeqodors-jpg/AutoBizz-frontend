@@ -14,7 +14,7 @@ function LeadHeader({ handleFileUpload, fileName }) {
       </div>
 
       <div className="flex items-center flex-col justify-center">
-        <label className="flex items-center gap-2 px-4 py-2 bg-btn-100 dark:bg-btn-300 hover:bg-btn-200 text-white rounded-xl cursor-pointer transition-all shadow-sm">
+        <label className="flex items-center gap-2 px-4 py-2 bg-btn-100 dark:bg-btn-300 hover:bg-btn-200 text-white rounded-xl cursor-pointer  shadow-sm">
           <Upload size={18} />
           <span className="text-sm font-medium">Upload CSV</span>
           <input

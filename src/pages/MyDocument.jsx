@@ -28,6 +28,7 @@ const MyDocument = () => {
   const [targetDoc, setTargetDoc] = useState(null); //select doc
  
   const deleteModalRef = useRef(null); //delete dialog ref
+  const dialogRef = useRef(null);
  
    // Array of documents
  
@@ -75,7 +76,11 @@ const MyDocument = () => {
       className="min-h-screen w-full p-3 sm:p-6 lg:p-8 "
     >
       <div className="max-w-7xl mx-auto space-y-6">
-        <DocumentSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <DocumentSearch
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          dialogRef={dialogRef}
+        />
 
         <div className="bg-white dark:bg-gray-900 dark:border-gray-900 shadow-xl shadow-text/5 rounded-2xl sm:rounded-3xl overflow-hidden border border-white">
           <div className="overflow-x-auto">

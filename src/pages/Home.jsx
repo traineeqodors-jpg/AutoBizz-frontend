@@ -46,19 +46,10 @@ const Home = () => {
         <GenerateSOP />
 
         {/* Change the parent div to this */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 w-full items-stretch ">
-          {/* Recent Leads: Full width on mobile, 1/3 on desktop */}
-          <div className="xl:col-span-1 shadow-sm border dark:border-0 border-gray-100 rounded-2xl bg-white dark:bg-gray-900 overflow-hidden">
-            <Leads />
-          </div>
-
-          {/* Analytics: Full width on mobile, 2/3 on desktop */}
-          <div className="xl:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-6 flex flex-col border dark:border-0 border-gray-100">
-            <h2 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Analytics</h2>
-            {/* min-h-[300px] ensures it doesn't collapse on mobile */}
-            <div className="flex-1 min-h-75 md:min-h-100 w-full">
-              <Analysis />
-            </div>
+         <div className="grid grid-cols-1 max-h-fit xl:grid-cols-3 gap-5">
+          <Leads />
+          <div className="xl:col-span-2 max-h-110 min-h-100 w-full bg-white dark:bg-gray-900 rounded-2xl dark:shadow-sm dark:shadow-gray-700/40">
+            <Analysis />
           </div>
         </div>
       </div>
