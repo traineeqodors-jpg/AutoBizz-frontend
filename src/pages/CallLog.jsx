@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import {
   useDeleteCallLogMutation,
   useGetAllCallLogsQuery,
@@ -262,14 +262,14 @@ const CallLog = () => {
                         <button
                           disabled={filters.page === 1}
                           onClick={() => handlePageChange(filters.page - 1)}
-                          className="px-4 py-2 text-xs font-bold rounded-xl border border-gray-200 disabled:opacity-30 bg-white dark:bg-gray-950 dark:text-white cursor-pointer"
+                          className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white  dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
                         >
                           Prev
                         </button>
                         <button
                           disabled={filters.page >= pagination.totalPages}
                           onClick={() => handlePageChange(filters.page + 1)}
-                          className="px-4 py-2 text-xs font-bold rounded-xl bg-black text-white disabled:opacity-30 dark:bg-gray-950 dark:text-white cursor-pointer"
+                          className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
                         >
                           Next
                         </button>

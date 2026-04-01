@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useForgotPasswordMutation } from "../features/slices/resetPasswordSlice";
 
 const ForgetPasswordPage = () => {
@@ -24,7 +24,7 @@ const ForgetPasswordPage = () => {
 
     try {
       const response = await forgotPassword(email).unwrap();
-       console.log(response)
+      console.log(response);
       toast.success(response?.message);
     } catch (error) {
       console.log(error);

@@ -6,7 +6,7 @@ import {
   useGoogleTokenMutation,
   useLogoutMutation,
 } from "../features/slices/orgSlice";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";

@@ -5,7 +5,9 @@ import { useGetMyDocumentsQuery } from "../../../features/slices/documentSlice";
 import { useGenerateScriptMutation } from "../../../features/slices/scriptGenerationSlice";
 import GenerateVideo from "./GenerateVideo";
 import GenerateScript from "./GenerateScript";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
+import CustomToast from "../../ui/CustomToast";
+import { useNavigate } from "react-router-dom";
 
 function GenerateSOP() {
   const [aiContext, setAiContext] = useState(null);
@@ -16,9 +18,11 @@ function GenerateSOP() {
 
   const { data } = useGetMyDocumentsQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
-  }); 
+  });
 
   const documents = data?.data || [];
+
+  const navigate = useNavigate();
 
   const [generateVideo, { isLoading: videoLoading }] =
     useGenerateVideoMutation();
@@ -30,22 +34,32 @@ function GenerateSOP() {
   const genScriptRef = useRef(null);
 
   useEffect(() => {
-
     const currentRequest = activeRequestRef.current;
 
     return () => {
-      if(currentRequest){
-          currentRequest.abort()
+      if (currentRequest) {
+        currentRequest.abort();
       }
-     
     };
   }, []);
 
   async function handleSOPVideoGeneration(e) {
     e.preventDefault();
+
+    if (!videoScript.trim()) {
+      return toast.error("No Scirpt Found");
+    }
     try {
-       await generateVideo(videoScript).unwrap();
-      toast.success("Generating your SOP Video");
+      await generateVideo(videoScript).unwrap();
+      toast.custom((t) => (
+        <CustomToast
+          t={t}
+          toastTitle={"Generating your SOP Video"}
+          toastMessage={"This may take few minutes. Check Status on SOP Page"}
+          navigate={navigate}
+          navLink={"sop"}
+        />
+      ));
       genVideoRef.current?.close();
     } catch (err) {
       console.error("Failed to generate video:", err);

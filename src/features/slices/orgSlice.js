@@ -17,6 +17,8 @@ export const orgApi = createApi({
         body: input,
         credentials: "include",
       }),
+
+      invalidatesTags: ["orgUser"],
     }),
 
     loginOrg: build.mutation({

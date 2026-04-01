@@ -3,7 +3,7 @@ import { TbInfoCircleFilled } from "react-icons/tb";
 import businessesCategory from "../../JSON data/businesses.json"; 
 import {DatePicker} from 'react-datepicker'
 import { useAddOrgDetailsMutation, useGetOrgDetailsQuery } from '../../features/slices/orgDetailsSlice';
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 import LoadingElement from '../ui/LoadingElement';
 
 

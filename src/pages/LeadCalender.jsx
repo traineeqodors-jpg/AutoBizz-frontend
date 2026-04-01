@@ -16,7 +16,7 @@ import {
 } from "../features/slices/orgSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const localizer = momentLocalizer(moment);
 

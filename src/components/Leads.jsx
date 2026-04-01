@@ -26,7 +26,7 @@ function Leads() {
 
       <hr className="border-gray-300 my-5" />
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {leadsLoading ? (
           <div className="flex animate-pulse bg-gray-300 dark:bg-gray-600 rounded-2xl p-3">
             <div className="flex items-center gap-3 justify-evenly">

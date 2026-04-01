@@ -1,15 +1,14 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   IoMailOutline,
   IoCallOutline,
   IoLocationOutline,
   IoSend,
 } from "react-icons/io5";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useGetMeQuery } from "../../features/slices/orgSlice";
 import { useAddLeadFormMutation } from "../../features/slices/leadSlice";
 
- 
 const ContactUs = () => {
   const [input, setInput] = useState({
     name: "",
@@ -17,24 +16,25 @@ const ContactUs = () => {
     phone: "",
     subject: "",
     message: "",
-    orgId : 0
+    orgId: 0,
   });
- 
-  const[addForm ] = useAddLeadFormMutation()
-  const { data} = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")})
-  const orgId = data?.data?.id
 
- 
+  const [addForm] = useAddLeadFormMutation();
+  const { data } = useGetMeQuery(undefined, {
+    skip: !localStorage.getItem("isLoggedIn"),
+  });
+  const orgId = data?.data?.id;
+
   // Handling Input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
- 
+
   // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+
     // 1. Validations for Empty Fields (Login Style)
     if (
       !input.name.trim() ||
@@ -44,47 +44,42 @@ const ContactUs = () => {
     ) {
       return toast.error("Please fill all the fields");
     }
- 
+
     // 2. Email Regex (Login Style)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(input.email)) {
       return toast.error("Please enter a valid email address");
     }
- 
+
     // 3. Phone Validation (Login Style)
     const phoneRegex = /^[0-9]{10,15}$/;
     if (!phoneRegex.test(input.phone)) {
       return toast.error("Please enter a valid phone number");
     }
- 
+
     // 4. Message Length Validation
     if (input.message.length < 10) {
       return toast.error("Message must be at least 10 characters long");
     }
- 
-      
-    setInput({...input , orgId : orgId ? orgId : 0})
 
-      // Success Logic
-      console.log("Contact Form Data:", input);
-    
- 
-      //setInput({ name: "", email: "", phone: "", subject: "", message: "" });
-  
-  
+    setInput({ ...input, orgId: orgId ? orgId : 0 });
+
+    // Success Logic
+    console.log("Contact Form Data:", input);
+
+    //setInput({ name: "", email: "", phone: "", subject: "", message: "" });
+
     try {
-      const response = await addForm(input).unwrap()
-      console.log(response)
-      toast.success(response?.message)
+      const response = await addForm(input).unwrap();
+      console.log(response);
+      toast.success(response?.message);
     } catch (error) {
-      console.log(error?.data?.message)
+      console.log(error?.data?.message);
     }
- 
+
     setInput({ name: "", email: "", phone: "", subject: "", message: "" });
-  
-    
   };
- 
+
   return (
     <div className="min-h-screen bg-back dark:bg-gray-800 p-4 sm:p-8 lg:p-12">
       <div className="max-w-5xl mx-auto">
@@ -209,7 +204,7 @@ const ContactUs = () => {
     </div>
   );
 };
- 
+
 const ContactInfoCard = ({ icon, title, detail, subDetail }) => (
   <div className="bg-white dark:bg-gray-900 dark:border-0 p-6 rounded-2xl border border-slate-50 flex items-start gap-4 hover:shadow-md">
     <div className="p-3 bg-btn-100/10 text-btn-100 rounded-xl">{icon}</div>
@@ -224,5 +219,5 @@ const ContactInfoCard = ({ icon, title, detail, subDetail }) => (
     </div>
   </div>
 );
- 
+
 export default ContactUs;

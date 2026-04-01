@@ -4,7 +4,7 @@ import {
   useGetMyDocumentsQuery,
 } from "../features/slices/documentSlice";
 import LoadingElement from "../components/ui/LoadingElement";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import DocumentTable from "../components/MyDocument/DocumentTable";
 import { IoSearchOutline } from "react-icons/io5";
 import DocumentSearch from "../components/MyDocument/DocumentSearch";

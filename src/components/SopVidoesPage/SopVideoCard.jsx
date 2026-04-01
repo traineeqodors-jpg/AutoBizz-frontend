@@ -59,7 +59,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
         </div>
       ) : isFailed ? (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 dark:bg-gray-700 backdrop-blur-md">
-          <span className="text-red-400 dark:text-red-900 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
+          <span className="text-red-400 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
             <IoIosWarning className="size-7" />
             Failed to Generate.
           </span>

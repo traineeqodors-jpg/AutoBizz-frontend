@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
 import SignupForm from "../components/LoginAndSignUp/SignupForm";
-import { orgApi, useRegisterOrgMutation } from "../features/slices/orgSlice";
-import { useDispatch } from "react-redux";
+import { useRegisterOrgMutation } from "../features/slices/orgSlice";
 import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
@@ -22,8 +21,6 @@ const SignupPage = () => {
 
   // Mutation Hook
   const [register, { isLoading }] = useRegisterOrgMutation();
-
-  const dispatch = useDispatch();
 
   //   Handling Input Chnage
   const handleChange = (e) => {
@@ -122,12 +119,12 @@ const SignupPage = () => {
     // Register API call
     try {
       const response = await register(formData).unwrap();
-      dispatch(orgApi.util.invalidateTags(["orgUser"]));
+      localStorage.setItem("isLoggedIn", "true");
       toast.success(response?.message);
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast.error(error.data.message);
+      toast.error(error?.data?.message);
     }
   };
   return (

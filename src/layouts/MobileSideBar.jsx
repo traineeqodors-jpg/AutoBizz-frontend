@@ -7,7 +7,7 @@ import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   const dialogRef = useRef(null);
