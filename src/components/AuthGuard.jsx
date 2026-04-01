@@ -7,11 +7,11 @@ const AuthGuard = ({ children, requireAuth }) => {
 
   // If there's no isLoggedIn, don't even run the query
 
-  const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
+  const { data, isLoading} = useGetMeQuery(undefined, {
     skip: !isLoggedIn,
   });
 
-  if (isLoading || isFetching) return <LoadingElement />;
+  if (isLoading) return <LoadingElement />;
 
   const isAuthenticated = !!data;
 

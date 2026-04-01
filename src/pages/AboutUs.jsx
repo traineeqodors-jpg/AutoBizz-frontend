@@ -14,7 +14,7 @@ const AboutUs = () => {
       >
         <div className=" bg-back dark:bg-gray-800 p-4 sm:p-8 lg:p-12">
           <div className="max-w-7xl mx-auto space-y-20">
-            {/* 5. TEAM SECTION */}
+            {/* TEAM SECTION */}
             <div className="text-center py-10">
               <h2 className="text-xl font-bold text-text dark:text-white tracking-tight">
                 The Minds Behind the Voice

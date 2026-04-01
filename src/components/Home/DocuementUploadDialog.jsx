@@ -36,7 +36,6 @@ function DocuementUploadDialog({ dialogRef }) {
       dialogRef.current?.close();
     } catch (err) {
       console.error("Upload failed:", err);
-      // Set the error message locally instead of using toast.error
       setLocalError(err?.data?.message || "An unexpected error occurred during upload.");
          
       
@@ -82,7 +81,6 @@ function DocuementUploadDialog({ dialogRef }) {
               htmlFor="files"
               className="block w-full py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-white cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-all"
             >
-              {/* This text will always be visible */}
               {docFile ? docFile?.name : "Click to upload a file"}
             </label>
 

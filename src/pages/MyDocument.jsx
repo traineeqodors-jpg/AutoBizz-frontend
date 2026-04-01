@@ -10,49 +10,49 @@ import { IoSearchOutline } from "react-icons/io5";
 import DocumentSearch from "../components/MyDocument/DocumentSearch";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
 
-
 import { motion } from "framer-motion";
- 
+
 const MyDocument = () => {
   //API Calls
- 
+
   const { data, isLoading } = useGetMyDocumentsQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
   }); //fetch documents
+  
   const [deleteDocument, { isLoading: isDeleting }] =
     useDeleteDocumentMutation(); //delete documents
- 
-  //states
- 
+
+
   const [searchTerm, setSearchTerm] = useState(""); //search box
   const [targetDoc, setTargetDoc] = useState(null); //select doc
- 
+
   const deleteModalRef = useRef(null); //delete dialog ref
- 
-   // Array of documents
- 
+  const dialogRef = useRef(null);
+
+  // Array of documents
+
   // Filter logic for search
- 
+
   const filteredDocs = useMemo(() => {
     const documents = data?.data || [];
     return documents.filter((doc) =>
       doc.docUrl?.toLowerCase().includes(searchTerm.toLowerCase()),
     );
-  }, [ data?.data ,searchTerm]);
- 
+  }, [data?.data, searchTerm]);
+
   //open delete modal
- 
+
   const openDeleteModal = (doc) => {
     setTargetDoc(doc);
     deleteModalRef.current?.showModal();
   };
- 
+
   //close delete modal
   const closeDeleteModal = () => {
     deleteModalRef.current?.close();
     setTargetDoc(null);
   };
- 
+
   //handle delete
   const confirmDelete = async () => {
     if (!targetDoc) return;
@@ -61,12 +61,12 @@ const MyDocument = () => {
       toast.success("Document permanently removed");
       closeDeleteModal();
     } catch (err) {
-      toast.error("Deletion failed. Try again." , err);
+      toast.error("Deletion failed. Try again.", err);
     }
   };
- 
+
   if (isLoading) return <LoadingElement />;
- 
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -75,7 +75,11 @@ const MyDocument = () => {
       className="min-h-screen w-full p-3 sm:p-6 lg:p-8 "
     >
       <div className="max-w-7xl mx-auto space-y-6">
-        <DocumentSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <DocumentSearch
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          dialogRef={dialogRef}
+        />
 
         <div className="bg-white dark:bg-gray-900 dark:border-gray-900 shadow-xl shadow-text/5 rounded-2xl sm:rounded-3xl overflow-hidden border border-white">
           <div className="overflow-x-auto">
@@ -115,7 +119,6 @@ const MyDocument = () => {
           </div>
         </div>
       </div>
-
       <DeleteDialog
         targetElement={targetDoc}
         confirmDelete={confirmDelete}
@@ -126,7 +129,5 @@ const MyDocument = () => {
     </motion.div>
   );
 };
- 
+
 export default MyDocument;
- 
- 

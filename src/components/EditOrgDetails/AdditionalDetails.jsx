@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from 'react'
+import  { useRef, useState } from 'react'
 import { TbInfoCircleFilled } from "react-icons/tb";
 import businessesCategory from "../../JSON data/businesses.json"; 
 import {DatePicker} from 'react-datepicker'
@@ -19,10 +19,6 @@ function AdditionalDetails() {
   const [year, setYear] = useState(null);
   
   const timeoutRef = useRef(null)
-
-
-
- 
 
   async function handleInformationChange(e) {
     const { name, value } = e.target;
@@ -101,7 +97,7 @@ function AdditionalDetails() {
 
                onChange={handleInformationChange}
              />
-             <div className="absolute bottom-2 right-2 text-xs font-semibold bg-white dark:bg-gray-500 rounded px-1">
+             <div className="absolute bottom-2 right-2 text-xs font-semibold bg-white dark:bg-transparent rounded px-1">
                {status === "Saving..." && (
                  <span className="text-orange-500 animate-pulse">
                    Saving...

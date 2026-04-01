@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaIndustry, FaUser, FaUserEdit, FaCheck } from "react-icons/fa";
 import { MdOutlinePlace } from "react-icons/md";
 import { ImCross } from "react-icons/im";
@@ -16,7 +16,6 @@ const ProfileInfo = ({ user, onSave }) => {
   const [formFields, setFormFields] = useState(user);
 
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields((prev) => ({ ...prev, [name]: value }));
@@ -28,7 +27,6 @@ const ProfileInfo = ({ user, onSave }) => {
     setIsEditing(false);
   };
 
-  // Helper inside or outside component
   const formatDisplayValue = (key, value) => {
     if (!value) return "N/A";
     if (
@@ -47,7 +45,7 @@ const ProfileInfo = ({ user, onSave }) => {
 
   const renderInputField = (key, value) => {
     const baseClass =
-      "w-full bg-transparent border-b border-gray-300 focus:outline-none focus:border-btn-100 font-medium py-1";
+      "w-full bg-transparent border-b border-gray-300 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-1";
 
     if (key === "businessSize" || key === "orgSize") {
       return (
@@ -55,7 +53,7 @@ const ProfileInfo = ({ user, onSave }) => {
           name={key}
           value={value || ""}
           onChange={handleChange}
-          className={baseClass}
+          className={"w-full bg-transparent focus:dark:bg-gray-900 border-b border-gray-300 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-1"}
         >
           <option value="" disabled>
             -- Size --
@@ -75,8 +73,7 @@ const ProfileInfo = ({ user, onSave }) => {
         value={value || ""}
         onChange={handleChange}
         className={baseClass}
-        // Disable country if you don't want them editing it here
-        disabled={key === "country"}
+        disabled={key === "country" || key === "email" || key === "phoneNumber"}
       />
     );
   };
@@ -95,17 +92,13 @@ const ProfileInfo = ({ user, onSave }) => {
 
         {isEditing ? (
           <div className="flex gap-4 items-center justify-center">
-            <form onSubmit={handleSubmit}>
-                <button
-               type="submit"
+            <button
+              onClick={handleSubmit}
               className="flex flex-col items-center text-green-600 hover:text-green-700"
             >
               <FaCheck size={12} />
               <span className="text-[10px] font-bold uppercase">Save</span>
             </button>
-
-            </form>
-          
             <button
               onClick={() => {
                 setIsEditing(false);
@@ -136,7 +129,6 @@ const ProfileInfo = ({ user, onSave }) => {
               key={key}
               className="bg-back/40 dark:bg-gray-700 py-2 px-4 rounded-xl flex items-center gap-3 border border-transparent focus-within:border-btn-100 min-w-0 w-full"
             >
-              {/* Icon - Fixed width to prevent shrinking */}
               <div className="shrink-0">
                 {key.toLowerCase().includes("business") ||
                 key.toLowerCase().includes("org") ? (
@@ -148,7 +140,7 @@ const ProfileInfo = ({ user, onSave }) => {
                 )}
               </div>
 
-              {/* Text Container - min-w-0 is the secret fix for flex overflows */}
+              {/* Text Container */}
               <div className="flex-1 min-w-0">
                 <p className="text-text/60 dark:text-gray-400 text-[10px] uppercase font-bold tracking-tight">
                   {key.replace(/([A-Z])/g, " $1")}

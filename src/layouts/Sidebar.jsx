@@ -1,9 +1,8 @@
-import { FaCalendarAlt, FaGoogle, FaHome } from "react-icons/fa";
+import { FaCalendarAlt, FaHome } from "react-icons/fa";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   useGetMeQuery,
-  useGoogleTokenMutation,
   useLogoutMutation,
 } from "../features/slices/orgSlice";
 import { toast } from "react-toastify";
@@ -51,7 +50,6 @@ const Sidebar = () => {
     }
   };
 
-
   return (
     <>
       <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 dark:bg-gray-900 overflow-auto p-4 inset-shadow-sm/20 relative">
@@ -59,7 +57,7 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
             <img
-              src="/autoBizz.png"
+              src="/autoBizz.webp"
               alt="Logo"
               className="size-20 object-cover"
             />

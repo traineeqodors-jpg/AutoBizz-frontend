@@ -1,5 +1,4 @@
-
-import  { useState } from "react";
+import { useState } from "react";
 import { IoChatbox } from "react-icons/io5";
 import Messaging from "../Messaging";
 
@@ -10,7 +9,7 @@ function AIChat() {
   return (
     <>
       <div
-        className={`absolute bottom-16 lg:right-16 h-fit md:right-10 right-4 z-50 inline bg-back p-3 ${!chatIsOpen ? `rounded-full` : `rounded-2xl`}  shadow-lg inset-shadow-sm/10 hover:inset-shadow-sm/20`}
+        className={`absolute bottom-16 lg:right-16 h-fit md:right-10 right-4 z-50 inline bg-back dark:bg-gray-800 p-3 ${!chatIsOpen ? `rounded-full` : `rounded-2xl`}  shadow-lg inset-shadow-sm/10 hover:inset-shadow-sm/20`}
       >
         {!chatIsOpen ? (
           <IoChatbox

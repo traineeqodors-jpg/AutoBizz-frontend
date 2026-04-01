@@ -7,7 +7,6 @@ import LoadingElement from "../components/ui/LoadingElement";
 
 import AIChat from "../components/ui/AIChat";
 import { useGetMeQuery } from "../features/slices/orgSlice";
-import { BiAngry } from "react-icons/bi";
 
 const RootLayout = () => {
   
@@ -15,13 +14,10 @@ const RootLayout = () => {
   const { data } = useGetMeQuery(undefined, { skip: !localStorage.getItem("isLoggedIn") });
   const navigation = useNavigation();
 
-  // If React Router is doing a 'loader' transition, show the spinner
   if (navigation.state === "loading") {
     return <LoadingElement />;
   }
 
-  // AuthGuard in App.js ensures 'data' exists before we get here,
-  // but we use a fallback just in case of a race condition.
   if (!data) return null;
 
   return (
@@ -29,13 +25,11 @@ const RootLayout = () => {
 
       <div className="flex h-screen overflow-hidden">
         <Sidebar />
-
         <main className="flex-1 flex flex-col shrink-0 overflow-y-auto scheme-dark scroll-smooth">
           <div className="flex flex-col h-screen overflow-hidden">
             <Navbar />
             <div className="grow overflow-auto bg-back dark:bg-gray-800">
               <Outlet />
-
               <AIChat />
               <Footer />
             </div>

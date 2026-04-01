@@ -1,7 +1,7 @@
 import { IoIosWarning } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRef, useState } from "react";
-import ViewScript from "../Home/Sop/ViewScript";
+import ViewScript from "./ViewScript";
 
 const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -29,7 +29,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
         </button>
 
         {openMenu && (
-          <div className="absolute right-0 top-6 w-32 bg-back/90 border border-gray-300 rounded-lg shadow-lg p-2">
+          <div className="absolute right-0 top-6 w-32 bg-back/90 dark:bg-gray-700 border border-gray-300 rounded-lg shadow-lg p-2">
             <ul className="text-sm">
               <li
                 onClick={() => handleDeleteVideo(video.id)}
@@ -39,7 +39,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
               </li>
               <li
                 onClick={() => viewScriptRef.current?.showModal()}
-                className={`hover:bg-black/20 rounded-md  p-1 cursor-pointer text-text ${deletingVideo && "pointer-events-none opacity-60"}`}
+                className={`hover:bg-black/20 dark:text-white rounded-md  p-1 cursor-pointer text-text ${deletingVideo && "pointer-events-none opacity-60"}`}
               >
                 View Script
               </li>
@@ -52,19 +52,18 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
 
       {/* DIsplay based state */}
       {isPending ? (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 backdrop-blur-md">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 dark:bg-gray-700 backdrop-blur-md">
           <div className="relative flex items-center justify-center">
             <div className="w-12 h-12 border-4 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
 
-            {/* <div className="absolute w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></div> */}
           </div>
           <p className="mt-3 text-xs font-bold text-btn-100 tracking-wider uppercase animate-pulse">
             Processing high-quality AI video...
           </p>
         </div>
       ) : isFailed ? (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 backdrop-blur-md">
-          <span className="text-red-400 dark:text-red-900 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gray-200/40 dark:bg-gray-700 backdrop-blur-md">
+          <span className="text-red-500 dark:text-red-200 text-xs uppercase font-bold tracking-wider flex justify-center-safe items-center-safe gap-1">
             <IoIosWarning className="size-7" />
             Failed to Generate.
           </span>

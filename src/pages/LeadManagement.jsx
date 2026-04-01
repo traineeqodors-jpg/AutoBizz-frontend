@@ -18,7 +18,6 @@ import {
 import { useGoogleLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
 
-
 import { motion, AnimatePresence } from "framer-motion";
 
 function LeadManagement() {
@@ -26,13 +25,11 @@ function LeadManagement() {
 
   const { data: user } = useGetMeQuery();
 
-
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
 
   const [googleToken] = useGoogleTokenMutation();
 
   const [deleteLead, { isLoading: isDeleting }] = useDeleteLeadMutation();
-
 
   const [fileName, setFileName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,11 +45,9 @@ function LeadManagement() {
     order: "DESC",
   });
 
-
   const [deleteTarget, setDeleteTarget] = useState(null);
   const deleteModalRef = useRef(null);
   const scrollRef = useRef(null);
-
 
   // Debounce Search
   useEffect(() => {
@@ -61,7 +56,6 @@ function LeadManagement() {
     }, 700);
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
-
 
   // Get Data RTK Query Hook
   const {
@@ -72,12 +66,9 @@ function LeadManagement() {
     skip: !isGoogleLinked,
   });
 
-
   const leads = data?.data?.leads || [];
 
-
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
-
 
   // scroll function
   const scrollToTop = () => {
@@ -91,25 +82,20 @@ function LeadManagement() {
     }, 50);
   };
 
-
   // On change Filter
   const updateFilter = (e) => {
     const { name, value } = e.target;
-
 
     if ((name === "minScore" && value < 0) || value > 100) {
       return;
     }
 
-
     setFilters((prev) => ({ ...prev, [name]: value, page: 1 }));
   };
-
 
   const handlePageChange = (newPage) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
   };
-
 
   const resetFilters = () => {
     setSearchTerm("");
@@ -126,11 +112,9 @@ function LeadManagement() {
     });
   };
 
-
   // File Upload
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-
 
     if (file) {
       setFileName(file.name);
@@ -138,9 +122,7 @@ function LeadManagement() {
       const formData = new FormData();
       formData.append("file", file);
 
-
       console.log(formData.get("file"));
-
 
       try {
         const response = await uploadCSV(formData).unwrap();
@@ -148,12 +130,10 @@ function LeadManagement() {
       } catch (error) {
         console.log(error);
 
-
         toast.error(error?.data?.message);
       }
     }
   };
-
 
   // Open Delete Modal
   const openDeleteModal = (leadId) => {
@@ -161,13 +141,11 @@ function LeadManagement() {
     deleteModalRef.current?.showModal();
   };
 
-
   //close delete modal
   const closeDeleteModal = () => {
     deleteModalRef.current?.close();
     setDeleteTarget(null);
   };
-
 
   //handle delete
   const confirmDelete = async () => {
@@ -180,7 +158,6 @@ function LeadManagement() {
       toast.error(err?.data?.message);
     }
   };
-
 
   // Login with google
   const handleGoogleLogin = useGoogleLogin({
@@ -199,7 +176,6 @@ function LeadManagement() {
       console.log(error);
     },
   });
-
 
   return (
     <motion.div
@@ -229,10 +205,8 @@ function LeadManagement() {
           </div>
         )}
 
-
         <LeadHeader handleFileUpload={handleFileUpload} fileName={fileName} />
         <LeadCards data={data} />
-
 
         {/* Filters & Search Section */}
         <LeadFilter
@@ -242,7 +216,6 @@ function LeadManagement() {
           updateFilter={updateFilter}
           resetFilters={resetFilters}
         />
-
 
         {/* Main Content Area */}
         <AnimatePresence mode="wait">
@@ -262,7 +235,7 @@ function LeadManagement() {
             transition={{ duration: 0.2 }}
           >
             <div
-              className="bg-white shadow-xl dark:bg-gray-900 shadow-text/5 rounded-2xl overflow-hidden border border-slate-100 relative"
+              className="bg-white shadow-xl dark:bg-gray-900 shadow-text/5 rounded-2xl overflow-hidden border border-slate-100 dark:border-gray-900 relative"
               ref={scrollRef}
             >
               {leadsLoading ? (
@@ -280,9 +253,7 @@ function LeadManagement() {
                           <th className="px-6 py-4 border-b">Contacts</th>
                           <th className="px-6 py-4 border-b">Status</th>
                           <th className="px-6 py-4 border-b">Score</th>
-                          <th className="px-6 py-4 border-b text-right">
-                            Actions
-                          </th>
+                          <th className="px-6 py-4 border-b">Actions</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
@@ -332,7 +303,7 @@ function LeadManagement() {
                   </div>
 
                   {/* Pagination Controls */}
-                  <div className="px-6 py-4 bg-slate-50/50 border-tdark:bg-gray-700 border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="px-6 py-4 bg-slate-50/50 dark:bg-gray-700  border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <span className="text-sm text-slate-500 dark:text-white">
                       Showing page{" "}
                       <span className="font-semibold text-slate-900 dark:text-white">
@@ -350,7 +321,7 @@ function LeadManagement() {
                           handlePageChange(filters.page - 1);
                           scrollToTop();
                         }}
-                        className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
+                        className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white  dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
                       >
                         Previous
                       </button>
@@ -362,7 +333,7 @@ function LeadManagement() {
                           handlePageChange(filters.page + 1);
                           scrollToTop();
                         }}
-                        className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
+                        className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
                       >
                         Next
                       </button>
@@ -384,6 +355,4 @@ function LeadManagement() {
   );
 }
 
-
 export default LeadManagement;
-

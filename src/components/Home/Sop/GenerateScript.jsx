@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { GrMagic } from "react-icons/gr";
 import { IoCloseSharp } from "react-icons/io5";
 import {
@@ -62,7 +62,6 @@ function GenerateScript({
       genScriptRef.current?.close();
       genVideoRef.current?.showModal();
 
-      // Store the returned promise object in the ref
       const promise = script(payload);
       activeRequestRef.current = promise;
 
@@ -73,7 +72,6 @@ function GenerateScript({
     } catch (error) {
       console.log(error);
 
-      // Check if the error was a manual cancellation
       if (error.name === "AbortError" || error.status === "FETCH_ERROR") {
         console.log("Request was cancelled");
         return;

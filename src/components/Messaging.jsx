@@ -1,4 +1,4 @@
-import  { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
 import { RiRobot3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
@@ -29,7 +29,6 @@ function Messaging({ setChatIsOpen, chat, setChat }) {
     setInput("");
 
     // 2. Simulate/Fetch AI Response
-    // In a real app, you'd fetch() your Pinecone/Node.js route here
     setTimeout(() => {
       const aiResponse = {
         role: "ai",
@@ -43,11 +42,11 @@ function Messaging({ setChatIsOpen, chat, setChat }) {
     <div className="flex flex-col gap-2 w-full">
       <div className="flex gap-2 justify-between items-center">
         <h3 className="font-bold flex gap-2 justify-center items-center">
-          <span>Ask AI</span>
+          <span className="dark:text-white">Ask AI</span>
           <RiRobot3Fill className="text-btn-100" />
         </h3>
         <RxCross2
-          className="hover:scale-105 cursor-pointer"
+          className="hover:scale-105 cursor-pointer dark:text-white"
           onClick={() => setChatIsOpen(false)}
         />
       </div>
@@ -55,31 +54,27 @@ function Messaging({ setChatIsOpen, chat, setChat }) {
       {/* 4. Attach ref and keep normal flex-col */}
       <div
         ref={scrollRef}
-        className="h-[50vh] sm:w-md bg-white p-2 sm:p-5 font-medium flex flex-col gap-3 overflow-y-auto"
+        className="h-[50vh] sm:w-md bg-white dark:bg-gray-900 p-2 sm:p-5 font-medium flex flex-col gap-3 overflow-y-auto"
       >
-        {/* Welcome Message */}
-        {/* <div className="p-2 bg-sidebar w-fit rounded-lg ring ring-btn-50/30 self-start">
-          Hello! How can I help with your SOPs?
-        </div> */}
 
         {/* Messages */}
         {chat.map((msg, index) => (
           <div
             key={index}
-            className={`p-2  w-fit rounded-lg ring ring-btn-50/30 ${msg.role === "user" ? "self-end bg-btn-50/20" : "self-start bg-sidebar"}`}
+            className={`p-2  w-fit rounded-lg ring ring-btn-50/30 ${msg.role === "user" ? "self-end bg-btn-50/20 dark:bg-btn-50/50 dark:text-white" : "self-start bg-sidebar"}`}
           >
             {msg.text}
           </div>
         ))}
       </div>
 
-      <div className="flex flex-row gap-1 w-full bg-white rounded-2xl p-2 items-center">
+      <div className="flex flex-row gap-1 w-full bg-white dark:bg-gray-700 rounded-2xl p-2 items-center">
         <form
           onSubmit={handleChat}
           className="flex flex-row gap-1 w-full items-center"
         >
           <input
-            className="w-full px-2 py-1 sm:py-3 border-0 outline-0"
+            className="w-full px-2 py-1 sm:py-3 border-0 outline-0  dark:text-white"
             placeholder="Type Message..."
             onChange={(e) => setInput(e.target.value)}
             value={input || ""}

@@ -9,13 +9,12 @@ const EmptyCallLog = ({
 }) => {
  
     return (
-      <div className="w-full flex flex-col items-center justify-center py-20 px-6 bg-white dark:bg-gray-900 rounded-[3rem] border-2  border-gray-200">
+      <div className="w-full flex flex-col items-center justify-center py-20 px-6 bg-white dark:bg-gray-900 rounded-3xl  border-2  border-gray-200 dark:border-gray-900">
         {/* Icon with Login Side Styling */}
         <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-3xl shadow-xl flex items-center justify-center text-btn-100 mb-6 transform -rotate-6">
           <IoCallOutline size={48} />
         </div>
 
-        {/* Text matching Home Component Typography */}
         <div className="text-center space-y-2">
           <h2 className="text-2xl font-bold text-text dark:text-white tracking-tight">
             No Call Logs Found
@@ -27,7 +26,6 @@ const EmptyCallLog = ({
           </p>
         </div>
 
-        {/* Button matching Sign In styling */}
         {(searchTerm || statusFilter !== "all") && (
           <button
             onClick={() => {

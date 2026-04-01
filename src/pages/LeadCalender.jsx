@@ -172,7 +172,7 @@ const LeadCalendar = () => {
         {/* If Not Connceted to Google */}
         {!isGoogleLinked && (
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 dark:bg-gray-800/40 backdrop-blur-md p-2">
-            <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl text-center border border-gray-100 ">
               <h2 className="text-xl font-bold mb-2 dark:text-white">
                 Google Calendar Required
               </h2>
@@ -188,7 +188,7 @@ const LeadCalendar = () => {
             </div>
           </div>
         )}
-        <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white shadow-2xl flex flex-col overflow-hidden">
+        <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white dark:border-gray-700 shadow-2xl flex flex-col overflow-hidden">
           <div className="flex items-center gap-5 mb-8 p-2">
             <div className="bg-btn-100 p-4 rounded-3xl shadow-2xl shadow-cyan-500/30">
               <IoCalendarOutline className="text-white" size={28} />
@@ -203,7 +203,7 @@ const LeadCalendar = () => {
             </div>
           </div>
 
-          <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-2 sm:p-8 shadow-inner border border-white/50 overflow-hidden relative">
+          <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-2 sm:p-8 shadow-inner border border-white/50  overflow-hidden relative">
             <AnimatePresence mode="wait" custom={direction}>
               {isLoading ? (
                 <motion.div

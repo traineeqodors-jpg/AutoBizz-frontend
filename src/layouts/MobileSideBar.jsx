@@ -1,5 +1,4 @@
-
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { FaCalendarAlt, FaHome } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
@@ -63,7 +62,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
         <div className="flex justify-center-safe items-center-safe">
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
             <img
-              src="/autoBizz.png"
+              src="/autoBizz.webp"
               alt="Logo"
               className="size-20 object-cover"
             />

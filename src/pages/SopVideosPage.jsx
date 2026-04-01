@@ -30,7 +30,6 @@ const SopVideosPage = () => {
       const isFailed = video?.videoUrl === "failed";
       const isSuccess = !!video?.videoUrl && video?.videoUrl !== "failed";
 
-      // Map the dropdown 'statusFilter' to your logic
       let matchesStatus = true;
 
       if (statusFilter === "completed") {
@@ -40,11 +39,6 @@ const SopVideosPage = () => {
       } else if (statusFilter === "failed") {
         matchesStatus = isFailed;
       }
-
-      // // 3. Search check
-      // const matchesSearch = (video.title || "")
-      //   .toLowerCase()
-      //   .includes(searchTerm.toLowerCase());
 
       return matchesStatus;
     });

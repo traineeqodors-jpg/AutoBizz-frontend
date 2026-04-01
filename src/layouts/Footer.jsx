@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <footer className="w-full bg-text flex flex-col font-normal p-5 text-white">
+      <footer className="w-full bg-text dark:bg-gray-950/70 flex flex-col font-normal p-5 text-white">
         {/* Footer Head */}
         {/* <div className="flex sm:px-10 justify-between items-center-safe">
           <div className="flex flex-col justify-center-safe items-center-safe">
@@ -25,7 +25,7 @@ const Footer = () => {
           <div className="flex-1 flex flex-col justify-center-safe items-center-safe">
             <div className="bg-white flex items-center justify-center size-25 rounded-full shadow-inner mb-2 overflow-hidden">
               <img
-                src="/autoBizz.png"
+                src="/autoBizz.webp"
                 alt="Logo"
                 className="size-25 object-cover"
               />
@@ -79,7 +79,7 @@ const Footer = () => {
         </div>
 
         <p className="inline-block my-5 text-center">
-          @Copyright all right reserved
+          © Copyright all right reserved
         </p>
       </footer>
     </>

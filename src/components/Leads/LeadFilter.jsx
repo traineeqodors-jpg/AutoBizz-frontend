@@ -57,7 +57,6 @@ const LeadFilter = ({
               placeholder="e.g. 50"
               onKeyDown={(e) => {
                 if (e.key === "-" || e.key === "e") {
-                  // Blocks minus and scientific notation
                   e.preventDefault();
                 }
               }}

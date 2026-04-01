@@ -24,7 +24,7 @@ const DetailModal = ({setSelectedLog , selectedLog}) => {
         </div>
 
             <div className="p-6 space-y-6">
-              {/* CONVERSATION CONTAINER: Fixed height and Scrollable */}
+              {/* CONVERSATION CONTAINER */}
               <div className="max-h-100 hideScrollBar overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-gray-200">
                 {selectedLog.transcript ? (
                   selectedLog.transcript.split("\n").map((line, index) => {

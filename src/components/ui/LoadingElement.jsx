@@ -1,6 +1,3 @@
-
-
-
 const LoadingElement = () => {
   return (
     <div className="min-h-screen flex justify-center-safe items-center-safe">

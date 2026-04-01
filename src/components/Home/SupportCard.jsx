@@ -19,19 +19,17 @@ const SupportCard = () => {
           </div>
         </div>
 
-        {/* Icon container matches your existing dashboard accenting */}
         <div className="p-2.5 bg-btn-100/10 rounded-xl text-btn-100 group-hover:bg-btn-100/20 ">
           <HiOutlinePhoneIncoming size={20} />
         </div>
       </div>
 
-      {/* Bottom Section: Matches the list-style data of your Org Details */}
+      {/* Bottom Section */}
       <div className="space-y-1">
         <p className="text-text/60 dark:text-gray-200 text-sm font-medium ml-1">
           Direct Support Line
         </p>
-        {/* The Number: Bold and Clear like your Business Name display */}
-        <div className="w-full py-2.5 px-4 rounded-xl bg-gray-50 dark:bg-black dark:border-0 border border-gray-100 flex items-center justify-start group-hover:border-btn-100/20 ">
+        <div className="w-full py-2.5 px-4 rounded-xl bg-gray-50 dark:bg-gray-700 dark:border-0 border border-gray-100 flex items-center justify-start group-hover:border-btn-100/20 ">
           <span className="text-text dark:text-gray-50 sm:text-xl text-mb  font-bold tracking-wider">
             {import.meta.env.VITE_AI_SUPPORT_NUMBER}
           </span>

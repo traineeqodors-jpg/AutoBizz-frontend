@@ -1,5 +1,4 @@
 import { Upload } from "lucide-react";
-import React from "react";
 
 function LeadHeader({ handleFileUpload, fileName }) {
   return (

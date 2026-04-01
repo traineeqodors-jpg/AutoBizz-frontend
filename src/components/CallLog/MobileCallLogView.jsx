@@ -1,4 +1,3 @@
-
 import { IoCallOutline, IoEyeSharp, IoTrashOutline } from 'react-icons/io5'
 
 const MobileCallLogView = ({processedLogs , setSelectedLog , openDeleteModal}) => {
