@@ -18,7 +18,7 @@ const AuthGuard = ({ children, requireAuth }) => {
     return isLoggedIn && isAuthenticated ? (
       children
     ) : (
-      <Navigate to="/login" replace />
+      <Navigate to="/home" replace />
     );
   } else {
     // For Login/Register: if we have both, boot to home

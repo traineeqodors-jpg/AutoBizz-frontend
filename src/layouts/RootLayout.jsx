@@ -1,5 +1,4 @@
-
-import {  Outlet, useNavigation } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
@@ -10,9 +9,10 @@ import { useGetMeQuery } from "../features/slices/orgSlice";
 import { BiAngry } from "react-icons/bi";
 
 const RootLayout = () => {
-  
   // We skip: !token to prevent the 401 error on logout
-  const { data } = useGetMeQuery(undefined, { skip: !localStorage.getItem("isLoggedIn") });
+  const { data } = useGetMeQuery(undefined, {
+    skip: !localStorage.getItem("isLoggedIn"),
+  });
   const navigation = useNavigation();
 
   // If React Router is doing a 'loader' transition, show the spinner
@@ -26,7 +26,6 @@ const RootLayout = () => {
 
   return (
     <>
-
       <div className="flex h-screen overflow-hidden">
         <Sidebar />
 
@@ -45,6 +44,5 @@ const RootLayout = () => {
     </>
   );
 };
-
 
 export default RootLayout;
