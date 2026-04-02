@@ -5,9 +5,9 @@ import {
   IoLocationOutline,
   IoSend,
 } from "react-icons/io5";
-import { toast } from "react-toastify";
-import { useGetMeQuery } from "../../features/slices/orgSlice";
-import { useAddLeadFormMutation } from "../../features/slices/leadSlice";
+import toast from "react-hot-toast"
+import { useGetMeQuery, useQueryFormMutation } from "../../features/slices/orgSlice";
+
 
  
 const ContactUs = () => {
@@ -20,7 +20,7 @@ const ContactUs = () => {
     orgId : 0
   });
  
-  const[addForm ] = useAddLeadFormMutation()
+  const[addForm] = useQueryFormMutation()
   const { data} = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")})
   const orgId = data?.data?.id
 

@@ -7,7 +7,7 @@ import {
 } from "../features/slices/videoGenerationSlice";
 import SearchFIlterVideos from "../components/SopVidoesPage/SearchFIlterVideos";
 import GenerateSOP from "../components/Home/Sop/GenerateSOP";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 
 
 import { motion } from "framer-motion";
@@ -41,11 +41,7 @@ const SopVideosPage = () => {
         matchesStatus = isFailed;
       }
 
-      // // 3. Search check
-      // const matchesSearch = (video.title || "")
-      //   .toLowerCase()
-      //   .includes(searchTerm.toLowerCase());
-
+  
       return matchesStatus;
     });
   }, [videos, statusFilter]);

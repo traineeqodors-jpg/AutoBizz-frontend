@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
 import SignupForm from "../components/LoginAndSignUp/SignupForm";
 import { orgApi, useRegisterOrgMutation } from "../features/slices/orgSlice";
@@ -123,14 +123,15 @@ const SignupPage = () => {
     };
 
     // Register API call
+      
     try {
       const response = await register(formData).unwrap();
-      dispatch(orgApi.util.invalidateTags(["orgUser"]));
+      localStorage.setItem("isLoggedIn", "true");
       toast.success(response?.message);
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast.error(error.data.message);
+      toast.error(error?.data?.message);
     }
   };
   return (

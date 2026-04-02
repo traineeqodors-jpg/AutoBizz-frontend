@@ -4,7 +4,7 @@ const FormLeftSIde = () => {
   return (
     <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back dark:bg-gray-700 p-10 ">
       <div className="bg-white flex items-center justify-center size-35 rounded-full shadow-inner mb-2 overflow-hidden">
-        <img src="/autoBizz.png" alt="Logo" className="size-35 object-cover" />
+        <img src="/autoBizz.webp" alt="Logo" className="size-35 object-cover" />
       </div>
       <h2 className="text-2xl font-extrabold text-text dark:text-white mb-2">
         AutoBizz

@@ -17,15 +17,7 @@ export const leadsApi = createApi({
 
       invalidatesTags: (result, error) => (error ? [] : ["leads"]),
     }),
-    addLeadForm: build.mutation({
-      query: (formData) => ({
-        url: "/form",
-        method: "post",
-        body: formData,
-        credentials: "include",
-      }),
-      invalidatesTags: (result, error) => (error ? [] : ["leads"]),
-    }),
+    
     // In leadSlice.js
     getAllLeads: build.query({
       query: (params) => {

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGoogle } from "react-icons/fa";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import { useGoogleLogin } from "@react-oauth/google";
 import { io } from "socket.io-client";
 
@@ -257,7 +257,7 @@ function LeadManagement() {
     });
 
     socket.on(scoreKey, (data) => {
-      console.log("📩 Received Score Update:", data);
+      console.log("Received Score Update:", data);
 
       clearAutoHide();
 
@@ -366,9 +366,9 @@ function LeadManagement() {
                 {socketNotice.status === "processing" &&
                   socketNotice.total > 0 && (
                     <div className="mt-3">
-                      <div className="h-2 w-full bg-white rounded-full overflow-hidden">
+                      <div className="h-2 w-full bg-white dark:bg-gray-800 dark:text-white rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-blue-500 transition-all duration-300"
+                          className="h-full bg-blue-500 dark:bg-gray-800 transition-all duration-300"
                           style={{ width: `${socketNotice.progress}%` }}
                         />
                       </div>

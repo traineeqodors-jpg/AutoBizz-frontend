@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useUploadDocumentsMutation } from "../../features/slices/documentSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import { FaExclamationCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import CustomToast from "../ui/CustomToast";
 
 function DocuementUploadDialog({ dialogRef }) {
   const [docFile, setDocFile] = useState("");
    const [localError, setLocalError] = useState(""); // Local error state
+   const navigate = useNavigate()
 
   const [uploadDocument, { isLoading: docuementLoading }] =
     useUploadDocumentsMutation();
@@ -29,14 +32,21 @@ function DocuementUploadDialog({ dialogRef }) {
 
       try {
       const response = await uploadDocument(formData).unwrap();
-      toast.success(response?.message); 
+      toast.custom((t) => (
+        <CustomToast
+          t={t}
+          toastTitle={response?.message}
+          toastMessage={"It will take few seconds to process the document"}
+          navigate={navigate}
+          navLink={"documents"}
+        />)); 
       setDocFile(null);
       setLocalError("");
    
       dialogRef.current?.close();
     } catch (err) {
       console.error("Upload failed:", err);
-      // Set the error message locally instead of using toast.error
+      
       setLocalError(err?.data?.message || "An unexpected error occurred during upload.");
          
       

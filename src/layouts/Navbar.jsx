@@ -52,7 +52,7 @@ const Navbar = () => {
     <>
       <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center-safe bg-back/20 dark:bg-gray-900 border-b border-gray-300 relative">
         <div className="size-15 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-full dark:bg-white">
-          <img src="/autoBizz.png" alt="Logo" className="w-full h-full" />
+          <img src="/autoBizz.webp" alt="Logo" className="w-full h-full" />
         </div>
 
         {/* Menu Buttons */}
@@ -71,7 +71,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setIsDialogOpen(!isDialogOpen)}
-            className="decoration-2 underline-offset-2 hover:translate-y-0.5 transition-all cursor-pointer dark:text-white"
+            className="decoration-2 underline-offset-2 hover:translate-y-0.5  cursor-pointer dark:text-white"
           >
             <IoMenu className="size-8" />
           </button>

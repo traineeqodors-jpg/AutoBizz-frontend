@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import { useResetPasswordMutation } from "../features/slices/resetPasswordSlice";
 
 const ResetPasswordPage = () => {

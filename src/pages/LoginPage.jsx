@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
 import SocialLogin from "../components/LoginAndSignUp/SocialLogin";
 import { orgApi, useLoginOrgMutation } from "../features/slices/orgSlice";

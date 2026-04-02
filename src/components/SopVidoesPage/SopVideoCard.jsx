@@ -8,7 +8,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
 
   const viewScriptRef = useRef(null);
 
-  console.log(video);
+
   
 
   const isPending = video?.videoUrl === null;

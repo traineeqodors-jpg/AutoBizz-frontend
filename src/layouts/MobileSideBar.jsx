@@ -8,7 +8,7 @@ import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 
 const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   const dialogRef = useRef(null);
@@ -63,7 +63,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
         <div className="flex justify-center-safe items-center-safe">
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
             <img
-              src="/autoBizz.png"
+              src="/autoBizz.webp"
               alt="Logo"
               className="size-20 object-cover"
             />

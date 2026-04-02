@@ -26,13 +26,16 @@ function Leads() {
           View All
         </Link>
       </div>
-
-      <div className="space-y-4">
+<div className="space-y-4">
         {leadsLoading ? (
           <div className="flex animate-pulse bg-gray-300 dark:bg-gray-600 rounded-2xl p-3">
             <div className="flex items-center gap-3 justify-evenly">
               <div className="w-10 h-10 rounded-full bg-blue-100"></div>
             </div>
+          </div>
+        ) : leads?.length < 1 ? (
+          <div className="p-20 text-center font-medium text-sm dark:text-gray-400">
+            No High Scoring Leads Found
           </div>
         ) : (
           leads.map((lead) => (

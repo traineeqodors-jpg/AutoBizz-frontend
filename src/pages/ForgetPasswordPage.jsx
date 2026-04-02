@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import { useForgotPasswordMutation } from "../features/slices/resetPasswordSlice";
 
 const ForgetPasswordPage = () => {

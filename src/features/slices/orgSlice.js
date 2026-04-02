@@ -17,7 +17,9 @@ export const orgApi = createApi({
         method: "post",
         body: input,
         credentials: "include",
-      })
+      }),
+        invalidatesTags: ["orgUser"],
+      
     }),
 
     loginOrg: build.mutation({
@@ -59,6 +61,13 @@ export const orgApi = createApi({
       }),
       // invalidatesTags: ["orgUser"],
     }),
+    queryForm : build.mutation({
+        query : (body) => ({
+          url : "/queryForm",
+          method : "post",
+          body : body
+        })
+    }),
     googleToken: build.mutation({
       query: (code) => ({
         url: "/googleToken",
@@ -77,5 +86,6 @@ export const {
   useGetMeQuery,
   useLogoutMutation,
   useUpdateOrgMutation,
-  useGoogleTokenMutation
+  useGoogleTokenMutation,
+  useQueryFormMutation
 } = orgApi;

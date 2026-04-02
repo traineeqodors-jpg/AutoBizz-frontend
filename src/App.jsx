@@ -6,6 +6,8 @@ import AuthGuard from "./components/AuthGuard";
 import { useSelector } from "react-redux";
 import { lazy, Suspense, useEffect } from "react";
 import LoadingElement from "./components/ui/LoadingElement";
+import LeadResponsePage from "./components/LeadResponsePage";
+import LandingPage from "./pages/LandingPage";
  
 const Home = lazy(() => import("./pages/Home"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/home",
+    element: (
+      <AuthGuard requireAuth={false}>
+        <LandingPage />
+      </AuthGuard>
+    ),
+  },
+  {
     path: "/register",
     element: (
       <AuthGuard requireAuth={false}>
@@ -58,6 +68,7 @@ const router = createBrowserRouter([
   },
   { path: "/resetpassword", element: <ForgetPasswordPage /> },
   { path: "/resetpassword/:token", element: <ResetPasswordPage /> },
+  { path: "/confirm-meeting", element: <LeadResponsePage /> },
 ]);
  
 const App = () => {

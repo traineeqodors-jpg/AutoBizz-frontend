@@ -24,7 +24,16 @@ export const meetingsApi = createApi({
     
       
     }),
+
+    confirmMeeting : builder.mutation({
+      query : (body) => ({
+        url : "/confirm-meeting",
+        method : "post",
+        body: body
+      }),
+      invalidatesTags : ["Meetings"]
+    })
   }),
 });
 
-export const { useGetAllMeetingsQuery } = meetingsApi;
+export const { useGetAllMeetingsQuery , useConfirmMeetingMutation } = meetingsApi;

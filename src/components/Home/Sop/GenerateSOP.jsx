@@ -5,7 +5,7 @@ import { useGetMyDocumentsQuery } from "../../../features/slices/documentSlice";
 import { useGenerateScriptMutation } from "../../../features/slices/scriptGenerationSlice";
 import GenerateVideo from "./GenerateVideo";
 import GenerateScript from "./GenerateScript";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 
 function GenerateSOP() {
   const [aiContext, setAiContext] = useState(null);
@@ -43,6 +43,11 @@ function GenerateSOP() {
 
   async function handleSOPVideoGeneration(e) {
     e.preventDefault();
+
+    if(!videoScript.trim()){
+      return toast.error("No Script Provided!")
+    }
+
     try {
        await generateVideo(videoScript).unwrap();
       toast.success("Generating your SOP Video");

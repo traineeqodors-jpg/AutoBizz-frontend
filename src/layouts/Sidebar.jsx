@@ -6,7 +6,7 @@ import {
   useGoogleTokenMutation,
   useLogoutMutation,
 } from "../features/slices/orgSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
@@ -59,7 +59,7 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
             <img
-              src="/autoBizz.png"
+              src="/autoBizz.webp"
               alt="Logo"
               className="size-20 object-cover"
             />

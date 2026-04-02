@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import toast from "react-hot-toast"
 import AdditionalDetails from "../components/EditOrgDetails/AdditionalDetails";
 import ProfileInfo from "../components/EditOrgDetails/ProfileInfo";
 import {
@@ -43,6 +43,12 @@ function EditOrgDetails() {
   const [update] = useUpdateOrgMutation();
 
   const handleProfileSave = async (updatedDetails) => {
+
+    console.log(updatedDetails)
+    if(!updatedDetails || Object.keys(updatedDetails).length === 0){
+       return;
+    }
+
     try {
       const response = await update(updatedDetails).unwrap();
       toast.success(response?.message);
@@ -113,7 +119,7 @@ function EditOrgDetails() {
 
             {/* Business Info: Full width and centered on mobile */}
             <div className="w-full min-w-0">
-              <h2 className="text-xl sm:text-2xl font-bold text-text capitalize tracking-tight wrap-break-word">
+              <h2 className="text-xl sm:text-2xl font-bold text-text dark:text-white capitalize tracking-tight wrap-break-word">
                 {businessName}
               </h2>
               <span className="inline-block mt-1 bg-green-50 border border-green-100 px-3 py-1 uppercase tracking-widest font-bold text-[10px] text-green-600 rounded-lg">
