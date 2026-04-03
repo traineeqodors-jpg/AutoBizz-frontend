@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useUploadDocumentsMutation } from "../../features/slices/documentSlice";
-import { toast } from "react-toastify";
 import { FaExclamationCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
+import CustomToast from "../ui/CustomToast";
+import { useNavigate } from "react-router-dom";
 
 function DocuementUploadDialog({ dialogRef }) {
   const [docFile, setDocFile] = useState("");
-   const [localError, setLocalError] = useState(""); // Local error state
+  const [localError, setLocalError] = useState(""); // Local error state
+  const navigate = useNavigate();
 
   const [uploadDocument, { isLoading: docuementLoading }] =
     useUploadDocumentsMutation();
@@ -14,36 +17,41 @@ function DocuementUploadDialog({ dialogRef }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-     setLocalError(""); 
+    setLocalError("");
 
-    if (!docFile ) {
+    if (!docFile) {
       setLocalError("Please select at least one file to upload.");
       return;
     }
 
     const formData = new FormData();
 
-   
-      formData.append("file", docFile);
-   
+    formData.append("file", docFile);
 
-      try {
+    try {
       const response = await uploadDocument(formData).unwrap();
-      toast.success(response?.message); 
+      toast.custom((t) => (
+        <CustomToast
+          t={t}
+          toastTitle={response?.message}
+          toastMessage={"It will take few seconds to process the document"}
+          navigate={navigate}
+          navLink={"documents"}
+        />
+      ));
+
       setDocFile(null);
       setLocalError("");
-   
+
       dialogRef.current?.close();
     } catch (err) {
       console.error("Upload failed:", err);
-      setLocalError(err?.data?.message || "An unexpected error occurred during upload.");
-         
-      
+      setLocalError(
+        err?.data?.message || "An unexpected error occurred during upload.",
+      );
     }
 
-        e.target.reset();
-     
-     
+    e.target.reset();
   };
 
   return (

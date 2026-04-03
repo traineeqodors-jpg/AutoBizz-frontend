@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const orgApi = createApi({
   reducerPath: "orgApi",
   baseQuery: fetchBaseQuery({
@@ -17,7 +16,8 @@ export const orgApi = createApi({
         method: "post",
         body: input,
         credentials: "include",
-      })
+      }),
+      invalidatesTags: ["orgUser"],
     }),
 
     loginOrg: build.mutation({
@@ -27,9 +27,8 @@ export const orgApi = createApi({
         body: input,
         credentials: "include",
       }),
-      
-      
-      invalidatesTags : ["orgUser"]
+
+      invalidatesTags: ["orgUser"],
     }),
 
     updateOrg: build.mutation({
@@ -77,5 +76,5 @@ export const {
   useGetMeQuery,
   useLogoutMutation,
   useUpdateOrgMutation,
-  useGoogleTokenMutation
+  useGoogleTokenMutation,
 } = orgApi;

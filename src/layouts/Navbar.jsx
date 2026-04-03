@@ -4,20 +4,21 @@ import MobileSideBar from "./MobileSideBar";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import { toggleTheme } from "../features/slices/themeSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ scrollToTop }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useDispatch();
   const isDark = useSelector((state) => state.theme.isDark);
 
-
-
   return (
     <>
       <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center-safe bg-back/20 dark:bg-gray-900 border-b border-gray-300 relative">
-        <div className="size-15 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-full dark:bg-white">
-          <img src="/autoBizz.webp" alt="Logo" className="w-full h-full" />
-        </div>
+        <Link to={"/"} onClick={scrollToTop}>
+          <div className="size-15 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-full dark:bg-white">
+            <img src="/autoBizz.webp" alt="Logo" className="w-full h-full" />
+          </div>
+        </Link>
 
         {/* Menu Buttons */}
         <div className="flex justify-center-safe items-center-safe gap-7 text-lg">
@@ -45,6 +46,7 @@ const Navbar = () => {
           <MobileSideBar
             isDialogOpen={isDialogOpen}
             setIsDialogOpen={setIsDialogOpen}
+            scrollToTop={scrollToTop}
           />
         )}
       </nav>

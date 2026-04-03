@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
 import SignupForm from "../components/LoginAndSignUp/SignupForm";
 import { orgApi, useRegisterOrgMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SignupPage = () => {
   const [input, setInput] = useState({
@@ -125,14 +125,14 @@ const SignupPage = () => {
     // Register API call
     try {
       const response = await register(formData).unwrap();
-      dispatch(orgApi.util.invalidateTags(["orgUser"]));
+      localStorage.setItem("isLoggedIn", "true");
       toast.success(response?.message);
       navigate("/");
     } catch (error) {
       console.log(error);
       toast.error(error.data.message);
     }
-  };
+  };;
   return (
     <>
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">

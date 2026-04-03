@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import {
   useDeleteCallLogMutation,
   useGetAllCallLogsQuery,

@@ -4,13 +4,13 @@ import {
   useGetMyDocumentsQuery,
 } from "../features/slices/documentSlice";
 import LoadingElement from "../components/ui/LoadingElement";
-import { toast } from "react-toastify";
 import DocumentTable from "../components/MyDocument/DocumentTable";
 import { IoSearchOutline } from "react-icons/io5";
 import DocumentSearch from "../components/MyDocument/DocumentSearch";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
 
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 const MyDocument = () => {
   //API Calls
@@ -58,6 +58,7 @@ const MyDocument = () => {
     if (!targetDoc) return;
     try {
       await deleteDocument(targetDoc.id).unwrap();
+
       toast.success("Document permanently removed");
       closeDeleteModal();
     } catch (err) {

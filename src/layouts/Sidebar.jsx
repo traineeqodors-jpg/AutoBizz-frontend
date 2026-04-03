@@ -1,35 +1,24 @@
 import { FaCalendarAlt, FaHome } from "react-icons/fa";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
-import { NavLink, useNavigate } from "react-router-dom";
-import {
-  useGetMeQuery,
-  useLogoutMutation,
-} from "../features/slices/orgSlice";
-import { toast } from "react-toastify";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import { toggleTheme } from "../features/slices/themeSlice";
 
-
-
-const Sidebar = () => {
+const Sidebar = ({ scrollToTop }) => {
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isDark = useSelector((state) => state.theme.isDark);
 
-  const {
-    data,
-    isLoading: userLoading,
-   
-  } = useGetMeQuery(undefined, {
+  const { data, isLoading: userLoading } = useGetMeQuery(undefined, {
     skip: !localStorage.getItem("isLoggedIn"),
   });
-
- 
 
   if (userLoading) {
     return null;
@@ -46,24 +35,29 @@ const Sidebar = () => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally." , error);
+      console.warn("Server logout failed, cleaning up locally.", error);
     }
   };
 
   return (
     <>
       <div className="hidden lg:block shrink-0 w-65 bg-btn-100/10 dark:bg-gray-900 overflow-auto p-4 inset-shadow-sm/20 relative">
-        <div className="flex justify-center-safe items-center-safe">
-          {/* Logo */}
-          <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
-            <img
-              src="/autoBizz.webp"
-              alt="Logo"
-              className="size-20 object-cover"
-            />
+        <Link to={"/"} onClick={scrollToTop}>
+          <div className="flex justify-center-safe items-center-safe">
+            {/* Logo */}
+
+            <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
+              <img
+                src="/autoBizz.webp"
+                alt="Logo"
+                className="size-20 object-cover"
+              />
+            </div>
+            <h1 className="text-2xl font-bold text-text dark:text-white ms-5">
+              AutoBizz
+            </h1>
           </div>
-          <h1 className="text-2xl font-bold text-text dark:text-white ms-5">AutoBizz</h1>
-        </div>
+        </Link>
 
         <hr className="border-gray-300 my-5" />
 
@@ -74,6 +68,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <FaHome className="size-5" />
               Home
@@ -85,6 +80,7 @@ const Sidebar = () => {
               <NavLink
                 to="/login"
                 className="w-full text-text/80 flex items-center-safe gap-3"
+                onClick={scrollToTop}
               >
                 <IoLogIn className="size-5" />
                 Login
@@ -98,6 +94,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <IoMdDocument className="size-5" />
               My Documents
@@ -110,6 +107,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <BiSolidVideos className="size-5" />
               SOP Videos
@@ -122,6 +120,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <IoPeopleSharp className="size-5" />
               Leads
@@ -134,6 +133,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <FaCalendarAlt className="size-5" />
               Calendar
@@ -146,6 +146,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <IoCall className="size-5" />
               Call History
@@ -158,6 +159,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-200 text-text dark:text-gray-200" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  text-text/80 dark:text-gray-200 px-3 py-2 `
               }
+              onClick={scrollToTop}
             >
               <IoMdDocument className="size-5" />
               About Us
@@ -188,7 +190,7 @@ const Sidebar = () => {
 
         <div className="absolute bottom-0 left-0 p-5 w-full">
           <hr className="border-gray-300 my-5" />
- 
+
           <button
             className="p-2 bg-btn-200 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
             onClick={() => dispatch(toggleTheme())}
@@ -201,7 +203,6 @@ const Sidebar = () => {
             )}
           </button>
         </div>
-     
       </div>
     </>
   );

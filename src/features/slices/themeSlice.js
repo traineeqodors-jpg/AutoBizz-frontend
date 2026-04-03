@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const themeSlice = createSlice({
   name: "theme",
   initialState: {
-    // Get initial value from localStorage immediately
     isDark:
       localStorage.getItem("theme") === "dark" ||
       (!("theme" in localStorage) &&

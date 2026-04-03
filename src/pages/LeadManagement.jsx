@@ -8,7 +8,7 @@ import {
   useGetAllLeadsQuery,
 } from "../features/slices/leadSlice";
 import LeadCards from "../components/Leads/LeadCards";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import DeleteDialog from "../components/Dialog/DeleteDialog";
 import LeadFilter from "../components/Leads/LeadFilter";
 import {
@@ -171,7 +171,7 @@ function LeadManagement() {
       }
     },
     flow: "auth-code",
-    scope: "https://www.googleapis.com/auth/calendar.events",
+    scope: "openid email profile",
     onError: (error) => {
       console.log(error);
     },

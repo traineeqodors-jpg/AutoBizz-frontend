@@ -7,9 +7,9 @@ import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
-const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
+const MobileSideBar = ({ isDialogOpen, setIsDialogOpen, scrollToTop }) => {
   const dialogRef = useRef(null);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       toast.success(response?.message);
       navigate("/login", { replace: true });
     } catch (error) {
-      console.warn("Server logout failed, cleaning up locally." , error);
+      console.warn("Server logout failed, cleaning up locally.", error);
     }
   };
 
@@ -91,6 +91,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <FaHome className="size-5" />
               Home
@@ -106,6 +107,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <IoMdDocument className="size-5" />
               My Documents
@@ -121,6 +123,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <BiSolidVideos className="size-5" />
               SOP Videos
@@ -136,6 +139,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <IoPeopleSharp className="size-5" />
               Leads
@@ -151,6 +155,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <FaCalendarAlt className="size-5" />
               Calendar
@@ -166,6 +171,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <IoMdDocument className="size-5" />
               About Us
@@ -181,6 +187,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               className={({ isActive }) =>
                 `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
+              onClick={scrollToTop}
             >
               <IoCall className="size-5" />
               Call History

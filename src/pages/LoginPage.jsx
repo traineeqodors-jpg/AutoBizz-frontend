@@ -2,16 +2,21 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import FormLeftSIde from "../components/LoginAndSignUp/FormLeftSIde";
 import SocialLogin from "../components/LoginAndSignUp/SocialLogin";
 import { orgApi, useLoginOrgMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import BusinessLoginForm from "../components/LoginAndSignUp/BusinessLoginForm";
+import EmployeeLoginForm from "../components/LoginAndSignUp/EmployeeLoginForm";
 
 const LoginPage = () => {
+
+  const [userType, setUserType] = useState("Business");
   const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
     email: "",
+    empId: "",
     password: "",
   });
 
@@ -36,7 +41,7 @@ const LoginPage = () => {
     }
     // Improved regex for standard email formats
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(input.email)) {
+    if (userType=="Business" && !emailRegex.test(input.email)) {
       return toast.error("Please enter a valid email address");
     }
     //Validation for Length
@@ -45,15 +50,22 @@ const LoginPage = () => {
     }
 
     // Login API call
-    try {
-      const response = await login(input).unwrap();
-      localStorage.setItem("isLoggedIn", "true");
-      toast.success(response?.message);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.data?.message);
+    if (userType === "Business") {
+      try {
+        const response = await login(input).unwrap();
+        localStorage.setItem("isLoggedIn", "true");
+        toast.success(response?.message);
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        toast.error(error?.data?.message);
+      }
     }
+    else {
+      //Employee login API CALL
+      toast.error("Employee login coming soon!")
+    }
+    
   };
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">
@@ -74,74 +86,42 @@ const LoginPage = () => {
               </p>
             </div>
 
-            {/* Email Field */}
-            <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
+            <div className="flex gap-2 justify-evenly bg-back dark:bg-gray-800 px-2 py-3 rounded-2xl">
+              <div
+                className={`dark:text-white text-text cursor-pointer ${userType === "Business" ? "underline" : null}`}
+                onClick={() => setUserType("Business")}
               >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={input.email}
-                onChange={handleChange}
-                placeholder="hello@example.com"
-                className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
-              />
-            </div>
-
-            {/* Password Field */}
-            <div className="space-y-2">
-              <label
-                htmlFor="password"
-                name="password"
-                className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
+                Business
+              </div>
+              <div
+                className={`dark:text-white text-text cursor-pointer ${userType === "Employee" ? "underline" : null}`}
+                onClick={() => setUserType("Employee")}
               >
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  value={input.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-btn-100 transition-colors"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {!showPassword ? (
-                    <FaEyeSlash size={20} />
-                  ) : (
-                    <IoEyeSharp size={20} />
-                  )}
-                </button>
+                Employee
               </div>
             </div>
 
-            {/* SIgnIn Btn and Forget Password */}
-            <div>
-              <NavLink
-                to="/resetpassword"
-                className="float-end text-blue-400 text-sm"
-              >
-                Forget Password ?{" "}
-              </NavLink>
-              <button
-                disabled={isLoading}
-                type="submit"
-                className={`${isLoading && "opacity-60"} w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-4`}
-              >
-                {isLoading ? "Signing in..." : "Sign In"}
-              </button>
-            </div>
+            {/* business login */}
+            {userType == "Business" && (
+              <BusinessLoginForm
+                input={input}
+                handleChange={handleChange}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+                isLoading={isLoading}
+              />
+            )}
+
+            {/* employee login */}
+            {userType == "Employee" && (
+              <EmployeeLoginForm
+                input={input}
+                handleChange={handleChange}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
+                isLoading={isLoading}
+              />
+            )}
 
             {/* Footer */}
             <div className="flex py-4 items-center">

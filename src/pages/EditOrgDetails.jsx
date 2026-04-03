@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+
 import AdditionalDetails from "../components/EditOrgDetails/AdditionalDetails";
 import ProfileInfo from "../components/EditOrgDetails/ProfileInfo";
 import {
@@ -10,6 +10,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoCloseOutline, IoCameraOutline } from "react-icons/io5";
 
 import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
 
 function EditOrgDetails() {
   const [updateImage, { isLoading: imageIsLoading }] = useUpdateOrgMutation();

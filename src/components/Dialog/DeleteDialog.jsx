@@ -35,7 +35,7 @@ const DeleteDialog = ({
         <div className="flex w-full gap-3 mt-6">
           <button
             onClick={closeDeleteModal}
-            className="flex-1 py-3 text-sm bg-gray-50 hover:bg-gray-100 text-gray-600 font-bold rounded-xl transition-all active:scale-95"
+            className="flex-1 py-3 text-sm bg-gray-50 cursor-pointer hover:bg-gray-100 text-gray-600 font-bold rounded-xl transition-all active:scale-95"
           >
             Cancel
           </button>

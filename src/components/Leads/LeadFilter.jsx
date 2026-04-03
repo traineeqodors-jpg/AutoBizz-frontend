@@ -19,7 +19,7 @@ const LeadFilter = ({
               <input
                 type="text"
                 placeholder="Name, email, or company..."
-                className="w-full py-3 px-4 pl-11 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 dark:text-white focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+                className="w-full py-3 px-4 pl-11 rounded-xl border border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 dark:text-white focus:ring-2 focus:ring-btn-100 dark:focus:ring-btn-300 outline-none transition-all"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -28,7 +28,7 @@ const LeadFilter = ({
               </span>
             </div>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Status
@@ -37,14 +37,14 @@ const LeadFilter = ({
               name="status"
               value={filters?.status}
               onChange={updateFilter}
-              className="w-full py-3 px-4 text-sm text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+              className="w-full py-3 px-4 text-sm text-text dark:text-white rounded-xl border dark:border-gray-900 dark:focus:ring-btn-300 border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
             >
               <option value="">All Status</option>
               <option value="new">New</option>
               <option value="contacted">Contacted</option>
             </select>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Min Score
@@ -62,10 +62,10 @@ const LeadFilter = ({
               }}
               value={filters?.minScore}
               onChange={updateFilter}
-              className="w-full py-3 px-4 text-text dark:text-white text-sm rounded-xl border border-gray-200 bg-gray-50  dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+              className="w-full py-3 px-4 text-text dark:text-white text-sm dark:border-gray-900 dark:focus:ring-btn-300 rounded-xl border border-gray-200 bg-gray-50  dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
             />
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               From Date
@@ -77,14 +77,14 @@ const LeadFilter = ({
                 value={filters?.startDate}
                 onChange={updateFilter}
                 onClick={(e) => e.target.showPicker()}
-                className="w-full py-3 px-4 pr-10 text-sm rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 text-text dark:text-white focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
+                className="w-full py-3 px-4 pr-10 text-sm rounded-xl border border-gray-200 dark:border-gray-900 dark:focus:ring-btn-300 bg-gray-50 dark:bg-gray-800 text-text dark:text-white focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
               />
               <div className="absolute right-4 pointer-events-none text-gray-500">
                 <FaRegCalendarAlt size={16} />
               </div>
             </div>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               To Date
@@ -96,14 +96,14 @@ const LeadFilter = ({
                 value={filters?.endDate}
                 onChange={updateFilter}
                 onClick={(e) => e.target.showPicker()}
-                className="w-full py-3 px-4 pr-10 text-sm text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
+                className="w-full py-3 px-4 pr-10 text-sm dark:border-gray-900 dark:focus:ring-btn-300 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
               />
               <div className="absolute right-4 pointer-events-none text-gray-500">
                 <FaRegCalendarAlt size={16} />
               </div>
             </div>
           </div>
- 
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Sort By
@@ -112,7 +112,7 @@ const LeadFilter = ({
               name="sortBy"
               value={filters?.sortBy}
               onChange={updateFilter}
-              className="w-full py-3 px-4 text-sm text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+              className="w-full py-3 px-4 text-sm text-text dark:text-white dark:border-gray-900 dark:focus:ring-btn-300 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
             >
               <option value="createdAt">Date Created</option>
               <option value="confidence_score">Score</option>
@@ -120,11 +120,11 @@ const LeadFilter = ({
               <option value="email">Email</option>
             </select>
           </div>
- 
+
           <div className="flex items-end">
             <button
               onClick={resetFilters}
-              className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 cursor-pointer text-gray-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
+              className="w-full py-3 rounded-xl border-2 border-dashed dark:border-gray-900 dark:focus:ring-btn-300 border-gray-200 cursor-pointer text-gray-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
             >
               Clear Filters
             </button>

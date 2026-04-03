@@ -18,7 +18,7 @@ import {
 } from "../features/slices/orgSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FaGoogle } from "react-icons/fa";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
  
 const localizer = momentLocalizer(moment);
  
@@ -49,7 +49,7 @@ const LeadCalendar = () => {
   const { data: user } = useGetMeQuery(undefined , {skip : !localStorage.getItem("isLoggedIn")});
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
   
-    const { data, isLoading } = useGetAllMeetingsQuery(undefined , {skip : !isGoogleLinked});
+  const { data, isLoading } = useGetAllMeetingsQuery(undefined , {skip : !isGoogleLinked});
  
   const [googleToken] = useGoogleTokenMutation();
  
@@ -111,34 +111,33 @@ const LeadCalendar = () => {
       <div className="flex items-center gap-2">
         <button
           onClick={() => toolbar.onNavigate("TODAY")}
-          className="px-5 py-2.5 bg-back rounded-2xl text-[10px] font-black uppercase tracking-widest text-text hover:bg-btn-100 hover:text-white transition-all active:scale-95 shadow-sm"
+          className="px-5 py-2.5 bg-back rounded-2xl text-[10px] font-black uppercase tracking-widest text-text hover:bg-btn-100 dark:hover:bg-btn-300 hover:text-white transition-all active:scale-95 shadow-sm"
         >
           Today
         </button>
         <div className="flex bg-back rounded-2xl overflow-hidden shadow-inner border border-white">
           <button
             onClick={() => toolbar.onNavigate("PREV")}
-            className="p-2.5 hover:bg-btn-100 hover:text-white transition-colors active:bg-btn-200"
+            className="p-2.5 hover:bg-btn-100 dark:hover:bg-btn-300 hover:text-white transition-colors active:bg-btn-200"
           >
             <IoChevronBack size={18} />
           </button>
           <div className="w-px h-4 bg-gray-200 self-center" />
           <button
             onClick={() => toolbar.onNavigate("NEXT")}
-            className="p-2.5 hover:bg-btn-100 hover:text-white transition-colors active:bg-btn-200"
+            className="p-2.5 hover:bg-btn-100 dark:hover:bg-btn-300 hover:text-white transition-colors active:bg-btn-200"
           >
             <IoChevronForward size={18} />
           </button>
         </div>
       </div>
- 
+
       <motion.h3
         key={toolbar.label}
         initial={{ y: -10, opacity: 0 }}
-        transition={{duration : 0.1}}
+        transition={{ duration: 0.1 }}
         animate={{ y: 0, opacity: 1 }}
-        
-        className="text-sm font-black uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
+        className="text-sm font-black uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 dark:border-btn-300/30 px-4 pb-1"
       >
         {toolbar.label}
       </motion.h3>
@@ -150,7 +149,7 @@ const LeadCalendar = () => {
             onClick={() => toolbar.onView(v)}
             className={`px-4 py-2 text-[9px] font-black uppercase rounded-xl transition-all active:scale-95 cursor-pointer ${
               toolbar.view === v
-                ? "bg-btn-100 text-white shadow-lg -translate-y-px"
+                ? "bg-btn-100 dark:bg-btn-300 text-white shadow-lg -translate-y-px"
                 : "text-text hover:bg-white/60"
             }`}
           >
@@ -181,7 +180,7 @@ const LeadCalendar = () => {
               </p>
               <button
                 onClick={handleGoogleLogin}
-                className="bg-btn-100 text-white px-6 py-3 rounded-xl flex items-center gap-2 mx-auto font-semibold tracking-wide cursor-pointer"
+                className="bg-btn-100 dark:bg-btn-300 text-white px-6 py-3 rounded-xl flex items-center gap-2 mx-auto font-semibold tracking-wide cursor-pointer"
               >
                 <FaGoogle /> Link Google
               </button>
@@ -190,7 +189,7 @@ const LeadCalendar = () => {
         )}
         <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white dark:border-gray-700 shadow-2xl flex flex-col overflow-hidden">
           <div className="flex items-center gap-5 mb-8 p-2">
-            <div className="bg-btn-100 p-4 rounded-3xl shadow-2xl shadow-cyan-500/30">
+            <div className="bg-btn-100 dark:bg-btn-300 p-4 rounded-3xl shadow-2xl shadow-cyan-500/30">
               <IoCalendarOutline className="text-white" size={28} />
             </div>
             <div>
@@ -213,11 +212,11 @@ const LeadCalendar = () => {
                   exit={{ opacity: 0 }}
                   className="absolute inset-0 z-50 bg-white/40  backdrop-blur-xl flex items-center justify-center"
                 >
-                  <div className="w-16 h-16 border-8 border-back border-t-btn-100 rounded-full animate-spin" />
+                  <div className="w-16 h-16 border-8 border-back border-t-btn-100 dark:border-t-btn-300 rounded-full animate-spin" />
                 </motion.div>
               ) : (
                 <motion.div
-                  key={`${view}-${date.getTime()}`} // Unique key forces re-animation
+                  key={`${view}-${date.getTime()}`} 
                   custom={direction}
                   variants={viewVariants}
                   initial="initial"
@@ -236,7 +235,8 @@ const LeadCalendar = () => {
                     endAccessor="end"
                     components={{ toolbar: CustomToolbar }}
                     eventPropGetter={() => ({
-                      className: "!bg-btn-100 !rounded-lg !border-0 shadow-sm",
+                      className:
+                        "!bg-btn-100 dark:bg-btn-300 !rounded-lg !border-0 shadow-sm",
                     })}
                     onSelectEvent={(e) =>
                       e.meetLink && window.open(e.meetLink, "_blank")

@@ -20,7 +20,7 @@ const appReducer = combineReducers({
   [videoGenerationApi.reducerPath]: videoGenerationApi.reducer,
   [callLogApi.reducerPath]: callLogApi.reducer,
   [leadsApi.reducerPath]: leadsApi.reducer,
-    [meetingsApi.reducerPath]: meetingsApi.reducer,
+  [meetingsApi.reducerPath]: meetingsApi.reducer,
 });
 
 const rootReducer = (state, action) => {
