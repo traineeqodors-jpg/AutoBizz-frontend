@@ -7,7 +7,7 @@ export const orgApi = createApi({
     baseUrl: `${import.meta.env.VITE_BACKEND_URL}/api/org`,
   }),
 
-  tagTypes: ["orgUser", "register"],
+  tagTypes: ["orgUser"],
 
   endpoints: (build) => ({
     registerOrg: build.mutation({
