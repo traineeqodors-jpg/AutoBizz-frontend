@@ -4,8 +4,6 @@ import InfoDialog from "./InfoDialog";
 const ProductCard = ({ img, title, desc, features }) => {
   const dialogRef = useRef(null);
 
-  console.log(dialogRef);
-
   return (
     <div className="group flex flex-col bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-slate-100 dark:border-gray-400 hover:shadow-xl hover:shadow-btn-100/5 transition-all duration-500 h-full">
       <div className="h-44 w-full overflow-hidden bg-slate-50 dark:bg-gray-500 flex items-center justify-center">

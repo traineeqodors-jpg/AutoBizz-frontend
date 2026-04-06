@@ -110,19 +110,19 @@ const CallLog = () => {
       transition={{ duration: 0.1 }}
       className="min-h-screen  w-full  p-3 sm:p-6 lg:p-8 relative flex flex-col items-center gap-5"
     >
-      <div className="min-h-screen w-full  p-3 sm:p-6 lg:p-8 relative">
+      <div className="min-h-screen w-full relative">
         {isFetching && !isLoading && (
           <div className="absolute top-0 left-0 w-full h-1 bg-btn-100/20 overflow-hidden z-50">
             <div className="h-full bg-btn-100 animate-pulse w-1/3"></div>
           </div>
         )}
 
-        <div className="max-w-7xl mx-auto space-y-6">
+        <div className="mx-auto space-y-6">
           {/* Header & Filters Section */}
           <div className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm dark:bg-gray-900 dark:border-0 border border-white">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <h1 className="text-2xl font-black text-text tracking-tight dark:text-white ">
+                <h1 className="text-2xl font-extrabold text-heading tracking-tight dark:text-white ">
                   Call History
                 </h1>
 
@@ -140,7 +140,7 @@ const CallLog = () => {
             </div>
 
             {/* Date Filter Bar */}
-            <div className="flex flex-col sm:flex-row sm:justify-evenly  items-center gap-4 pt-4 border-t border-slate-50">
+            <div className="flex flex-col sm:flex-row sm:justify-evenly  items-center gap-4 pt-4 border-t border-gray-200">
               {/* From Date */}
               <div className="flex items-center gap-2">
                 <label className="text-[10px] uppercase font-black text-text/40 tracking-wider dark:text-white/70 w-10">

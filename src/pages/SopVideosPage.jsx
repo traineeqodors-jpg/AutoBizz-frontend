@@ -61,11 +61,11 @@ const SopVideosPage = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen w-full p-3 sm:p-6 lg:p-8 "
     >
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="mx-auto space-y-6">
         {/* Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-gray-900 dark:border-0 p-6 rounded-3xl shadow-sm border border-white">
           <div>
-            <h1 className="text-2xl font-black text-text dark:text-white tracking-tight">
+            <h1 className="text-2xl font-extrabold text-heading dark:text-white tracking-tight">
               My SOP Videos
             </h1>
             <p className="text-sm text-text/50 dark:text-slate-50/40 font-medium">

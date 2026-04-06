@@ -134,7 +134,7 @@ const LeadCalendar = () => {
         initial={{ y: -10, opacity: 0 }}
         transition={{ duration: 0.1 }}
         animate={{ y: 0, opacity: 1 }}
-        className="text-sm font-black uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
+        className="text-sm font-extrabold uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
       >
         {toolbar.label}
       </motion.h3>
@@ -144,7 +144,7 @@ const LeadCalendar = () => {
           <button
             key={v}
             onClick={() => toolbar.onView(v)}
-            className={`px-4 py-2 text-[9px] font-black uppercase rounded-xl transition-all active:scale-95 cursor-pointer ${
+            className={`px-4 py-2 text-[9px] font-extrabold uppercase rounded-xl transition-all active:scale-95 cursor-pointer ${
               toolbar.view === v
                 ? "bg-btn-100 text-white shadow-lg -translate-y-px"
                 : "text-text hover:bg-white/60"
@@ -164,7 +164,7 @@ const LeadCalendar = () => {
       transition={{ duration: 0.1 }}
       className="min-h-screen w-full p-3 sm:p-6 lg:p-8 relative"
     >
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="mx-auto space-y-6">
         {/* If Not Connceted to Google */}
         {!isGoogleLinked && (
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 dark:bg-gray-800/40 backdrop-blur-md p-2">
@@ -190,10 +190,10 @@ const LeadCalendar = () => {
               <IoCalendarOutline className="text-white" size={28} />
             </div>
             <div>
-              <h2 className="text-3xl font-black text-text dark:text-white tracking-tighter leading-none">
+              <h2 className="text-3xl font-extrabold text-heading dark:text-white tracking-tighter leading-none">
                 Calendar
               </h2>
-              <p className="text-[11px] font-black text-btn-100 uppercase tracking-[0.3em] mt-1.5">
+              <p className="text-[11px] font-extrabold text-btn-100 uppercase tracking-wider mt-1.5">
                 Lead Meetings Schedule
               </p>
             </div>

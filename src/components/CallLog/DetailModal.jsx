@@ -1,7 +1,6 @@
+import { IoClose } from "react-icons/io5";
 
-import { IoClose } from 'react-icons/io5';
-
-const DetailModal = ({setSelectedLog , selectedLog}) => {
+const DetailModal = ({ setSelectedLog, selectedLog }) => {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/40 backdrop:bg-black/40 dark:backdrop:bg-gray-700/40"
@@ -23,13 +22,13 @@ const DetailModal = ({setSelectedLog , selectedLog}) => {
           </button>
         </div>
 
-            <div className="p-6 space-y-6">
-              {/* CONVERSATION CONTAINER: Fixed height and Scrollable */}
-              <div className="max-h-100 hideScrollBar overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-gray-200">
-                {selectedLog.transcript ? (
-                  selectedLog.transcript.split("\n").map((line, index) => {
-                    const isUser = line.startsWith("User:");
-                    const message = line.replace(/^(User:|AI:)\s*/, "");
+        <div className="p-6 space-y-6">
+          {/* CONVERSATION CONTAINER: Fixed height and Scrollable */}
+          <div className="max-h-100 hideScrollBar overflow-y-auto pr-2 space-y-4 scrollbar-thin scrollbar-thumb-gray-200">
+            {selectedLog.transcript ? (
+              selectedLog.transcript.split("\n").map((line, index) => {
+                const isUser = line.startsWith("User:");
+                const message = line.replace(/^(User:|AI:)\s*/, "");
 
                 return (
                   <div
@@ -42,7 +41,7 @@ const DetailModal = ({setSelectedLog , selectedLog}) => {
                     <div
                       className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
                         isUser
-                          ? "bg-btn-100 dark:bg-btn-300 text-white rounded-tr-none"
+                          ? "bg-btn-100 dark:bg-btn-200 text-white rounded-tr-none"
                           : "bg-gray-100 dark:bg-gray-200 text-gray-800 rounded-tl-none"
                       }`}
                     >
@@ -60,7 +59,7 @@ const DetailModal = ({setSelectedLog , selectedLog}) => {
 
           <button
             onClick={() => setSelectedLog(null)}
-            className="w-full bg-btn-100 dark:bg-btn-200 dark:hover:bg-btn-300  hover:bg-btn-200 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95"
+            className="w-full bg-btn-100 dark:bg-btn-200 dark:hover:bg-btn-200  hover:bg-btn-200 hover:inset-shadow-sm/40 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95"
           >
             Close Detail
           </button>
@@ -68,6 +67,6 @@ const DetailModal = ({setSelectedLog , selectedLog}) => {
       </div>
     </div>
   );
-}
+};
 
-export default DetailModal
+export default DetailModal;

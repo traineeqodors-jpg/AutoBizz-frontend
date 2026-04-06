@@ -113,7 +113,7 @@ function DocuementUploadDialog({ dialogRef }) {
           )}
           <button
             disabled={docuementLoading}
-            className={`${docuementLoading ? "opacity-80" : "opacity-100"} w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
+            className={`${docuementLoading ? "opacity-80" : "opacity-100"} w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-bold  rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-lg hover:shadow-btn-100/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
           >
             {docuementLoading ? "Uploading .." : "Upload"}
           </button>

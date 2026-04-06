@@ -18,13 +18,6 @@ const Home = () => {
 
   const user = data?.data;
 
-  if (isLoading)
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -32,23 +25,29 @@ const Home = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen  w-full p-3 sm:p-6 lg:p-8 "
     >
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="mx-auto space-y-8">
         {/* Header Section */}
-        <div className="rounded-2xl flex flex-wrap justify-center gap-4 w-full items-center">
+        <div className="rounded-2xl flex flex-wrap justify-center gap-8 w-full items-center">
           <OrgInfo user={user} />
-          <div className="grid md:grid-cols-2 gap-5 w-full">
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 w-full">
             <OrgCard user={user} />
             <SupportCard />
+
+            {/* Action Section */}
+            <GenerateSOP isHome={true} />
           </div>
         </div>
 
-        {/* Action Section */}
-        <GenerateSOP />
-
         <div className="grid grid-cols-1 max-h-fit xl:grid-cols-3 gap-5">
           <Leads />
-          <div className="xl:col-span-2 min-h-90 max-h-110 w-full bg-white dark:bg-gray-900 rounded-2xl dark:shadow-sm dark:shadow-gray-700/40">
-            <Suspense fallback={<div>Loading...</div>}>
+          <div className="xl:col-span-2 min-h-100 max-h-110 w-full bg-white dark:bg-gray-900 rounded-2xl shadow-md/10  dark:shadow-sm dark:shadow-gray-700/40">
+            <Suspense
+              fallback={
+                <div className="min-h-100 flex items-center justify-center">
+                  <div className="w-12 h-12 border-4 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
+                </div>
+              }
+            >
               <Analysis />
             </Suspense>
           </div>

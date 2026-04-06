@@ -10,10 +10,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-
-
-
-
 @layer base {
   * {
     box-sizing: border-box;
@@ -21,13 +17,29 @@
 }
 
 @theme {
-  --color-back: #eeeeee;
-  --color-btn-50: #00c7d1;
-  --color-btn-100: #00adb5;
-  --color-btn-200: #00969e;
+  --color-back: #f5f8fe;
+  --color-btn-50: #6c9ce4;
+  --color-btn-100: #3c6ce4;
+  --color-btn-200: #1f56e0;
+  /* Define the gradient as a variable if you want to reuse just the colors */
+  --background-image-heading-blue: linear-gradient(
+    to bottom right,
+    var(--color-blue-600),
+    var(--color-blue-400),
+    var(--color-blue-600)
+  );
+
+  /* OLD */
   --color-btn-300: #007980;
   --color-text: #393e46;
   --color-sidebar: #edfeff;
+}
+
+@utility text-heading {
+  background-image: var(--background-image-heading-blue);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 body {
@@ -43,8 +55,6 @@ body {
   border-radius: 50%;
   animation: l5 1s infinite linear alternate;
 }
-
-
 
 @keyframes l5 {
   0% {

@@ -23,14 +23,14 @@ const InfoDialog = ({ dialogRef, title, features = [] }) => {
         </div>
 
         {/* Content and Title */}
-        <div className="w-full p-3 space-y-5 flex flex-col ">
+        <div className="w-full overflow-auto p-3 sm:p-8 space-y-5 flex flex-col ">
           <h2 className="text-center text-xl dark:text-white font-semibold shrink-0">
             {title}
           </h2>
-          <div className="w-full max-h-[60vh] overflow-y-auto scheme-dark p-5 text-left dark:text-gray-300">
+          <div className="w-full max-h-[60vh] scheme-dark p-2 text-left dark:text-gray-300">
             <ul className="list-disc space-y-4 marker:text-btn-100">
               {features.map((item, index) => (
-                <li key={index} className="pl-2">
+                <li key={index} className="pl-2 wrap-break-word">
                   <span className="font-bold text-btn-100">{item.label}: </span>
                   {item.text}
                 </li>

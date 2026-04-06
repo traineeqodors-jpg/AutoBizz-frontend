@@ -26,30 +26,24 @@ function Analysis() {
     labels: Data.map((data) => data.month),
     datasets: [
       {
-        label: "Leads Generated ",
+        label: "Leads Generated",
         data: Data.map((data) => data.leadsGenerated),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "gray",
-        borderWidth: 1,
+        // 1. Using your brand color #3c6ce4
+        backgroundColor: "#3c6ce4",
+        hoverBackgroundColor: "#2a54b8",
+        // 2. Making the bars rounded
+        borderRadius: 8,
+        borderSkipped: false, // Ensures all 4 corners are rounded
       },
       {
-        label: "Active deals ",
+        label: "Active Deals",
         data: Data.map((data) => data.activeDeals),
-        backgroundColor: [
-          "rgba(75,192,167,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "blue",
+        // 3. Using a secondary "glassy" or lighter blue
+        backgroundColor: "rgba(60, 108, 228, 0.2)",
+        borderColor: "#3c6ce4",
         borderWidth: 1,
+        borderRadius: 8,
+        borderSkipped: false,
       },
     ],
   });
@@ -69,7 +63,31 @@ function Analysis() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-              legend: { position: "bottom" },
+              legend: {
+                position: "bottom",
+                labels: {
+                  usePointStyle: true, // Makes legend icons circles instead of boxes
+                  padding: 20,
+                  color: "#64748b", // Slate-500
+                  font: { weight: "600" },
+                },
+              },
+              tooltip: {
+                backgroundColor: "#1e293b", // Dark slate tooltip
+                padding: 12,
+                borderRadius: 10,
+              },
+            },
+            scales: {
+              x: {
+                grid: { display: false }, // Cleaner look
+                ticks: { color: "#94a3b8" },
+              },
+              y: {
+                beginAtZero: true,
+                grid: { color: "rgba(148, 163, 184, 0.1)" },
+                ticks: { color: "#94a3b8" },
+              },
             },
           }}
         />

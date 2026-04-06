@@ -32,7 +32,7 @@ const EmptyCallLog = ({
             setSearchTerm("");
             setStatusFilter("all");
           }}
-          className="mt-8 px-8 py-3 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl shadow-lg shadow-btn-100/20 transition-all active:scale-95"
+          className="mt-8 px-8 py-3 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 hover:inset-shadow-sm/40 text-white font-bold rounded-xl shadow-lg shadow-btn-100/20 transition-all active:scale-95"
         >
           Clear All Filters
         </button>

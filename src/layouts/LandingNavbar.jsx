@@ -58,7 +58,7 @@ const LandingNavbar = () => {
             </ul>
 
             <button
-              className="p-2 bg-btn-200 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
+              className="p-2 bg-btn-100/90 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
               onClick={() => dispatch(toggleTheme())}
             >
               {isDark ? (

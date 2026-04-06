@@ -88,7 +88,7 @@ const LandingPage = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen dark:bg-gray-800 bg-back w-full flex flex-col items-center gap-5"
+        className="min-h-screen dark:bg-gray-800 bg-linear-to-r from-slate-50 to-blue-200 dark:bg-none w-full flex flex-col items-center gap-5"
       >
         <LandingNavbar />
         <div className="w-full scroll-smooth">
@@ -185,7 +185,7 @@ const LandingPage = () => {
             </div>
 
             {/* 3. CUSTOMER SUPPORT HIGHLIGHT (New Section) */}
-            <div className="p-4 sm:p-8">
+            <div className="max-w-6xl mx-auto p-4 sm:p-8 space-y-10">
               <div className="max-w-6xl mx-auto bg-white dark:bg-gray-900 rounded-[3rem] p-8 md:p-16 shadow-xl shadow-text/5 border border-white dark:border-gray-400 flex flex-col lg:flex-row items-center gap-12">
                 <div className="flex-1 space-y-6">
                   <div className="p-3 bg-btn-100/10 text-btn-100 rounded-2xl w-fit">
@@ -306,7 +306,7 @@ const ReviewCard = ({ name, role, text }) => (
         <IoStar key={i} />
       ))}
     </div>
-    <p className="text-text/70 dark:text-gray-300 italic text-sm leading-relaxed">
+    <p className="text-text/70 dark:text-gray-300 ital  ic text-sm leading-relaxed">
       "{text}"
     </p>
     <div>

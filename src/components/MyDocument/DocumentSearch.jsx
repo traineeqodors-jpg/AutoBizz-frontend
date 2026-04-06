@@ -7,7 +7,7 @@ const DocumentSearch = ({ setSearchTerm, searchTerm, dialogRef }) => {
     <>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-gray-900 dark:border-0 p-6 rounded-3xl shadow-sm border border-white">
         <div>
-          <h1 className="text-2xl font-black text-text dark:text-white tracking-tight">
+          <h1 className="text-2xl font-extrabold text-heading dark:text-white tracking-tight">
             My Documents
           </h1>
           <p className="text-sm text-text/50 dark:text-gray-100/50 font-medium">
@@ -22,13 +22,13 @@ const DocumentSearch = ({ setSearchTerm, searchTerm, dialogRef }) => {
               placeholder="Search files..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 dark:border-0 dark:text-white border border-gray-200  rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-btn-100 dark:focus:bg-gray-800 dark:focus:ring-btn-300 outline-none w-full "
+              className="pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 dark:border-0 dark:text-white border border-gray-200  rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-btn-100 dark:focus:bg-gray-800 dark:focus:ring-btn-200 outline-none w-full "
             />
           </div>
           <button
             type="button"
             onClick={() => dialogRef.current?.showModal()}
-            className="flex px-4 cursor-pointer py-3 rounded-xl text-sm font-semibold bg-btn-200 dark:bg-btn-300 text-white gap-1 hover:bg-btn-200 justify-center items-center"
+            className="flex px-4 cursor-pointer py-3 rounded-xl text-sm font-semibold bg-btn-100 dark:bg-btn-200 text-white gap-1 hover:bg-btn-200 hover:inset-shadow-sm/40 justify-center items-center"
           >
             Upload Docs
             <Upload size={18} />

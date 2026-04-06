@@ -56,7 +56,7 @@ const LoginPage = () => {
     }
   };
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-linear-to-r from-slate-50 to-blue-200 dark:bg-none dark:bg-gray-800 p-4">
       {/* Main Card Container */}
       <div className="w-full sm:max-w-lg lg:max-w-5xl flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden min-h-137.5">
         {/* Left Side: Image */}
@@ -89,7 +89,7 @@ const LoginPage = () => {
                 value={input.email}
                 onChange={handleChange}
                 placeholder="hello@example.com"
-                className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+                className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
               />
             </div>
 
@@ -110,7 +110,7 @@ const LoginPage = () => {
                   value={input.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+                  className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
                 />
                 <button
                   type="button"

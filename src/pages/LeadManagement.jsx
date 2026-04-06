@@ -204,7 +204,7 @@ function LeadManagement() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="mx-auto space-y-6">
         <LeadHeader handleFileUpload={handleFileUpload} fileName={fileName} />
         <LeadCards data={data} />
 

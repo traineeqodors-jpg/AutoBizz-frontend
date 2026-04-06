@@ -56,7 +56,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       </button> */}
       <dialog
         ref={dialogRef}
-        className="lg:hidden backdrop:backdrop-blur-sm backdrop:bg-black/50 bg-sidebar dark:bg-gray-900 min-h-screen min-w-full sm:min-w-70 shrink-0 fixed left-0 top-0 p-7 border-none outline-none"
+        className="lg:hidden bg-linear-to-br from-slate-50 to-blue-200 dark:bg-none dark:bg-gray-900 min-h-screen min-w-full sm:min-w-70 shrink-0 fixed left-0 top-0 p-7 border-none outline-none"
       >
         {/* Logo and Close Button */}
         <div className="flex justify-center-safe items-center-safe">
@@ -84,12 +84,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
         <ul className="w-full space-y-4">
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <FaHome className="size-5" />
@@ -99,12 +99,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/documents"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <IoMdDocument className="size-5" />
@@ -114,12 +114,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/sop"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <BiSolidVideos className="size-5" />
@@ -129,12 +129,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/leads"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <IoPeopleSharp className="size-5" />
@@ -144,12 +144,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/calendar"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <FaCalendarAlt className="size-5" />
@@ -159,12 +159,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <IoMdDocument className="size-5" />
@@ -174,12 +174,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
           >
             <NavLink
               to="/callLogs"
               className={({ isActive }) =>
-                `${isActive ? "bg-btn-100/30 dark:bg-btn-100 text-text dark:text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
+                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
               }
             >
               <IoCall className="size-5" />
@@ -189,7 +189,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
 
           <li
             onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-gray-300/90 bg-btn-100/10 dark:bg-btn-100/40 rounded-xl overflow-hidden shadow-md/10 px-3 py-2.5 hover:bg-btn-100/30 hover:text-btn-100"
+            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10 px-3 py-2.5 hover:bg-btn-100/30 hover:text-btn-100"
           >
             <button
               disabled={isLoading}
@@ -200,23 +200,6 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
               {isLoading ? "Logging Out..." : "LogOut"}
             </button>
           </li>
-
-          {!user && (
-            <li
-              onClick={() => setIsDialogOpen(false)}
-              className="w-full transition-all text-text/80 bg-btn-100/10 rounded-xl overflow-hidden shadow-md/10"
-            >
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  `${isActive ? "bg-btn-100/30 text-text" : "hover:bg-btn-100/30 hover:text-btn-100"} w-full flex items-center-safe gap-3  px-3 py-2.5`
-                }
-              >
-                <IoLogIn className="size-5" />
-                Login
-              </NavLink>
-            </li>
-          )}
         </ul>
       </dialog>
     </>

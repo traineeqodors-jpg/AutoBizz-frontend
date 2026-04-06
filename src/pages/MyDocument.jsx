@@ -69,7 +69,7 @@ const MyDocument = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen w-full p-3 sm:p-6 lg:p-8 "
     >
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="mx-auto space-y-6">
         <DocumentSearch
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}

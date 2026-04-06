@@ -53,7 +53,7 @@ function EditOrgDetails() {
 
   return (
     <div className="min-h-screen w-full">
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

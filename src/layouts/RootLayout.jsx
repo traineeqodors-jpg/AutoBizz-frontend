@@ -25,23 +25,22 @@ const RootLayout = () => {
   if (!data) return null;
 
   return (
-    <>
-      <div className="flex h-screen overflow-hidden">
-        <Sidebar />
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
 
-        <main className="flex-1 flex flex-col shrink-0 overflow-y-auto scheme-dark scroll-smooth">
-          <div className="flex flex-col h-screen overflow-hidden">
-            <Navbar />
-            <div className="grow overflow-auto bg-back dark:bg-gray-800">
-              <Outlet />
+      <main className="flex-1 flex flex-col min-w-0 bg-linear-to-br from-slate-50 to-blue-200 dark:bg-none dark:bg-gray-800">
+        <Navbar />
 
-              <AIChat />
-              <Footer />
-            </div>
+        <div className="flex-1 overflow-y-auto scheme-dark scroll-smooth">
+          <div className="max-w-[95%] mx-auto w-full">
+            <Outlet />
           </div>
-        </main>
-      </div>
-    </>
+
+          <AIChat />
+          <Footer />
+        </div>
+      </main>
+    </div>
   );
 };
 

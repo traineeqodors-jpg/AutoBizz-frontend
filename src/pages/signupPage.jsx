@@ -129,7 +129,7 @@ const SignupPage = () => {
   };
   return (
     <>
-      <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">
+      <div className="min-h-screen w-full flex items-center justify-center bg-linear-to-r from-slate-50 to-blue-200 dark:bg-none dark:bg-gray-800 p-4">
         {/* Main Container */}
         <div className="w-full sm:max-w-lg lg:max-w-5xl flex rounded-3xl shadow-2xl overflow-hidden min-h-137.5 bg-white dark:bg-gray-900">
           {/* left side : Image  */}

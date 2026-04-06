@@ -156,7 +156,7 @@ function GenerateScript({
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="text-text text-xs font-bold px-3 py-1.5 hover:bg-text/10 rounded-xl transition-all cursor-pointer border border-dashed border-text ml-auto"
+                className="text-text text-xs font-bold px-3 py-1.5 hover:bg-text/10 dark:hover:bg-gray-600 dark:text-gray-400 rounded-xl transition-all cursor-pointer border border-dashed border-text dark:border-gray-400 ml-auto"
               >
                 + Browse Files
               </button>
@@ -230,7 +230,7 @@ function GenerateScript({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter topic you want to generate video on..."
-              className="w-full p-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-btn-50 focus:bg-white dark:focus:bg-gray-700 transition-all text-gray-800 dark:text-white font-medium"
+              className="w-full p-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-btn-200 focus:bg-white dark:focus:bg-gray-700 transition-all text-gray-800 dark:text-white font-medium"
             />
           </div>
         </div>

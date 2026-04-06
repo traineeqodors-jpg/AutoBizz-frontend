@@ -11,22 +11,28 @@ function Leads() {
   const leads = data?.data?.leads || [];
 
   return (
-    <div className="bg-white dark:bg-gray-900 w-full h-fit rounded-2xl p-5 dark:shadow-sm dark:shadow-gray-700/40">
-      <div className="flex justify-between items-center">
-        <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
-          High Scoring Leads
-        </h3>
+    <div className="min-h-100 bg-white dark:bg-gray-900 flex flex-col gap-5 w-full rounded-2xl p-5 shadow-md/10 dark:shadow-sm dark:shadow-gray-700/40">
+      <div className="flex justify-between items-center w-full gap-2">
+        <div className="space-y-2">
+          <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
+            High Scoring Leads
+          </h3>
+          <p className="text-xs text-gray-400">
+            Top prosepcts will appear here after your model detects Activity
+          </p>
+        </div>
+
         <Link
           to="/leads"
-          className="text-blue-600 text-sm font-medium hover:underline"
+          className="text-blue-600 text-sm font-medium hover:underline text-nowrap"
         >
           View All
         </Link>
       </div>
 
-      <hr className="border-gray-300 my-5" />
+      {/* <hr className="border-gray-300 my-5" /> */}
 
-      <div className="space-y-3">
+      <div className="w-full space-y-3">
         {leadsLoading ? (
           <div className="flex animate-pulse bg-gray-300 dark:bg-gray-600 rounded-2xl p-3">
             <div className="flex items-center gap-3 justify-evenly">
@@ -34,14 +40,15 @@ function Leads() {
             </div>
           </div>
         ) : leads?.length < 1 ? (
-          <div className="p-20 text-center font-medium text-sm dark:text-gray-400">
-            No High Scoring Leads Found
+          <div className="p-5 w-full text-center font-medium flex flex-col justify-center-safe items-center-safe text-sm text-text dark:text-gray-400 space-y-3">
+            <img src="/ideation.svg" alt="" className="h-40 w-60 object-contain"/>
+            <p>No High Scoring Leads Found</p>
           </div>
         ) : (
           leads.map((lead) => (
             <div
               key={lead.id}
-              className="flex flex-wrap gap-3 justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b last:border-none border-b-gray-200 overflow-hidden hover:border-gray-100"
+              className="flex flex-wrap gap-3 justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b last:border-none border-b-gray-200 overflow-hidden hover:border-gray-100 cursor-pointer"
             >
               <div className="flex items-center gap-3 justify-evenly">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
@@ -52,16 +59,17 @@ function Leads() {
                   <p className="text-sm font-semibold text-gray-900 dark:text-white">
                     {lead.name || "Unknown"}
                   </p>
-                  <div className="group relative">
-                    <p className="text-xs text-gray-500 font-medium cursor-pointer transition-opacity duration-200 group-hover:opacity-0">
-                      {lead?.email?.length > 16
-                        ? lead.email.slice(0, 16) + "..."
-                        : lead?.email}
-                    </p>
-                    {/* Full email shown only on hover */}
-                    <p className="absolute top-0 left-0 text-xs text-btn-100 cursor-pointer font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                  <div className="group relative w-35">
+                    <p
+                      className="text-xs font-medium truncate transition-colors duration-200 
+                text-gray-500 group-hover:text-btn-100 group-hover:whitespace-normal"
+                    >
                       {lead?.email}
                     </p>
+                    {/* Full email shown only on hover */}
+                    {/* <p className="absolute top-0 left-0 text-xs text-btn-100 cursor-pointer font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                      {lead?.email}
+                    </p> */}
                   </div>
                 </div>
               </div>

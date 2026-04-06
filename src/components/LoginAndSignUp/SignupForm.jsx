@@ -43,7 +43,7 @@ const SignupForm = ({
             value={input.firstName}
             onChange={handleChange}
             placeholder="First Name"
-            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
           />
         </div>
         {/* Last Name */}
@@ -61,7 +61,7 @@ const SignupForm = ({
             value={input.lastName}
             onChange={handleChange}
             placeholder="Last Name"
-            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
           />
         </div>
       </div>
@@ -83,7 +83,7 @@ const SignupForm = ({
             value={input.orgName}
             onChange={handleChange}
             placeholder="Org. Name"
-            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
           />
         </div>
         {/*  Organization Size */}
@@ -99,7 +99,7 @@ const SignupForm = ({
             id="orgSize"
             value={input.orgSize || ""}
             onChange={handleChange}
-            className={`${!input.orgSize ? "text-gray-400/90" : "text-text dark:text-white"} w-full  py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all`}
+            className={`${!input.orgSize ? "text-gray-400/90" : "text-text dark:text-white"} w-full  py-3 px-4 rounded-xl border  dark:border-0 border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all`}
           >
             <option value="" disabled className="text-gray-400">
               --
@@ -127,7 +127,7 @@ const SignupForm = ({
             id="country"
             value={input.country || ""}
             onChange={handleChange}
-            className={`${!input.country ? "text-gray-400/90" : "text-text dark:text-white"} w-full  py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all`}
+            className={`${!input.country ? "text-gray-400/90" : "text-text dark:text-white"} w-full dark:border-0 py-3 px-4 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all`}
           >
             <option value="" disabled className="text-gray-400">
               - Country -
@@ -160,7 +160,7 @@ const SignupForm = ({
             value={input.phone}
             onChange={handleChange}
             placeholder="1234567890"
-            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
           />
         </div>
       </div>
@@ -180,7 +180,7 @@ const SignupForm = ({
           value={input.email}
           onChange={handleChange}
           placeholder="hello@example.com"
-          className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+          className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
         />
       </div>
 
@@ -200,7 +200,7 @@ const SignupForm = ({
             value={input.password}
             onChange={handleChange}
             placeholder="••••••••"
-            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            className="w-full py-3 px-4 text-text dark:text-white rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-0 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-200 outline-none transition-all"
           />
           <button
             type="button"
