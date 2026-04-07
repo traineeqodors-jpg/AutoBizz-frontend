@@ -28,22 +28,25 @@ function Analysis() {
       {
         label: "Leads Generated",
         data: Data.map((data) => data.leadsGenerated),
-        // 1. Using your brand color #3c6ce4
         backgroundColor: "#3c6ce4",
+        barPercentage: 0.9,
+        categoryPercentage: 0.7,
         hoverBackgroundColor: "#2a54b8",
-        // 2. Making the bars rounded
-        borderRadius: 8,
-        borderSkipped: false, // Ensures all 4 corners are rounded
+        borderRadius: 7,
+        borderSkipped: false,
+        maxBarThickness: 35,
       },
       {
         label: "Active Deals",
         data: Data.map((data) => data.activeDeals),
-        // 3. Using a secondary "glassy" or lighter blue
         backgroundColor: "rgba(60, 108, 228, 0.2)",
+        barPercentage: 0.9,
+        categoryPercentage: 0.7,
         borderColor: "#3c6ce4",
         borderWidth: 1,
-        borderRadius: 8,
+        borderRadius: 7,
         borderSkipped: false,
+        maxBarThickness: 35,
       },
     ],
   });

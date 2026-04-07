@@ -80,7 +80,7 @@ const SopVideosPage = () => {
           />
         </div>
 
-        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-10 justify-center bg-white dark:bg-gray-900 dark:border-0 py-5 px-3 sm:py-10 rounded-3xl shadow-sm border border-white">
+        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-10 justify-center bg-white dark:bg-gray-900 dark:border-0 py-5 px-3 sm:py-10 rounded-3xl shadow-lg border border-white">
           {/* Video Card */}
           {isLoading ? (
             <div className="loader col-span-full mx-auto"></div>

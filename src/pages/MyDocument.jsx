@@ -76,7 +76,7 @@ const MyDocument = () => {
           dialogRef={dialogRef}
         />
 
-        <div className="bg-white dark:bg-gray-900 dark:border-gray-900 shadow-xl shadow-text/5 rounded-2xl sm:rounded-3xl overflow-hidden border border-white">
+        <div className="bg-white dark:bg-gray-900 dark:border-gray-900 shadow-lg shadow-text/5 rounded-3xl overflow-hidden border border-white">
           <div className="overflow-x-auto">
             <table className="w-full text-center border-separate border-spacing-0 flex flex-col md:table">
               <thead className="hidden md:table-header-group ">

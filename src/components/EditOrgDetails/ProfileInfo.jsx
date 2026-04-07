@@ -53,7 +53,7 @@ const ProfileInfo = ({ user, onSave }) => {
           name={key}
           value={value || ""}
           onChange={handleChange}
-          className={baseClass}
+          className="w-full bg-transparent focus:dark:bg-gray-700 border-b border-gray-300 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-1"
         >
           <option value="" disabled>
             -- Size --
@@ -117,7 +117,7 @@ const ProfileInfo = ({ user, onSave }) => {
         ) : (
           <button
             onClick={() => setIsEditing(true)}
-            className="flex flex-col items-center text-btn-100 hover:text-btn-200"
+            className="flex flex-col items-center text-btn-100 cursor-pointer"
           >
             <FaUserEdit size={20} />
             <span className="text-[10px] font-bold uppercase">Edit</span>
@@ -131,7 +131,7 @@ const ProfileInfo = ({ user, onSave }) => {
           .map(([key, value]) => (
             <div
               key={key}
-              className="bg-back/40 dark:bg-gray-700 py-2 px-4 rounded-xl flex items-center gap-3 border border-transparent focus-within:border-btn-100 min-w-0 w-full"
+              className="bg-back dark:bg-gray-700 py-2 px-4 rounded-xl flex items-center gap-3 border border-transparent focus-within:border-btn-100 min-w-0 w-full"
             >
               {/* Icon - Fixed width to prevent shrinking */}
               <div className="shrink-0">

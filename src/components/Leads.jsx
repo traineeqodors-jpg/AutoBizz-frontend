@@ -11,7 +11,7 @@ function Leads() {
   const leads = data?.data?.leads || [];
 
   return (
-    <div className="min-h-100 bg-white dark:bg-gray-900 flex flex-col gap-5 w-full rounded-2xl p-5 shadow-md/10 dark:shadow-sm dark:shadow-gray-700/40">
+    <div className="min-h-100 bg-white dark:bg-gray-900 flex flex-col gap-5 w-full rounded-2xl p-5 shadow-sm dark:shadow-gray-700/30">
       <div className="flex justify-between items-center w-full gap-2">
         <div className="space-y-2">
           <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
@@ -32,7 +32,7 @@ function Leads() {
 
       {/* <hr className="border-gray-300 my-5" /> */}
 
-      <div className="w-full space-y-3">
+      <div className="w-full space-y-3 h-full">
         {leadsLoading ? (
           <div className="flex animate-pulse bg-gray-300 dark:bg-gray-600 rounded-2xl p-3">
             <div className="flex items-center gap-3 justify-evenly">
@@ -40,8 +40,12 @@ function Leads() {
             </div>
           </div>
         ) : leads?.length < 1 ? (
-          <div className="p-5 w-full text-center font-medium flex flex-col justify-center-safe items-center-safe text-sm text-text dark:text-gray-400 space-y-3">
-            <img src="/ideation.svg" alt="" className="h-40 w-60 object-contain"/>
+          <div className="w-full h-full text-center font-medium flex flex-col justify-center-safe items-center-safe text-sm text-text dark:text-gray-400 space-y-3">
+            <img
+              src="/ideation.svg"
+              alt=""
+              className="w-60 object-contain"
+            />
             <p>No High Scoring Leads Found</p>
           </div>
         ) : (

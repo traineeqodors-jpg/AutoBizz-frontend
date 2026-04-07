@@ -1,106 +1,108 @@
-import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
-import { RiInstagramFill } from "react-icons/ri";
+import { FaFacebookF, FaGoogle, FaTwitter, FaInstagram } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
+  const linkStyles =
+    "text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm font-light mb-1";
+
   return (
-    <>
-      <footer className="w-full bg-text dark:bg-gray-950/70 flex flex-col font-normal p-5 text-white">
-        {/* Footer Head */}
-        {/* <div className="flex sm:px-10 justify-between items-center-safe">
-          <div className="flex flex-col justify-center-safe items-center-safe">
-            <img src="/vite.svg" alt="" />
-            <h1 className="font-semibold text-lg">AutoBizz</h1>
+    <footer className="w-full bg-footer text-white pt-12 pb-6 px-4 sm:px-8 border-t border-white/10 mt-auto">
+      {/* Content Container */}
+      <div className="max-w-7xl mx-auto flex flex-col xl:flex-row gap-10 justify-between items-center xl:items-start tracking-wide">
+        {/* Logo Section */}
+        <div className="flex flex-col items-center xl:items-start space-y-3 shrink-0">
+          <div className="group bg-white size-24 rounded-2xl shadow-2xl overflow-hidden transition-transform hover:scale-105">
+            <img src="/logo.png" alt="Logo" className="w-full object-cover" />
           </div>
 
-          <div>
-            <address>+1234 1234 123</address>
-            <address>Qodors@gamil.com</address>
-          </div>
-        </div> */}
-
-        {/* Content Container */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:justify-around tracking-wider p-5">
-          {/* Logo */}
-          <div className="flex-1 flex flex-col justify-center-safe items-center-safe">
-            <div className="bg-white flex items-center justify-center size-25 rounded-full shadow-inner mb-2 overflow-hidden">
-              <img
-                src="/autoBizz.webp"
-                alt="Logo"
-                className="size-25 object-cover"
-              />
-            </div>
-            <h1 className="font-bold text-xl ">AutoBizz</h1>
-          </div>
-
-          {/* Grid Container for Options */}
-          <div className="flex-3 grid grid-cols-2 sm:grid-cols-3 gap-5">
-            {/* Options 1 */}
-            <div className="flex-1 flex flex-col justify-center-safe items-center-safe">
-              <h1 className="font-semibold mb-1">About Us</h1>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-            </div>
-
-            {/* Options 2 */}
-            <div className="flex-1 flex flex-col justify-center-safe items-center-safe">
-              <h1 className="font-semibold  mb-1">Address</h1>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-            </div>
-
-            {/* Options 3 */}
-            <div className="flex-1 flex flex-col justify-center-safe items-center-safe">
-              <h1 className="font-semibold mb-1">Follow Us</h1>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-              <NavLink className="text-gray-400 font-medium text-sm">
-                Hello
-              </NavLink>
-            </div>
+          {/* Heading and Slogan */}
+          <div className="text-center xl:text-left">
+            <h1 className="font-bold text-2xl tracking-tighter bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              AutoBizz
+            </h1>
+            <p className="text-xs text-blue-200/60 max-w-70 mt-1 italic">
+              Automating your business effortlessly.
+            </p>
           </div>
         </div>
 
-        <hr className="w-full my-4 border border-gray-300" />
+        {/* Links Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 w-full xl:w-auto">
+          {/* Column 1 */}
+          <div className="flex flex-col items-center md:items-start">
+            <h2 className="font-bold text-sm uppercase tracking-widest mb-4 text-btn-40">
+              About Us
+            </h2>
+            <NavLink to="/story" className={linkStyles}>
+              Our Story
+            </NavLink>
+            <NavLink to="/team" className={linkStyles}>
+              The Team
+            </NavLink>
+            <NavLink to="/careers" className={linkStyles}>
+              Careers
+            </NavLink>
+          </div>
 
-        <div className="flex justify-center items-center-safe gap-10 mx-auto w-full">
-          <button className=" bg-btn-100 py-2 px-2 rounded-full hover:bg-btn-200 hover:text-white shadow-md/50 hover:translate-y-0.5 hover:shadow-lg/40 shadow-cyan-400/70 transition-all cursor-pointer">
-            <FaGoogle className="size-4 sm:size-6" />
-          </button>
-          <button className=" bg-btn-100  py-2 px-2 rounded-full hover:bg-btn-200 hover:text-white shadow-md/50 hover:translate-y-0.5 hover:shadow-lg/40 shadow-cyan-400/70 transition-all cursor-pointer">
-            <FaFacebookF className="size-4 sm:size-6" />
-          </button>
-          <button className=" bg-btn-100  py-2 px-2 rounded-full hover:bg-btn-200 hover:text-white shadow-md/50 hover:translate-y-0.5 hover:shadow-lg/40 shadow-cyan-400/70 transition-all cursor-pointer">
-            <FaTwitter className="size-4 sm:size-6" />
-          </button>
-          <button className=" bg-btn-100  py-2 px-2 rounded-full hover:bg-btn-200 hover:text-white shadow-md/50 hover:translate-y-0.5 hover:shadow-lg/40 shadow-cyan-400/70 transition-all cursor-pointer">
-            <RiInstagramFill className="size-4 sm:size-6" />
-          </button>
+          {/* Column 2 */}
+          <div className="flex flex-col items-center md:items-start">
+            <h2 className="font-bold text-sm uppercase tracking-widest mb-4 text-btn-40">
+              Quick Links
+            </h2>
+            <NavLink to="/services" className={linkStyles}>
+              Services
+            </NavLink>
+            <NavLink to="/inventory" className={linkStyles}>
+              Inventory
+            </NavLink>
+            <NavLink to="/support" className={linkStyles}>
+              Support
+            </NavLink>
+          </div>
+
+          {/* Column 3 */}
+          <div className="col-span-2 sm:col-span-1 flex flex-col items-center md:items-start">
+            <h2 className="font-bold text-sm uppercase tracking-widest mb-4 text-btn-40">
+              Connect
+            </h2>
+            <address className="not-italic text-gray-300 text-sm text-center md:text-left whitespace-nowrap">
+              123 Auto Drive, NY
+              <br />
+              <span className="text-blue-200">contact@autobizz.com</span>
+            </address>
+          </div>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <hr className="max-w-7xl mx-auto my-10 border-white/10" />
+
+      {/* Footer Bottom */}
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+        {/* Social Icons with Glass Effect */}
+        <div className="flex gap-4">
+          {[
+            { Icon: FaGoogle, color: "hover:bg-red-500" },
+            { Icon: FaFacebookF, color: "hover:bg-blue-600" },
+            { Icon: FaTwitter, color: "hover:bg-sky-400" },
+            { Icon: FaInstagram, color: "hover:bg-pink-600" },
+          ].map(({ Icon, color }, idx) => (
+            <button
+              key={idx}
+              className={`p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] ${color} cursor-pointer group`}
+            >
+              <Icon className="size-5 text-white group-hover:scale-110 transition-transform" />
+            </button>
+          ))}
         </div>
 
-        <p className="inline-block my-5 text-center text-sm">
-          @Copyright all right reserved
+        <p className="text-gray-400 text-xs font-light tracking-widest">
+          © {new Date().getFullYear()}{" "}
+          <span className="text-white font-medium">AUTOBIZZ</span>. ALL RIGHTS
+          RESERVED.
         </p>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 };
 

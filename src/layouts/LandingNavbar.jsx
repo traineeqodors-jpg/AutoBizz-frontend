@@ -16,8 +16,8 @@ const LandingNavbar = () => {
       <nav className="sticky top-0 w-full z-100 bg-white dark:bg-gray-900">
         <div className="max-w-6xl mx-auto p-2 flex justify-between items-center-safe sm:px-10 px-4 xl:px-0">
           {/* Logo */}
-          <div className="size-13 sm:size-16 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-full bg-back dark:bg-gray-200">
-            <img src="/autoBizz.webp" alt="Logo" className="w-full h-full" />
+          <div className="size-16 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-lg">
+            <img src="/logo.png" alt="Logo" className="w-full object-cover" />
           </div>
 
           <div className="flex gap-10">
@@ -27,7 +27,7 @@ const LandingNavbar = () => {
                 <NavLink
                   to="/home"
                   className={({ isActive }) =>
-                    `${isActive && "text-btn-100 underline"} decoration-2 underline-offset-2 `
+                    `${isActive ? "text-heading" : "text-text dark:text-white"} font-semibold`
                   }
                 >
                   Home
@@ -38,7 +38,7 @@ const LandingNavbar = () => {
                 <NavLink
                   to="/login"
                   className={({ isActive }) =>
-                    `${isActive && "text-blue-500 underline"} decoration-2 underline-offset-2`
+                    `${isActive ? "text-heading" : "text-text dark:text-white"} font-semibold`
                   }
                 >
                   Login
@@ -49,7 +49,7 @@ const LandingNavbar = () => {
                 <NavLink
                   to="/register"
                   className={({ isActive }) =>
-                    `${isActive && "text-blue-500 underline"} decoration-2 underline-offset-2`
+                    `${isActive ? "text-heading" : "text-text dark:text-white"} font-semibold`
                   }
                 >
                   Register
@@ -58,13 +58,13 @@ const LandingNavbar = () => {
             </ul>
 
             <button
-              className="p-2 bg-btn-100/90 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
+              className="p-2 bg-gray-300 text-text dark:text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
               onClick={() => dispatch(toggleTheme())}
             >
               {isDark ? (
-                <MdDarkMode className="size-6 animate-[spin_0.4s_ease-in-out_1]" />
+                <MdDarkMode className="size-6 animate-[spin_0.5s_ease-in-out_1]" />
               ) : (
-                <MdSunny className="size-6 animate-[spin_0.7s_ease-in-out_1] text-yellow-400" />
+                <MdSunny className="size-6 animate-[spin_0.8s_ease-in-out_1] " />
               )}
             </button>
 

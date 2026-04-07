@@ -12,7 +12,7 @@ const Analysis = lazy(() => import("../components/AnalysisGraphs/Analysis"));
 const Home = () => {
   const isLoggedIn = !!localStorage.getItem("isLoggedIn");
 
-  const { data, isLoading } = useGetMeQuery(undefined, {
+  const { data } = useGetMeQuery(undefined, {
     skip: !isLoggedIn,
   });
 
@@ -23,7 +23,7 @@ const Home = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen  w-full p-3 sm:p-6 lg:p-8 "
+      className=" w-full p-3 sm:p-6 lg:p-8 "
     >
       <div className="mx-auto space-y-8">
         {/* Header Section */}
@@ -40,7 +40,7 @@ const Home = () => {
 
         <div className="grid grid-cols-1 max-h-fit xl:grid-cols-3 gap-5">
           <Leads />
-          <div className="xl:col-span-2 min-h-100 max-h-110 w-full bg-white dark:bg-gray-900 rounded-2xl shadow-md/10  dark:shadow-sm dark:shadow-gray-700/40">
+          <div className="xl:col-span-2 min-h-125 w-full bg-white dark:bg-gray-900 rounded-2xl shadow-sm dark:shadow-gray-700/40">
             <Suspense
               fallback={
                 <div className="min-h-100 flex items-center justify-center">

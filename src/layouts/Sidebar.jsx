@@ -1,6 +1,6 @@
 import { FaCalendarAlt, FaGoogle, FaHome } from "react-icons/fa";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   useGetMeQuery,
   useGoogleTokenMutation,
@@ -10,8 +10,8 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
-import { MdDarkMode, MdSunny } from "react-icons/md";
 import { toggleTheme } from "../features/slices/themeSlice";
+import Switch from "../components/ui/Switch";
 
 const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
@@ -48,16 +48,19 @@ const Sidebar = () => {
       <div className="hidden lg:block shrink-0 w-65 dark:bg-gray-900 overflow-auto p-4 inset-shadow-sm/20 relative">
         <div className="flex justify-center-safe items-center-safe">
           {/* Logo */}
-          <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
+          <Link
+            to="/"
+            className="flex items-center justify-center w-full h-25 rounded-2xl mb-2 overflow-hidden"
+          >
             <img
-              src="/autoBizz.webp"
+              src="/logo.png"
               alt="Logo"
-              className="size-20 object-cover"
+              className="w-full object-cover object-center "
             />
-          </div>
-          <h1 className="text-2xl font-bold text-text dark:text-white ms-5">
+          </Link>
+          {/* <h1 className="text-2xl font-bold text-text dark:text-white ms-5">
             AutoBizz
-          </h1>
+          </h1> */}
         </div>
 
         <hr className="border-gray-300 my-5" />
@@ -135,18 +138,6 @@ const Sidebar = () => {
             </NavLink>
           </li>
 
-          <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl hover:shadow-md/10 ">
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100"} w-full rounded-xl flex items-center-safe gap-3 dark:text-gray-200 px-3 py-2 `
-              }
-            >
-              <IoMdDocument className="size-5" />
-              About Us
-            </NavLink>
-          </li>
-
           <li
             className={`${isLoading && "opacity-60"}w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80 dark:text-gray-200  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
           >
@@ -164,17 +155,11 @@ const Sidebar = () => {
         <div className="absolute bottom-0 left-0 p-5 w-full">
           <hr className="border-gray-300 my-5" />
 
-          <button
-            className="p-2 bg-btn-100 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
-            onClick={() => dispatch(toggleTheme())}
-          >
-            Theme
-            {isDark ? (
-              <MdDarkMode className="size-6 animate-[spin_0.5s_ease-in-out_1]" />
-            ) : (
-              <MdSunny className="size-6 animate-[spin_0.5s_ease-in-out_1] text-yellow-400" />
-            )}
-          </button>
+          <Switch
+            isDark={isDark}
+            dispatch={dispatch}
+            toggleTheme={toggleTheme}
+          />
         </div>
       </div>
     </>

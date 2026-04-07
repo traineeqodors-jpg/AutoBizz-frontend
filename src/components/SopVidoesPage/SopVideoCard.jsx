@@ -12,7 +12,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
   const isFailed = video?.videoUrl === "failed";
 
   return (
-    <div className="relative max-w-70.5 min-h-70.5 flex flex-col items-center-safe gap-2 overflow-hidden rounded-2xl shadow-md/20 bg-white dark:bg-gray-800 dark:border-0 border border-gray-300 p-2">
+    <div className="relative max-w-70.5 min-h-70.5 flex flex-col items-center-safe gap-2 overflow-hidden rounded-2xl shadow-md/10 bg-white dark:bg-gray-800 dark:border-0 border border-gray-300 p-2">
       {/* Options btn */}
       <div
         className="absolute right-2 top-5 z-11"

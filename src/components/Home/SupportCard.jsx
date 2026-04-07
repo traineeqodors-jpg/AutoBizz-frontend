@@ -2,7 +2,7 @@ import { HiOutlinePhoneIncoming } from "react-icons/hi";
 
 const SupportCard = () => {
   return (
-    <div className="h-45 w-full bg-white dark:bg-gray-900 rounded-2xl shadow-md/10 p-5 flex flex-col justify-between group ">
+    <div className="h-45 w-full bg-white dark:bg-gray-900 rounded-2xl shadow-sm dark:shadow-gray-700/30 p-5 flex flex-col justify-between group ">
       {/* Top Section: Matches "Organization Details" header style */}
       <div className="flex items-start justify-between">
         <div className="space-y-1">

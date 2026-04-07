@@ -2,7 +2,7 @@ import { IoBusiness } from "react-icons/io5";
 
 function OrgCard({ user }) {
   return (
-    <div className="h-45 w-full shadow-md/10 rounded-2xl p-5 bg-white dark:bg-gray-900 space-y-3 flex items-center gap-4">
+    <div className="h-45 w-full shadow-sm dark:shadow-gray-700/30 rounded-2xl p-5 bg-white dark:bg-gray-900 space-y-3 flex items-center gap-4">
       <button className="bg-btn-50/50 p-2 rounded-xl border-2 border-btn-100/60">
         <IoBusiness className="size-8 dark:text-gray-300" />
       </button>

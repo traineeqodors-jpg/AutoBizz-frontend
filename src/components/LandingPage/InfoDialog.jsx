@@ -5,7 +5,7 @@ const InfoDialog = ({ dialogRef, title, features = [] }) => {
   return (
     <dialog
       ref={dialogRef}
-      className="w-[90%] max-w-2xl rounded-2xl bg-white  dark:bg-gray-900 m-auto shadow-2xl backdrop:bg-black/40 dark:backdrop:bg-gray-700/40 overflow-hidden animate-in fade-in zoom-in duration-200"
+      className="w-[90%] max-w-2xl rounded-2xl bg-back  dark:bg-gray-900 m-auto shadow-2xl backdrop:bg-black/40 dark:backdrop:bg-gray-700/40 overflow-hidden animate-in fade-in zoom-in duration-200"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -30,7 +30,7 @@ const InfoDialog = ({ dialogRef, title, features = [] }) => {
           <div className="w-full max-h-[60vh] scheme-dark p-2 text-left dark:text-gray-300">
             <ul className="list-disc space-y-4 marker:text-btn-100">
               {features.map((item, index) => (
-                <li key={index} className="pl-2 wrap-break-word">
+                <li key={index} className="pl-2 wrap-break-word list-inside">
                   <span className="font-bold text-btn-100">{item.label}: </span>
                   {item.text}
                 </li>

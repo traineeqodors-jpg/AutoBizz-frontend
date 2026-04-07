@@ -6,7 +6,7 @@ const AuthGuard = ({ children, requireAuth }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   // If there's no isLoggedIn, don't even run the query
-  const { data, isLoading, isFetching } = useGetMeQuery(undefined, {
+  const { data, isLoading } = useGetMeQuery(undefined, {
     skip: !isLoggedIn,
   });
 

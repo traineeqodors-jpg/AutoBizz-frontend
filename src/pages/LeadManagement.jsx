@@ -235,7 +235,7 @@ function LeadManagement() {
             transition={{ duration: 0.2 }}
           >
             <div
-              className="bg-white shadow-xl dark:bg-gray-900 shadow-text/5 rounded-2xl overflow-hidden border border-slate-100 dark:border-gray-900/90 relative"
+              className="bg-white shadow-lg dark:bg-gray-900 shadow-text/5 rounded-3xl overflow-hidden border border-slate-100 dark:border-gray-900/90 relative"
               ref={scrollRef}
             >
               {leadsLoading ? (

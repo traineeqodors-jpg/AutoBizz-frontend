@@ -10,7 +10,7 @@ const DeleteDialog = ({
   return (
     <dialog
       ref={deleteModalRef}
-      className="w-[90%] max-w-sm rounded-2xl bg-white dark:bg-gray-900 m-auto p-6 shadow-2xl backdrop:bg-black/40 dark:backdrop:bg-gray-700/40  animate-in fade-in zoom-in duration-200"
+      className="w-[90%] max-w-sm rounded-2xl bg-back dark:bg-gray-900 m-auto p-6 shadow-2xl backdrop:bg-black/40 dark:backdrop:bg-gray-700/40  animate-in fade-in zoom-in duration-200"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -18,7 +18,7 @@ const DeleteDialog = ({
         transition={{ type: "spring", duration: 0.4, bounce: 0.3 }}
         className="p-6 flex flex-col items-center text-center"
       >
-        <div className="w-14 h-14 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mb-4">
+        <div className="w-14 h-14 bg-red-100 text-red-500 rounded-2xl flex items-center justify-center mb-4">
           <FaExclamationTriangle size={24} />
         </div>
 
@@ -34,7 +34,7 @@ const DeleteDialog = ({
         <div className="flex w-full gap-3 mt-6">
           <button
             onClick={closeDeleteModal}
-            className="flex-1 py-3 text-sm bg-gray-50 hover:bg-gray-100 text-gray-600 font-bold rounded-xl transition-all active:scale-95"
+            className="flex-1 py-3 text-sm bg-gray-300 hover:bg-gray-400 text-text font-bold rounded-xl transition-all active:scale-95 cursor-pointer"
           >
             Cancel
           </button>

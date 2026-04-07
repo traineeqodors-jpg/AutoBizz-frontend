@@ -13,7 +13,7 @@ const OrgInfo = ({ user }) => {
     : null;
 
   return (
-    <div className="w-full shadow-md/10 rounded-2xl bg-white dark:bg-gray-200/10 dark:border-0 flex flex-col gap-2 sm:flex-row justify-between">
+    <div className="w-full shadow-sm dark:shadow-sm dark:shadow-gray-700/30 rounded-2xl bg-white dark:bg-gray-200/10 dark:border-0 flex flex-col gap-2 sm:flex-row justify-between">
       <div className="w-full p-4 sm:p-10 dark:border-0 flex sm:flex-row flex-col gap-3 justify-between self-start">
         <h2 className="md:text-2xl lg:text-xl text-lg font-extrabold text-text dark:text-white">
           <p className="flex sm:gap-3 gap-1 items-center flex-wrap">
@@ -38,7 +38,7 @@ const OrgInfo = ({ user }) => {
         <button
           type="button"
           onClick={() => dialogRef.current?.showModal()}
-          className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg sm:text-sm text-xs bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
+          className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg text-xs bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
         >
           Upload Documents <FiPlus />
         </button>

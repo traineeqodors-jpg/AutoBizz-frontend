@@ -72,7 +72,7 @@ function GenerateSOP({ isHome }) {
       {isHome ? (
         <div
           onClick={() => genScriptRef.current?.showModal()}
-          className="flex h-fit gap-3 items-center-safe p-3 sm:p-5 bg-linear-to-r from-blue-300 via-indigo-400 to-indigo-600 dark:bg-btn-200 text-white w-full rounded-2xl transition cursor-pointer shadow-md/20"
+          className="flex h-45 gap-3 items-center-safe p-3 sm:p-5 bg-linear-to-r from-blue-300 via-indigo-400 to-indigo-600 dark:bg-btn-200 text-white w-full rounded-2xl transition cursor-pointer shadow-sm"
         >
           <button className="p-3 h-fit rounded-full bg-white/30 flex justify-center-safe items-center-safe">
             <FaPlay className="size-8" />

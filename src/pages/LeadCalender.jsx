@@ -184,7 +184,7 @@ const LeadCalendar = () => {
             </div>
           </div>
         )}
-        <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white shadow-2xl flex flex-col overflow-hidden">
+        <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white shadow-lg flex flex-col overflow-hidden">
           <div className="flex items-center gap-5 mb-8 p-2">
             <div className="bg-btn-100 p-4 rounded-3xl shadow-2xl shadow-cyan-500/30">
               <IoCalendarOutline className="text-white" size={28} />
@@ -199,7 +199,7 @@ const LeadCalendar = () => {
             </div>
           </div>
 
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-2xl p-2 sm:p-8 shadow-inner border border-white/50 overflow-hidden relative">
+          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-2xl p-2 sm:p-8 inset-shadow-sm/10 shadow-sm border border-white/50 overflow-hidden relative">
             <AnimatePresence mode="wait" custom={direction}>
               {isLoading ? (
                 <motion.div

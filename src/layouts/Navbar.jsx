@@ -4,6 +4,7 @@ import MobileSideBar from "./MobileSideBar";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import { toggleTheme } from "../features/slices/themeSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -15,20 +16,20 @@ const Navbar = () => {
   return (
     <>
       <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center-safe bg-back/20 dark:bg-gray-900 border-b border-gray-300 relative">
-        <div className="size-15 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-full dark:bg-gray-200">
-          <img src="/autoBizz.webp" alt="Logo" className="w-full h-full" />
-        </div>
+        <Link className="size-16 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-lg">
+          <img src="/logo.png" alt="Logo" className="w-full object-cover" />
+        </Link>
 
         {/* Menu Buttons */}
         <div className="flex justify-center-safe items-center-safe gap-7 text-lg">
           <button
-            className="p-2 bg-btn-100/90 text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
+            className="p-2 bg-gray-300 text-text dark:text-white dark:bg-gray-700 rounded-full flex gap-3 justify-center items-center-safe mx-auto cursor-pointer"
             onClick={() => dispatch(toggleTheme())}
           >
             {isDark ? (
               <MdDarkMode className="size-6 animate-[spin_0.5s_ease-in-out_1]" />
             ) : (
-              <MdSunny className="size-6 animate-[spin_0.5s_ease-in-out_1] text-yellow-400" />
+              <MdSunny className="size-6 animate-[spin_0.8s_ease-in-out_1] " />
             )}
           </button>
 

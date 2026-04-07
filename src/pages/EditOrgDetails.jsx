@@ -62,7 +62,7 @@ function EditOrgDetails() {
         >
           {/* Header Card */}
           <div className="w-full bg-white dark:bg-gray-900 dark:shadow-md dark:shadow-gray-700/30 rounded-2xl shadow-sm border dark:border-none border-slate-100 p-5 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-            {/* PROFILE IMAGE SECTION */}
+            {/* 1. PROFILE IMAGE SECTION */}
             <div className="relative group size-24 sm:size-32 shrink-0">
               <div
                 onClick={() => setIsPreviewOpen(true)}
@@ -120,7 +120,7 @@ function EditOrgDetails() {
 
             {/* Business Info */}
             <div className="w-full min-w-0">
-              <h2 className="text-xl sm:text-2xl font-bold text-text dark:text-white capitalize tracking-tight wrap-break-word">
+              <h2 className="text-xl sm:text-2xl font-bold text-heading dark:text-white capitalize tracking-tight wrap-break-word">
                 {businessName}
               </h2>
               <span className="inline-block mt-1 bg-green-50 border border-green-100 px-3 py-1 uppercase tracking-widest font-bold text-[10px] text-green-600 rounded-lg">
@@ -129,6 +129,7 @@ function EditOrgDetails() {
             </div>
           </div>
 
+          {/* 3. Profile Info */}
           <ProfileInfo
             key={user?._id || "loading"}
             user={user}

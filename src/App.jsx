@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { lazy, Suspense, useEffect } from "react";
 import LoadingElement from "./components/ui/LoadingElement";
 import LandingPage from "./pages/LandingPage";
+import ErrorElement from "./components/ui/ErrorElement";
 
 const Home = lazy(() => import("./pages/Home"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -25,24 +26,30 @@ const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorElement />,
     element: (
       <AuthGuard requireAuth={true}>
         <RootLayout />
       </AuthGuard>
     ),
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/orgprofile", element: <EditOrgDetails /> },
-      { path: "/documents", element: <MyDocument /> },
-      { path: "/callLogs", element: <CallLog /> },
-      { path: "/about", element: <AboutUs /> },
-      { path: "/sop", element: <SopVideosPage /> },
-      { path: "/leads", element: <LeadManagement /> },
-      { path: "/calendar", element: <LeadCalendar /> },
+      {
+        errorElement: <ErrorElement />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "/orgprofile", element: <EditOrgDetails /> },
+          { path: "/documents", element: <MyDocument /> },
+          { path: "/callLogs", element: <CallLog /> },
+          { path: "/sop", element: <SopVideosPage /> },
+          { path: "/leads", element: <LeadManagement /> },
+          { path: "/calendar", element: <LeadCalendar /> },
+        ],
+      },
     ],
   },
   {
     path: "/login",
+    errorElement: <ErrorElement />,
     element: (
       <AuthGuard requireAuth={false}>
         <LoginPage />
@@ -51,6 +58,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
+    errorElement: <ErrorElement />,
     element: (
       <AuthGuard requireAuth={false}>
         <SignupPage />
@@ -59,6 +67,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
+    errorElement: <ErrorElement />,
     element: (
       <AuthGuard requireAuth={false}>
         <LandingPage />

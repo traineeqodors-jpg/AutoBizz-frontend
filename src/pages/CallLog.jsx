@@ -210,7 +210,7 @@ const CallLog = () => {
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="bg-white shadow-xl shadow-text/5 dark:bg-gray-900 dark:border-gray-900/90 rounded-3xl overflow-hidden border border-white">
+                <div className="bg-white shadow-lg shadow-text/5 dark:bg-gray-900 dark:border-gray-900/90 rounded-3xl overflow-hidden border border-white">
                   <div className="hidden md:block overflow-x-auto">
                     <table className="w-full text-center border-separate border-spacing-0">
                       <thead>

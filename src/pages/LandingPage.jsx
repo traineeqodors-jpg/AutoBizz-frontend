@@ -88,7 +88,7 @@ const LandingPage = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen dark:bg-gray-800 bg-linear-to-r from-slate-50 to-blue-200 dark:bg-none w-full flex flex-col items-center gap-5"
+        className="min-h-screen dark:bg-gray-800 bg-layout dark:bg-none w-full flex flex-col items-center gap-5"
       >
         <LandingNavbar />
         <div className="w-full scroll-smooth">

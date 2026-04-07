@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaCalendarAlt, FaHome } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGetMeQuery, useLogoutMutation } from "../features/slices/orgSlice";
 import { useDispatch } from "react-redux";
 import { IoMdDocument } from "react-icons/io";
@@ -60,16 +60,16 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       >
         {/* Logo and Close Button */}
         <div className="flex justify-center-safe items-center-safe">
-          <div className="bg-white flex items-center justify-center size-20 rounded-full shadow-inner mb-2 overflow-hidden">
+          <Link
+            to="/"
+            className="flex items-center justify-center w-full h-25 rounded-2xl overflow-hidden"
+          >
             <img
-              src="/autoBizz.webp"
+              src="/logo.png"
               alt="Logo"
-              className="size-20 object-cover"
+              className="size-40 object-cover object-center "
             />
-          </div>
-          <h1 className="text-2xl font-bold text-text dark:text-white ms-5">
-            AutoBizz
-          </h1>
+          </Link>
           <button
             onClick={() => setIsDialogOpen(false)}
             className="text-black absolute top-5 right-3 cursor-pointer"
@@ -154,21 +154,6 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
             >
               <FaCalendarAlt className="size-5" />
               Calendar
-            </NavLink>
-          </li>
-
-          <li
-            onClick={() => setIsDialogOpen(false)}
-            className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
-          >
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `${isActive ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white" : "hover:bg-btn-100/30 hover:text-btn-100"} rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`
-              }
-            >
-              <IoMdDocument className="size-5" />
-              About Us
             </NavLink>
           </li>
 

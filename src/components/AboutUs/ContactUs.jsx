@@ -81,7 +81,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen dark:bg-gray-800 p-4 sm:p-8 lg:p-12">
+    <div className=" dark:bg-gray-800 p-4 sm:p-8 lg:p-12">
       <div className="max-w-5xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">

@@ -18,10 +18,17 @@
 
 @theme {
   --color-back: #f5f8fe;
+
+  /* Button Shades */
+  --color-btn-40: #94b8ed;
   --color-btn-50: #6c9ce4;
   --color-btn-100: #3c6ce4;
   --color-btn-200: #1f56e0;
-  /* Define the gradient as a variable if you want to reuse just the colors */
+
+  /* Text */
+  --color-text: #393e46;
+
+  /* text-heading */
   --background-image-heading-blue: linear-gradient(
     to bottom right,
     var(--color-blue-600),
@@ -29,17 +36,49 @@
     var(--color-blue-600)
   );
 
-  /* OLD */
-  --color-btn-300: #007980;
-  --color-text: #393e46;
-  --color-sidebar: #edfeff;
+  /* bg-layout */
+  --background-main-gradient: linear-gradient(
+    to bottom right,
+    var(--color-slate-50),
+    var(--color-blue-200)
+  );
+
+  /* Light mode footer gradient */
+  --background-footer: linear-gradient(
+    to bottom right,
+    var(--color-btn-200),
+    var(--color-blue-900)
+  );
+
+  /* Dark mode footer gradient */
+  --background-footer-dark: linear-gradient(
+    to bottom right,
+    var(--color-gray-900),
+    var(--color-black)
+  );
 }
 
+/* text-heading */
 @utility text-heading {
   background-image: var(--background-image-heading-blue);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+/* bg-layout */
+@utility bg-layout {
+  background-image: var(--background-main-gradient);
+}
+
+/* bg-footer */
+@utility bg-footer {
+  background-image: var(--background-footer);
+
+  /* Automatically switch to dark variable if .dark class is present */
+  @variant dark {
+    background-image: var(--background-footer-dark);
+  }
 }
 
 body {
