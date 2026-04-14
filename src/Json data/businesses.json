@@ -1,0 +1,28 @@
+{
+  "business_categories": [
+    {
+      "id": "Agriculture",
+      "name": "Agriculture"
+    },
+    {
+      "id": "Manufacturing",
+      "name": "Manufacturing"
+    },
+    {
+      "id": "Retail Trade",
+      "name": "Retail Trade"
+    },
+    {
+      "id": "Technology",
+      "name": "Information Technology and Consultancy Services"
+    },
+    {
+      "id": "Finance and Insurance",
+      "name": "Finance and Insurance"
+    },
+    {
+      "id": "Health Care",
+      "name": "Health Care"
+    }
+  ]
+}
