@@ -8,7 +8,7 @@ import { FiPlus } from "react-icons/fi";
 
 // import DocuementUploadDialog from "./DocuementUploadDialog";
 
-const OrgInfo = ({ user }) => {
+const OrgInfo = ({ user, isOwner }) => {
   const dialogRef = useRef(null);
   const router = useRouter();
 
@@ -36,13 +36,15 @@ const OrgInfo = ({ user }) => {
             </span>
           </p>
         </h2>
-        <button
-          type="button"
-          onClick={() => dialogRef.current?.showModal()}
-          className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg text-xs bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
-        >
-          Upload Documents <FiPlus />
-        </button>
+        {isOwner && (
+          <button
+            type="button"
+            onClick={() => dialogRef.current?.showModal()}
+            className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg text-xs bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
+          >
+            Upload Documents <FiPlus />
+          </button>
+        )}
       </div>
       <DocumentUploadDialog dialogRef={dialogRef} />
     </div>

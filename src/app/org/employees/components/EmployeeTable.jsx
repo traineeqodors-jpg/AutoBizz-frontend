@@ -1,35 +1,40 @@
 import { IoTrashOutline } from "react-icons/io5";
 
-const EmployeeTable = ({ openDeleteModal }) => {
+const EmployeeTable = ({ emp, openDeleteModal }) => {
+  console.log(emp);
   return (
     <tr
       className={`transition-all group border border-gray-100 cursor-default text-text/90 dark:text-gray-300 font-medium
      `}
     >
       <td className="px-6 py-5 rounded-l-3xl dark:rounded-none border-y border-l border-gray-100 dark:border-none text-sm">
-        Name
+        {emp?.firstName + emp?.lastName}
       </td>
 
       <td className="px-6 py-5 border-y border-gray-100 dark:border-none text-sm">
         <div>
           <p className="font-semibold text-text dark:text-gray-300">
-            1234567890
+            {emp?.phoneNumber}
           </p>
           <p className="text-[11px] text-gray-400 font-medium uppercase tracking-tight">
-            hello@example.com
+            {emp?.email}
           </p>
         </div>
       </td>
 
       <td className="px-6 py-5 rounded-l-3xl dark:rounded-none border-y border-gray-100 dark:border-none text-sm">
-        Sales
+        {emp?.role}
       </td>
 
       <td className="px-6 py-5 border-y border-gray-100 dark:border-none">
         <span
-          className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-green-100 text-green-600`}
+          className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider ${
+            emp?.isVerified
+              ? "bg-green-100 text-green-600"
+              : "bg-red-100 text-red-600"
+          }`}
         >
-          Verified
+          {emp?.isVerified ? "Verified" : "Not-Verified"}
         </span>
       </td>
 

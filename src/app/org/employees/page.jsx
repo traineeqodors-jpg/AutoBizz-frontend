@@ -9,7 +9,12 @@ import EmployeeFilter from "./components/EmployeeFilter";
 import EmployeeTable from "./components/EmployeeTable";
 import MobileEmployeeView from "./components/MobileEmployeeView";
 import toast from "react-hot-toast";
-import { useCreateEmployeeMutation } from "@/features/slices/employeeSlice";
+import {
+  useCreateEmployeeMutation,
+  useDeleteEmployeeMutation,
+  useGetAllEmployeeQuery,
+  useUpdateEmployeeMutation,
+} from "@/features/slices/employeeSlice";
 
 function EmployeeManagement() {
   const dialogRef = useRef(null);
@@ -28,6 +33,15 @@ function EmployeeManagement() {
   const deleteModalRef = useRef(null);
 
   const [createEmp, { isLoading }] = useCreateEmployeeMutation();
+  const { data: emp, isLoading: empLoading } = useGetAllEmployeeQuery();
+  const [deleteEmployee, { isLoading: deleteLoading }] =
+    useDeleteEmployeeMutation();
+  const [editEmployee, { isLoading: updateLoading }] =
+    useUpdateEmployeeMutation();
+
+  const empData = emp?.data?.employees;
+
+  console.log(empData);
 
   //   Handling Input Chnage
   const handleChange = (e) => {
@@ -117,6 +131,11 @@ function EmployeeManagement() {
   const confirmDelete = async () => {
     toast.success("Deleted Successfully!!");
   };
+
+  if (empLoading) {
+    return null;
+  }
+
   return (
     <AnimatedWrapper>
       <div className="min-h-screen mx-auto space-y-6 w-full py-3 sm:py-6 lg:py-8 relative">
@@ -152,13 +171,39 @@ function EmployeeManagement() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                      <EmployeeTable openDeleteModal={openDeleteModal} />
+                      {empData && empData.length > 0 ? (
+                        empData.map((emp) => (
+                          <EmployeeTable
+                            key={emp._id || emp.id}
+                            emp={emp}
+                            openDeleteModal={openDeleteModal}
+                          />
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="5" className="py-10 text-slate-500">
+                            No employees found.
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
 
                 <div className="md:hidden space-y-3 p-2">
-                  <MobileEmployeeView openDeleteModal={openDeleteModal} />
+                  {empData?.length > 0 ? (
+                    empData.map((emp) => (
+                      <MobileEmployeeView
+                        key={emp._id || emp.id}
+                        emp={emp}
+                        openDeleteModal={openDeleteModal}
+                      />
+                    ))
+                  ) : (
+                    <div className="text-center py-10 text-gray-500">
+                      No employees found.
+                    </div>
+                  )}
                 </div>
               </>
             </div>

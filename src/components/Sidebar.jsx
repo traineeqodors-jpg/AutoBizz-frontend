@@ -9,7 +9,11 @@ import ThemeSwitch from "./ui/ThemeSwitch";
 import { useRouter } from "next/navigation";
 import { MdDashboard } from "react-icons/md";
 import toast from "react-hot-toast";
-import { useLogoutMutation, userApi } from "@/features/slices/userSlice";
+import {
+  useGetMeQuery,
+  useLogoutMutation,
+  userApi,
+} from "@/features/slices/userSlice";
 import { useDispatch } from "react-redux";
 
 const SideBar = () => {
@@ -18,6 +22,12 @@ const SideBar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
 
   const router = useRouter();
+
+  const { data: user } = useGetMeQuery();
+  const userData = user?.data;
+  const role = userData?.role;
+
+  console.log(userData);
 
   const isActive = (path) => pathname === path;
 
@@ -31,11 +41,28 @@ const SideBar = () => {
       console.warn("Server logout failed, cleaning up locally.", error);
     }
   };
+
+  // Helper to render links
+  const NavLink = ({ href, icon: Icon, label }) => (
+    <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10 ">
+      <Link
+        href={href}
+        className={`${
+          isActive(href)
+            ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
+            : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
+        } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
+      >
+        <Icon className="size-5" />
+        {label}
+      </Link>
+    </li>
+  );
   return (
     <>
       <div className="hidden lg:block shrink-0 w-65 bg-surface overflow-auto p-4 inset-shadow-sm/20 relative">
+        {/* Logo Section */}
         <div className="flex justify-center-safe items-center-safe">
-          {/* Logo */}
           <Link
             href="/"
             className="flex items-center justify-center w-full h-25 rounded-2xl mb-2 overflow-hidden"
@@ -50,120 +77,47 @@ const SideBar = () => {
 
         <hr className="border-gray-300 my-5" />
 
-        <ul className="w-full space-y-4 ">
-          {/* DashBoard */}
-          <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/dashboard"
-              className={`${
-                isActive("/org/dashboard")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <MdDashboard className="size-5" />
-              Dashboard
-            </Link>
-          </li>
+        <ul className="w-full space-y-4">
+          {/* Everyone sees Dashboard */}
+          <NavLink href="/org/dashboard" icon={MdDashboard} label="Dashboard" />
 
-          {/* My Documents */}
-          <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/documents"
-              className={`${
-                isActive("/org/documents")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <IoMdDocument className="size-5" />
-              My Documents
-            </Link>
-          </li>
+          {/* OWNER ONLY: Documents, Call History, Employees */}
+          {role === "owner" && (
+            <>
+              <NavLink
+                href="/org/documents"
+                icon={IoMdDocument}
+                label="My Documents"
+              />
+              <NavLink
+                href="/org/callLogs"
+                icon={IoCall}
+                label="Call History"
+              />
+              <NavLink href="/org/employees" icon={FaUsers} label="Employees" />
+            </>
+          )}
 
-          {/* SOP Videos */}
-          <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/sop"
-              className={`${
-                isActive("/org/sop")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <BiSolidVideos className="size-5" />
-              SOP Videos
-            </Link>
-          </li>
+          {/* OWNER & SALES: Leads and Calendar */}
+          {(role === "owner" || role === "sales") && (
+            <>
+              <NavLink href="/org/leads" icon={IoPeopleSharp} label="Leads" />
+              <NavLink
+                href="/org/calendar"
+                icon={FaCalendarAlt}
+                label="Calendar"
+              />
+            </>
+          )}
 
-          {/* Leads */}
-          <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/leads"
-              className={`${
-                isActive("/org/leads")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <IoPeopleSharp className="size-5" />
-              Leads
-            </Link>
-          </li>
+          <NavLink href="/org/sop" icon={BiSolidVideos} label="SOP Videos" />
 
-          {/* Calendar */}
-          <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/calendar"
-              className={`${
-                isActive("/org/calendar")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <FaCalendarAlt className="size-5" />
-              Calendar
-            </Link>
-          </li>
-
-          {/* Call Logs */}
-          <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/callLogs"
-              className={`${
-                isActive("/org/callLogs")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <IoCall className="size-5" />
-              Call History
-            </Link>
-          </li>
-
-          {/* Employees */}
-          <li className="w-full hover:-translate-y-0.5 transition-all  rounded-xl hover:shadow-md/10 ">
-            <Link
-              href="/org/employees"
-              className={`${
-                isActive("/org/employees")
-                  ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
-                  : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-              } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
-            >
-              <FaUsers className="size-5" />
-              Employees
-            </Link>
-          </li>
-
-          {/* Logout  */}
-          <li
-            className={`w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80 dark:text-gray-200  hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2 `}
-          >
+          {/* Logout (Visible to all) */}
+          <li className="w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80 dark:text-gray-200 hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2">
             <button
               disabled={isLoading}
               onClick={handleLogout}
-              className="w-full flex items-center-safe gap-3 cursor-pointer"
+              className="w-full flex items-center gap-3 cursor-pointer"
             >
               <IoLogIn className="size-5" />
               {isLoading ? "Logging Out..." : "LogOut"}
@@ -173,7 +127,6 @@ const SideBar = () => {
 
         <div className="absolute bottom-0 left-0 p-5 w-full">
           <hr className="border-gray-300 my-5" />
-
           <ThemeSwitch />
         </div>
       </div>

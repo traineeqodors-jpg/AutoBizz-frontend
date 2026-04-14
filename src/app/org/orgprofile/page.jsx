@@ -60,7 +60,6 @@ function EditOrgDetails() {
   if (orgDetailsLoading) {
     return null;
   }
-  console.log(orgData);
 
   return (
     <AnimatedWrapper>
