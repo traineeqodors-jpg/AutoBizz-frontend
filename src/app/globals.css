@@ -1,26 +1,237 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui;
+  /* Colors */
+  --color-border: var(--border);
+  --color-back: var(--back);
+  --color-text: var(--text);
+  --color-btn-40: var(--btn-40);
+  --color-btn-50: var(--btn-50);
+  --color-btn-100: var(--btn-100);
+  --color-btn-200: var(--btn-200);
+
+  /* Surface or Container */
+  --color-surface: var(--surface);
+
+  /* Custom Gradients linked to variables */
+  --background-image-heading-blue: linear-gradient(
+    to bottom right,
+    var(--color-blue-600),
+    var(--color-blue-400),
+    var(--color-blue-600)
+  );
+
+  --background-main-gradient: linear-gradient(
+    to bottom right,
+    var(--main-bg-start),
+    var(--main-bg-end)
+  );
+
+  --background-footer: var(--footer-gradient);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --border: #e2e8f0;
+  /* Base Colors */
+  --back: #f5f8fe;
+  --text: #393e46;
+
+  /* Button Shades */
+  --btn-40: #94b8ed;
+  --btn-50: #6c9ce4;
+  --btn-100: #3c6ce4;
+  --btn-200: #1f56e0;
+
+  /* Surface or COntainers */
+  --surface: #ffffff;
+
+  /* Layout Gradients */
+  --main-bg-start: var(--color-slate-50);
+  --main-bg-end: var(--color-blue-200);
+
+  --footer-gradient: linear-gradient(
+    to bottom right,
+    var(--btn-200),
+    var(--color-blue-900)
+  );
+}
+
+.dark {
+  --border: #334155;
+  /* Dark Mode Overrides */
+  --back: var(--color-gray-800); /* As requested */
+  --text: #f5f8fe;
+
+  /* Surface or Container */
+  --surface: var(--color-gray-900);
+
+  --main-bg-start: var(--color-gray-900);
+  --main-bg-end: var(--color-black);
+
+  --footer-gradient: linear-gradient(
+    to bottom right,
+    var(--color-gray-900),
+    var(--color-black)
+  );
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    @apply border-border;
+  }
+  /* *::-webkit-scrollbar {
+    display: none;
+  } */
+  body {
+    @apply bg-back text-text font-sans;
+    font-weight: 500;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-heading {
+    background-image: var(--background-image-heading-blue);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .bg-layout {
+    background-image: var(--background-main-gradient);
+  }
+
+  .bg-footer {
+    background-image: var(--background-footer);
+  }
+}
+
+/* Animations */
+@keyframes l5 {
+  0% {
+    box-shadow:
+      20px 0 #000,
+      -20px 0 #0002;
+    background: #000;
+  }
+  33% {
+    box-shadow:
+      20px 0 #000,
+      -20px 0 #0002;
+    background: #0002;
+  }
+  66% {
+    box-shadow:
+      20px 0 #0002,
+      -20px 0 #000;
+    background: #0002;
+  }
+  100% {
+    box-shadow:
+      20px 0 #0002,
+      -20px 0 #000;
+    background: #000;
+  }
+}
+
+/* For browsers that support mask-image (Safari/Chrome) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.custom-calendar-style {
+  background-color: #eeeeee;
+  border: 2px solid #00c7d1;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  padding: 12px;
+}
+
+/* Styles the individual year options inside the year picker */
+.custom-calendar-style .react-datepicker__year-text {
+  font-weight: bold;
+  color: #374151;
+}
+
+/* Styles the hover state for a year */
+.custom-calendar-style .react-datepicker__year-text:hover {
+  background-color: #3b82f6 !important;
+  color: white;
+}
+
+.hideScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+.scriptLoader {
+  width: 40px;
+  aspect-ratio: 1;
+  background: var(--color-btn-100, #3c6ce4); /* Use your Tailwind variable */
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  animation: l2 2s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+
+@keyframes l2 {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+  25% {
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+  }
+  75% {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+  }
+}
+
+/* 1. Global Text Colors (Forcing all labels to Black) */
+.rbc-calendar,
+.rbc-header,
+.rbc-date-cell,
+.rbc-show-more,
+.rbc-off-range-label,
+.rbc-time-slot,
+.rbc-button-link {
+  color: black !important;
+  font-weight: 600 !important; /* Makes the black text pop */
+}
+
+/* 2. Today's Date Background (Monthly & Weekly Views) */
+.rbc-today {
+  background-color: var(--btn-100) !important;
+}
+
+/* Ensure Today's number is white for contrast against the blue background */
+.rbc-today .rbc-button-link {
+  color: white !important;
+}
+
+/* 3. Off-Range Dates (Dates not belonging to the current month) */
+/* We target the background cell (.rbc-day-bg) */
+.rbc-month-view .rbc-day-bg.rbc-off-range {
+  background-color: color-mix(
+    in srgb,
+    var(--btn-100),
+    transparent 70%
+  ) !important;
+}
+
+/* 4. Fix for Header/Time-view borders (Optional but looks cleaner) */
+.rbc-month-view,
+.rbc-time-view {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* 5. Highlight "Now" indicator in Day/Week view */
+.rbc-current-time-indicator {
+  background-color: var(--btn-100) !important;
 }
