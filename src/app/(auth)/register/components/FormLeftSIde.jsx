@@ -1,10 +1,18 @@
+import Image from "next/image";
 import React from "react";
 
 const FormLeftSIde = () => {
   return (
     <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back dark:bg-gray-700 p-10 ">
       <div className="flex items-center justify-center w-50 h-25 rounded-lg overflow-hidden">
-        <img src="/logo.png" alt="Logo" className="w-full object-cover" />
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          height={300}
+          width={300}
+          priority
+          className="w-full object-cover"
+        />
       </div>
       {/* <h2 className="text-2xl font-extrabold text-text dark:text-white mb-2">
         AutoBizz
@@ -17,10 +25,12 @@ const FormLeftSIde = () => {
       <ul className="space-y-5 text-gray-500 font-medium p-5">
         {/* 1 . */}
         <li className="flex justify-center-safe items-center-safe space-x-5  rounded-2xl">
-          <img
+          <Image
             src="https://cdn-icons-png.flaticon.com/128/11921/11921783.png"
-            alt=""
+            alt="Business Automation Icon"
             className="object-contain size-20 opacity-70"
+            height={300}
+            width={300}
           />
 
           <div>
@@ -35,28 +45,32 @@ const FormLeftSIde = () => {
 
         {/* 2 . */}
         <li className="flex justify-center-safe items-center-safe space-x-5 rounded-2xl mb-7">
-          <img
+          <Image
             src="https://cdn-icons-png.flaticon.com/128/8163/8163243.png"
-            alt=""
+            alt="Customer Service Icon"
             className="object-contain size-20 opacity-70"
+            height={300}
+            width={300}
           />
 
           <div>
             <p className="text-lg dark:text-white">Customer Service</p>
             <p className="text-xs break-all text-justify line-clamp-2 dark:text-gray-400">
               Provisioning of a unique phone number where an AI Voice Assistant
-              handles customer inquiries 24/7 based on the business's specific
-              context.
+              handles customer inquiries 24/7 based on the business&apos;s
+              specific context.
             </p>
           </div>
         </li>
 
         {/* 3 . */}
         <li className="flex justify-center-safe items-center-safe space-x-5 rounded-2xl ">
-          <img
+          <Image
             src="https://cdn-icons-png.flaticon.com/128/1389/1389181.png"
-            alt=""
+            alt="Sales & Lead Management Icon"
             className="object-contain size-20 opacity-70"
+            height={300}
+            width={300}
           />
 
           <div>
@@ -64,7 +78,7 @@ const FormLeftSIde = () => {
             <p className="text-xs break-all text-justify line-clamp-2 dark:text-gray-400">
               Auto-generating product listings and uses AI to qualify leads
               through text or voice, scheduling high-scoring prospects directly
-              onto the user's calendar.
+              onto the user&apos;s calendar.
             </p>
           </div>
         </li>

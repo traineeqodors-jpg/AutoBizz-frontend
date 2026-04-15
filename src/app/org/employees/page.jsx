@@ -3,7 +3,7 @@
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 import EmployessHeader from "./components/EmployeesHeader";
 import DeleteDialog from "@/components/ui/DeleteDialog";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import EmployeeFilter from "./components/EmployeeFilter";
 import EmployeeTable from "./components/EmployeeTable";
@@ -27,21 +27,55 @@ function EmployeeManagement() {
     role: "",
   });
   const [errors, setErrors] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("");
+  const [page, setPage] = useState(1);
 
-  const [searchTerm, setSearchTerm] = useState();
+  // Wait 500ms after the user stops typing to update debouncedSearch
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchTerm]);
+
+  const [targetEmp, setTargetEmp] = useState(null);
 
   const deleteModalRef = useRef(null);
 
   const [createEmp, { isLoading }] = useCreateEmployeeMutation();
-  const { data: emp, isLoading: empLoading } = useGetAllEmployeeQuery();
+
+  // Pass filters directly to the query
+  const {
+    data: emp,
+    isLoading: empLoading,
+    isFetching: empFetching,
+    isError,
+  } = useGetAllEmployeeQuery({
+    search: debouncedSearch || undefined,
+    role: roleFilter || undefined,
+    page: page,
+    limit: 10,
+  });
+
   const [deleteEmployee, { isLoading: deleteLoading }] =
     useDeleteEmployeeMutation();
+
   const [editEmployee, { isLoading: updateLoading }] =
     useUpdateEmployeeMutation();
 
-  const empData = emp?.data?.employees;
+  const empData = isError ? [] : emp?.data?.employees || [];
 
-  console.log(empData);
+  const pagination = emp?.data?.pagination;
+
+  // Clear filters handler
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setRoleFilter("");
+    setPage(1);
+  };
 
   //   Handling Input Chnage
   const handleChange = (e) => {
@@ -120,7 +154,8 @@ function EmployeeManagement() {
   };
 
   // Modal Handlers
-  const openDeleteModal = () => {
+  const openDeleteModal = (id) => {
+    setTargetEmp(id);
     deleteModalRef.current?.showModal();
   };
 
@@ -129,12 +164,16 @@ function EmployeeManagement() {
   };
 
   const confirmDelete = async () => {
-    toast.success("Deleted Successfully!!");
+    if (!targetEmp) return;
+    try {
+      const response = await deleteEmployee(targetEmp).unwrap();
+      toast.success(response?.message);
+      closeDeleteModal();
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.data?.message);
+    }
   };
-
-  if (empLoading) {
-    return null;
-  }
 
   return (
     <AnimatedWrapper>
@@ -147,7 +186,13 @@ function EmployeeManagement() {
           handleSubmit={handleSubmit}
         />
 
-        <EmployeeFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <EmployeeFilter
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          roleFilter={roleFilter}
+          setRoleFilter={setRoleFilter}
+          handleClearFilters={handleClearFilters}
+        />
 
         {/* Main Content Area */}
         <AnimatePresence mode="wait">
@@ -159,52 +204,83 @@ function EmployeeManagement() {
           >
             <div className="bg-surface shadow-sm shadow-text/5 rounded-3xl overflow-hidden border border-slate-100 dark:border-gray-900/90 relative">
               <>
-                <div className="hidden md:block overflow-x-auto">
-                  <table className="w-full text-center border-separate border-spacing-0">
-                    <thead className="bg-slate-50/80 dark:bg-gray-700 sticky top-0 z-10">
-                      <tr className="text-slate-500 text-[11px] dark:text-gray-100 uppercase tracking-widest font-bold">
-                        <th className="px-6 py-4 border-b">Employee Name</th>
-                        <th className="px-6 py-4 border-b">Contacts</th>
-                        <th className="px-6 py-4 border-b">Role</th>
-                        <th className="px-6 py-4 border-b">Status</th>
-                        <th className="px-6 py-4 border-b">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {empData && empData.length > 0 ? (
+                {/* Show a spinner only over the table area while searching */}
+                {empLoading || empFetching ? (
+                  <div className="h-30 relative flex items-center justify-center">
+                    <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="hidden md:block overflow-x-auto">
+                      <table className="w-full text-center border-separate border-spacing-0">
+                        <thead className="bg-slate-50/80 dark:bg-gray-700 sticky top-0 z-10">
+                          <tr className="text-slate-500 text-[11px] dark:text-gray-100 uppercase tracking-widest font-bold">
+                            <th className="px-6 py-4 border-b">
+                              Employee Name
+                            </th>
+                            <th className="px-6 py-4 border-b">Contacts</th>
+                            <th className="px-6 py-4 border-b">Role</th>
+                            <th className="px-6 py-4 border-b">Status</th>
+                            <th className="px-6 py-4 border-b">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {empData && empData.length > 0 ? (
+                            empData.map((emp) => (
+                              <EmployeeTable
+                                key={emp.id}
+                                emp={emp}
+                                openDeleteModal={openDeleteModal}
+                              />
+                            ))
+                          ) : (
+                            <tr>
+                              <td
+                                colSpan="5"
+                                className="py-20 text-slate-500 font-medium"
+                              >
+                                <div className="flex flex-col items-center justify-center gap-2">
+                                  <span>
+                                    No employees found matching your search.
+                                  </span>
+                                  <button
+                                    onClick={handleClearFilters}
+                                    className="text-btn-100 text-sm underline"
+                                  >
+                                    Clear filters
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Mobile View */}
+                    <div className="md:hidden space-y-3 p-2">
+                      {empData?.length > 0 ? (
                         empData.map((emp) => (
-                          <EmployeeTable
+                          <MobileEmployeeView
                             key={emp._id || emp.id}
                             emp={emp}
                             openDeleteModal={openDeleteModal}
                           />
                         ))
                       ) : (
-                        <tr>
-                          <td colSpan="5" className="py-10 text-slate-500">
-                            No employees found.
-                          </td>
-                        </tr>
+                        <div className="text-center py-10 text-gray-500 flex flex-col items-center justify-center gap-2">
+                          No employees found.
+                          <button
+                            onClick={handleClearFilters}
+                            className="text-btn-100 text-sm underline cursor-pointer"
+                          >
+                            Clear filters
+                          </button>
+                        </div>
                       )}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="md:hidden space-y-3 p-2">
-                  {empData?.length > 0 ? (
-                    empData.map((emp) => (
-                      <MobileEmployeeView
-                        key={emp._id || emp.id}
-                        emp={emp}
-                        openDeleteModal={openDeleteModal}
-                      />
-                    ))
-                  ) : (
-                    <div className="text-center py-10 text-gray-500">
-                      No employees found.
                     </div>
-                  )}
-                </div>
+                  </>
+                )}
               </>
             </div>
           </motion.div>

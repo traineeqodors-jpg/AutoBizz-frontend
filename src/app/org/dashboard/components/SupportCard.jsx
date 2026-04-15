@@ -32,7 +32,7 @@ const SupportCard = () => {
         <p className="text-text/60 dark:text-gray-400 text-[10px] uppercase font-bold tracking-tight mb-1.5 ml-1">
           Direct Support Line
         </p>
-        <div className="w-full py-2 px-4 rounded-xl bg-back/50 dark:bg-gray-800/40 border border-transparent group-hover:border-btn-100/10 flex items-center justify-between">
+        <div className="w-full py-2 px-4 rounded-xl bg-back dark:bg-gray-800/40 border border-transparent group-hover:border-btn-100/10 flex items-center justify-between">
           <span className="text-text dark:text-white text-sm sm:text-lg font-bold tracking-wider">
             {process.env.NEXT_PUBLIC_AI_SUPPORT_NUMBER || "+1 234 567 890"}
           </span>

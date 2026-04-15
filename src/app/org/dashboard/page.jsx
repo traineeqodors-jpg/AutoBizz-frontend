@@ -37,9 +37,9 @@ export default function Dashboard() {
         </div>
 
         {isOwnerOrSales && (
-          <div className="grid grid-cols-1 max-h-fit xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 max-h-fit md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 gap-5">
             <Leads />
-            <div className="xl:col-span-2 min-h-100 sm:max-h-full max-h-100 w-full bg-surface rounded-2xl shadow-sm dark:shadow-gray-700/40">
+            <div className="md:col-span-2 lg:col-span-1 xl:col-span-2 min-h-100 sm:max-h-full max-h-100 w-full bg-surface rounded-2xl shadow-sm dark:shadow-gray-700/40">
               <Suspense
                 fallback={
                   <div className="min-h-100 flex items-center justify-center">

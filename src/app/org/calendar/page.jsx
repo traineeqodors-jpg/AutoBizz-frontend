@@ -43,7 +43,61 @@ const viewVariants = {
   }),
 };
 
-function page() {
+const CustomToolbar = (toolbar) => (
+  <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => toolbar.onNavigate("TODAY")}
+        className="px-5 py-2.5 bg-back rounded-2xl text-[10px] font-black uppercase tracking-widest text-text hover:bg-btn-100 hover:text-white transition-all active:scale-95 shadow-sm"
+      >
+        Today
+      </button>
+      <div className="flex bg-back rounded-2xl overflow-hidden shadow-inner border border-white">
+        <button
+          onClick={() => toolbar.onNavigate("PREV")}
+          className="p-2.5 hover:bg-btn-100 dark:text-text hover:text-white transition-colors active:bg-btn-200"
+        >
+          <IoChevronBack size={18} />
+        </button>
+        <div className="w-px h-4 bg-gray-200 self-center" />
+        <button
+          onClick={() => toolbar.onNavigate("NEXT")}
+          className="p-2.5 hover:bg-btn-100 dark:text-text hover:text-white transition-colors active:bg-btn-200"
+        >
+          <IoChevronForward size={18} />
+        </button>
+      </div>
+    </div>
+
+    <motion.h3
+      key={toolbar.label}
+      initial={{ y: -10, opacity: 0 }}
+      transition={{ duration: 0.1 }}
+      animate={{ y: 0, opacity: 1 }}
+      className="text-sm font-extrabold uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
+    >
+      {toolbar.label}
+    </motion.h3>
+
+    <div className="flex bg-back p-1.5 rounded-2xl gap-1 shadow-inner border border-white">
+      {["month", "week", "day", "agenda"].map((v) => (
+        <button
+          key={v}
+          onClick={() => toolbar.onView(v)}
+          className={`px-4 py-2 text-[9px] font-extrabold uppercase rounded-xl transition-all active:scale-95 cursor-pointer ${
+            toolbar.view === v
+              ? "bg-btn-100 text-white shadow-lg -translate-y-px"
+              : "text-text hover:bg-white/60"
+          }`}
+        >
+          {v}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+function LeadCalendar() {
   const { data: user } = useGetMeQuery();
 
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
@@ -103,60 +157,6 @@ function page() {
       console.log(error);
     },
   });
-
-  const CustomToolbar = (toolbar) => (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => toolbar.onNavigate("TODAY")}
-          className="px-5 py-2.5 bg-back rounded-2xl text-[10px] font-black uppercase tracking-widest text-text hover:bg-btn-100 hover:text-white transition-all active:scale-95 shadow-sm"
-        >
-          Today
-        </button>
-        <div className="flex bg-back rounded-2xl overflow-hidden shadow-inner border border-white">
-          <button
-            onClick={() => toolbar.onNavigate("PREV")}
-            className="p-2.5 hover:bg-btn-100 dark:text-text hover:text-white transition-colors active:bg-btn-200"
-          >
-            <IoChevronBack size={18} />
-          </button>
-          <div className="w-px h-4 bg-gray-200 self-center" />
-          <button
-            onClick={() => toolbar.onNavigate("NEXT")}
-            className="p-2.5 hover:bg-btn-100 dark:text-text hover:text-white transition-colors active:bg-btn-200"
-          >
-            <IoChevronForward size={18} />
-          </button>
-        </div>
-      </div>
-
-      <motion.h3
-        key={toolbar.label}
-        initial={{ y: -10, opacity: 0 }}
-        transition={{ duration: 0.1 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="text-sm font-extrabold uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
-      >
-        {toolbar.label}
-      </motion.h3>
-
-      <div className="flex bg-back p-1.5 rounded-2xl gap-1 shadow-inner border border-white">
-        {["month", "week", "day", "agenda"].map((v) => (
-          <button
-            key={v}
-            onClick={() => toolbar.onView(v)}
-            className={`px-4 py-2 text-[9px] font-extrabold uppercase rounded-xl transition-all active:scale-95 cursor-pointer ${
-              toolbar.view === v
-                ? "bg-btn-100 text-white shadow-lg -translate-y-px"
-                : "text-text hover:bg-white/60"
-            }`}
-          >
-            {v}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <AnimatedWrapper>
@@ -226,7 +226,9 @@ function page() {
                     onView={onView}
                     startAccessor="start"
                     endAccessor="end"
-                    components={{ toolbar: CustomToolbar }}
+                    components={{
+                      toolbar: CustomToolbar,
+                    }}
                     eventPropGetter={() => ({
                       className: "!bg-btn-100 !rounded-lg !border-0 shadow-sm",
                     })}
@@ -245,4 +247,4 @@ function page() {
   );
 }
 
-export default page;
+export default LeadCalendar;

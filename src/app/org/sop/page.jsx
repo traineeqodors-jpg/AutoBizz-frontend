@@ -10,10 +10,16 @@ import SearchFilterVideos from "./components/SearchFilterVideos";
 import toast from "react-hot-toast";
 import GenerateSOP from "@/components/ui/GenerateSOP";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
+import { useGetMeQuery } from "@/features/slices/userSlice";
 
-function page() {
+function SopPage() {
   // Filtering State
   const [statusFilter, setStatusFilter] = useState("all");
+
+  const { data } = useGetMeQuery();
+  const user = data?.data;
+  const role = user?.role;
+  const isOwner = role === "owner";
 
   const { data: videos = [], isLoading } = useGetAllVideosQuery();
 
@@ -90,9 +96,11 @@ function page() {
               <p className="text-text/40 dark:text-gray-50/40 text-sm mt-1">
                 Try adjusting your search filters or Generate new video.
               </p>
-              <div className="mt-3">
-                <GenerateSOP />
-              </div>
+              {isOwner && (
+                <div className="mt-3">
+                  <GenerateSOP />
+                </div>
+              )}
             </div>
           ) : (
             processedVideos?.map((video) => (
@@ -101,6 +109,7 @@ function page() {
                 video={video}
                 handleDeleteVideo={handleDeleteVideo}
                 deletingVideo={deletingVideo}
+                isOwner={isOwner}
               />
             ))
           )}
@@ -110,4 +119,4 @@ function page() {
   );
 }
 
-export default page;
+export default SopPage;

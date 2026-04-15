@@ -1,5 +1,6 @@
 "use client";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,7 +15,10 @@ const LandingNavbar = () => {
 
   const pathname = usePathname();
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const isDark = theme === "dark";
 
@@ -25,7 +29,17 @@ const LandingNavbar = () => {
         <div className="max-w-6xl mx-auto p-2 flex justify-between items-center-safe sm:px-10 px-4 xl:px-0">
           {/* Logo */}
           <div className="size-16 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-lg">
-            <img src="/logo.png" alt="Logo" className="w-full object-cover" />
+            <Image
+              src="/logo.png"
+              alt="Your App Logo"
+              width={200}
+              height={200}
+              priority
+              loading="eager"
+              placeholder="blur"
+              blurDataURL="/logo.png"
+              className="w-full object-cover object-center"
+            />
           </div>
 
           <div className="flex gap-10">

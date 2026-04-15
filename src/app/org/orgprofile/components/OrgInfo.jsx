@@ -70,7 +70,7 @@ const OrgDetails = ({ orgData }) => {
                     {key.replace(/([A-Z])/g, " $1").trim()}
                   </p>
                   <p
-                    className={`font-semibold text-gray-900 dark:text-gray-100 text-sm sm:text-base wrap-break-word leading-relaxed 
+                    className={`font-medium dark:text-white text-sm sm:text-base wrap-break-words
                     ${isDescription ? "min-h-18 whitespace-pre-wrap" : ""}`}
                     /* min-h-[4.5rem] roughly forces 3 lines of height */
                   >

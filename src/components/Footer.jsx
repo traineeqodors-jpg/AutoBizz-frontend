@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FaFacebookF, FaGoogle, FaTwitter, FaInstagram } from "react-icons/fa";
 
@@ -12,7 +13,13 @@ const Footer = () => {
         {/* Logo Section */}
         <div className="flex flex-col items-center xl:items-start space-y-3 shrink-0">
           <div className="group bg-white size-24 rounded-2xl shadow-2xl overflow-hidden transition-transform hover:scale-105">
-            <img src="/logo.png" alt="Logo" className="w-full object-cover" />
+            <Image
+              src="/logo.png"
+              width={200}
+              height={200}
+              alt="Logo"
+              className="w-full object-cover"
+            />
           </div>
 
           {/* Heading and Slogan */}

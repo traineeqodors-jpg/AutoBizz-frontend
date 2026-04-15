@@ -10,7 +10,7 @@ export default function ReviewCard({ name, role, text }) {
           ))}
         </div>
         <p className="text-text/70 dark:text-gray-300 ital  ic text-sm leading-relaxed">
-          "{text}"
+          &quot;{text}&quot;
         </p>
         <div>
           <p className="font-bold text-text dark:text-gray-300 text-sm">

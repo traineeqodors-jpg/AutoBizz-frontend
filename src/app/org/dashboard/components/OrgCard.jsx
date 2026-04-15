@@ -43,7 +43,7 @@ function OrgCard({ user, isOwner }) {
           </div>
         ) : (
           <div className="flex flex-row gap-2 sm:gap-4">
-            <div className="flex flex-1 items-center gap-2 sm:gap-3 py-1.5 sm:py-2.5 px-3 sm:px-4 bg-back/50 dark:bg-gray-800/40 rounded-xl border border-transparent hover:border-btn-100/10 min-w-0">
+            <div className="flex flex-1 items-center gap-2 sm:gap-3 py-1.5 sm:py-2.5 px-3 sm:px-4 bg-back dark:bg-gray-800/40 rounded-xl border border-transparent hover:border-btn-100/10 min-w-0">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-btn-100 shrink-0 aspect-square" />
               <span className="text-[10px] sm:text-sm font-semibold text-text/80 dark:text-gray-300 whitespace-nowrap truncate">
                 {displayData?.businessSize || "0"}{" "}
@@ -51,7 +51,7 @@ function OrgCard({ user, isOwner }) {
               </span>
             </div>
 
-            <div className="flex flex-1 items-center gap-2 sm:gap-3 py-1.5 sm:py-2.5 px-3 sm:px-4 bg-back/50 dark:bg-gray-800/40 rounded-xl border border-transparent hover:border-btn-100/10 min-w-0">
+            <div className="flex flex-1 items-center gap-2 sm:gap-3 py-1.5 sm:py-2.5 px-3 sm:px-4 bg-back dark:bg-gray-800/40 rounded-xl border border-transparent hover:border-btn-100/10 min-w-0">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-btn-100 shrink-0 aspect-square" />
               <span className="text-[10px] sm:text-sm font-semibold text-text/80 dark:text-gray-300 truncate">
                 {displayData?.country || "Global"}

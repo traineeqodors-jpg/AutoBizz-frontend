@@ -9,13 +9,15 @@ const ThemeSwitch = () => {
   const isDark = theme === "dark";
 
   // Prevent hydration mismatch
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!mounted)
     return (
       <div className="h-10 w-full bg-gray-300 dark:bg-gray-200/20 rounded-xl animate-pulse" />
     );
-  console.log(theme);
 
   return (
     <div className="rounded-xl border-2 border-btn-50/20 dark:border-gray-800 overflow-hidden w-full mx-auto shadow-sm">

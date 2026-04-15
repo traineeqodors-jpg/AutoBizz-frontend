@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { HiArrowLeft } from "react-icons/hi";
 
@@ -10,10 +11,12 @@ export default function NotFound() {
     <div className="min-h-screen w-full flex flex-col items-center justify-center p-6 text-center">
       {/* Animated SVG Container */}
       <div className="relative w-full max-w-md mb-8 animate-bounce [animation-duration:3s]">
-        <img
+        <Image
           src="/404.svg"
           alt="404 Error"
           className="w-full h-auto drop-shadow-2xl"
+          width={400}
+          height={400}
         />
 
         {/* Subtitle shadow effect */}
@@ -27,7 +30,7 @@ export default function NotFound() {
         </h2>
 
         <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto text-sm md:text-base">
-          The page you are looking for doesn't exist or has been moved to a
+          The page you are looking for doesn&apos;t exist or has been moved to a
           different Route.
         </p>
       </div>

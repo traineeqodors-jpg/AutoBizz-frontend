@@ -2,11 +2,35 @@
 
 import Loading from "@/app/loading";
 import { useGetMeQuery } from "@/features/slices/userSlice";
-
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+
+// Access levels mapped to specific roles
+const ROLE_PERMISSIONS = {
+  owner: [
+    "/org/dashboard",
+    "/org/documents",
+    "/org/callLogs",
+    "/org/employees",
+    "/org/leads",
+    "/org/calendar",
+    "/org/sop",
+    "/org/orgprofile",
+  ],
+  sales: [
+    "/org/dashboard",
+    "/org/leads",
+    "/org/calendar",
+    "/org/sop",
+    "/org/orgprofile",
+  ],
+  employee: ["/org/dashboard", "/org/sop", "/org/orgprofile"],
+};
 
 export default function AuthGuard({ children }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const {
     data: user,
     isLoading,
@@ -15,52 +39,65 @@ export default function AuthGuard({ children }) {
     refetchOnMountOrArgChange: false,
     retry: false,
   });
-  const router = useRouter();
-  const pathname = usePathname();
 
-  const isAuthRoute =
-    pathname === "/login" ||
-    pathname === "/register" ||
-    pathname === "/" ||
-    pathname === "/resetpassword" ||
-    pathname === "/setup-password";
+  const userRole = user?.data?.role;
 
-  const isProtectedRoute = !isAuthRoute;
+  // Public pages that don't require an active session
+  const isAuthRoute = useMemo(
+    () =>
+      [
+        "/login",
+        "/register",
+        "/",
+        "/resetpassword",
+        "/setup-password",
+      ].includes(pathname),
+    [pathname],
+  );
 
   useEffect(() => {
+    if (isAuthRoute && !user) return;
+
     if (isLoading) return;
 
-    // Only redirect to landing if there is an error AND we are on a protected route
-    if ((!user || isError) && isProtectedRoute) {
+    // Redirect unauthenticated users back to landing page
+    if ((isError || !user) && !isAuthRoute) {
       router.replace("/");
       return;
     }
 
-    // Only redirect to dashboard if the user is actually logged in and on an auth route
-    if (user && !isError && isAuthRoute) {
+    // Prevent logged-in users from seeing login/register pages
+    if (user && isAuthRoute) {
       router.replace("/org/dashboard");
+      return;
     }
-  }, [
-    user,
-    isLoading,
-    isError,
-    pathname,
-    router,
-    isAuthRoute,
-    isProtectedRoute,
-  ]);
 
-  // Show loader while the initial request is fetching
+    // Check if the user's role has permission for the current URL
+    if (user && !isAuthRoute) {
+      const allowedRoutes = ROLE_PERMISSIONS[userRole] || [];
+      const isAllowed = allowedRoutes.some((route) =>
+        pathname.startsWith(route),
+      );
+
+      if (!isAllowed) {
+        router.replace("/org/dashboard");
+      }
+    }
+  }, [user, isLoading, isError, isAuthRoute, pathname, router, userRole]);
+
+  // Global loading state while fetching user data
   if (isLoading) return <Loading />;
 
-  // // PREVENT FLASH: If logged in but on a login/register page, show NOTHING (or loading)
-  // if (user && isAuthRoute) {
-  //   return <div>Stuck here</div>;
-  // }
-
-  // PREVENT FLASH: If not logged in but on a protected page, show NOTHING
-  if ((!user || isError) && isProtectedRoute) {
+  // Block the UI during logout or if the session fails on a private route
+  if (!isAuthRoute && (!user || isError)) {
     return <Loading />;
+  }
+
+  // Final safety check to prevent rendering of restricted pages
+  if (user && !isAuthRoute) {
+    const allowedRoutes = ROLE_PERMISSIONS[userRole] || [];
+    const isAllowed = allowedRoutes.some((route) => pathname.startsWith(route));
+    if (!isAllowed) return <Loading />;
   }
 
   return <>{children}</>;

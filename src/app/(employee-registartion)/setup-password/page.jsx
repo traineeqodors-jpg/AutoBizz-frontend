@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 
-function page() {
+function SetupPasswordPage() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const token = searchParams.get("token");
@@ -242,4 +242,4 @@ function page() {
   );
 }
 
-export default page;
+export default SetupPasswordPage;

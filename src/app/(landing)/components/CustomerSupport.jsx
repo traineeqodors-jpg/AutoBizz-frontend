@@ -17,8 +17,8 @@ export default function CustomerSupport() {
               24/7 Premium Support
             </h2>
             <p className="text-text/60 dark:text-gray-300 leading-relaxed text-lg">
-              We don't just provide software; we provide a partnership. Every
-              plan includes:
+              We don&apos;t just provide software; we provide a partnership.
+              Every plan includes:
             </p>
             <ul className="space-y-3">
               {[

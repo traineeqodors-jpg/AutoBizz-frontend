@@ -16,7 +16,7 @@ import MobileCallLogView from "./components/MobileCallLogView";
 import DetailModal from "./components/DetailModal";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 
-function page() {
+function CallLogsPage() {
   // State for Backend Filtering (Updated with Dates)
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -103,12 +103,6 @@ function page() {
   return (
     <AnimatedWrapper>
       <div className="min-h-screen w-full py-3 sm:py-6 lg:py-8 relative">
-        {isFetching && !isLoading && (
-          <div className="absolute top-0 left-0 w-full h-1 bg-btn-100/20 overflow-hidden z-50">
-            <div className="h-full bg-btn-100 animate-pulse w-1/3"></div>
-          </div>
-        )}
-
         <div className="mx-auto space-y-6">
           {/* Header & Filters Section */}
           <div className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm dark:bg-gray-900 dark:border-0 border border-white">
@@ -203,71 +197,77 @@ function page() {
                 transition={{ duration: 0.2 }}
               >
                 <div className="bg-white shadow-xl shadow-text/5 dark:bg-gray-900 dark:border-gray-900/90 rounded-3xl overflow-hidden border border-white">
-                  <div className="hidden md:block overflow-x-auto">
-                    <table className="w-full text-center border-separate border-spacing-0">
-                      <thead>
-                        <tr className="bg-slate-50/50 dark:bg-gray-700 dark:text-white text-text/40 text-[11px] uppercase tracking-widest font-black">
-                          <th className="px-6 py-5">Call Detail</th>
-                          <th
-                            className="px-6 py-5 cursor-pointer hover:text-btn-100 transition-colors"
-                            onClick={() => toggleSort("createdAt")}
-                          >
-                            <div className="flex items-center justify-center-safe gap-2">
-                              Date{" "}
-                              {filters.sortBy === "createdAt" &&
-                                (filters.order === "ASC" ? "↑" : "↓")}
-                            </div>
-                          </th>
-                          <th className="px-6 py-5">Duration</th>
-                          <th className="px-6 py-5">Status</th>
-                          <th className="px-6 py-5">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {logs.map((log) => (
-                          <CallLogTable
-                            key={log.id}
-                            log={log}
-                            setSelectedLog={setSelectedLog}
-                            openDeleteModal={openDeleteModal}
-                          />
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="md:hidden">
-                    <MobileCallLogView
-                      processedLogs={logs}
-                      openDeleteModal={openDeleteModal}
-                      setSelectedLog={setSelectedLog}
-                    />
-                  </div>
-
-                  {/* Pagination Controls */}
-                  <>
-                    <div className="px-6 py-4 bg-slate-50/30 dark:bg-gray-700 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-xs font-bold text-text/40 dark:text-white uppercase ">
-                        Page {filters.page} of {pagination.totalPages}
-                      </span>
-                      <div className="flex gap-2">
-                        <button
-                          disabled={filters.page === 1}
-                          onClick={() => handlePageChange(filters.page - 1)}
-                          className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white  dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
-                        >
-                          Prev
-                        </button>
-                        <button
-                          disabled={filters.page >= pagination.totalPages}
-                          onClick={() => handlePageChange(filters.page + 1)}
-                          className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
-                        >
-                          Next
-                        </button>
-                      </div>
+                  {isLoading || isFetching ? (
+                    <div className="h-30 relative flex items-center justify-center">
+                      <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
                     </div>
-                  </>
+                  ) : (
+                    <>
+                      <div className="hidden md:block overflow-x-auto">
+                        <table className="w-full text-center border-separate border-spacing-0">
+                          <thead>
+                            <tr className="bg-slate-50/50 dark:bg-gray-700 dark:text-white text-text/40 text-[11px] uppercase tracking-widest font-black">
+                              <th className="px-6 py-5">Call Detail</th>
+                              <th
+                                className="px-6 py-5 cursor-pointer hover:text-btn-100 transition-colors"
+                                onClick={() => toggleSort("createdAt")}
+                              >
+                                <div className="flex items-center justify-center-safe gap-2">
+                                  Date{" "}
+                                  {filters.sortBy === "createdAt" &&
+                                    (filters.order === "ASC" ? "↑" : "↓")}
+                                </div>
+                              </th>
+                              <th className="px-6 py-5">Duration</th>
+                              <th className="px-6 py-5">Status</th>
+                              <th className="px-6 py-5">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100">
+                            {logs.map((log) => (
+                              <CallLogTable
+                                key={log.id}
+                                log={log}
+                                setSelectedLog={setSelectedLog}
+                                openDeleteModal={openDeleteModal}
+                              />
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div className="md:hidden">
+                        <MobileCallLogView
+                          processedLogs={logs}
+                          openDeleteModal={openDeleteModal}
+                          setSelectedLog={setSelectedLog}
+                        />
+                      </div>
+
+                      {/* Pagination Controls */}
+                      <div className="px-6 py-4 bg-slate-50/30 dark:bg-gray-700 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-xs font-bold text-text/40 dark:text-white uppercase ">
+                          Page {filters.page} of {pagination.totalPages}
+                        </span>
+                        <div className="flex gap-2">
+                          <button
+                            disabled={filters.page === 1}
+                            onClick={() => handlePageChange(filters.page - 1)}
+                            className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white  dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
+                          >
+                            Prev
+                          </button>
+                          <button
+                            disabled={filters.page >= pagination.totalPages}
+                            onClick={() => handlePageChange(filters.page + 1)}
+                            className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 cursor-pointer hover:bg-slate-50 disabled:opacity-50 transition-all active:scale-95"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -292,4 +292,4 @@ function page() {
   );
 }
 
-export default page;
+export default CallLogsPage;

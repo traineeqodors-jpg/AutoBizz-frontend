@@ -26,10 +26,12 @@ export const employeeApi = createApi({
         credentials: "include",
       }),
     }),
+
     getAllEmployee: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/org/employee",
         method: "GET",
+        params: params,
         credentials: "include",
       }),
       providesTags: ["empUser"],
@@ -40,6 +42,7 @@ export const employeeApi = createApi({
         url: "/org/employee",
         method: "POST",
         body: data,
+        credentials: "include",
       }),
       invalidatesTags: ["empUser"],
     }),
@@ -48,8 +51,10 @@ export const employeeApi = createApi({
       query: (data) => ({
         url: "/org/employee",
         method: "DELETE",
-        body: data,
+        body: { id: data },
+        credentials: "include",
       }),
+      invalidatesTags: ["empUser"],
     }),
   }),
 });

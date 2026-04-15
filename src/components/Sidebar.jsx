@@ -15,40 +15,24 @@ import {
   userApi,
 } from "@/features/slices/userSlice";
 import { useDispatch } from "react-redux";
+import Image from "next/image";
+import { retry } from "@reduxjs/toolkit/query";
 
-const SideBar = () => {
+const NavLink = ({ href, icon: Icon, label }) => {
   const pathname = usePathname();
-  const dispatch = useDispatch();
-  const [logout, { isLoading }] = useLogoutMutation();
+  const isCurrent = pathname === href;
 
-  const router = useRouter();
-
-  const { data: user } = useGetMeQuery();
-  const userData = user?.data;
-  const role = userData?.role;
-
-  console.log(userData);
-
-  const isActive = (path) => pathname === path;
-
-  const handleLogout = async () => {
-    try {
-      const response = await logout().unwrap();
-      toast.success(response?.message);
-      dispatch(userApi.util.resetApiState());
-      router.replace("/");
-    } catch (error) {
-      console.warn("Server logout failed, cleaning up locally.", error);
-    }
+  const handleClick = (e) => {
+    if (isCurrent) e.preventDefault();
   };
 
-  // Helper to render links
-  const NavLink = ({ href, icon: Icon, label }) => (
-    <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10 ">
+  return (
+    <li className="w-full hover:-translate-y-0.5 transition-all rounded-xl hover:shadow-md/10">
       <Link
         href={href}
+        onClick={handleClick}
         className={`${
-          isActive(href)
+          isCurrent
             ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
             : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
         } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
@@ -58,6 +42,34 @@ const SideBar = () => {
       </Link>
     </li>
   );
+};
+
+const SideBar = () => {
+  const pathname = usePathname();
+  const dispatch = useDispatch();
+  const [logout, { isLoading }] = useLogoutMutation();
+
+  const router = useRouter();
+
+  const { data: user } = userApi.endpoints.getMe.useQueryState(undefined);
+
+  const userData = user?.data;
+  const role = userData?.role;
+
+  const isActive = (path) => pathname === path;
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout().unwrap();
+      router.replace("/");
+      dispatch(userApi.util.resetApiState());
+      toast.success(response?.message);
+    } catch (error) {
+      console.log(error);
+      console.warn("Server logout failed, cleaning up locally.", error);
+    }
+  };
+
   return (
     <>
       <div className="hidden lg:block shrink-0 w-65 bg-surface overflow-auto p-4 inset-shadow-sm/20 relative">
@@ -67,10 +79,14 @@ const SideBar = () => {
             href="/"
             className="flex items-center justify-center w-full h-25 rounded-2xl mb-2 overflow-hidden"
           >
-            <img
+            <Image
               src="/logo.png"
-              alt="Logo"
+              alt="Your App Logo"
+              width={200}
+              height={200}
+              priority
               className="w-full object-cover object-center "
+              sizes="(max-width: 768px) 100vw, 200px"
             />
           </Link>
         </div>
@@ -98,6 +114,8 @@ const SideBar = () => {
             </>
           )}
 
+          <NavLink href="/org/sop" icon={BiSolidVideos} label="SOP Videos" />
+
           {/* OWNER & SALES: Leads and Calendar */}
           {(role === "owner" || role === "sales") && (
             <>
@@ -109,8 +127,6 @@ const SideBar = () => {
               />
             </>
           )}
-
-          <NavLink href="/org/sop" icon={BiSolidVideos} label="SOP Videos" />
 
           {/* Logout (Visible to all) */}
           <li className="w-full hover:-translate-y-0.5 transition-all hover:bg-btn-100/30 text-text/80 dark:text-gray-200 hover:text-btn-100 rounded-xl overflow-hidden hover:shadow-md/10 px-3 py-2">

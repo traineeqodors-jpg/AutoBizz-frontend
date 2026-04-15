@@ -74,7 +74,6 @@ export const userApi = createApi({
         method: "post",
         credentials: "include",
       }),
-      invalidatesTags: ["User"],
     }),
   }),
 });

@@ -90,14 +90,14 @@ function GenerateScript({
   return (
     <dialog
       ref={genScriptRef}
-      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
+      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-3 sm:p-7 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
     >
       <motion.div
         initial={{ opacity: 0, x: -10 }}
         whileInView={{ opacity: 1, x: 0 }}
       >
         <form
-          className="w-full space-y-6 p-2"
+          className="w-full space-y-8 p-2"
           onSubmit={handleScriptGeneration}
         >
           {/* Heading Container */}

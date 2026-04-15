@@ -1,14 +1,13 @@
 import { IoTrashOutline } from "react-icons/io5";
 
 const EmployeeTable = ({ emp, openDeleteModal }) => {
-  console.log(emp);
   return (
     <tr
       className={`transition-all group border border-gray-100 cursor-default text-text/90 dark:text-gray-300 font-medium
      `}
     >
       <td className="px-6 py-5 rounded-l-3xl dark:rounded-none border-y border-l border-gray-100 dark:border-none text-sm">
-        {emp?.firstName + emp?.lastName}
+        {emp?.firstName + " " + emp?.lastName}
       </td>
 
       <td className="px-6 py-5 border-y border-gray-100 dark:border-none text-sm">
@@ -43,7 +42,7 @@ const EmployeeTable = ({ emp, openDeleteModal }) => {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            openDeleteModal();
+            openDeleteModal(emp?.id);
           }}
           className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
           title="Delete Log"

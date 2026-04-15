@@ -24,7 +24,10 @@ import {
   resetFilters,
   updateFilters,
 } from "@/features/extraSlice/leadFIlterSlice";
-import { useGetMeQuery, useGoogleTokenMutation } from "@/features/slices/userSlice";
+import {
+  useGetMeQuery,
+  useGoogleTokenMutation,
+} from "@/features/slices/userSlice";
 
 function LeadManagement() {
   const dispatch = useDispatch();
@@ -68,7 +71,7 @@ function LeadManagement() {
 
   const { data: me } = useGetMeQuery();
 
-  const orgId = me?.data?.id;
+  const orgId = me?.data?.orgId || me?.data?.id;
 
   const leads = data?.data?.leads || [];
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
@@ -192,8 +195,6 @@ function LeadManagement() {
     };
 
     socket.on(batchKey, (data) => {
-      console.log(" Received Batch Data:", data);
-
       clearAutoHide();
 
       const progress = data?.total
@@ -458,8 +459,8 @@ function LeadManagement() {
               ref={scrollRef}
             >
               {leadsLoading ? (
-                <div className="flex justify-center items-center h-64">
-                  <div className="loader"></div>
+                <div className="h-30 relative flex items-center justify-center">
+                  <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
                 </div>
               ) : (
                 <>

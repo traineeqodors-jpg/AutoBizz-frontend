@@ -68,7 +68,7 @@ const LoginPage = () => {
       try {
         const response = await orglogin(input).unwrap();
         toast.success(response?.message);
-        router.push("/org/dashboard");
+        router.replace("/org/dashboard");
       } catch (error) {
         console.log(error);
         toast.error(error?.data?.message);
@@ -78,7 +78,7 @@ const LoginPage = () => {
       try {
         const response = await emplogin(input).unwrap();
         toast.success(response?.message);
-        router.push("/org/dashboard");
+        router.replace("/org/dashboard");
       } catch (error) {
         console.log(error);
         toast.error(error?.data?.message);
@@ -189,7 +189,7 @@ const LoginPage = () => {
                     <div className="grow border-t border-gray-200"></div>
                   </div>
                   <p className="text-center text-sm text-gray-500 mt-8">
-                    Don't have an account?
+                    Don&apos;t have an account?
                     <Link
                       href="/register"
                       className="ml-1 text-btn-100 font-bold hover:underline"

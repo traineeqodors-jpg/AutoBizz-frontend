@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRef, useState } from "react";
 import ViewScript from "./ViewScript";
 
-const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
+const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo, isOwner }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const viewScriptRef = useRef(null);
@@ -28,12 +28,15 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo }) => {
         {openMenu && (
           <div className="absolute right-0 top-6 w-32 bg-back/90 border border-gray-300 rounded-lg shadow-lg p-2">
             <ul className="text-sm">
-              <li
-                onClick={() => handleDeleteVideo(video.id)}
-                className={`hover:bg-black/20 rounded-md p-1 cursor-pointer text-red-500 ${deletingVideo && "pointer-events-none opacity-60"}`}
-              >
-                Delete
-              </li>
+              {isOwner && (
+                <li
+                  onClick={() => handleDeleteVideo(video.id)}
+                  className={`hover:bg-black/20 rounded-md p-1 cursor-pointer text-red-500 ${deletingVideo && "pointer-events-none opacity-60"}`}
+                >
+                  Delete
+                </li>
+              )}
+
               <li
                 onClick={() => viewScriptRef.current?.showModal()}
                 className={`hover:bg-black/20 rounded-md  p-1 cursor-pointer text-text ${deletingVideo && "pointer-events-none opacity-60"}`}

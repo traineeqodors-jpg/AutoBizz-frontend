@@ -5,6 +5,7 @@ import { useState } from "react"; // Removed useEffect
 import { IoMenu } from "react-icons/io5";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import MobileSideBar from "./MobileSideBar";
+import Image from "next/image";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -14,12 +15,22 @@ const Navbar = () => {
   const isDark = theme === "dark";
 
   return (
-    <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center bg-back/20 dark:bg-gray-900 border-b border-gray-300 relative">
+    <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center bg-surface border-b border-gray-300 relative">
       <Link
         href="/dashboard"
         className="size-16 overflow-hidden flex flex-col justify-center items-center rounded-lg"
       >
-        <img src="/logo.png" alt="Logo" className="w-full object-cover" />
+        <Image
+          src="/logo.png"
+          alt="Your App Logo"
+          width={200}
+          height={200}
+          priority
+          loading="eager"
+          placeholder="blur"
+          blurDataURL="/logo.png"
+          className="w-full object-cover object-center"
+        />
       </Link>
 
       <div className="flex items-center gap-7 text-lg">

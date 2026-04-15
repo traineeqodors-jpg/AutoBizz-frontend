@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { FaCalendarAlt, FaHome, FaUsers } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
 import { IoMdDocument } from "react-icons/io";
 import { BiSolidVideos } from "react-icons/bi";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   useGetMeQuery,
@@ -15,6 +15,36 @@ import {
   userApi,
 } from "@/features/slices/userSlice";
 import { useDispatch } from "react-redux";
+import Image from "next/image";
+import toast from "react-hot-toast";
+
+// NavLink component
+const NavLink = ({ href, icon: Icon, label, setIsDialogOpen }) => {
+  const pathname = usePathname();
+  const isCurrent = pathname === href;
+
+  const handleClick = (e) => {
+    if (isCurrent) e.preventDefault();
+    setIsDialogOpen(false);
+  };
+
+  return (
+    <li className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10">
+      <Link
+        href={href}
+        onClick={handleClick}
+        className={`${
+          isCurrent
+            ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 text-white"
+            : "hover:bg-btn-100/30 hover:text-btn-100"
+        } rounded-xl w-full flex items-center gap-3 px-3 py-2.5`}
+      >
+        <Icon className="size-5" />
+        {label}
+      </Link>
+    </li>
+  );
+};
 
 const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   const dialogRef = useRef(null);
@@ -26,6 +56,8 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   const userData = user?.data;
   const role = userData?.role;
 
+  const router = useRouter();
+
   useEffect(() => {
     if (isDialogOpen) {
       dialogRef.current?.showModal();
@@ -34,42 +66,18 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
     }
   }, [isDialogOpen]);
 
-  const pathname = usePathname();
-
-  const isActive = (path) => pathname === path;
-
   const handleLogout = async () => {
     try {
       const response = await logout().unwrap();
-      toast.success(response?.message);
-      dispatch(userApi.util.resetApiState());
       router.replace("/");
+      dispatch(userApi.util.resetApiState());
+      toast.success(response?.message);
     } catch (error) {
+      console.log(error);
       console.warn("Server logout failed, cleaning up locally.", error);
     }
   };
 
-  // Helper to render links
-  const NavLink = ({ href, icon: Icon, label }) => {
-    return (
-      <li
-        onClick={() => setIsDialogOpen(false)}
-        className="w-full transition-all text-text/80 dark:text-white bg-white/30 border border-white/40 dark:bg-btn-100/40 rounded-xl shadow-md/10"
-      >
-        <Link
-          href={href}
-          className={`${
-            isActive(href)
-              ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-gray-900 text-white"
-              : "hover:bg-btn-100/30 hover:text-btn-100"
-          } rounded-xl  w-full flex items-center-safe gap-3  px-3 py-2.5`}
-        >
-          <Icon className="size-5" />
-          {label}
-        </Link>
-      </li>
-    );
-  };
   return (
     <AnimatePresence>
       {isDialogOpen && (
@@ -96,9 +104,11 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                 href="/"
                 className="flex items-center justify-center w-full h-25 rounded-2xl overflow-hidden"
               >
-                <img
+                <Image
                   src="/logo.png"
                   alt="Logo"
+                  width={200}
+                  height={200}
                   className="size-40 object-cover object-center"
                 />
               </Link>
@@ -115,7 +125,12 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
             {/* Menu Items */}
             <ul className="w-full space-y-4">
               {/* DashBoard */}
-              <NavLink href="/org/dashboard" icon={FaHome} label="Dashboard" />
+              <NavLink
+                href="/org/dashboard"
+                icon={FaHome}
+                label="Dashboard"
+                setIsDialogOpen={setIsDialogOpen}
+              />
 
               {/* OWNER ONLY: Documents, Call History, Employees */}
               {role === "owner" && (
@@ -124,18 +139,21 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                     href="/org/documents"
                     icon={IoMdDocument}
                     label="My Documents"
+                    setIsDialogOpen={setIsDialogOpen}
                   />
 
                   <NavLink
                     href="/org/callLogs"
                     icon={IoCall}
                     label=" Call History"
+                    setIsDialogOpen={setIsDialogOpen}
                   />
 
                   <NavLink
                     href="/org/employees"
                     icon={FaUsers}
                     label="Employees"
+                    setIsDialogOpen={setIsDialogOpen}
                   />
                 </>
               )}
@@ -147,12 +165,14 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                     href="/org/leads"
                     icon={IoPeopleSharp}
                     label=" Leads"
+                    setIsDialogOpen={setIsDialogOpen}
                   />
 
                   <NavLink
                     href="/org/calendar"
                     icon={FaCalendarAlt}
                     label="Calendar"
+                    setIsDialogOpen={setIsDialogOpen}
                   />
                 </>
               )}
@@ -161,6 +181,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                 href="/org/sop"
                 icon={BiSolidVideos}
                 label="SOP Videos"
+                setIsDialogOpen={setIsDialogOpen}
               />
 
               {/* Logout */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetAllLeadsQuery } from "@/features/slices/leadSlice";
+import Image from "next/image";
 import Link from "next/link";
 
 function Leads() {
@@ -44,7 +45,13 @@ function Leads() {
           </div>
         ) : leads?.length < 1 ? (
           <div className="w-full h-full text-center font-medium flex flex-col justify-center items-center text-sm text-text dark:text-gray-400 space-y-3 py-10">
-            <img src="/ideation.svg" alt="" className="w-40 opacity-50" />
+            <Image
+              src="/ideation.svg"
+              width={200}
+              height={200}
+              alt=""
+              className="w-40 opacity-50"
+            />
             <p>No High Scoring Leads Found</p>
           </div>
         ) : (
