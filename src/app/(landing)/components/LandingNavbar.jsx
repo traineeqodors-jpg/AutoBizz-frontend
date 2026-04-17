@@ -105,15 +105,13 @@ const LandingNavbar = () => {
 
             {/* Mobile Menu */}
             {isOpen && (
-              <ul className="w-[95%] absolute top-22 left-1/2 -translate-x-1/2 flex flex-col sm:hidden bg-btn-100/30 dark:bg-gray-900/90 backdrop-blur-md gap-5 p-5 text-center rounded-2xl text-white z-1000 border border-white/10 shadow-2xl">
+              <ul className="w-[95%] absolute top-22 left-1/2 -translate-x-1/2 flex flex-col sm:hidden bg-btn-100/20 dark:bg-gray-900/90 backdrop-blur-sm gap-5 p-5 text-center rounded-2xl text-white z-1000 border border-white/10 shadow-2xl">
                 <li className="px-10">
                   <Link
                     href="/"
                     onClick={() => setIsOpen(false)}
                     className={`${
-                      isActive("/")
-                        ? "text-btn-100"
-                        : "text-gray-800 dark:text-white"
+                      isActive("/") ? "text-btn-100" : "text-text"
                     } block py-1 decoration-2 underline-offset-2 w-full border-b font-semibold`}
                   >
                     Home
@@ -125,9 +123,7 @@ const LandingNavbar = () => {
                     href="/login"
                     onClick={() => setIsOpen(false)}
                     className={`${
-                      isActive("/login")
-                        ? "text-btn-100"
-                        : "text-gray-800 dark:text-white"
+                      isActive("/login") ? "text-btn-100" : "text-text"
                     } block py-1 decoration-2 underline-offset-2 w-full border-b font-semibold`}
                   >
                     Login
@@ -139,9 +135,7 @@ const LandingNavbar = () => {
                     href="/register"
                     onClick={() => setIsOpen(false)}
                     className={`${
-                      isActive("/register")
-                        ? "text-btn-100"
-                        : "text-gray-800 dark:text-white"
+                      isActive("/register") ? "text-btn-100" : "text-text"
                     } block py-1 decoration-2 underline-offset-2 w-full border-b font-semibold`}
                   >
                     Register

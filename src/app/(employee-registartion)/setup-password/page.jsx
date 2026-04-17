@@ -2,7 +2,7 @@
 
 import FormLeftSIde from "@/app/(auth)/register/components/FormLeftSIde";
 import { useSetupPasswordMutation } from "@/features/slices/employeeSlice";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEyeSlash } from "react-icons/fa";
@@ -12,6 +12,8 @@ function SetupPasswordPage() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const token = searchParams.get("token");
+
+  const router = useRouter();
 
   const [input, setInput] = useState({
     password: "",
@@ -38,7 +40,7 @@ function SetupPasswordPage() {
 
     // Password validation
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{7,}$/;
+      /^(?=.*[0-9])(?=.*[!@#$%^&*_\-])[a-zA-Z0-9!@#$%^&*_\-]{7,}$/;
     if (!input.password.trim()) {
       newErrors.password = "Password is required";
     } else if (input.password.length < 7) {
@@ -57,10 +59,10 @@ function SetupPasswordPage() {
         "Password must contain at least one number and one special character";
     }
 
-    if (input.password !== input.confirmpassword) {
-      newErrors.confirmpassword =
-        "Pasword and Confirm Password doesn't match!!";
-    }
+    // if (input.password !== input.confirmpassword) {
+    //   newErrors.confirmpassword =
+    //     "Pasword and Confirm Password doesn't match!!";
+    // }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -86,6 +88,7 @@ function SetupPasswordPage() {
         confirmpassword: "",
       });
       toast.success(response?.message);
+      router.replace("/login");
     } catch (error) {
       console.log(error);
       toast.error(error?.data?.message || "Error Occured!!");
@@ -227,10 +230,13 @@ function SetupPasswordPage() {
                 {/* Confirm and verify */}
                 <div>
                   <button
+                    disabled={isLoading}
                     type="submit"
                     className={`w-full bg-btn-100 hover:bg-btn-200 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all mt-4`}
                   >
-                    Confirm & Verify
+                    {isLoading
+                      ? "Confirming & Verifying..."
+                      : "Confirm & Verify"}
                   </button>
                 </div>
               </>

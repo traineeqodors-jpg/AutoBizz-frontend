@@ -1,4 +1,5 @@
 "use client";
+import { useContactUsMutation } from "@/features/slices/contactUsSlice";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -19,6 +20,8 @@ const ContactUs = () => {
   });
 
   const [errors, setErrors] = useState({});
+
+  const [contactUs, { isLoading }] = useContactUsMutation();
 
   // Handling Input
   const handleChange = (e) => {
@@ -72,9 +75,14 @@ const ContactUs = () => {
     // Success Logic
     console.log("Contact Form Data:", input);
 
-    toast.success("Form Submitted Successfully!!");
-
-    setInput({ name: "", email: "", phone: "", subject: "", message: "" });
+    try {
+      const response = await contactUs(input).unwrap();
+      toast.success(response?.message);
+      setInput({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
   };
 
   return (
@@ -242,10 +250,11 @@ const ContactUs = () => {
               </div>
 
               <button
+                disabled={isLoading}
                 type="submit"
                 className="w-full md:w-max px-8 py-4 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 dark:hover:bg-btn-300 text-white font-bold rounded-xl l flex items-center justify-center gap-2 shadow-lg shadow-btn-100/20 active:scale-95"
               >
-                Send Message
+                {isLoading ? "Sending..." : "Send Message"}
                 <IoSend />
               </button>
             </form>

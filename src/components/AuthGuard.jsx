@@ -5,7 +5,7 @@ import { useGetMeQuery } from "@/features/slices/userSlice";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
-// Access levels mapped to specific roles
+// Role-based permissions
 const ROLE_PERMISSIONS = {
   owner: [
     "/org/dashboard",
@@ -27,6 +27,20 @@ const ROLE_PERMISSIONS = {
   employee: ["/org/dashboard", "/org/sop", "/org/orgprofile"],
 };
 
+// Central config
+const ROUTE_CONFIG = {
+  public: ["/story", "/pricing", "/contact"], // accessible to all
+  authOnly: [
+    "/login",
+    "/register",
+    "/",
+    "/resetpassword",
+    "/resetpassword/reset",
+    "/setup-password",
+  ], // only when NOT logged in
+  protected: ROLE_PERMISSIONS, // role-based
+};
+
 export default function AuthGuard({ children }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -42,62 +56,78 @@ export default function AuthGuard({ children }) {
 
   const userRole = user?.data?.role;
 
-  // Public pages that don't require an active session
-  const isAuthRoute = useMemo(
-    () =>
-      [
-        "/login",
-        "/register",
-        "/",
-        "/resetpassword",
-        "/setup-password",
-      ].includes(pathname),
-    [pathname],
-  );
+  // Route type detection
+  const routeType = useMemo(() => {
+    if (ROUTE_CONFIG.public.some((route) => pathname.startsWith(route))) {
+      return "public";
+    }
 
+    if (ROUTE_CONFIG.authOnly.some((route) => pathname === route)) {
+      return "authOnly";
+    }
+
+    return "protected";
+  }, [pathname]);
+
+  // Permission check for protected routes
+  const isAllowedRoute = useMemo(() => {
+    if (!userRole) return false;
+
+    const allowedRoutes = ROUTE_CONFIG.protected[userRole] || [];
+
+    return allowedRoutes.some((route) => pathname.startsWith(route));
+  }, [pathname, userRole]);
+
+  // Navigation logic
   useEffect(() => {
-    if (isAuthRoute && !user) return;
-
     if (isLoading) return;
 
-    // Redirect unauthenticated users back to landing page
-    if ((isError || !user) && !isAuthRoute) {
-      router.replace("/");
+    // PUBLIC → allow always
+    if (routeType === "public") return;
+
+    // AUTH-ONLY (login/register)
+    if (routeType === "authOnly") {
+      if (user) {
+        router.replace("/org/dashboard");
+      }
       return;
     }
 
-    // Prevent logged-in users from seeing login/register pages
-    if (user && isAuthRoute) {
-      router.replace("/org/dashboard");
-      return;
-    }
+    // PROTECTED ROUTES
+    if (routeType === "protected") {
+      // Not logged in
+      if (isError || !user) {
+        router.replace("/");
+        return;
+      }
 
-    // Check if the user's role has permission for the current URL
-    if (user && !isAuthRoute) {
-      const allowedRoutes = ROLE_PERMISSIONS[userRole] || [];
-      const isAllowed = allowedRoutes.some((route) =>
-        pathname.startsWith(route),
-      );
-
-      if (!isAllowed) {
+      // Logged in but not allowed
+      if (!isAllowedRoute) {
         router.replace("/org/dashboard");
       }
     }
-  }, [user, isLoading, isError, isAuthRoute, pathname, router, userRole]);
+  }, [isLoading, isError, user, routeType, isAllowedRoute, router]);
 
-  // Global loading state while fetching user data
+  // Render handling
+
+  // Global loading
   if (isLoading) return <Loading />;
 
-  // Block the UI during logout or if the session fails on a private route
-  if (!isAuthRoute && (!user || isError)) {
-    return <Loading />;
+  // Public → always render
+  if (routeType === "public") {
+    return <>{children}</>;
   }
 
-  // Final safety check to prevent rendering of restricted pages
-  if (user && !isAuthRoute) {
-    const allowedRoutes = ROLE_PERMISSIONS[userRole] || [];
-    const isAllowed = allowedRoutes.some((route) => pathname.startsWith(route));
-    if (!isAllowed) return <Loading />;
+  // Auth-only → block if logged in (redirect handled above)
+  if (routeType === "authOnly") {
+    if (user) return <Loading />;
+    return <>{children}</>;
+  }
+
+  // Protected → block until valid
+  if (routeType === "protected") {
+    if (!user || isError) return <Loading />;
+    if (!isAllowedRoute) return <Loading />;
   }
 
   return <>{children}</>;

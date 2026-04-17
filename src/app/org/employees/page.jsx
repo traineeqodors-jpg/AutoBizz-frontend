@@ -15,6 +15,7 @@ import {
   useGetAllEmployeeQuery,
   useUpdateEmployeeMutation,
 } from "@/features/slices/employeeSlice";
+import ReusableTable from "@/components/ui/ReusableTable";
 
 function EmployeeManagement() {
   const dialogRef = useRef(null);
@@ -41,11 +42,22 @@ function EmployeeManagement() {
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
+  // Logic to change page
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Reset to page 1 whenever search or role changes
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch, roleFilter]);
+
   const [targetEmp, setTargetEmp] = useState(null);
 
   const deleteModalRef = useRef(null);
 
-  const [createEmp, { isLoading }] = useCreateEmployeeMutation();
+  const [createEmp, { isLoading: createLoading }] = useCreateEmployeeMutation();
 
   // Pass filters directly to the query
   const {
@@ -53,6 +65,7 @@ function EmployeeManagement() {
     isLoading: empLoading,
     isFetching: empFetching,
     isError,
+    refetch,
   } = useGetAllEmployeeQuery({
     search: debouncedSearch || undefined,
     role: roleFilter || undefined,
@@ -147,9 +160,16 @@ function EmployeeManagement() {
       console.log(response);
       toast.success(response?.message);
       dialogRef?.current?.close();
+      setInput({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        role: "",
+      });
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message);
+      toast.error(error?.data?.message || "Error Occured!!");
     }
   };
 
@@ -184,6 +204,7 @@ function EmployeeManagement() {
           errors={errors}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          createLoading={createLoading}
         />
 
         <EmployeeFilter
@@ -211,52 +232,35 @@ function EmployeeManagement() {
                   </div>
                 ) : (
                   <>
-                    <div className="hidden md:block overflow-x-auto">
-                      <table className="w-full text-center border-separate border-spacing-0">
-                        <thead className="bg-slate-50/80 dark:bg-gray-700 sticky top-0 z-10">
-                          <tr className="text-slate-500 text-[11px] dark:text-gray-100 uppercase tracking-widest font-bold">
-                            <th className="px-6 py-4 border-b">
-                              Employee Name
-                            </th>
-                            <th className="px-6 py-4 border-b">Contacts</th>
-                            <th className="px-6 py-4 border-b">Role</th>
-                            <th className="px-6 py-4 border-b">Status</th>
-                            <th className="px-6 py-4 border-b">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100">
-                          {empData && empData.length > 0 ? (
-                            empData.map((emp) => (
-                              <EmployeeTable
-                                key={emp.id}
-                                emp={emp}
-                                openDeleteModal={openDeleteModal}
-                              />
-                            ))
-                          ) : (
-                            <tr>
-                              <td
-                                colSpan="5"
-                                className="py-20 text-slate-500 font-medium"
-                              >
-                                <div className="flex flex-col items-center justify-center gap-2">
-                                  <span>
-                                    No employees found matching your search.
-                                  </span>
-                                  <button
-                                    onClick={handleClearFilters}
-                                    className="text-btn-100 text-sm underline"
-                                  >
-                                    Clear filters
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-
+                    <ReusableTable
+                      columns={[
+                        "Employee Name",
+                        "Contacts",
+                        "Role",
+                        "Status",
+                        "Actions",
+                      ]}
+                      data={empData}
+                      renderRow={(emp) => (
+                        <EmployeeTable
+                          key={emp.id}
+                          emp={emp}
+                          openDeleteModal={openDeleteModal}
+                          refetch={refetch}
+                        />
+                      )}
+                      emptyState={
+                        <div className="flex flex-col items-center gap-2">
+                          <span>No employees found matching your search.</span>
+                          <button
+                            onClick={handleClearFilters}
+                            className="text-btn-100 text-sm underline"
+                          >
+                            Clear filters
+                          </button>
+                        </div>
+                      }
+                    />
                     {/* Mobile View */}
                     <div className="md:hidden space-y-3 p-2">
                       {empData?.length > 0 ? (
@@ -279,6 +283,33 @@ function EmployeeManagement() {
                         </div>
                       )}
                     </div>
+                    {/* Pagination Controls */}
+                    <div className="px-6 py-4 bg-slate-50/30 dark:bg-gray-700 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-xs font-bold text-text/40 dark:text-white uppercase ">
+                        Page {pagination?.currentPage || 1} of{" "}
+                        {pagination?.totalPages || 1}
+                      </span>
+
+                      <div className="flex gap-2">
+                        <button
+                          disabled={page === 1 || empLoading}
+                          onClick={() => handlePageChange(page - 1)}
+                          className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white dark:bg-gray-950 dark:text-white disabled:opacity-50 cursor-pointer hover:bg-slate-50 transition-all active:scale-95"
+                        >
+                          Prev
+                        </button>
+
+                        <button
+                          disabled={
+                            page >= (pagination?.totalPages || 1) || empLoading
+                          }
+                          onClick={() => handlePageChange(page + 1)}
+                          className="px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-white dark:bg-gray-950 dark:text-white disabled:opacity-50 cursor-pointer hover:bg-slate-50 transition-all active:scale-95"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
                   </>
                 )}
               </>
@@ -290,6 +321,7 @@ function EmployeeManagement() {
         closeDeleteModal={closeDeleteModal}
         deleteModalRef={deleteModalRef}
         confirmDelete={confirmDelete}
+        isDeleting={deleteLoading}
       />
     </AnimatedWrapper>
   );

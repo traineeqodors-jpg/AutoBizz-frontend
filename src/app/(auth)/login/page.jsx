@@ -71,7 +71,7 @@ const LoginPage = () => {
         router.replace("/org/dashboard");
       } catch (error) {
         console.log(error);
-        toast.error(error?.data?.message);
+        toast.error(error?.data?.message || "Something went wrong");
       }
     } else {
       //Employee login API CALL
@@ -81,7 +81,7 @@ const LoginPage = () => {
         router.replace("/org/dashboard");
       } catch (error) {
         console.log(error);
-        toast.error(error?.data?.message);
+        toast.error(error?.data?.message || "Something went wrong");
       }
     }
   };
@@ -94,7 +94,7 @@ const LoginPage = () => {
           <FormLeftSIde />
 
           {/* Right Side: Form */}
-          <div className="flex-1 flex flex-col justify-center p-8 sm:p-10">
+          <div className="flex-1 flex flex-col justify-center p-4 sm:p-10">
             <form
               onSubmit={handleSubmit}
               className="w-full space-y-6"

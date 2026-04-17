@@ -6,6 +6,8 @@ export const userApi = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
   }),
   tagTypes: ["User"],
+  keepUnusedDataFor: 120,
+
   endpoints: (build) => ({
     getMe: build.query({
       query: () => ({
@@ -24,7 +26,7 @@ export const userApi = createApi({
         credentials: "include",
       }),
 
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error) => (error ? [] : ["User"]),
     }),
 
     loginOrg: build.mutation({
@@ -35,7 +37,7 @@ export const userApi = createApi({
         credentials: "include",
       }),
 
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error) => (error ? [] : ["User"]),
     }),
 
     googleToken: build.mutation({
@@ -45,7 +47,7 @@ export const userApi = createApi({
         body: { code },
         credentials: "include",
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error) => (error ? [] : ["User"]),
     }),
 
     updateOrg: build.mutation({
@@ -55,7 +57,7 @@ export const userApi = createApi({
         body: input,
         credentials: "include",
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error) => (error ? [] : ["User"]),
     }),
 
     employeeLogin: build.mutation({
@@ -65,7 +67,7 @@ export const userApi = createApi({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error) => (error ? [] : ["User"]),
     }),
 
     logout: build.mutation({

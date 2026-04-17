@@ -35,7 +35,7 @@ const NavLink = ({ href, icon: Icon, label, setIsDialogOpen }) => {
         onClick={handleClick}
         className={`${
           isCurrent
-            ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 text-white"
+            ? "bg-btn-100 ring-2 ring-offset-2 dark:ring-offset-surface ring-btn-100 text-white"
             : "hover:bg-btn-100/30 hover:text-btn-100"
         } rounded-xl w-full flex items-center gap-3 px-3 py-2.5`}
       >
@@ -81,7 +81,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
   return (
     <AnimatePresence>
       {isDialogOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-100 lg:hidden">
           {/* Backdrop Fade Out */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -102,7 +102,7 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
             <div className="flex justify-center-safe items-center-safe relative">
               <Link
                 href="/"
-                className="flex items-center justify-center w-full h-25 rounded-2xl overflow-hidden"
+                className="flex items-center justify-center w-full h-18 rounded-2xl overflow-hidden"
               >
                 <Image
                   src="/logo.png"

@@ -13,7 +13,6 @@ export const meetingsApi = createApi({
       query: () => ({
         url: "/",
         method: "GET",
-
         credentials: "include",
       }),
       providesTags: ["Meetings"],

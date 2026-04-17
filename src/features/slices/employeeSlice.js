@@ -2,11 +2,13 @@ import { Data } from "@/Json data/data";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const employeeApi = createApi({
-  reducerPath: "ememployeeApi",
+  reducerPath: "employeeApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
   }),
   tagTypes: ["empUser"],
+  keepUnusedDataFor: 120,
+
   endpoints: (build) => ({
     createEmployee: build.mutation({
       query: (data) => ({
@@ -15,7 +17,7 @@ export const employeeApi = createApi({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: ["empUser"],
+      invalidatesTags: (result, error) => (error ? [] : ["empUser"]),
     }),
 
     setupPassword: build.mutation({
@@ -44,7 +46,7 @@ export const employeeApi = createApi({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: ["empUser"],
+      invalidatesTags: (result, error) => (error ? [] : ["empUser"]),
     }),
 
     deleteEmployee: build.mutation({
@@ -54,7 +56,7 @@ export const employeeApi = createApi({
         body: { id: data },
         credentials: "include",
       }),
-      invalidatesTags: ["empUser"],
+      invalidatesTags: (result, error) => (error ? [] : ["empUser"]),
     }),
   }),
 });

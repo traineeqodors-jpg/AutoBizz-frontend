@@ -17,6 +17,7 @@ export default function NotFound() {
           className="w-full h-auto drop-shadow-2xl"
           width={400}
           height={400}
+          priority
         />
 
         {/* Subtitle shadow effect */}

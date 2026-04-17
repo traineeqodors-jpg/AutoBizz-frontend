@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import GenerateSOP from "@/components/ui/GenerateSOP";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 import { useGetMeQuery } from "@/features/slices/userSlice";
+import SopVideoCardSkeleton from "./components/SopVideoCardSkeleton";
 
 function SopPage() {
   // Filtering State
@@ -84,7 +85,11 @@ function SopPage() {
         <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-10 justify-center bg-surface dark:border-0 py-5 px-3 sm:py-10 rounded-3xl shadow-sm border border-white">
           {/* Video Card */}
           {isLoading ? (
-            <div className="loader col-span-full mx-auto"></div>
+            <>
+              {[...Array(4)].map((_, i) => (
+                <SopVideoCardSkeleton key={i} />
+              ))}
+            </>
           ) : processedVideos?.length < 1 ? (
             <div className="py-20 lg:py-21 text-center px-4 col-span-full mx-auto">
               <div className="bg-back w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-text/20">

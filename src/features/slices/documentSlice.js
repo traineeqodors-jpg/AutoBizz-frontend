@@ -8,6 +8,7 @@ export const documentApi = createApi({
   }),
 
   tagTypes: ["documents"],
+  keepUnusedDataFor: 120,
 
   endpoints: (build) => ({
     uploadDocuments: build.mutation({
@@ -17,7 +18,7 @@ export const documentApi = createApi({
         body: formData,
         credentials: "include",
       }),
-      invalidatesTags: ["documents"],
+      invalidatesTags: (result, error) => (error ? [] : ["documents"]),
     }),
     getMyDocuments: build.query({
       query: () => ({

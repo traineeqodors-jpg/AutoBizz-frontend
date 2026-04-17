@@ -34,7 +34,7 @@ const Navbar = () => {
       </Link>
 
       <div className="flex items-center gap-7 text-lg">
-        {/* Theme Toggle Button - CSS CONTROLLED */}
+        {/* Theme Toggle Button */}
         <button
           className="p-2 bg-gray-300 text-text dark:text-white dark:bg-gray-700 rounded-full flex justify-center items-center cursor-pointer min-w-10 min-h-10"
           onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -50,7 +50,11 @@ const Navbar = () => {
           onClick={() => setIsDialogOpen(!isDialogOpen)}
           className="hover:translate-y-0.5 transition-all cursor-pointer dark:text-white"
         >
-          <IoMenu className="size-8" />
+          <IoMenu
+            className={`size-8 transition-transform duration-300 ${
+              isDialogOpen ? "rotate-90 scale-110" : "rotate-0 scale-100"
+            } active:scale-90`}
+          />
         </button>
       </div>
 

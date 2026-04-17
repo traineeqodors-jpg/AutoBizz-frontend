@@ -3,7 +3,7 @@ import { documentApi } from "@/features/slices/documentSlice";
 import { leadsApi } from "@/features/slices/leadSlice";
 import { meetingsApi } from "@/features/slices/meetingSlice";
 import { orgDetailsApi } from "@/features/slices/orgDetailsSlice";
-import { orgApi } from "@/features/slices/orgSlice";
+import { ContactUsApi } from "@/features/slices/contactUsSlice";
 import { resetPasswordApi } from "@/features/slices/resetPasswordSlice";
 import { scriptGenerationApi } from "@/features/slices/scriptGenerationSlice";
 import { videoGenerationApi } from "@/features/slices/videoGenerationSlice";
@@ -14,7 +14,7 @@ import { employeeApi } from "@/features/slices/employeeSlice";
 import { userApi } from "@/features/slices/userSlice";
 
 const rootReducer = combineReducers({
-  [orgApi.reducerPath]: orgApi.reducer,
+  [ContactUsApi.reducerPath]: ContactUsApi.reducer,
   [resetPasswordApi.reducerPath]: resetPasswordApi.reducer,
   [documentApi.reducerPath]: documentApi.reducer,
   [orgDetailsApi.reducerPath]: orgDetailsApi.reducer,
@@ -33,7 +33,7 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(orgApi.middleware)
+      .concat(ContactUsApi.middleware)
       .concat(resetPasswordApi.middleware)
       .concat(documentApi.middleware)
       .concat(orgDetailsApi.middleware)

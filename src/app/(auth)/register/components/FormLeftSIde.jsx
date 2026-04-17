@@ -3,7 +3,7 @@ import React from "react";
 
 const FormLeftSIde = () => {
   return (
-    <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back dark:bg-gray-700 p-10 ">
+    <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back dark:bg-gray-700 p-10">
       <div className="flex items-center justify-center w-50 h-25 rounded-lg overflow-hidden">
         <Image
           src="/logo.png"
@@ -24,11 +24,11 @@ const FormLeftSIde = () => {
       {/* Features */}
       <ul className="space-y-5 text-gray-500 font-medium p-5">
         {/* 1 . */}
-        <li className="flex justify-center-safe items-center-safe space-x-5  rounded-2xl">
+        <li className="flex justify-center-safe items-center-safe space-x-2 rounded-2xl">
           <Image
-            src="https://cdn-icons-png.flaticon.com/128/11921/11921783.png"
+            src="/businessAutomation.png"
             alt="Business Automation Icon"
-            className="object-contain size-20 opacity-70"
+            className="object-contain size-20"
             height={300}
             width={300}
           />
@@ -44,11 +44,11 @@ const FormLeftSIde = () => {
         </li>
 
         {/* 2 . */}
-        <li className="flex justify-center-safe items-center-safe space-x-5 rounded-2xl mb-7">
+        <li className="flex justify-center-safe items-center-safe space-x-2 rounded-2xl mb-7">
           <Image
-            src="https://cdn-icons-png.flaticon.com/128/8163/8163243.png"
+            src="/customerService.png"
             alt="Customer Service Icon"
-            className="object-contain size-20 opacity-70"
+            className="object-contain size-20"
             height={300}
             width={300}
           />
@@ -64,11 +64,11 @@ const FormLeftSIde = () => {
         </li>
 
         {/* 3 . */}
-        <li className="flex justify-center-safe items-center-safe space-x-5 rounded-2xl ">
+        <li className="flex justify-center-safe items-center-safe space-x-2 rounded-2xl ">
           <Image
-            src="https://cdn-icons-png.flaticon.com/128/1389/1389181.png"
+            src="/salesLeadManagement.png"
             alt="Sales & Lead Management Icon"
-            className="object-contain size-20 opacity-70"
+            className="object-contain size-20"
             height={300}
             width={300}
           />

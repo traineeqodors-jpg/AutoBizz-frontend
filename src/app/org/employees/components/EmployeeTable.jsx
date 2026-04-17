@@ -1,6 +1,7 @@
+import { IoMdRefresh } from "react-icons/io";
 import { IoTrashOutline } from "react-icons/io5";
 
-const EmployeeTable = ({ emp, openDeleteModal }) => {
+const EmployeeTable = ({ emp, openDeleteModal, refetch }) => {
   return (
     <tr
       className={`transition-all group border border-gray-100 cursor-default text-text/90 dark:text-gray-300 font-medium
@@ -15,26 +16,40 @@ const EmployeeTable = ({ emp, openDeleteModal }) => {
           <p className="font-semibold text-text dark:text-gray-300">
             {emp?.phoneNumber}
           </p>
-          <p className="text-[11px] text-gray-400 font-medium uppercase tracking-tight">
+          <p className="text-[11px] text-gray-400 font-medium tracking-tight">
             {emp?.email}
           </p>
         </div>
       </td>
 
-      <td className="px-6 py-5 rounded-l-3xl dark:rounded-none border-y border-gray-100 dark:border-none text-sm">
+      <td className="px-6 py-5 dark:rounded-none border-y border-gray-100 dark:border-none text-sm">
         {emp?.role}
       </td>
 
-      <td className="px-6 py-5 border-y border-gray-100 dark:border-none">
-        <span
-          className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider ${
-            emp?.isVerified
-              ? "bg-green-100 text-green-600"
-              : "bg-red-100 text-red-600"
-          }`}
-        >
-          {emp?.isVerified ? "Verified" : "Not-Verified"}
-        </span>
+      <td className="px-6 py-5 dark:rounded-none border-y border-gray-100 dark:border-none text-sm">
+        <div className="flex items-center justify-center-safe gap-3">
+          <span
+            className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider whitespace-nowrap ${
+              emp?.isVerified
+                ? "bg-green-100 text-green-600"
+                : "bg-red-100 text-red-600"
+            }`}
+          >
+            {emp?.isVerified ? "Verified" : "Not-Verified"}
+          </span>
+
+          {!emp?.isVerified && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                refetch();
+              }}
+              className="flex items-center justify-center p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-all"
+            >
+              <IoMdRefresh className="size-3" />
+            </button>
+          )}
+        </div>
       </td>
 
       <td className="px-6 py-5 rounded-r-3xl dark:rounded-none border-y border-r border-gray-100 dark:border-none">

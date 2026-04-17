@@ -14,7 +14,7 @@ function Leads() {
   const leads = data?.data?.leads || [];
 
   return (
-    <div className="min-h-100 bg-surface flex flex-col gap-5 w-full rounded-2xl p-5 shadow-sm dark:shadow-gray-700/30">
+    <div className="min-h-120 bg-surface flex flex-col gap-5 w-full rounded-2xl p-5 shadow-sm dark:shadow-gray-700/30">
       {/* Header section remains the same */}
       <div className="flex justify-between items-center w-full gap-2">
         <div className="space-y-1">

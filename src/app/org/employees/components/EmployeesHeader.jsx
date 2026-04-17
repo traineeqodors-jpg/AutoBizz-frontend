@@ -7,6 +7,7 @@ function EmployessHeader({
   handleChange,
   handleSubmit,
   errors,
+  createLoading,
 }) {
   return (
     <>
@@ -35,6 +36,7 @@ function EmployessHeader({
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         errors={errors}
+        createLoading={createLoading}
       />
     </>
   );

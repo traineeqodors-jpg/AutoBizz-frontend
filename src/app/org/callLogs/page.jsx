@@ -196,13 +196,36 @@ function CallLogsPage() {
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="bg-white shadow-xl shadow-text/5 dark:bg-gray-900 dark:border-gray-900/90 rounded-3xl overflow-hidden border border-white">
+                <div className="bg-white shadow-sm shadow-text/5 dark:bg-gray-900 dark:border-gray-900/90 rounded-3xl overflow-hidden border border-white">
                   {isLoading || isFetching ? (
                     <div className="h-30 relative flex items-center justify-center">
                       <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
                     </div>
                   ) : (
                     <>
+                      {/* <ReusableTable
+                        columns={[
+                          "Call Detail",
+                          () => (
+                            <div onClick={() => toggleSort("createdAt")}>
+                              Date {filters.order === "ASC" ? "↑" : "↓"}
+                            </div>
+                          ),
+                          "Duration",
+                          "Status",
+                          "Actions",
+                        ]}
+                        data={logs}
+                        renderRow={(log) => (
+                          <CallLogTable
+                            key={log.id}
+                            log={log}
+                            setSelectedLog={setSelectedLog}
+                            openDeleteModal={openDeleteModal}
+                          />
+                        )}
+                        emptyState="No call logs found"
+                      /> */}
                       <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-center border-separate border-spacing-0">
                           <thead>

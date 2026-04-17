@@ -28,6 +28,7 @@ import {
   useGetMeQuery,
   useGoogleTokenMutation,
 } from "@/features/slices/userSlice";
+import ReusableTable from "@/components/ui/ReusableTable";
 
 function LeadManagement() {
   const dispatch = useDispatch();
@@ -214,7 +215,7 @@ function LeadManagement() {
           updatedAt: new Date().toLocaleTimeString(),
         });
 
-        dispatch(leadsApi.util.invalidateTags(["leads"]));
+        dispatch(leadsApi.util.invalidateTags(["Leads"]));
 
         hideNoticeTimerRef.current = setTimeout(() => {
           setSocketNotice((prev) => ({ ...prev, visible: false }));
@@ -464,43 +465,29 @@ function LeadManagement() {
                 </div>
               ) : (
                 <>
-                  <div className="hidden md:block overflow-x-auto">
-                    <table className="w-full text-center border-separate border-spacing-0">
-                      <thead className="bg-slate-50/80 dark:bg-gray-700 sticky top-0 z-10">
-                        <tr className="text-slate-500 text-[11px] dark:text-gray-100 uppercase tracking-widest font-bold">
-                          <th className="px-6 py-4 border-b">Lead Name</th>
-                          <th className="px-6 py-4 border-b">Company</th>
-                          <th className="px-6 py-4 border-b">Contacts</th>
-                          <th className="px-6 py-4 border-b">Status</th>
-                          <th className="px-6 py-4 border-b">Score</th>
-                          <th className="px-6 py-4 border-b">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {!isGoogleLinked ? (
-                          <tr>
-                            <td colSpan="7" className="py-20 text-slate-400">
-                              Link your account to manage leads and meetings.
-                            </td>
-                          </tr>
-                        ) : leads.length > 0 ? (
-                          leads.map((lead) => (
-                            <LeadTable
-                              key={lead.id}
-                              lead={lead}
-                              openDeleteModal={openDeleteModal}
-                            />
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan="7" className="py-20 text-slate-400">
-                              No leads found matching your criteria.
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
+                  <ReusableTable
+                    columns={[
+                      "Lead Name",
+                      "Company",
+                      "Contacts",
+                      "Status",
+                      "Score",
+                      "Actions",
+                    ]}
+                    data={isGoogleLinked ? leads : []}
+                    renderRow={(lead) => (
+                      <LeadTable
+                        key={lead.id}
+                        lead={lead}
+                        openDeleteModal={openDeleteModal}
+                      />
+                    )}
+                    emptyState={
+                      !isGoogleLinked
+                        ? "Link your account to manage leads and meetings."
+                        : "No leads found matching your criteria."
+                    }
+                  />
 
                   <div className="md:hidden space-y-3 p-2">
                     {!isGoogleLinked ? (

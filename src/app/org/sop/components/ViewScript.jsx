@@ -4,7 +4,7 @@ const ViewScript = ({ viewScriptRef, script }) => {
   return (
     <dialog
       ref={viewScriptRef}
-      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5  backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
+      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-2 sm:p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
     >
       {/* Form  */}
       <form className="w-full space-y-3 p-2">
@@ -30,7 +30,7 @@ const ViewScript = ({ viewScriptRef, script }) => {
           <textarea
             rows={13}
             disabled
-            className="w-full hideScrollBar py-3 px-4 text-text dark:text-gray-100 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all pr-12" // Added pr-12 (padding-right) to ensure text doesn't go under the button
+            className="w-full hideScrollBar py-3 px-4 text-text dark:text-gray-100 rounded-xl border border-gray-200 bg-gray-50 dark:bg-gray-800 focus:bg-white focus:ring-2 focus:ring-btn-100 outline-none transition-all "
             placeholder="Your SOP Script"
             value={script}
           />

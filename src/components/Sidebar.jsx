@@ -16,7 +16,6 @@ import {
 } from "@/features/slices/userSlice";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
-import { retry } from "@reduxjs/toolkit/query";
 
 const NavLink = ({ href, icon: Icon, label }) => {
   const pathname = usePathname();
@@ -45,7 +44,6 @@ const NavLink = ({ href, icon: Icon, label }) => {
 };
 
 const SideBar = () => {
-  const pathname = usePathname();
   const dispatch = useDispatch();
   const [logout, { isLoading }] = useLogoutMutation();
 
@@ -55,8 +53,6 @@ const SideBar = () => {
 
   const userData = user?.data;
   const role = userData?.role;
-
-  const isActive = (path) => pathname === path;
 
   const handleLogout = async () => {
     try {
@@ -74,24 +70,22 @@ const SideBar = () => {
     <>
       <div className="hidden lg:block shrink-0 w-65 bg-surface overflow-auto p-4 inset-shadow-sm/20 relative">
         {/* Logo Section */}
-        <div className="flex justify-center-safe items-center-safe">
+        <div className="flex items-center justify-center">
           <Link
             href="/"
-            className="flex items-center justify-center w-full h-25 rounded-2xl mb-2 overflow-hidden"
+            className="flex items-center justify-center w-full h-20 overflow-hidden"
           >
             <Image
               src="/logo.png"
               alt="Your App Logo"
-              width={200}
-              height={200}
+              width={240}
+              height={80}
               priority
-              className="w-full object-cover object-center "
-              sizes="(max-width: 768px) 100vw, 200px"
+              className="w-[50%] object-cover"
             />
           </Link>
         </div>
-
-        <hr className="border-gray-300 my-5" />
+        <hr className="border-gray-300 mb-5 mt-3" />
 
         <ul className="w-full space-y-4">
           {/* Everyone sees Dashboard */}

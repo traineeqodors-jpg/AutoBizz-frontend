@@ -11,10 +11,7 @@ const ProductCard = ({ img, title, desc, features }) => {
     <div className="group flex flex-col bg-surface rounded-3xl overflow-hidden border border-slate-100 dark:border-gray-400 shadow-sm hover:shadow-xl hover:shadow-btn-100/5 transition-all dark:transition-none duration-500 h-full">
       <div className="h-44 w-full overflow-hidden bg-slate-50 dark:bg-gray-500 flex items-center justify-center">
         <Image
-          src={
-            img ||
-            "https://raw.githubusercontent.com/traineeqodors-jpg/AutoBizz-frontend/refs/heads/udayPhase1/public/images.jpeg"
-          }
+          src={img}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           width={500}
           height={500}

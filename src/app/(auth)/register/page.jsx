@@ -74,12 +74,13 @@ const Register = () => {
     }
 
     // Organization Validation
+    const orgNameRegex = /^[a-zA-Z0-9 .,&()-]+$/;
     if (!input.orgName.trim()) {
       newErrors.orgName = "Organization Name is required";
     } else if (input.orgName.length < 2) {
       newErrors.orgName = "must be atleast 2 Character Long!";
-    } else if (!isNaN(input.orgName) || !nameRegex.test(input.orgName)) {
-      newErrors.orgName = "Invalid Organization Name!!";
+    } else if (!orgNameRegex.test(input.orgName)) {
+      newErrors.orgName = "Invalid organization name!";
     }
 
     // Organization size Validation
@@ -93,12 +94,15 @@ const Register = () => {
     }
 
     // Phone Number Validation
+    const cleanedPhone = input.phone.replace(/\s/g, "");
     if (!input.phone.trim()) {
       newErrors.phone = "Number is required";
-    } else if (isNaN(input.phone)) {
+    } else if (isNaN(cleanedPhone)) {
       newErrors.phone = "Enter valid phone number!";
-    } else if (input.phone.length < 10) {
+    } else if (cleanedPhone.length < 10) {
       newErrors.phone = "Phone Number must be 10 Digits Long";
+    } else if (!/^[0-9]{10,15}$/.test(cleanedPhone)) {
+      newErrors.phone = "Invalid phone number";
     }
 
     // Email validation
@@ -111,7 +115,7 @@ const Register = () => {
 
     // Password validation
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{7,}$/;
+      /^(?=.*[0-9])(?=.*[!@#$%^&*_\-])[a-zA-Z0-9!@#$%^&*_\-]{7,}$/;
     if (!input.password.trim()) {
       newErrors.password = "Password is required";
     } else if (input.password.length < 7) {
@@ -131,13 +135,15 @@ const Register = () => {
 
     // Formatting Input
     const countryData = JSON.parse(input.country);
-    const formattedPhone = `+${countryData.code}-${input.phone}`;
+    const formattedPhone = `+${countryData.code}-${cleanedPhone}`;
 
     const formData = {
       ...input,
       country: countryData.name,
       phone: formattedPhone,
     };
+
+    console.log(formData);
 
     // Register API call
     try {
@@ -146,10 +152,10 @@ const Register = () => {
       router.push("/org/dashboard");
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message);
+      toast.error(
+        error?.data?.message || "Registration failed. Please try again.",
+      );
     }
-
-    console.log("submitted", input);
   };
   return (
     <>
@@ -161,7 +167,7 @@ const Register = () => {
             <FormLeftSIde />
 
             {/* Form */}
-            <div className="flex-1 flex flex-col justify-center p-8 sm:p-10">
+            <div className="flex-1 flex flex-col justify-center p-4 sm:p-10">
               <SignupForm
                 input={input}
                 handleChange={handleChange}

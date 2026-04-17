@@ -7,7 +7,8 @@ export const leadsApi = createApi({
     // baseUrl: `http://localhost:5000/api/document`,
   }),
 
-  tagTypes: ["leads"],
+  tagTypes: ["Leads"],
+  keepUnusedDataFor: 120,
 
   endpoints: (build) => ({
     addLeadCsv: build.mutation({
@@ -17,16 +18,7 @@ export const leadsApi = createApi({
         body: formData,
         credentials: "include",
       }),
-      invalidatesTags: ["leads"],
-    }),
-    addLeadForm: build.mutation({
-      query: (formData) => ({
-        url: "/form",
-        method: "post",
-        body: formData,
-        credentials: "include",
-      }),
-      invalidatesTags: ["leads"],
+      invalidatesTags: (result, error) => (error ? [] : ["Leads"]),
     }),
 
     getAllLeads: build.query({
@@ -45,7 +37,7 @@ export const leadsApi = createApi({
         },
         credentials: "include",
       }),
-      providesTags: ["leads"],
+      providesTags: ["Leads"],
     }),
 
     deleteLead: build.mutation({
@@ -54,7 +46,7 @@ export const leadsApi = createApi({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ["leads"],
+      invalidatesTags: (result, error) => (error ? [] : ["Leads"]),
     }),
   }),
 });
