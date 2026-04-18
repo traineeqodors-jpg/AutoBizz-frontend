@@ -2,8 +2,7 @@
 
 import { useResetPasswordMutation } from "@/features/slices/resetPasswordSlice";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEyeSlash } from "react-icons/fa";
@@ -22,9 +21,15 @@ function UpdatePassword() {
   // Getting Token From URL Params
   const { token } = useParams();
 
+  if (!token) {
+    toast.error("Invalid reset link");
+    router.replace("/");
+    return;
+  }
+
   const [resetPass, { isLoading }] = useResetPasswordMutation();
 
-  const navigate = useRouter();
+  const router = useRouter();
 
   //   Handling Form Change
   const handleChange = (e) => {
@@ -49,7 +54,7 @@ function UpdatePassword() {
 
     // Password REGEX Validation
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,}$/;
+      /^(?=.*[0-9])(?=.*[!@#$%^&*_\-])[a-zA-Z0-9!@#$%^&*_\-]{7,}$/;
 
     if (!passwordRegex.test(input.newPassword)) {
       return setPasswordError(
@@ -69,10 +74,10 @@ function UpdatePassword() {
     try {
       const response = await resetPass({ input, token }).unwrap();
       toast.success(response?.message);
-      navigate("/login", { replace: true });
+      router.replace("/login");
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message);
+      toast.error(error?.data?.message || "Something went wrong!!");
     }
   };
   return (
@@ -162,9 +167,11 @@ function UpdatePassword() {
               </button>
             </div>
           </div>
-          <div className="bg-red-100 px-2 rounded-lg">
-            <span className=" text-red-400 text-sm ">{passwordError}</span>
-          </div>
+          {passwordError && (
+            <div className="bg-red-200/10 px-2 py-2 rounded-lg ring-1 ring-red-300">
+              <span className=" text-red-400 text-sm ">{passwordError}</span>
+            </div>
+          )}
 
           {/* Submit Button */}
           <button

@@ -34,19 +34,19 @@ const ResetPassword = ({}) => {
   };
   return (
     <>
-      <div className="min-h-screen w-full flex items-center justify-center p-4">
+      <div className="min-h-screen w-full flex items-center justify-center p-3">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center w-full sm:w-xl space-y-6 bg-surface p-4 sm:p-14 rounded-3xl shadow-xl"
         >
-          <div className="space-y-2">
+          <div className="space-y-4">
             <h1 className="text-2xl font-semibold text-text tracking-tight">
               Reset Your Password
             </h1>
 
             {/* After Sending EMail */}
             {isSuccess ? (
-              <p className="text-sm text-green-600 bg-green-200 rounded-2xl p-3">
+              <p className="text-sm text-green-400 bg-green-200/10 ring-1 ring-green-300 rounded-lg p-3">
                 The Password Reset Link has Been Sent to your email:
                 <span className="block">{email}</span>
               </p>

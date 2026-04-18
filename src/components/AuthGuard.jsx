@@ -29,16 +29,15 @@ const ROLE_PERMISSIONS = {
 
 // Central config
 const ROUTE_CONFIG = {
-  public: ["/story", "/pricing", "/contact"], // accessible to all
-  authOnly: [
-    "/login",
-    "/register",
-    "/",
-    "/resetpassword",
-    "/resetpassword/reset",
-    "/setup-password",
-  ], // only when NOT logged in
-  protected: ROLE_PERMISSIONS, // role-based
+  public: ["/story", "/pricing", "/contact"],
+
+  // exact match only
+  authOnlyExact: ["/login", "/register", "/", "/setup-password"],
+
+  // prefix match (for dynamic routes like /resetpassword/[token])
+  authOnlyPrefix: ["/resetpassword"],
+
+  protected: ROLE_PERMISSIONS,
 };
 
 export default function AuthGuard({ children }) {
@@ -58,14 +57,24 @@ export default function AuthGuard({ children }) {
 
   // Route type detection
   const routeType = useMemo(() => {
+    // PUBLIC
     if (ROUTE_CONFIG.public.some((route) => pathname.startsWith(route))) {
       return "public";
     }
 
-    if (ROUTE_CONFIG.authOnly.some((route) => pathname === route)) {
+    // AUTH-ONLY
+    if (ROUTE_CONFIG.authOnlyExact.includes(pathname)) {
       return "authOnly";
     }
 
+    // AUTH-ONLY
+    if (
+      ROUTE_CONFIG.authOnlyPrefix.some((route) => pathname.startsWith(route))
+    ) {
+      return "authOnly";
+    }
+
+    // Otherwise protected
     return "protected";
   }, [pathname]);
 
@@ -85,7 +94,7 @@ export default function AuthGuard({ children }) {
     // PUBLIC → allow always
     if (routeType === "public") return;
 
-    // AUTH-ONLY (login/register)
+    // AUTH-ONLY
     if (routeType === "authOnly") {
       if (user) {
         router.replace("/org/dashboard");
@@ -93,7 +102,7 @@ export default function AuthGuard({ children }) {
       return;
     }
 
-    // PROTECTED ROUTES
+    // PROTECTED
     if (routeType === "protected") {
       // Not logged in
       if (isError || !user) {
@@ -108,23 +117,21 @@ export default function AuthGuard({ children }) {
     }
   }, [isLoading, isError, user, routeType, isAllowedRoute, router]);
 
-  // Render handling
-
   // Global loading
   if (isLoading) return <Loading />;
 
-  // Public → always render
+  // PUBLIC
   if (routeType === "public") {
     return <>{children}</>;
   }
 
-  // Auth-only → block if logged in (redirect handled above)
+  // AUTH-ONLY
   if (routeType === "authOnly") {
     if (user) return <Loading />;
     return <>{children}</>;
   }
 
-  // Protected → block until valid
+  // PROTECTED
   if (routeType === "protected") {
     if (!user || isError) return <Loading />;
     if (!isAllowedRoute) return <Loading />;
