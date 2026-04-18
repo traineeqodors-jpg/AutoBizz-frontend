@@ -62,7 +62,7 @@ const SideBar = () => {
       toast.success(response?.message);
     } catch (error) {
       console.log(error);
-      console.warn("Server logout failed, cleaning up locally.", error);
+      toast.error(error?.data?.message || "Logout failed.");
     }
   };
 

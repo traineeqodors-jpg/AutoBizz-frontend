@@ -86,9 +86,6 @@ function EmployeeLoginForm({
 
       {/* SIgnIn Btn and Forget Password */}
       <div>
-        <Link href="/resetpassword" className="float-end text-blue-400 text-sm">
-          Forget Password ?{" "}
-        </Link>
         <button
           disabled={isLoading}
           type="submit"

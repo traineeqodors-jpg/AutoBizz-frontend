@@ -15,16 +15,16 @@ const ROLE_PERMISSIONS = {
     "/org/leads",
     "/org/calendar",
     "/org/sop",
-    "/org/orgprofile",
+    "/org/profile",
   ],
   sales: [
     "/org/dashboard",
     "/org/leads",
     "/org/calendar",
     "/org/sop",
-    "/org/orgprofile",
+    "/org/profile",
   ],
-  employee: ["/org/dashboard", "/org/sop", "/org/orgprofile"],
+  employee: ["/org/dashboard", "/org/sop", "/org/profile"],
 };
 
 // Central config
@@ -34,8 +34,7 @@ const ROUTE_CONFIG = {
   // exact match only
   authOnlyExact: ["/login", "/register", "/", "/setup-password"],
 
-  // prefix match (for dynamic routes like /resetpassword/[token])
-  authOnlyPrefix: ["/resetpassword"],
+  publicSafe: ["/resetpassword"],
 
   protected: ROLE_PERMISSIONS,
 };
@@ -57,20 +56,15 @@ export default function AuthGuard({ children }) {
 
   // Route type detection
   const routeType = useMemo(() => {
-    // PUBLIC
     if (ROUTE_CONFIG.public.some((route) => pathname.startsWith(route))) {
       return "public";
     }
 
-    // AUTH-ONLY
-    if (ROUTE_CONFIG.authOnlyExact.includes(pathname)) {
-      return "authOnly";
+    if (ROUTE_CONFIG.publicSafe.some((route) => pathname.startsWith(route))) {
+      return "publicSafe";
     }
 
-    // AUTH-ONLY
-    if (
-      ROUTE_CONFIG.authOnlyPrefix.some((route) => pathname.startsWith(route))
-    ) {
+    if (ROUTE_CONFIG.authOnlyExact.includes(pathname)) {
       return "authOnly";
     }
 
@@ -101,6 +95,9 @@ export default function AuthGuard({ children }) {
       }
       return;
     }
+
+    // publicSafe → never redirect
+    if (routeType === "publicSafe") return;
 
     // PROTECTED
     if (routeType === "protected") {

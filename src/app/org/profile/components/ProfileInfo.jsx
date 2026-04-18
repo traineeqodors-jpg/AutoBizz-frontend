@@ -10,7 +10,6 @@ import {
   HiOfficeBuilding,
   HiIdentification,
 } from "react-icons/hi";
-import { MdOutlinePlace } from "react-icons/md";
 
 const ProfileInfo = ({ user, onSave }) => {
   const hiddenFields = [

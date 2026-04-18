@@ -1,6 +1,7 @@
 import { Upload } from "lucide-react";
+import { RxCross2 } from "react-icons/rx";
 
-function LeadHeader({ handleFileUpload, fileName }) {
+function LeadHeader({ handleFileUpload, fileName, setFileName }) {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-white dark:border-gray-900 dark:shadow-sm dark:shadow-gray-700/30">
       <div>
@@ -24,8 +25,12 @@ function LeadHeader({ handleFileUpload, fileName }) {
           />
         </label>
         {fileName && (
-          <span className="text-xs font-medium tracking-wide text-green-100 bg-green-400 py-0.5 rounded-full">
+          <span className="text-xs font-medium mt-3 p-1 px-4 tracking-wide text-green-100 bg-green-600 dark:bg-green-700 py-0.5 rounded-full flex items-center gap-1">
             {fileName}
+            <RxCross2
+              onClick={() => setFileName("")}
+              className="hover:bg-black rounded-full"
+            />
           </span>
         )}
       </div>

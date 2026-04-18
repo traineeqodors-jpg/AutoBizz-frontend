@@ -326,7 +326,11 @@ function LeadManagement() {
           </div>
         )}
 
-        <LeadHeader handleFileUpload={handleFileUpload} fileName={fileName} />
+        <LeadHeader
+          handleFileUpload={handleFileUpload}
+          fileName={fileName}
+          setFileName={setFileName}
+        />
         <LeadCards data={data} />
 
         <LeadFilter

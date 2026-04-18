@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebookF, FaGoogle, FaTwitter, FaInstagram } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
+import { FaFacebookF, FaGoogle, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   const linkStyles =
@@ -91,7 +92,7 @@ const Footer = () => {
           {[
             { Icon: FaGoogle, color: "hover:bg-red-500" },
             { Icon: FaFacebookF, color: "hover:bg-blue-600" },
-            { Icon: FaTwitter, color: "hover:bg-sky-400" },
+            { Icon: BsTwitterX, color: "hover:bg-black" },
             { Icon: FaInstagram, color: "hover:bg-pink-600" },
           ].map(({ Icon, color }, idx) => (
             <button

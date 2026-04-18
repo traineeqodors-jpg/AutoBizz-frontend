@@ -55,10 +55,10 @@ export const videoGenerationApi = createApi({
     }),
 
     generateVideo: build.mutation({
-      query: (scriptContent) => ({
+      query: (script) => ({
         url: "/generateSOP",
         method: "POST",
-        body: { scriptContent },
+        body: script,
         credentials: "include",
       }),
       // Optional: invalidating ensures the "processing" row shows up immediately

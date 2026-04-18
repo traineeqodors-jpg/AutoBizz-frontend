@@ -31,7 +31,7 @@ const OrgInfo = ({ user, isOwner }) => {
             </span>
             <FaEdit
               className="text-btn-200 hover:scale-105 cursor-pointer"
-              onClick={() => router.push("/org/orgprofile")}
+              onClick={() => router.push("/org/profile")}
             />
           </p>
           <p className="text-sm font-medium text-gray-400 dark:text-gray-200 mt-1">

@@ -22,8 +22,20 @@ export const resetPasswordApi = createApi({
         body: input,
       }),
     }),
+
+    updatePassword: build.mutation({
+      query: (input) => ({
+        url: "/updatePassword",
+        method: "POST",
+        body: input,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useForgotPasswordMutation, useResetPasswordMutation } =
-  resetPasswordApi;
+export const {
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+  useUpdatePasswordMutation,
+} = resetPasswordApi;

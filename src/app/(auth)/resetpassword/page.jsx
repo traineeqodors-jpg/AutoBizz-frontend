@@ -29,7 +29,9 @@ const ResetPassword = ({}) => {
       toast.success(response?.message);
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message);
+      toast.error(
+        error?.data?.message || "Failed to send reset link. Try again.",
+      );
     }
   };
   return (

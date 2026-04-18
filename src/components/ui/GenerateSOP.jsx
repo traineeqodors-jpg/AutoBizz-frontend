@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { GrMagic } from "react-icons/gr";
-
+import videoAvatar from "@/Json data/videoAvatar.json";
 import { toast } from "react-hot-toast";
 import { FaPlay } from "react-icons/fa";
 import { useRouter } from "next/navigation";
@@ -17,6 +17,11 @@ function GenerateSOP({ isHome }) {
   const [aiContext, setAiContext] = useState(null);
 
   const [script, { isLoading, isFetching }] = useGenerateScriptMutation();
+
+  const [selectedAvatar, setSelectedAvatar] = useState({
+    avatar_id: videoAvatar.avatars[0].talking_photo_id,
+    voice_id: videoAvatar.avatars[0].voice_id,
+  });
 
   const activeRequestRef = useRef(null);
 
@@ -51,8 +56,16 @@ function GenerateSOP({ isHome }) {
     if (!videoScript.trim()) {
       return toast.error("No Scirpt Found");
     }
+    const requestBody = {
+      script: videoScript,
+      avatar_id: selectedAvatar.avatar_id,
+      voice_id: selectedAvatar.voice_id,
+    };
+
+    console.log(requestBody);
+
     try {
-      await generateVideo(videoScript).unwrap();
+      await generateVideo(requestBody).unwrap();
       toast.custom((t) => (
         <CustomToast
           t={t}
@@ -117,6 +130,9 @@ function GenerateSOP({ isHome }) {
         videoLoading={videoLoading}
         activeRequestRef={activeRequestRef}
         handleSOPVideoGeneration={handleSOPVideoGeneration}
+        selectedAvatar={selectedAvatar}
+        setSelectedAvatar={setSelectedAvatar}
+        videoAvatar={videoAvatar}
       />
     </div>
   );

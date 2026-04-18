@@ -59,10 +59,10 @@ function SetupPasswordPage() {
         "Password must contain at least one number and one special character";
     }
 
-    // if (input.password !== input.confirmpassword) {
-    //   newErrors.confirmpassword =
-    //     "Pasword and Confirm Password doesn't match!!";
-    // }
+    if (input.password !== input.confirmpassword) {
+      newErrors.confirmpassword =
+        "Pasword and Confirm Password doesn't match!!";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);

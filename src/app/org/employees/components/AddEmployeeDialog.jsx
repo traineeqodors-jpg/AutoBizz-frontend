@@ -190,7 +190,7 @@ const AddEmployeeDialog = ({
             <button
               disabled={createLoading}
               type="submit"
-              className={`${createLoading ? "bg-gray-400 cursor-not-allowed" : "bg-btn-100 hover:bg-btn-200"} w-full py-3 text-white font-bold rounded-xl shadow-lg shadow-btn-50/30 hover:shadow-lg hover:shadow-btn-100/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
+              className={`${createLoading ? "opacity-50 cursor-not-allowed shadow-none" : ""}bg-btn-100 w-full py-3 text-white font-bold rounded-xl shadow-md shadow-btn-50/30 hover:shadow-lg hover:shadow-btn-100/40 transform hover:-translate-y-0.5 transition-all cursor-pointer`}
             >
               {createLoading ? "Sending..." : "Send Link"}
             </button>

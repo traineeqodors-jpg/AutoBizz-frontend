@@ -56,7 +56,10 @@ export default function Documents() {
       toast.success("Document permanently removed");
       closeDeleteModal();
     } catch (err) {
-      toast.error("Deletion failed. Try again.", err);
+      console.log(err);
+      toast.error(
+        err?.data?.message || "Failed to delete document. Try again.",
+      );
     }
   };
 
