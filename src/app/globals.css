@@ -192,46 +192,167 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-/* 1. Global Text Colors (Forcing all labels to Black) */
-.rbc-calendar,
-.rbc-header,
-.rbc-date-cell,
-.rbc-show-more,
-.rbc-off-range-label,
-.rbc-time-slot,
-.rbc-button-link {
-  color: black !important;
-  font-weight: 600 !important; /* Makes the black text pop */
+/* ================= CALENDAR BASE ================= */
+.rbc-calendar {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 10px;
+  color: var(--text);
 }
 
-/* 2. Today's Date Background (Monthly & Weekly Views) */
-.rbc-today {
-  background-color: var(--btn-100) !important;
+/* ================= HEADERS ================= */
+.rbc-header {
+  background: color-mix(in srgb, var(--btn-100), transparent 85%);
+  border-radius: 10px;
+  border: none !important;
+  padding: 10px 0;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  color: var(--text);
 }
 
-/* Ensure Today's number is white for contrast against the blue background */
-.rbc-today .rbc-button-link {
-  color: white !important;
+/* DARK FIX */
+.dark .rbc-header {
+  background: color-mix(in srgb, var(--btn-100), transparent 92%);
+  color: var(--text);
 }
 
-/* 3. Off-Range Dates (Dates not belonging to the current month) */
-/* We target the background cell (.rbc-day-bg) */
-.rbc-month-view .rbc-day-bg.rbc-off-range {
-  background-color: color-mix(
-    in srgb,
-    var(--btn-100),
-    transparent 70%
-  ) !important;
+/* ================= GRID ================= */
+
+.rbc-month-row+.rbc-month-row {
+  border: none !important;
 }
 
-/* 4. Fix for Header/Time-view borders (Optional but looks cleaner) */
 .rbc-month-view,
 .rbc-time-view {
-  border-radius: 12px;
+  border: none !important;
+  gap: 4px !important;
+}
+
+.rbc-day-bg {
+  border: 1px solid color-mix(in srgb, var(--border), transparent 50%) !important;
+  border-radius: 10px !important;
+  margin: 2px;
+  transition: all 0.2s ease;
+}
+
+/* HOVER */
+.rbc-day-bg:hover {
+  background: color-mix(in srgb, var(--btn-100), transparent 90%);
+  cursor: pointer;
+}
+
+.dark .rbc-day-bg:hover {
+  background: color-mix(in srgb, var(--btn-100), transparent 80%);
+}
+
+/* ================= DATE CELL ================= */
+.rbc-date-cell {
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px;
+  color: var(--text);
+}
+
+.dark .rbc-off-range-bg {
+  background: color-mix(in srgb, var(--text), transparent 30%) !important;
+}
+
+/* OFF RANGE DAYS */
+.dark .rbc-off-range {
+  color: color-mix(in srgb, black, transparent 40%) !important;
+}
+
+/* ================= TODAY ================= */
+.rbc-today {
+  background: color-mix(in srgb, var(--btn-100), transparent 75%) !important;
+}
+
+.dark .rbc-today {
+  background: color-mix(in srgb, var(--btn-100), transparent 88%) !important;
+}
+
+/* ================= EVENTS ================= */
+.rbc-event {
+  background: linear-gradient(
+    to right,
+    var(--btn-100),
+    var(--btn-200)
+  ) !important;
+  border-radius: 10px !important;
+  border: none !important;
+  padding: 5px 8px !important;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  transition: all 0.2s ease;
+}
+
+.rbc-event:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.15);
+}
+
+/* DARK EVENT IMPROVEMENT */
+.dark .rbc-event {
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.4);
+}
+
+/* SELECTED EVENT */
+.rbc-selected {
+  outline: 2px solid var(--btn-200) !important;
+}
+
+/* ================= TIME VIEW ================= */
+.rbc-time-slot {
+  border-top: 1px dashed color-mix(in srgb, var(--border), transparent 50%);
+}
+
+/* DARK FIX */
+.dark .rbc-time-slot {
+  border-top: 1px dashed color-mix(in srgb, var(--border), transparent 70%);
+}
+
+/* CURRENT TIME LINE */
+.rbc-current-time-indicator {
+  background-color: var(--btn-100) !important;
+  height: 3px !important;
+  border-radius: 10px;
+}
+
+/* ================= AGENDA ================= */
+.rbc-agenda-view table {
+  border-spacing: 0 10px;
+}
+
+.rbc-agenda-view tr {
+  background: var(--surface);
+  border-radius: 10px;
   overflow: hidden;
 }
 
-/* 5. Highlight "Now" indicator in Day/Week view */
-.rbc-current-time-indicator {
-  background-color: var(--btn-100) !important;
+/* DARK FIX */
+.dark .rbc-agenda-view tr {
+  background: color-mix(in srgb, var(--surface), black 10%);
+}
+
+/* ================= BUTTONS ================= */
+.rbc-toolbar button {
+  color: var(--text);
+}
+
+.rbc-toolbar button:hover {
+  background: color-mix(in srgb, var(--btn-100), transparent 85%);
+}
+
+/* ================= SCROLL ================= */
+.rbc-time-content {
+  border-top: none !important;
+}
+
+/* ================= SMOOTH UI ================= */
+.rbc-calendar * {
+  transition: background 0.2s ease, color 0.2s ease;
 }

@@ -1,9 +1,12 @@
 "use client";
 
-import { useResetPasswordMutation } from "@/features/slices/resetPasswordSlice";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+
+import { useResetPasswordMutation } from "@/features/slices/resetPasswordSlice";
+
 import React, { useState } from "react";
+
 import toast from "react-hot-toast";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
@@ -18,6 +21,8 @@ function UpdatePassword() {
     confirmPassword: "",
   });
 
+  const router = useRouter();
+
   // Getting Token From URL Params
   const { token } = useParams();
 
@@ -28,8 +33,6 @@ function UpdatePassword() {
   }
 
   const [resetPass, { isLoading }] = useResetPasswordMutation();
-
-  const router = useRouter();
 
   //   Handling Form Change
   const handleChange = (e) => {

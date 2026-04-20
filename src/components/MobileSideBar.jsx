@@ -101,7 +101,8 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
           >
             <div className="flex justify-center-safe items-center-safe relative">
               <Link
-                href="/"
+                href="/org/dashboard"
+                onClick={() => setIsDialogOpen(false)}
                 className="flex items-center justify-center w-full h-18 rounded-2xl overflow-hidden"
               >
                 <Image

@@ -29,6 +29,7 @@ import {
   useGoogleTokenMutation,
 } from "@/features/slices/userSlice";
 import ReusableTable from "@/components/ui/ReusableTable";
+import { getSocket } from "@/lib/socket";
 
 function LeadManagement() {
   const dispatch = useDispatch();
@@ -179,10 +180,7 @@ function LeadManagement() {
   useEffect(() => {
     if (!orgId) return;
 
-    const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, {
-      transports: ["websocket"],
-      withCredentials: true,
-    });
+    const socket = getSocket(me?.data);
 
     const orgKey = String(orgId);
     const batchKey = `batch-update-${orgKey}`;
@@ -195,24 +193,28 @@ function LeadManagement() {
       }
     };
 
-    socket.on(batchKey, (data) => {
+    const batchHandler = (data) => {
       clearAutoHide();
 
       const progress = data?.total
         ? Math.min(100, Math.round((data.current / data.total) * 100))
         : 0;
 
+      const baseState = {
+        visible: true,
+        current: data.current || 0,
+        total: data.total || 0,
+        progress,
+        updatedAt: new Date().toLocaleTimeString(),
+      };
+
       if (data.status === "success") {
         setSocketNotice({
-          visible: true,
+          ...baseState,
           status: "success",
           title: "Batch completed",
-          message:
-            data.message || "Your leads have been imported successfully.",
-          current: data.total || 0,
-          total: data.total || 0,
+          message: data.message,
           progress: 100,
-          updatedAt: new Date().toLocaleTimeString(),
         });
 
         dispatch(leadsApi.util.invalidateTags(["Leads"]));
@@ -224,82 +226,63 @@ function LeadManagement() {
         return;
       }
 
-      if (data.status === "error") {
-        setSocketNotice({
-          visible: true,
-          status: "error",
-          title: "Batch failed",
-          message:
-            data.message || "Something went wrong while processing the file.",
-          current: data.current || 0,
-          total: data.total || 0,
-          progress,
-          updatedAt: new Date().toLocaleTimeString(),
-        });
-
-        return;
-      }
-
       if (data.status === "processing") {
         setSocketNotice({
-          visible: true,
+          ...baseState,
           status: "processing",
           title: "Processing leads",
-          message:
-            data.message || "Your file is being processed in the background.",
-          current: data.current || 0,
-          total: data.total || 0,
-          progress,
-          updatedAt: new Date().toLocaleTimeString(),
+          message: data.message,
         });
-
         return;
       }
 
       if (data.status === "warning") {
         setSocketNotice({
-          visible: true,
+          ...baseState,
           status: "warning",
           title: "Warning",
-          message: data.message || "Warning of wrong number",
-          current: data.current || 0,
-          total: data.total || 0,
-          progress,
-          updatedAt: new Date().toLocaleTimeString(),
+          message: data.message,
         });
-
         return;
       }
-    });
 
-    socket.on(scoreKey, (data) => {
-      console.log("Received Score Update:", data);
+      if (data.status === "error") {
+        setSocketNotice({
+          ...baseState,
+          status: "error",
+          title: "Batch failed",
+          message: data.message,
+        });
+        return;
+      }
+    };
 
+    const scoreHandler = (data) => {
       clearAutoHide();
 
       setSocketNotice({
         visible: true,
         status: "success",
         title: "Lead scores updated",
-        message: data?.message || "Lead scores were refreshed successfully.",
-        current: 0,
-        total: 0,
+        message: data?.message,
         progress: 100,
         updatedAt: new Date().toLocaleTimeString(),
       });
 
-      dispatch(leadsApi.util.invalidateTags(["leads"]));
+      dispatch(leadsApi.util.invalidateTags(["Leads"]));
 
       hideNoticeTimerRef.current = setTimeout(() => {
         setSocketNotice((prev) => ({ ...prev, visible: false }));
       }, 2500);
-    });
+    };
+
+    socket.on(batchKey, batchHandler);
+    socket.on(scoreKey, scoreHandler);
 
     return () => {
       clearAutoHide();
-      socket.off(batchKey);
-      socket.off(scoreKey);
-      socket.disconnect();
+      socket.off(batchKey, batchHandler);
+      socket.off(scoreKey, scoreHandler);
     };
   }, [orgId, dispatch]);
 

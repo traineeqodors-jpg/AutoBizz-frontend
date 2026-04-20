@@ -195,7 +195,7 @@ function LeadCalendar() {
             </div>
           </div>
 
-          <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-2xl p-2 sm:p-8 inset-shadow-sm/10 shadow-sm border border-white/50 overflow-hidden relative">
+          <div className="flex-1 bg-surface/70 dark:bg-surface/80 backdrop-blur-sm rounded-2xl p-2 sm:p-4 inset-shadow-sm/10 shadow-sm border border-white/50 dark:border-border overflow-hidden relative">
             <AnimatePresence mode="wait" custom={direction}>
               {isLoading ? (
                 <motion.div
@@ -203,7 +203,7 @@ function LeadCalendar() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-50 bg-white/40 backdrop-blur-xl flex items-center justify-center"
+                  className="absolute inset-0 z-50 bg-white/40 dark:bg-black/40 backdrop-blur-xl"
                 >
                   <div className="w-16 h-16 border-8 border-back border-t-btn-100 rounded-full animate-spin" />
                 </motion.div>
@@ -230,7 +230,8 @@ function LeadCalendar() {
                       toolbar: CustomToolbar,
                     }}
                     eventPropGetter={() => ({
-                      className: "!bg-btn-100 !rounded-lg !border-0 shadow-sm",
+                      className:
+                        "!bg-gradient-to-r from-btn-100 to-btn-200 !text-white !rounded-lg !border-0 shadow-md hover:scale-[1.02] transition-all",
                     })}
                     onSelectEvent={(e) =>
                       e.meetLink && window.open(e.meetLink, "_blank")

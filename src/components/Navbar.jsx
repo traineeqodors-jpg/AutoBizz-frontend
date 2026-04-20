@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="py-2 w-full flex lg:hidden justify-between px-4 sm:px-10 items-center bg-surface border-b border-gray-300 relative">
       <Link
-        href="/dashboard"
+        href="/org/dashboard"
         className="size-16 overflow-hidden flex flex-col justify-center items-center rounded-lg"
       >
         <Image
@@ -52,7 +52,7 @@ const Navbar = () => {
         >
           <IoMenu
             className={`size-8 transition-transform duration-300 ${
-              isDialogOpen ? "rotate-90 scale-110" : "rotate-0 scale-100"
+              isDialogOpen ? "scale-110" : "scale-100"
             } active:scale-90`}
           />
         </button>
