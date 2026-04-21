@@ -243,7 +243,7 @@ Route protection is enforced using the `AuthGuard` component.
 
 - **Tailwind CSS 4** for utility-first styling.
 - **Framer Motion** for smooth animations and transitions.
-- **Lucide React** for consistent iconography.
+- **Lucide React & React Icons** for consistent iconography.
 - **Next Themes** for dark/light mode support.
 - Custom UI components are located in `src/components/ui/`.
 
