@@ -1,21 +1,25 @@
 "use client";
+
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaCalendarAlt, FaUsers } from "react-icons/fa";
-import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
-import { IoMdDocument } from "react-icons/io";
-import { BiSolidVideos } from "react-icons/bi";
-import ThemeSwitch from "./ui/ThemeSwitch";
 import { useRouter } from "next/navigation";
-import { MdDashboard } from "react-icons/md";
-import toast from "react-hot-toast";
+import Image from "next/image";
+
 import {
-  useGetMeQuery,
   useLogoutMutation,
   userApi,
 } from "@/features/slices/userSlice";
 import { useDispatch } from "react-redux";
-import Image from "next/image";
+
+import ThemeSwitch from "./ui/ThemeSwitch";
+
+import { FaCalendarAlt, FaUsers } from "react-icons/fa";
+import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
+import { IoMdDocument } from "react-icons/io";
+import { BiSolidVideos } from "react-icons/bi";
+import { MdDashboard } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const NavLink = ({ href, icon: Icon, label }) => {
   const pathname = usePathname();

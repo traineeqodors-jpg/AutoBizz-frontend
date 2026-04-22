@@ -1,5 +1,6 @@
+import { getSocket } from "@/lib/socket";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { io } from "socket.io-client";
+import { userApi } from "./userSlice";
 
 export const videoGenerationApi = createApi({
   reducerPath: "videoGenerationApi",
@@ -19,9 +20,13 @@ export const videoGenerationApi = createApi({
 
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState },
       ) {
-        const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL);
+        const user = userApi.endpoints.getMe.select()(getState())?.data?.data;
+
+        const socket = getSocket(user);
+
+        if (!socket) return;
 
         try {
           await cacheDataLoaded;
@@ -41,7 +46,7 @@ export const videoGenerationApi = createApi({
         }
 
         await cacheEntryRemoved;
-        socket.close();
+        socket.off("video_updated");
       },
     }),
 

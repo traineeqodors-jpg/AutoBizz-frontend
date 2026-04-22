@@ -1,4 +1,4 @@
-import { FaRegCalendarAlt, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 const EmployeeFilter = ({
   searchTerm,

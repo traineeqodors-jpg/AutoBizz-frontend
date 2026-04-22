@@ -1,48 +1,46 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { GrMagic } from "react-icons/gr";
-import videoAvatar from "@/Json data/videoAvatar.json";
-import { toast } from "react-hot-toast";
-import { FaPlay } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import CustomToast from "./CustomToast";
-import GenerateScript from "./GenerateScript";
+
+import videoAvatar from "@/Json data/videoAvatar.json";
+
 import { useGenerateScriptMutation } from "@/features/slices/scriptGenerationSlice";
 import { useGetMyDocumentsQuery } from "@/features/slices/documentSlice";
 import { useGenerateVideoMutation } from "@/features/slices/videoGenerationSlice";
+
+import { useEffect, useRef, useState } from "react";
+
+import { GrMagic } from "react-icons/gr";
+import { toast } from "react-hot-toast";
+import { FaPlay } from "react-icons/fa";
+
+import CustomToast from "./CustomToast";
+import GenerateScript from "./GenerateScript";
 import GenerateVideo from "./GenerateVideo";
 
 function GenerateSOP({ isHome }) {
+  const router = useRouter();
+
   const [aiContext, setAiContext] = useState(null);
-
-  const [script, { isLoading, isFetching }] = useGenerateScriptMutation();
-
   const [selectedAvatar, setSelectedAvatar] = useState({
     avatar_id: videoAvatar.avatars[0].talking_photo_id,
     voice_id: videoAvatar.avatars[0].voice_id,
   });
+  const [videoScript, setVideoScript] = useState("");
 
   const activeRequestRef = useRef(null);
+  const genVideoRef = useRef(null);
+  const genScriptRef = useRef(null);
 
+  const [script, { isLoading, isFetching }] = useGenerateScriptMutation();
   const { data } = useGetMyDocumentsQuery();
-
   const documents = data?.data || [];
-
-  const router = useRouter();
-
   const [generateVideo, { isLoading: videoLoading }] =
     useGenerateVideoMutation();
 
-  const [videoScript, setVideoScript] = useState("");
-
-  const genVideoRef = useRef(null);
-
-  const genScriptRef = useRef(null);
 
   useEffect(() => {
     const currentRequest = activeRequestRef.current;
-
     return () => {
       if (currentRequest) {
         currentRequest.abort();
@@ -52,7 +50,6 @@ function GenerateSOP({ isHome }) {
 
   async function handleSOPVideoGeneration(e) {
     e.preventDefault();
-
     if (!videoScript.trim()) {
       return toast.error("No Scirpt Found");
     }
@@ -61,8 +58,6 @@ function GenerateSOP({ isHome }) {
       avatar_id: selectedAvatar.avatar_id,
       voice_id: selectedAvatar.voice_id,
     };
-
-    console.log(requestBody);
 
     try {
       await generateVideo(requestBody).unwrap();

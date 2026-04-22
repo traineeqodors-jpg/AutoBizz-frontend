@@ -1,8 +1,9 @@
-// providers/SocketProvider.jsx
 "use client";
 
-import { useEffect, useRef } from "react";
+
 import { getSocket } from "@/lib/socket";
+import { useEffect, useRef } from "react";
+
 
 export default function SocketProvider({ user, children }) {
   const userId = user?.orgId || user?.id;

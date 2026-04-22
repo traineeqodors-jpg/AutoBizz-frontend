@@ -1,20 +1,24 @@
 "use client";
 
-import AnimatedWrapper from "@/components/AnimatedWrapper";
-import EmployessHeader from "./components/EmployeesHeader";
-import DeleteDialog from "@/components/ui/DeleteDialog";
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import EmployeeFilter from "./components/EmployeeFilter";
-import EmployeeTable from "./components/EmployeeTable";
-import MobileEmployeeView from "./components/MobileEmployeeView";
-import toast from "react-hot-toast";
+
 import {
   useCreateEmployeeMutation,
   useDeleteEmployeeMutation,
   useGetAllEmployeeQuery,
   useUpdateEmployeeMutation,
 } from "@/features/slices/employeeSlice";
+
+import { useEffect, useRef, useState } from "react";
+
+import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
+
+import AnimatedWrapper from "@/components/AnimatedWrapper";
+import EmployessHeader from "./components/EmployeesHeader";
+import DeleteDialog from "@/components/ui/DeleteDialog";
+import EmployeeFilter from "./components/EmployeeFilter";
+import EmployeeTable from "./components/EmployeeTable";
+import MobileEmployeeView from "./components/MobileEmployeeView";
 import ReusableTable from "@/components/ui/ReusableTable";
 
 function EmployeeManagement() {

@@ -1,9 +1,12 @@
 "use client";
 
-import Loading from "@/app/loading";
-import { useGetMeQuery } from "@/features/slices/userSlice";
 import { useRouter, usePathname } from "next/navigation";
+
+import { useGetMeQuery } from "@/features/slices/userSlice";
+
 import { useEffect, useMemo } from "react";
+
+import Loading from "@/app/loading";
 
 // Role-based permissions
 const ROLE_PERMISSIONS = {
@@ -85,7 +88,7 @@ export default function AuthGuard({ children }) {
   useEffect(() => {
     if (isLoading) return;
 
-    // PUBLIC → allow always
+    // PUBLIC -> allow always
     if (routeType === "public") return;
 
     // AUTH-ONLY
@@ -96,7 +99,7 @@ export default function AuthGuard({ children }) {
       return;
     }
 
-    // publicSafe → never redirect
+    // publicSafe -> never redirect
     if (routeType === "publicSafe") return;
 
     // PROTECTED

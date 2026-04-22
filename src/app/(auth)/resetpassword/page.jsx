@@ -1,10 +1,17 @@
 "use client";
-import React, { useState } from "react";
-import { useForgotPasswordMutation } from "@/features/slices/resetPasswordSlice";
+
+
 import Link from "next/link";
+
+import { useForgotPasswordMutation } from "@/features/slices/resetPasswordSlice";
+
+import React, { useState } from "react";
+
 import toast from "react-hot-toast";
 
-const ResetPassword = ({}) => {
+
+const ResetPassword = ({ }) => {
+  
   const [email, setEmail] = useState("");
 
   const [forgotPassword, { isLoading, isSuccess }] =
@@ -34,6 +41,7 @@ const ResetPassword = ({}) => {
       );
     }
   };
+
   return (
     <>
       <div className="min-h-screen w-full flex items-center justify-center p-3">

@@ -1,19 +1,21 @@
 "use client";
 
+
+import { Suspense } from "react";
+
+import { useGetMeQuery } from "@/features/slices/userSlice";
+
 import OrgInfo from "./components/OrgInfo";
 import OrgCard from "./components/OrgCard";
 import SupportCard from "./components/SupportCard";
 import GenerateSOP from "@/components/ui/GenerateSOP";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 import Leads from "./components/Leads";
-import { Suspense } from "react";
 import Analysis from "./components/Analysis";
-import { useGetMeQuery } from "@/features/slices/userSlice";
 import EmployeeSOPBanner from "./components/EmployeeSOPBanner";
 
 export default function Dashboard() {
   const { data } = useGetMeQuery();
-
   const user = data?.data;
   const role = user?.role;
 

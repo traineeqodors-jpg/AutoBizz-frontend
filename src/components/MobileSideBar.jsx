@@ -1,21 +1,24 @@
 "use client";
 
-import { use, useEffect, useRef, useState } from "react";
-import { FaCalendarAlt, FaHome, FaUsers } from "react-icons/fa";
-import { RxCross2 } from "react-icons/rx";
-import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
-import { IoMdDocument } from "react-icons/io";
-import { BiSolidVideos } from "react-icons/bi";
-import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+
 import {
   useGetMeQuery,
   useLogoutMutation,
   userApi,
 } from "@/features/slices/userSlice";
 import { useDispatch } from "react-redux";
-import Image from "next/image";
+
+import { useEffect, useRef } from "react";
+
+import { FaCalendarAlt, FaHome, FaUsers } from "react-icons/fa";
+import { RxCross2 } from "react-icons/rx";
+import { IoCall, IoLogIn, IoPeopleSharp } from "react-icons/io5";
+import { IoMdDocument } from "react-icons/io";
+import { BiSolidVideos } from "react-icons/bi";
+import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 
 // NavLink component

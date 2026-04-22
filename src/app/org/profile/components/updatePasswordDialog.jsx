@@ -1,11 +1,13 @@
 "use client";
 
+
+import { useUpdatePasswordMutation } from "@/features/slices/resetPasswordSlice";
+
 import React, { useState } from "react";
 import { IoCloseSharp, IoEyeSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { useUpdatePasswordMutation } from "@/features/slices/resetPasswordSlice";
 
 const UpdatePasswordDialog = ({ dialogRef }) => {
   const [input, setInput] = useState({

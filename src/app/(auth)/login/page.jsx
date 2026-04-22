@@ -1,30 +1,37 @@
 "use client";
 
-import FormLeftSIde from "../register/components/FormLeftSIde";
-import { useState } from "react";
-import Link from "next/link";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import BusinessLoginForm from "./components/BusinessLoginForm";
-import EmployeeLoginForm from "./components/EmployeeLoginForm";
+
 import {
   useEmployeeLoginMutation,
   useLoginOrgMutation,
 } from "@/features/slices/userSlice";
 
+
+import { useState } from "react";
+
+
+import toast from "react-hot-toast";
+
+import BusinessLoginForm from "./components/BusinessLoginForm";
+import EmployeeLoginForm from "./components/EmployeeLoginForm";
+import FormLeftSIde from "../register/components/FormLeftSIde";
+
+
 const LoginPage = () => {
+
   const [userType, setUserType] = useState("Business");
   const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState({});
 
-  const [orglogin, { isLoading: orgLoading }] = useLoginOrgMutation();
 
+  const [orglogin, { isLoading: orgLoading }] = useLoginOrgMutation();
   const [emplogin, { isLoading: empLoading }] = useEmployeeLoginMutation();
 
   const router = useRouter();

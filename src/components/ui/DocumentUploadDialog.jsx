@@ -1,15 +1,21 @@
 "use client";
 
+
+import { useRouter } from "next/navigation";
+
 import { useEffect, useRef, useState } from "react";
+
+import { useGetMeQuery } from "@/features/slices/userSlice";
+import { useUploadDocumentsMutation } from "@/features/slices/documentSlice";
+
+import { getSocket } from "@/lib/socket";
+
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-hot-toast";
 import { FaExclamationCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import CustomToast from "./CustomToast";
-import { useUploadDocumentsMutation } from "@/features/slices/documentSlice";
-import { getSocket } from "@/lib/socket";
-import { useGetMeQuery } from "@/features/slices/userSlice";
+
 
 function DocumentUploadDialog({ dialogRef }) {
   const [docFile, setDocFile] = useState(null);
@@ -124,7 +130,7 @@ function DocumentUploadDialog({ dialogRef }) {
           </div>
 
           {/* Heading */}
-          <h1 className="text-xl font-bold text-center">Upload Document</h1>
+          <h1 className="text-xl font-bold text-center">Business Upload Document</h1>
 
           {/* File */}
           <label className="block cursor-pointer border p-3 rounded-xl">

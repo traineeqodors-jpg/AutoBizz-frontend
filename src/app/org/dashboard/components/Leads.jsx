@@ -1,8 +1,11 @@
 "use client";
 
-import { useGetAllLeadsQuery } from "@/features/slices/leadSlice";
+
 import Image from "next/image";
 import Link from "next/link";
+
+import { useGetAllLeadsQuery } from "@/features/slices/leadSlice";
+
 
 function Leads() {
   const { data, isLoading: leadsLoading } = useGetAllLeadsQuery({

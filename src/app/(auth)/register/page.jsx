@@ -1,12 +1,17 @@
 "use client";
+
+
+import { useRouter } from "next/navigation";
+
+import { useRegisterOrgMutation } from "@/features/slices/userSlice";
+
 import { useState } from "react";
+
+import toast from "react-hot-toast";
+
 import FormLeftSIde from "./components/FormLeftSIde";
 import SignupForm from "./components/SignupForm";
 import AnimatedWrapper from "../../../components/AnimatedWrapper";
-import toast from "react-hot-toast";
-
-import { useRouter } from "next/navigation";
-import { useRegisterOrgMutation } from "@/features/slices/userSlice";
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -20,11 +25,11 @@ const Register = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-
   const [errors, setErrors] = useState({});
-  // Mutation Hook
-  const [register, { isLoading }] = useRegisterOrgMutation();
+  
 
+  const [register, { isLoading }] = useRegisterOrgMutation();
+  
   const router = useRouter();
 
   //   Handling Input Chnage

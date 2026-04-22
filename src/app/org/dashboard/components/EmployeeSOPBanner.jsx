@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import { FaPlay } from "react-icons/fa";
 import { GrMagic } from "react-icons/gr";
-import Link from "next/link";
 
 function EmployeeSOPBanner() {
   return (

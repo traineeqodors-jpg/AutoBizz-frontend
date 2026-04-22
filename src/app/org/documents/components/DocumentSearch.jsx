@@ -1,6 +1,6 @@
-import DocumentUploadDialog from "@/components/ui/DocumentUploadDialog";
 import { Upload } from "lucide-react";
 import { IoSearchOutline } from "react-icons/io5";
+import DocumentUploadDialog from "@/components/ui/DocumentUploadDialog";
 
 const DocumentSearch = ({ setSearchTerm, searchTerm, dialogRef }) => {
   return (

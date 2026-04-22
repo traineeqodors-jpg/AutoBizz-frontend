@@ -1,13 +1,17 @@
 "use client";
 
-import DocumentUploadDialog from "@/components/ui/DocumentUploadDialog";
-import { useGetOrgDetailsQuery } from "@/features/slices/orgDetailsSlice";
+
 import { useRouter } from "next/navigation";
+
+import { useGetOrgDetailsQuery } from "@/features/slices/orgDetailsSlice";
+
 import { useRef } from "react";
+
 import { FaEdit } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 
-// import DocuementUploadDialog from "./DocuementUploadDialog";
+import DocumentUploadDialog from "@/components/ui/DocumentUploadDialog";
+
 
 const OrgInfo = ({ user, isOwner }) => {
   const dialogRef = useRef(null);

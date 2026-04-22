@@ -1,24 +1,31 @@
 "use client";
 
+
+import { useGetAllMeetingsQuery } from "@/features/slices/meetingSlice";
+import {
+  useGetMeQuery,
+  useGoogleTokenMutation,
+} from "@/features/slices/userSlice";
+
 import { useMemo, useState, useCallback } from "react";
+
+
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useGoogleLogin } from "@react-oauth/google";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { FaGoogle } from "react-icons/fa";
 import {
   IoChevronBack,
   IoChevronForward,
   IoCalendarOutline,
 } from "react-icons/io5";
-import { motion, AnimatePresence } from "framer-motion";
-import { useGoogleLogin } from "@react-oauth/google";
-import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { useGetAllMeetingsQuery } from "@/features/slices/meetingSlice";
+
 import AnimatedWrapper from "@/components/AnimatedWrapper";
-import {
-  useGetMeQuery,
-  useGoogleTokenMutation,
-} from "@/features/slices/userSlice";
+
 
 const localizer = momentLocalizer(moment);
 
@@ -98,8 +105,13 @@ const CustomToolbar = (toolbar) => (
 );
 
 function LeadCalendar() {
-  const { data: user } = useGetMeQuery();
+  // Track state to trigger animations on change
+  const [view, setView] = useState("month");
+  const [date, setDate] = useState(new Date());
+  const [direction, setDirection] = useState(1);
 
+
+  const { data: user } = useGetMeQuery();
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
 
   const { data, isLoading } = useGetAllMeetingsQuery(undefined, {
@@ -107,11 +119,6 @@ function LeadCalendar() {
   });
 
   const [googleToken] = useGoogleTokenMutation();
-
-  // Track state to trigger animations on change
-  const [view, setView] = useState("month");
-  const [date, setDate] = useState(new Date());
-  const [direction, setDirection] = useState(1);
 
   const events = useMemo(() => {
     const meetings = data?.data?.meetings || [];
@@ -203,9 +210,9 @@ function LeadCalendar() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-50 bg-white/40 dark:bg-black/40 backdrop-blur-xl"
+                  className="absolute inset-0 z-50 bg-white/40 dark:bg-black/40 backdrop-blur-xl flex items-center justify-center"
                 >
-                  <div className="w-16 h-16 border-8 border-back border-t-btn-100 rounded-full animate-spin" />
+                  <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin" />
                 </motion.div>
               ) : (
                 <motion.div

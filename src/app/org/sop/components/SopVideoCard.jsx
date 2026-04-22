@@ -1,6 +1,7 @@
+import { useRef, useState } from "react";
+
 import { IoIosWarning } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useRef, useState } from "react";
 import ViewScript from "./ViewScript";
 
 const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo, isOwner }) => {

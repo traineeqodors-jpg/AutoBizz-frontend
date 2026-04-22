@@ -1,7 +1,9 @@
 "use client";
 
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 import { HiArrowLeft } from "react-icons/hi";
 
 export default function NotFound() {

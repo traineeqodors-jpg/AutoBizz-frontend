@@ -1,31 +1,36 @@
 "use client";
 
-import FormLeftSIde from "@/app/(auth)/register/components/FormLeftSIde";
-import { useSetupPasswordMutation } from "@/features/slices/employeeSlice";
+
 import { useRouter, useSearchParams } from "next/navigation";
+
+import { useSetupPasswordMutation } from "@/features/slices/employeeSlice";
+
+
 import React, { useState } from "react";
+
 import toast from "react-hot-toast";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 
+import FormLeftSIde from "@/app/(auth)/register/components/FormLeftSIde";
+
+
 function SetupPasswordPage() {
+  const [input, setInput] = useState({
+    password: "",
+    confirmpassword: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
   const router = useRouter();
 
-  const [input, setInput] = useState({
-    password: "",
-    confirmpassword: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
   const [setPassword, { isLoading }] = useSetupPasswordMutation();
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

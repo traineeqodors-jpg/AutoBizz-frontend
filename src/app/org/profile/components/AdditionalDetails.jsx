@@ -1,25 +1,29 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { TbInfoCircleFilled } from "react-icons/tb";
+
 import businessesCategory from "../../../../Json data/businesses.json";
-import { DatePicker } from "react-datepicker";
-import { toast } from "react-hot-toast";
+
 import {
   useAddOrgDetailsMutation,
   useGetOrgDetailsQuery,
 } from "@/features/slices/orgDetailsSlice";
 
+import { useRef, useState } from "react";
+
+import { TbInfoCircleFilled } from "react-icons/tb";
+import { DatePicker } from "react-datepicker";
+import { toast } from "react-hot-toast";
+
 function AdditionalDetails() {
   const [status, setStatus] = useState("");
-  const { data, isLoading, refetch } = useGetOrgDetailsQuery();
-  const [updateInfo, { isLoading: updateLoading }] = useAddOrgDetailsMutation();
-
   const [description, setDescription] = useState(null);
   const [category, setCategory] = useState(null);
   const [year, setYear] = useState(null);
 
   const timeoutRef = useRef(null);
+
+  const { data, isLoading, refetch } = useGetOrgDetailsQuery();
+  const [updateInfo, { isLoading: updateLoading }] = useAddOrgDetailsMutation();
 
   async function handleInformationChange(e) {
     const { name, value } = e.target;

@@ -1,9 +1,10 @@
 "use client";
 
+
 import { useState } from "react";
+
 import { FaUserEdit, FaCheck, FaGlobeAmericas } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-// Added more specific heroicons for a modern look
 import {
   HiUser,
   HiMail,
@@ -21,7 +22,9 @@ const ProfileInfo = ({ user, onSave }) => {
     "profileImage",
     "googleRefreshToken",
     "isVerified",
+    "type"
   ];
+  
   const [isEditing, setIsEditing] = useState(false);
   const [formFields, setFormFields] = useState(user);
 
@@ -82,7 +85,7 @@ const ProfileInfo = ({ user, onSave }) => {
         value={value || ""}
         onChange={handleChange}
         className={baseClass}
-        disabled={key === "country"}
+        disabled={key === "country" || key === "email" || key === "phoneNumber"}
       />
     );
   };

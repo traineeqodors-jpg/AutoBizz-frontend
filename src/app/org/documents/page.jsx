@@ -1,10 +1,13 @@
 "use client";
 
+
 import {
   useDeleteDocumentMutation,
   useGetMyDocumentsQuery,
 } from "@/features/slices/documentSlice";
+
 import { useMemo, useRef, useState } from "react";
+
 import DocumentSearch from "./components/DocumentSearch";
 import { IoSearchOutline } from "react-icons/io5";
 import DeleteDialog from "@/components/ui/DeleteDialog";
@@ -14,19 +17,19 @@ import Loading from "@/app/loading";
 import toast from "react-hot-toast";
 
 export default function Documents() {
-  //fetch documents
-  const { data, isLoading } = useGetMyDocumentsQuery();
-
-  //delete documents
-  const [deleteDocument, { isLoading: isDeleting }] =
-    useDeleteDocumentMutation();
-
   //states
   const [searchTerm, setSearchTerm] = useState(""); //search box
   const [targetDoc, setTargetDoc] = useState(null); //select doc
 
   const deleteModalRef = useRef(null); //delete dialog ref
   const dialogRef = useRef(null);
+
+  //fetch documents
+  const { data, isLoading } = useGetMyDocumentsQuery();
+
+  //delete documents
+  const [deleteDocument, { isLoading: isDeleting }] =
+    useDeleteDocumentMutation();
 
   // Filter logic for search
   const filteredDocs = useMemo(() => {

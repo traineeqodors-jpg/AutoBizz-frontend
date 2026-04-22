@@ -1,4 +1,5 @@
 "use client";
+
 import { GrMagic } from "react-icons/gr";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
@@ -20,6 +21,7 @@ function GenerateVideo({
 }) {
   const isDisabled =
     videoLoading || !videoScript.trim() || videoScript.trim().length < 400;
+  
   return (
     <dialog
       ref={genVideoRef}

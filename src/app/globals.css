@@ -203,7 +203,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* ================= HEADERS ================= */
 .rbc-header {
   background: color-mix(in srgb, var(--btn-100), transparent 85%);
-  border-radius: 10px;
+  border-radius: 10px !important;
   border: none !important;
   padding: 10px 0;
   font-size: 11px !important;
@@ -218,12 +218,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: var(--text);
 }
 
+.rbc-month-header {
+  gap: 3px !important;
+}
+
 /* ================= GRID ================= */
 
 .rbc-month-row+.rbc-month-row {
   border: none !important;
 }
-
 .rbc-month-view,
 .rbc-time-view {
   border: none !important;

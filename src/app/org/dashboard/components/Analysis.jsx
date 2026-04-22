@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+
 import { Data } from "../../../../Json data/data.js";
+
+import { useState } from "react";
+
 import {
   Chart as ChartJS,
   CategoryScale,

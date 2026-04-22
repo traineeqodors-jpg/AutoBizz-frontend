@@ -1,11 +1,17 @@
 "use client";
+
+
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react"; // Removed useEffect
+
+import { useState } from "react";
+
 import { IoMenu } from "react-icons/io5";
 import { MdDarkMode, MdSunny } from "react-icons/md";
+
 import MobileSideBar from "./MobileSideBar";
-import Image from "next/image";
+
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();

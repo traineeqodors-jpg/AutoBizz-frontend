@@ -1,17 +1,22 @@
 "use client";
+
+
 import React, { useMemo, useState } from "react";
-import SopVideoCard from "./components/SopVideoCard";
-import { IoSearchOutline } from "react-icons/io5";
+
 import {
   useDeleteVideoMutation,
   useGetAllVideosQuery,
 } from "@/features/slices/videoGenerationSlice";
-import SearchFilterVideos from "./components/SearchFilterVideos";
+import { useGetMeQuery } from "@/features/slices/userSlice";
+
 import toast from "react-hot-toast";
+import { IoSearchOutline } from "react-icons/io5";
+
 import GenerateSOP from "@/components/ui/GenerateSOP";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
-import { useGetMeQuery } from "@/features/slices/userSlice";
+import SopVideoCard from "./components/SopVideoCard";
 import SopVideoCardSkeleton from "./components/SopVideoCardSkeleton";
+import SearchFilterVideos from "./components/SearchFilterVideos";
 
 function SopPage() {
   // Filtering State
@@ -82,7 +87,8 @@ function SopPage() {
           />
         </div>
 
-        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-8 justify-center bg-surface dark:border-0 py-5 px-3 sm:py-10 rounded-3xl shadow-sm border border-white">
+        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-8 justify-center bg-surface dark:border-0 py-5 px-3 rounded-3xl shadow-sm">
+          {" "}
           {/* Video Card */}
           {isLoading ? (
             <>

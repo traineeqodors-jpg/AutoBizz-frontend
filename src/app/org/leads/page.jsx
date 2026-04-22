@@ -1,25 +1,12 @@
 "use client";
 
-import DeleteDialog from "@/components/ui/DeleteDialog";
-import { io } from "socket.io-client";
+
 import {
   leadsApi,
   useAddLeadCsvMutation,
   useDeleteLeadMutation,
   useGetAllLeadsQuery,
 } from "@/features/slices/leadSlice";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import toast from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
-import LeadHeader from "./components/LeadHeader";
-import LeadCards from "./components/LeadCards";
-import LeadFilter from "./components/LeadFilter";
-import MobileLeadsView from "./components/MobileLeadsView";
-import LeadTable from "./components/LeadTable";
-import { useGoogleLogin } from "@react-oauth/google";
-import AnimatedWrapper from "@/components/AnimatedWrapper";
-import { useDispatch, useSelector } from "react-redux";
 import {
   resetFilters,
   updateFilters,
@@ -28,7 +15,26 @@ import {
   useGetMeQuery,
   useGoogleTokenMutation,
 } from "@/features/slices/userSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useGoogleLogin } from "@react-oauth/google";
+
+import React, { useEffect, useMemo, useRef, useState } from "react";
+
+import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
+import { FaGoogle } from "react-icons/fa";
+
+import LeadHeader from "./components/LeadHeader";
+import LeadCards from "./components/LeadCards";
+import LeadFilter from "./components/LeadFilter";
+import MobileLeadsView from "./components/MobileLeadsView";
+import LeadTable from "./components/LeadTable";
+import AnimatedWrapper from "@/components/AnimatedWrapper";
+import DeleteDialog from "@/components/ui/DeleteDialog";
 import ReusableTable from "@/components/ui/ReusableTable";
+
 import { getSocket } from "@/lib/socket";
 
 function LeadManagement() {

@@ -1,6 +1,10 @@
 "use client";
+
+
 import { useTheme } from "next-themes";
+
 import { useEffect, useState } from "react";
+
 import { MdDarkMode, MdSunny } from "react-icons/md";
 
 const ThemeSwitch = () => {

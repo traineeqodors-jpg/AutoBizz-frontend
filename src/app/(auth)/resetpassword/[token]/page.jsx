@@ -15,7 +15,6 @@ function UpdatePassword() {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-
   const [input, setInput] = useState({
     newPassword: "",
     confirmPassword: "",

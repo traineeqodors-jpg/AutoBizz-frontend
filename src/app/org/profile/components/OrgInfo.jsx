@@ -1,7 +1,8 @@
 "use client";
 
+
 import { FaIndustry, FaUser } from "react-icons/fa";
-import { MdOutlinePlace, MdDescription } from "react-icons/md"; // Added Description icon
+import { MdOutlinePlace, MdDescription } from "react-icons/md";
 
 const OrgDetails = ({ orgData, orgDetailsLoading }) => {
   const hiddenFields = [

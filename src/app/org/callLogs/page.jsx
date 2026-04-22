@@ -1,22 +1,28 @@
 "use client";
 
-import DeleteDialog from "@/components/ui/DeleteDialog";
 import {
   useDeleteCallLogMutation,
   useGetAllCallLogsQuery,
 } from "@/features/slices/callLogSlice";
+
 import React, { useEffect, useRef, useState } from "react";
+
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegCalendarAlt } from "react-icons/fa";
+
 import SearchFilterCallLog from "./components/SearchFilterCallLog";
 import EmptyCallLog from "./components/EmptyCallLog";
 import CallLogTable from "./components/CallLogTable";
 import MobileCallLogView from "./components/MobileCallLogView";
 import DetailModal from "./components/DetailModal";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
+import DeleteDialog from "@/components/ui/DeleteDialog";
 
 function CallLogsPage() {
+  const [selectedLog, setSelectedLog] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+
   // State for Backend Filtering (Updated with Dates)
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -30,6 +36,12 @@ function CallLogsPage() {
     sortBy: "createdAt",
     order: "DESC",
   });
+  const deleteModalRef = useRef(null);
+
+  
+  // RTK Query Hook
+  const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters);
+  const [deleteCallLog, { isLoading: isDeleting }] = useDeleteCallLogMutation();
 
   // Debounce Search Logic
   useEffect(() => {
@@ -39,16 +51,8 @@ function CallLogsPage() {
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
 
-  // RTK Query Hook
-  const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters);
-
-  const [deleteCallLog, { isLoading: isDeleting }] = useDeleteCallLogMutation();
-  const deleteModalRef = useRef(null);
-
   const logs = data?.data?.logs || [];
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
-  const [selectedLog, setSelectedLog] = useState(null);
-  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // 4. Handlers
   const handleStatusFilter = (status) => {
@@ -97,8 +101,6 @@ function CallLogsPage() {
       toast.error(err?.data?.message || "Deletion failed");
     }
   };
-
-  // if (isLoading) return <LoadingElement />;
 
   return (
     <AnimatedWrapper>

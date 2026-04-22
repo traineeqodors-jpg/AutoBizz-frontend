@@ -1,35 +1,41 @@
 "use client";
 
-import { toast } from "react-hot-toast";
-import { useRef, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { IoCloseOutline, IoCameraOutline } from "react-icons/io5";
 
-import { motion, AnimatePresence } from "framer-motion";
-import ProfileInfo from "./components/ProfileInfo";
-import AdditionalDetails from "./components/AdditionalDetails";
-import AnimatedWrapper from "@/components/AnimatedWrapper";
+import Image from "next/image";
+
 import {
   useGetMeQuery,
   useUpdateOrgMutation,
 } from "@/features/slices/userSlice";
 import { useGetOrgDetailsQuery } from "@/features/slices/orgDetailsSlice";
+
+import { useRef, useState } from "react";
+
+import { toast } from "react-hot-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoCloseOutline, IoCameraOutline } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
+
+import ProfileInfo from "./components/ProfileInfo";
+import AdditionalDetails from "./components/AdditionalDetails";
+import AnimatedWrapper from "@/components/AnimatedWrapper";
 import OrgDetails from "./components/OrgInfo";
-import Image from "next/image";
 import UpdatePasswordDialog from "./components/updatePasswordDialog";
 
 function EditOrgDetails() {
-  const [updateImage, { isLoading: imageIsLoading }] = useUpdateOrgMutation();
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  
   const fileInputRef = useRef(null);
-
   const updatePasswordDialogRef = useRef(null);
+
+  const [updateImage, { isLoading: imageIsLoading }] = useUpdateOrgMutation();
 
   const handleImageChange = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
+    
     try {
       await updateImage(formData).unwrap();
       toast.success("Profile image updated!");
@@ -59,6 +65,8 @@ function EditOrgDetails() {
   const [update] = useUpdateOrgMutation();
 
   const handleProfileSave = async (updatedDetails) => {
+    console.log(updatedDetails);
+    
     try {
       const response = await update(updatedDetails).unwrap();
       toast.success(response?.message);

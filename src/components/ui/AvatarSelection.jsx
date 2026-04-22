@@ -1,6 +1,9 @@
 "use client";
-import React, { useState } from "react";
+
 import Image from "next/image";
+
+import React, { useState } from "react";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 

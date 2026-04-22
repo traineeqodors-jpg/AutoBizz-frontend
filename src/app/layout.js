@@ -1,8 +1,9 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/redux/Providers";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import ToasterProvider from "@/components/ToasterProvider";
-import { Providers } from "@/redux/Providers";
 import AuthGuard from "@/components/AuthGuard";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
