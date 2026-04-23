@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="flex flex-col items-center xl:items-start space-y-3 shrink-0">
           <div className="group bg-white size-24 rounded-2xl shadow-2xl overflow-hidden transition-transform hover:scale-105">
             <Image
-              src="/logo.png"
+              src="/logoDark.png"
               width={200}
               height={200}
               alt="Logo"

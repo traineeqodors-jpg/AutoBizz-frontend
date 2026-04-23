@@ -10,6 +10,15 @@ import {
   HiOfficeBuilding,
   HiIdentification,
 } from "react-icons/hi";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ProfileInfo = ({ user, onSave }) => {
   const hiddenFields = [
@@ -21,6 +30,8 @@ const ProfileInfo = ({ user, onSave }) => {
     "profileImage",
     "googleRefreshToken",
     "isVerified",
+    "type",
+    "onboarding",
   ];
   const [isEditing, setIsEditing] = useState(false);
   const [formFields, setFormFields] = useState(user);
@@ -58,20 +69,31 @@ const ProfileInfo = ({ user, onSave }) => {
 
     if (key === "businessSize" || key === "orgSize") {
       return (
-        <select
-          name={key}
+        <Select
           value={value || ""}
-          onChange={handleChange}
-          className="w-full bg-transparent focus:dark:bg-gray-700 border-b border-gray-300 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-1"
+          onValueChange={(val) =>
+            handleChange({
+              target: {
+                name: key,
+                value: val,
+              },
+            })
+          }
         >
-          <option value="" disabled>
-            -- Size --
-          </option>
-          <option value="1-50">1-50</option>
-          <option value="51-200">51-200</option>
-          <option value="201-500">201-500</option>
-          <option value="500+">500+</option>
-        </select>
+          <SelectTrigger className="w-full bg-transparent border-b border-gray-300 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-1">
+            <SelectValue placeholder="-- Size --" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Size</SelectLabel>
+              <SelectItem value="1-50">1-50</SelectItem>
+              <SelectItem value="51-200">51-200</SelectItem>
+              <SelectItem value="201-500">201-500</SelectItem>
+              <SelectItem value="500+">500+</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       );
     }
 
@@ -91,7 +113,7 @@ const ProfileInfo = ({ user, onSave }) => {
 
   return (
     <div className="w-full bg-surface rounded-2xl shadow-sm overflow-hidden border border-slate-100 dark:border-none dark:shadow-sm dark:shadow-gray-700/30">
-      <div className="text-xl text-text flex gap-2 p-4 bg-gray-50 dark:bg-gray-700 border-b justify-between items-center border-gray-200 w-full">
+      <div className="text-lg sm:text-xl text-text flex gap-2 p-4 bg-gray-50 dark:bg-gray-700 border-b justify-between items-center border-gray-200 w-full">
         <div className="flex flex-row gap-3 items-center">
           <HiUser className="size-6 text-btn-100" /> {/* Changed Icon */}
           <p className="font-bold dark:text-white">

@@ -103,17 +103,15 @@ function GenerateScript({
           {/* Heading Container */}
           <div className="w-full flex flex-row-reverse">
             <button
-              onClick={() => {
-                // Close the dialog
-                genScriptRef.current?.close();
-              }}
+              onClick={() => genScriptRef.current?.close()}
               type="button"
+              className="hover:bg-gray-200 p-2 rounded-full dark:hover:text-black dark:text-white cursor-pointer text-black transition-all"
             >
-              <IoCloseSharp className="text-black dark:text-white size-4 cursor-pointer" />
+              <IoCloseSharp className="size-5" />
             </button>
           </div>
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-text dark:text-white tracking-tight">
+            <h1 className="text-3xl font-bold text-text tracking-tight">
               Prepare Video Script
             </h1>
           </div>

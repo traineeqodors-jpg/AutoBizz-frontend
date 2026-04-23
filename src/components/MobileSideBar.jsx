@@ -105,11 +105,13 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                 onClick={() => setIsDialogOpen(false)}
                 className="flex items-center justify-center w-full h-18 rounded-2xl overflow-hidden"
               >
+                {/* Dark Mode Logo */}
                 <Image
-                  src="/logo.png"
-                  alt="Logo"
+                  src="/logoDark.png"
+                  alt="autobizz"
                   width={200}
                   height={200}
+                  priority
                   className="size-40 object-cover object-center"
                 />
               </Link>
@@ -159,6 +161,13 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                 </>
               )}
 
+              <NavLink
+                href="/org/sop"
+                icon={BiSolidVideos}
+                label="SOP Videos"
+                setIsDialogOpen={setIsDialogOpen}
+              />
+
               {/* OWNER & SALES: Leads and Calendar */}
               {(role === "owner" || role === "sales") && (
                 <>
@@ -177,13 +186,6 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
                   />
                 </>
               )}
-
-              <NavLink
-                href="/org/sop"
-                icon={BiSolidVideos}
-                label="SOP Videos"
-                setIsDialogOpen={setIsDialogOpen}
-              />
 
               {/* Logout */}
               <li
