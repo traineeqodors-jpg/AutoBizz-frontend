@@ -3,6 +3,15 @@ import { IoEyeSharp } from "react-icons/io5";
 // import SocialLogin from "./SocialLogin";
 import countries from "../../../../Json data/country.json";
 import Link from "next/link";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  SelectGroup,
+  SelectLabel,
+} from "@/components/ui/select";
 
 const SignupForm = ({
   input,
@@ -122,21 +131,42 @@ const SignupForm = ({
           >
             Organization Size
           </label>
-          <select
-            name="orgSize"
-            id="orgSize"
+
+          <Select
             value={input.orgSize || ""}
-            onChange={handleChange}
-            className={`w-full py-3 px-4 rounded-xl border m-0 outline-none transition-all focus:ring-2 focus:ring-btn-200 ${!input.orgSize ? "text-gray-400/90" : "text-text"} ${errors.orgSize ? "border-red-500 dark:border-red-500" : "border-gray-200 dark:border-gray-700"} bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700`}
+            onValueChange={(value) =>
+              handleChange({
+                target: {
+                  name: "orgSize",
+                  value,
+                },
+              })
+            }
           >
-            <option value="" disabled className="text-gray-400">
-              --
-            </option>
-            <option value="1-50">1-50</option>
-            <option value="51-200">51-200</option>
-            <option value="201-500">201-500</option>
-            <option value="500+">500+</option>
-          </select>
+            <SelectTrigger
+              id="orgSize"
+              className={`w-full py-3.5 px-4 rounded-xl border m-0 focus:ring-2 focus:ring-btn-200 ${
+                !input.orgSize ? "text-gray-400/90" : "text-text"
+              } ${
+                errors.orgSize
+                  ? "border-red-500 dark:border-red-500"
+                  : "border-gray-200 dark:border-gray-700"
+              } bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700`}
+            >
+              <SelectValue placeholder="--" />
+            </SelectTrigger>
+
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Countries</SelectLabel>
+                <SelectItem value="1-50">1-50</SelectItem>
+                <SelectItem value="51-200">51-200</SelectItem>
+                <SelectItem value="201-500">201-500</SelectItem>
+                <SelectItem value="500+">500+</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
           {/* Error Message */}
           {errors.orgSize && (
             <span className="text-red-500 text-[10px] font-bold ml-1 uppercase">
@@ -149,35 +179,56 @@ const SignupForm = ({
       {/* Country & Phone */}
       <div className="flex flex-col lg:flex-row  gap-3">
         {/* Country */}
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-full lg:w-[50%]">
           <label
             htmlFor="country"
             className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"
           >
-            country
+            Country
           </label>
-          <select
-            name="country"
-            id="country"
+
+          <Select
             value={input.country || ""}
-            onChange={handleChange}
-            className={`w-full py-3 px-4 rounded-xl border m-0 outline-none transition-all focus:ring-2 focus:ring-btn-200 ${!input.country ? "text-gray-400/90" : "text-text"} ${errors.country ? "border-red-500 dark:border-red-500" : "border-gray-200 dark:border-gray-700"} bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700`}
+            onValueChange={(value) =>
+              handleChange({
+                target: {
+                  name: "country",
+                  value,
+                },
+              })
+            }
           >
-            <option value="" disabled className="text-gray-400">
-              - Country -
-            </option>
-            {countries.countries.map((country) => (
-              <option
-                key={country.id}
-                value={JSON.stringify({
-                  code: country.phonecode,
-                  name: country.name,
-                })}
-              >
-                {country.name} +{country.phonecode}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger
+              id="country"
+              className={`w-full py-3.5 px-4 rounded-xl border m-0 focus:ring-2 focus:ring-btn-200 ${
+                !input.country ? "text-gray-400/90" : "text-text"
+              } ${
+                errors.country
+                  ? "border-red-500 dark:border-red-500"
+                  : "border-gray-200 dark:border-gray-700"
+              } bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700`}
+            >
+              <SelectValue placeholder="- Country -" />
+            </SelectTrigger>
+
+            <SelectContent className="max-h-60 overflow-y-auto">
+              <SelectGroup>
+                <SelectLabel>Countries</SelectLabel>
+                {countries.countries.map((country) => (
+                  <SelectItem
+                    key={country.id}
+                    value={JSON.stringify({
+                      code: country.phonecode,
+                      name: country.name,
+                    })}
+                  >
+                    {country.name} +{country.phonecode}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
           {/* Error Message */}
           {errors.country && (
             <span className="text-red-500 text-[10px] font-bold ml-1 uppercase">
@@ -187,7 +238,7 @@ const SignupForm = ({
         </div>
 
         {/* Phone */}
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-full lg:w-[50%]">
           <label
             htmlFor="phone"
             className="text-sm font-semibold text-gray-700 dark:text-gray-400 ml-1"

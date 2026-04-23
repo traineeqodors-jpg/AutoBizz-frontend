@@ -29,8 +29,9 @@ const AddEmployeeDialog = ({
                 onClick={() => {
                   dialogRef.current?.close();
                 }}
+                className="hover:bg-gray-200 p-2 rounded-full dark:hover:text-black dark:text-white cursor-pointer text-black transition-all"
               >
-                <IoCloseSharp className="text-black dark:text-white size-4 cursor-pointer" />
+                <IoCloseSharp className="size-5" />
               </button>
             </div>
             <div className="text-center mb-8">

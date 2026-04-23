@@ -1,3 +1,13 @@
+import DatePicker from "@/components/ui/DatePicker";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { FaRegCalendarAlt, FaSearch } from "react-icons/fa";
 
 const LeadFilter = ({
@@ -29,22 +39,33 @@ const LeadFilter = ({
             </div>
           </div>
 
+          {/* Status Filter */}
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Status
             </label>
-            <select
-              name="status"
-              value={filters?.status}
-              onChange={updateFilter}
-              className="w-full py-3 px-4 text-sm text-text dark:text-white rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            <Select
+              value={filters?.status || ""}
+              onValueChange={(value) =>
+                updateFilter("status", value === "all" ? "" : value)
+              }
             >
-              <option value="">All Status</option>
-              <option value="new">New</option>
-              <option value="contacted">Contacted</option>
-            </select>
+              <SelectTrigger className="w-full p-3 sm:py-3 sm:px-4 text-sm text-text dark:text-white rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all">
+                <SelectValue placeholder="All Status" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Filters</SelectLabel>
+                  <SelectItem value="all">All Status</SelectItem>
+                  <SelectItem value="new">New</SelectItem>
+                  <SelectItem value="contacted">Contacted</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
+          {/* Score */}
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Min Score
@@ -60,67 +81,55 @@ const LeadFilter = ({
                   e.preventDefault();
                 }
               }}
-              value={filters?.minScore}
-              onChange={updateFilter}
+              value={filters?.minScore || ""}
+              onChange={(e) => updateFilter("minScore", e.target.value)}
               className="w-full py-3 px-4 text-text dark:text-white text-sm rounded-xl border border-gray-200 dark:border-0 bg-gray-50  dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
-              From Date
-            </label>
-            <div className="relative flex items-center">
-              <input
-                type="date"
-                name="startDate"
-                value={filters?.startDate}
-                onChange={updateFilter}
-                onClick={(e) => e.target.showPicker()}
-                className="w-full py-3 px-4 pr-10 text-sm rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 text-text dark:text-white focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
-              />
-              <div className="absolute right-4 pointer-events-none text-gray-500">
-                <FaRegCalendarAlt size={16} />
-              </div>
-            </div>
-          </div>
+          {/* From Date */}
+          <DatePicker
+            label="From Date"
+            field="startDate"
+            value={filters?.startDate}
+            updateFilter={updateFilter}
+          />
 
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
-              To Date
-            </label>
-            <div className="relative flex items-center">
-              <input
-                type="date"
-                name="endDate"
-                value={filters?.endDate}
-                onChange={updateFilter}
-                onClick={(e) => e.target.showPicker()}
-                className="w-full py-3 px-4 pr-10 text-sm text-text dark:text-white rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
-              />
-              <div className="absolute right-4 pointer-events-none text-gray-500">
-                <FaRegCalendarAlt size={16} />
-              </div>
-            </div>
-          </div>
+          {/* TO Date */}
+          <DatePicker
+            label="To Date"
+            field="endDate"
+            value={filters?.endDate}
+            updateFilter={updateFilter}
+            minDate={filters?.startDate}
+          />
 
+          {/* Sort By */}
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Sort By
             </label>
-            <select
-              name="sortBy"
-              value={filters?.sortBy}
-              onChange={updateFilter}
-              className="w-full py-3 px-4 text-sm text-text dark:text-white rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all"
+            <Select
+              value={filters?.sortBy || ""}
+              onValueChange={(value) => updateFilter("sortBy", value)}
             >
-              <option value="createdAt">Date Created</option>
-              <option value="confidence_score">Score</option>
-              <option value="name">Name</option>
-              <option value="email">Email</option>
-            </select>
+              <SelectTrigger className="w-full p-3 sm:py-3 sm:px-4 text-sm text-text dark:text-white rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all">
+                <SelectValue placeholder="Sorting" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Filters</SelectLabel>
+                  <SelectItem value="createdAt">Date</SelectItem>
+                  <SelectItem value="confidence_score">Score</SelectItem>
+                  <SelectItem value="name">Name</SelectItem>
+                  <SelectItem value="email">Email</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
+          {/* Reset Filters */}
           <div className="flex items-end">
             <button
               onClick={resetFilters}

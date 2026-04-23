@@ -32,9 +32,9 @@ const NavLink = ({ href, icon: Icon, label }) => {
         onClick={handleClick}
         className={`${
           isCurrent
-            ? "bg-btn-100 ring-2 ring-offset-2 ring-btn-100 dark:ring-offset-surface text-white"
+            ? "bg-btn-100 text-white"
             : "hover:bg-btn-100/30 text-text/80 hover:text-btn-100 dark:text-gray-200"
-        } w-full rounded-xl flex items-center gap-3 px-3 py-2`}
+        } w-full rounded-lg flex items-center gap-3 px-3 py-2`}
       >
         <Icon className="size-5" />
         {label}
@@ -76,7 +76,7 @@ const SideBar = () => {
             className="flex items-center justify-center w-full h-20 overflow-hidden"
           >
             <Image
-              src="/logo.png"
+              src="/logoDark.png"
               alt="Your App Logo"
               width={240}
               height={80}
