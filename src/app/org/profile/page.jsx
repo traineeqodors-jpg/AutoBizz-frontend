@@ -70,7 +70,7 @@ function EditOrgDetails() {
   return (
     <AnimatedWrapper>
       <div className="min-h-screen mx-auto w-full">
-        <div className="grid w-full gap-4 sm:gap-7 py-3 sm:py-5">
+        <div className="grid w-full gap-4 sm:gap-10 py-3 sm:py-5">
           {/* Header Card */}
           {orgDetailsLoading ? (
             <div className="h-45 w-full bg-btn-100/10 dark:bg-gray-700 animate-pulse rounded-2xl"></div>

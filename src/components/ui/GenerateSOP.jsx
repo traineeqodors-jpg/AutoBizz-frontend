@@ -62,6 +62,8 @@ function GenerateSOP({ isHome }) {
       voice_id: selectedAvatar.voice_id,
     };
 
+    console.log(requestBody);
+
     try {
       await generateVideo(requestBody).unwrap();
       toast.custom((t) => (

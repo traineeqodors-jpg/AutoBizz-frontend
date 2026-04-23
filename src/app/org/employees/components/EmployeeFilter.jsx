@@ -1,13 +1,4 @@
-import { FaSearch } from "react-icons/fa";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  SelectGroup,
-  SelectLabel,
-} from "@/components/ui/select";
+import { FaRegCalendarAlt, FaSearch } from "react-icons/fa";
 
 const EmployeeFilter = ({
   searchTerm,
@@ -43,26 +34,15 @@ const EmployeeFilter = ({
         {/* Role Select */}
         <div className="space-y-2">
           <label className="text-sm font-semibold ml-1">Role</label>
-
-          <Select
+          <select
+            className={inputBase}
             value={roleFilter}
-            onValueChange={(value) =>
-              setRoleFilter(value === "all" ? "" : value)
-            }
+            onChange={(e) => setRoleFilter(e.target.value)}
           >
-            <SelectTrigger className={inputBase}>
-              <SelectValue placeholder="All Roles" />
-            </SelectTrigger>
-
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Filters</SelectLabel>
-                <SelectItem value="all">All Roles</SelectItem>
-                <SelectItem value="employee">Employee</SelectItem>
-                <SelectItem value="sales">Sales</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+            <option value="">All Roles</option>
+            <option value="employee">Employee</option>
+            <option value="sales">Sales</option>
+          </select>
         </div>
 
         {/* Clear Button */}

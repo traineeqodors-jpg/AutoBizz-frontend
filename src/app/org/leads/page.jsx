@@ -1,6 +1,7 @@
 "use client";
 
 import DeleteDialog from "@/components/ui/DeleteDialog";
+import { io } from "socket.io-client";
 import {
   leadsApi,
   useAddLeadCsvMutation,
@@ -95,9 +96,13 @@ function LeadManagement() {
     }, 50);
   };
 
-  const onUpdateFilter = (name, value) => {
+  const onUpdateFilter = (e) => {
+    const { name, value } = e.target;
+    if (name === "minScore" && (value < 0 || value > 100)) {
+      return;
+    }
+
     if (name === "minScore") {
-      if (value < 0 || value > 100) return;
       const scoreValue = value === "" ? undefined : Number(value);
       dispatch(updateFilters({ [name]: scoreValue, page: 1 }));
       return;

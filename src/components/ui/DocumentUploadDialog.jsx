@@ -79,7 +79,7 @@ function DocumentUploadDialog({ dialogRef }) {
 
       console.log("Document UUID:", uuid);
 
-      // show loading toast & store id
+      // ✅ show loading toast & store id
       const toastId = toast.custom((t) => (
         <CustomToast
           t={t}
@@ -90,7 +90,7 @@ function DocumentUploadDialog({ dialogRef }) {
         />
       ));
 
-      // track current upload
+      // ✅ track current upload
       activeUpload.current = { uuid, toastId };
 
       setDocFile(null);
@@ -106,34 +106,28 @@ function DocumentUploadDialog({ dialogRef }) {
   return (
     <dialog
       ref={dialogRef}
-      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5 space-y-5 backdrop:bg-black/40"
+      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5 space-y-5"
     >
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        whileInView={{ opacity: 1, x: 0 }}
-      >
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Close */}
           <div className="flex justify-end">
             <button
+              type="button"
               onClick={() => {
                 dialogRef.current?.close();
                 setLocalError("");
               }}
-              type="button"
-              className="hover:bg-gray-200 p-2 rounded-full dark:hover:text-black dark:text-white cursor-pointer text-black transition-all"
             >
-              <IoCloseSharp className="size-5" />
+              <IoCloseSharp className="size-4" />
             </button>
           </div>
 
           {/* Heading */}
-          <h1 className="text-xl sm:text-2xl font-bold text-text text-center">
-            Upload Business Document
-          </h1>
+          <h1 className="text-xl font-bold text-center">Upload Document</h1>
 
           {/* File */}
-          <label className="block cursor-pointer border p-3 rounded-xl text-text">
+          <label className="block cursor-pointer border p-3 rounded-xl">
             {docFile ? docFile.name : "Click to upload"}
             <input
               type="file"
@@ -156,9 +150,9 @@ function DocumentUploadDialog({ dialogRef }) {
           {/* Submit */}
           <button
             disabled={isLoading}
-            className="w-full py-3 bg-btn-100 hover:bg-btn-200 text-white font-medium sm:font-bold rounded-xl shadow-md shadow-btn-50/30 hover:shadow-lg hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all cursor-pointer"
+            className="w-full py-2 bg-btn-100 text-white rounded-xl"
           >
-            {isLoading ? "Uploading..." : "Upload Document"}
+            {isLoading ? "Uploading..." : "Upload"}
           </button>
         </form>
       </motion.div>

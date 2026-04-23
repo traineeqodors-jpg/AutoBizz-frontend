@@ -1,29 +1,22 @@
 "use client";
 
+import DeleteDialog from "@/components/ui/DeleteDialog";
 import {
   useDeleteCallLogMutation,
   useGetAllCallLogsQuery,
 } from "@/features/slices/callLogSlice";
-
 import React, { useEffect, useRef, useState } from "react";
-
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegCalendarAlt } from "react-icons/fa";
-
 import SearchFilterCallLog from "./components/SearchFilterCallLog";
 import EmptyCallLog from "./components/EmptyCallLog";
 import CallLogTable from "./components/CallLogTable";
 import MobileCallLogView from "./components/MobileCallLogView";
 import DetailModal from "./components/DetailModal";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
-import DeleteDialog from "@/components/ui/DeleteDialog";
-import DatePicker from "@/components/ui/DatePicker";
 
 function CallLogsPage() {
-  const [selectedLog, setSelectedLog] = useState(null);
-  const [deleteTarget, setDeleteTarget] = useState(null);
-
   // State for Backend Filtering (Updated with Dates)
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -37,11 +30,6 @@ function CallLogsPage() {
     sortBy: "createdAt",
     order: "DESC",
   });
-  const deleteModalRef = useRef(null);
-
-  // RTK Query Hook
-  const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters);
-  const [deleteCallLog, { isLoading: isDeleting }] = useDeleteCallLogMutation();
 
   // Debounce Search Logic
   useEffect(() => {
@@ -51,9 +39,16 @@ function CallLogsPage() {
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
 
+  // RTK Query Hook
+  const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters);
+
+  const [deleteCallLog, { isLoading: isDeleting }] = useDeleteCallLogMutation();
+  const deleteModalRef = useRef(null);
+
   const logs = data?.data?.logs || [];
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
-  const hasFilters = data?.data?.hasFilters || false;
+  const [selectedLog, setSelectedLog] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // 4. Handlers
   const handleStatusFilter = (status) => {
@@ -61,31 +56,14 @@ function CallLogsPage() {
     setFilters((prev) => ({ ...prev, status: backendStatus, page: 1 }));
   };
 
-  // const handleDateChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFilters((prev) => ({ ...prev, [name]: value, page: 1 }));
-  // };
-
-  const updateFilter = (field, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [field]: value,
-      page: 1,
-    }));
-
-    console.log(filters);
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value, page: 1 }));
   };
 
   const clearDateFilters = () => {
-    setFilters((prev) => ({
-      ...prev,
-      startDate: "",
-      endDate: "",
-      page: 1,
-    }));
+    setFilters((prev) => ({ ...prev, startDate: "", endDate: "", page: 1 }));
   };
-
-  console.log(filters);
 
   const toggleSort = (key) => {
     setFilters((prev) => ({
@@ -120,6 +98,8 @@ function CallLogsPage() {
     }
   };
 
+  // if (isLoading) return <LoadingElement />;
+
   return (
     <AnimatedWrapper>
       <div className="min-h-screen w-full py-3 sm:py-6 lg:py-8 relative">
@@ -146,28 +126,48 @@ function CallLogsPage() {
             </div>
 
             {/* Date Filter Bar */}
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 px-4 py-4 bg-slate-50/70 dark:bg-gray-800/60 rounded-2xl border border-slate-100 dark:border-gray-700">
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-fit sm:w-full mx-auto sm:mx-0 lg:w-auto">
-                <DatePicker
-                  label="From Date"
-                  field="startDate"
-                  value={filters.startDate}
-                  updateFilter={updateFilter}
-                />
-
-                <DatePicker
-                  label="To Date"
-                  field="endDate"
-                  value={filters.endDate}
-                  updateFilter={updateFilter}
-                  minDate={filters.startDate}
-                />
+            <div className="flex flex-col sm:flex-row sm:justify-evenly  items-center gap-4 pt-4 border-t border-gray-200">
+              {/* From Date */}
+              <div className="flex items-center gap-2">
+                <label className="text-[10px] uppercase font-black text-text/40 tracking-wider dark:text-white/70 w-10">
+                  From:
+                </label>
+                <div className="relative flex items-center group">
+                  <input
+                    type="date"
+                    name="startDate"
+                    value={filters.startDate}
+                    onChange={handleDateChange}
+                    onClick={(e) => e.target.showPicker()}
+                    className="pl-3 pr-10 py-2 bg-slate-50 dark:bg-gray-800 dark:border-0 dark:text-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20  cursor-pointer w-35 appearance-none"
+                  />
+                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500" />
+                </div>
               </div>
 
+              {/* To Date */}
+              <div className="flex items-center gap-2">
+                <label className="text-[10px] uppercase  dark:text-white/70 font-black text-text/40 tracking-wider w-10">
+                  To:
+                </label>
+                <div className="relative flex items-center group">
+                  <input
+                    type="date"
+                    name="endDate"
+                    value={filters.endDate}
+                    onClick={(e) => e.target.showPicker()}
+                    onChange={handleDateChange}
+                    className="pl-3 pr-10 dark:bg-gray-800 dark:border-0 dark:text-white py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-btn-100/20  cursor-pointer w-35 appearance-none"
+                  />
+                  <FaRegCalendarAlt className="absolute right-3 text-slate-400 pointer-events-none group-focus-within:text-blue-500" />
+                </div>
+              </div>
+
+              {/* Clear Button */}
               {(filters.startDate || filters.endDate) && (
                 <button
                   onClick={clearDateFilters}
-                  className="text-xs font-bold uppercase text-red-400 bg-red-200/10 hover:bg-red-100 ring ring-red-300 px-4 py-2 rounded-xl transition-all active:scale-95"
+                  className="text-[10px] font-black uppercase text-red-500 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
                 >
                   Clear Dates
                 </button>
@@ -179,7 +179,6 @@ function CallLogsPage() {
             <EmptyCallLog
               setSearchTerm={setSearchTerm}
               setStatusFilter={handleStatusFilter}
-              hasFilters={hasFilters}
             />
           ) : (
             <AnimatePresence mode="wait">
@@ -204,6 +203,29 @@ function CallLogsPage() {
                     </div>
                   ) : (
                     <>
+                      {/* <ReusableTable
+                        columns={[
+                          "Call Detail",
+                          () => (
+                            <div onClick={() => toggleSort("createdAt")}>
+                              Date {filters.order === "ASC" ? "↑" : "↓"}
+                            </div>
+                          ),
+                          "Duration",
+                          "Status",
+                          "Actions",
+                        ]}
+                        data={logs}
+                        renderRow={(log) => (
+                          <CallLogTable
+                            key={log.id}
+                            log={log}
+                            setSelectedLog={setSelectedLog}
+                            openDeleteModal={openDeleteModal}
+                          />
+                        )}
+                        emptyState="No call logs found"
+                      /> */}
                       <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-center border-separate border-spacing-0">
                           <thead>

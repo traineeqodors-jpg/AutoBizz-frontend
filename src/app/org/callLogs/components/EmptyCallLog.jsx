@@ -5,7 +5,6 @@ const EmptyCallLog = ({
   setStatusFilter,
   searchTerm,
   statusFilter,
-  hasFilters,
 }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center py-20 px-6 bg-white dark:bg-gray-900 dark:border-gray-900/90 rounded-3xl border-2  border-gray-200">
@@ -27,7 +26,7 @@ const EmptyCallLog = ({
       </div>
 
       {/* Button matching Sign In styling */}
-      {(searchTerm || (statusFilter !== "all" && hasFilters)) && (
+      {(searchTerm || statusFilter !== "all") && (
         <button
           onClick={() => {
             setSearchTerm("");

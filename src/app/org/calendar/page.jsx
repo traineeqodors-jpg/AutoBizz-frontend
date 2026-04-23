@@ -203,9 +203,9 @@ function LeadCalendar() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-50 bg-white/40 dark:bg-black/40 backdrop-blur-xl flex items-center justify-center"
+                  className="absolute inset-0 z-50 bg-white/40 dark:bg-black/40 backdrop-blur-xl"
                 >
-                  <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin" />
+                  <div className="w-16 h-16 border-8 border-back border-t-btn-100 rounded-full animate-spin" />
                 </motion.div>
               ) : (
                 <motion.div

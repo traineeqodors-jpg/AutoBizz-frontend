@@ -30,7 +30,7 @@ const LandingNavbar = () => {
           {/* Logo */}
           <div className="size-16 overflow-hidden flex flex-col justify-center-safe items-center-safe rounded-lg">
             <Image
-              src="/logoDark.png"
+              src="/logo.png"
               alt="Your App Logo"
               width={200}
               height={200}

@@ -21,14 +21,14 @@ const Navbar = () => {
         className="size-16 overflow-hidden flex flex-col justify-center items-center rounded-lg"
       >
         <Image
-          src="/logoDark.png"
+          src="/logo.png"
           alt="Your App Logo"
           width={200}
           height={200}
           priority
           loading="eager"
           placeholder="blur"
-          blurDataURL="/logoDark.png"
+          blurDataURL="/logo.png"
           className="w-full object-cover object-center"
         />
       </Link>

@@ -1,38 +1,25 @@
 "use client";
 
+import { useRef, useState } from "react";
+import { TbInfoCircleFilled } from "react-icons/tb";
 import businessesCategory from "../../../../Json data/businesses.json";
-
+import { DatePicker } from "react-datepicker";
+import { toast } from "react-hot-toast";
 import {
   useAddOrgDetailsMutation,
   useGetOrgDetailsQuery,
 } from "@/features/slices/orgDetailsSlice";
 
-import { useRef, useState } from "react";
-
-import { TbInfoCircleFilled } from "react-icons/tb";
-import { toast } from "react-hot-toast";
-import YearPicker from "@/components/ui/YearPicker";
-
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  SelectGroup,
-  SelectLabel,
-} from "@/components/ui/select";
-
 function AdditionalDetails() {
   const [status, setStatus] = useState("");
+  const { data, isLoading, refetch } = useGetOrgDetailsQuery();
+  const [updateInfo, { isLoading: updateLoading }] = useAddOrgDetailsMutation();
+
   const [description, setDescription] = useState(null);
   const [category, setCategory] = useState(null);
   const [year, setYear] = useState(null);
 
   const timeoutRef = useRef(null);
-
-  const { data, isLoading, refetch } = useGetOrgDetailsQuery();
-  const [updateInfo, { isLoading: updateLoading }] = useAddOrgDetailsMutation();
 
   async function handleInformationChange(e) {
     const { name, value } = e.target;
@@ -51,44 +38,41 @@ function AdditionalDetails() {
           console.error("Failed to save:", err);
         }
       }, 2000);
-    }
-  }
+    } else if (name === "category") {
+      setCategory(value);
 
-  async function handleCategoryChange(value) {
-    setCategory(value);
-
-    try {
-      await updateInfo({ orgCategory: value });
-      toast.success("Category updated successfully!");
-    } catch (error) {
-      toast.error("Failed to update!");
-      refetch();
+      try {
+        await updateInfo({ orgCategory: value });
+        toast.success("Category updated successfully!");
+      } catch (error) {
+        toast.error("Failed to update!", error);
+        refetch();
+      }
     }
   }
 
   async function handleYearChange(year) {
-    const yearToSave = Number(year);
+    const dateObj = new Date(year);
+    const date = dateObj.getFullYear();
 
     try {
-      const response = await updateInfo({ startedInYear: yearToSave });
+      const response = await updateInfo({ startedInYear: Number(date) });
+      console.log(response);
 
-      if (response?.data?.success || response?.success) {
-        setYear(yearToSave);
-        toast.success("Started year updated!");
-      } else {
+      if (!updateLoading && !response?.data?.success) {
         toast.error("Failed to update!");
       }
+      setYear(date);
 
-      console.log("API Response:", response);
+      toast.success("Started year updated!");
     } catch (error) {
-      console.error("Update Error:", error);
-      toast.error("Failed to update!");
+      toast.error("Failed to update!", error);
     }
   }
 
   return (
     <div className="w-full bg-white dark:bg-gray-900 rounded-2xl shadow-md/10 gap-5 overflow-hidden">
-      <h3 className="text-lg sm:text-xl text-text flex gap-2 p-4 bg-gray-50 dark:bg-gray-700 border-b items-center border-gray-300 w-full">
+      <h3 className="text-xl text-text flex gap-2 p-4 bg-gray-50 dark:bg-gray-700 border-b items-center border-gray-300 w-full">
         <div className="flex flex-row gap-3 items-center">
           <TbInfoCircleFilled className="size-5 text-btn-100" />
           <p className="font-bold dark:text-white">Additional Informations</p>
@@ -99,7 +83,7 @@ function AdditionalDetails() {
           <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div className="p-5 flex flex-col text-sm sm:text-base font-medium">
+        <div className="p-5 flex flex-col">
           <form className="space-y-4">
             <div className="relative w-full">
               <textarea
@@ -128,44 +112,53 @@ function AdditionalDetails() {
                 )}
               </div>
             </div>
-
-            <div className="flex md:flex-row flex-col gap-3 ">
-              {/* Business Catgory */}
+            <div className="flex md:flex-row flex-col gap-3">
               <div className="flex flex-col flex-2 gap-1">
                 <label className="text-xs text-text/60 dark:text-gray-300">
                   Business Category
                 </label>
-                <Select
+                <select
+                  name="category"
                   value={
                     category !== null ? category : data?.data?.orgCategory || ""
                   }
-                  onValueChange={handleCategoryChange}
+                  onChange={handleInformationChange}
+                  className="flex-1 dark:text-white bg-transparent border px-4 border-gray-300 dark:bg-gray-800 focus:outline-none focus:border-btn-100 focus:dark:bg-gray-700 font-medium py-2 rounded-lg"
                 >
-                  <SelectTrigger className="flex-1 dark:text-white bg-transparent border px-4 border-gray-300 dark:bg-gray-800 focus:outline-none focus:border-btn-100 font-medium py-2 rounded-lg">
-                    <SelectValue placeholder="- Category -" />
-                  </SelectTrigger>
-
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Categories</SelectLabel>
-                      {businessesCategory.business_categories.map((b) => (
-                        <SelectItem key={b.id} value={b.id.toString()}>
-                          {b.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                  <option value="" disabled>
+                    - Category -
+                  </option>
+                  {businessesCategory.business_categories.map((b) => (
+                    <option key={b.id} value={b.id}>
+                      {b.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              {/* Started In */}
-              <div className="flex flex-col flex-1 gap-1 relative">
+              <div className="flex flex-col flex-1 gap-1">
                 <label className="text-xs text-text/60 dark:text-gray-300">
                   Started in year
                 </label>
-                <YearPicker
-                  selectedYear={year || data?.data?.startedInYear}
-                  onChange={(year) => handleYearChange(year)}
+                <DatePicker
+                  calendarClassName="custom-calendar-style"
+                  className="w-full bg-transparent border px-4 border-gray-300 dark:bg-gray-800 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-2 rounded-lg"
+                  selected={
+                    new Date(
+                      year ||
+                        data?.data?.startedInYear ||
+                        new Date().getFullYear(),
+                      0,
+                      1,
+                    )
+                  }
+                  maxDate={new Date()}
+                  filterDate={(date) =>
+                    date.getFullYear() <= new Date().getFullYear()
+                  }
+                  onChange={(date) => handleYearChange(date)}
+                  showYearPicker
+                  dateFormat="yyyy"
                 />
               </div>
             </div>

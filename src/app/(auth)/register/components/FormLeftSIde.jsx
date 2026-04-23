@@ -6,7 +6,7 @@ const FormLeftSIde = () => {
     <div className="hidden lg:flex lg:w-1/2 flex-col justify-center-safe items-center-safe bg-back dark:bg-gray-700 p-10">
       <div className="flex items-center justify-center w-50 h-25 rounded-lg overflow-hidden">
         <Image
-          src="/logoDark.png"
+          src="/logo.png"
           alt="Logo"
           height={300}
           width={300}

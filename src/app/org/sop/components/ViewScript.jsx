@@ -13,7 +13,7 @@ const ViewScript = ({ viewScriptRef, script }) => {
           <button
             onClick={() => viewScriptRef.current?.close()}
             type="button"
-            className="hover:bg-gray-200 p-2 rounded-full dark:hover:text-black dark:text-white cursor-pointer text-black transition-all"
+            className="hover:bg-gray-200 p-2 rounded-full dark:hover:text-black dark:text-white cursor-pointer text-black "
           >
             <IoCloseSharp className="size-5" />
           </button>
