@@ -77,6 +77,9 @@ function EmployeeManagement() {
     limit: 10,
   });
 
+  const hasFilters = emp?.data?.hasFilters;
+
+  
   const [deleteEmployee, { isLoading: deleteLoading }] =
     useDeleteEmployeeMutation();
 
@@ -84,6 +87,8 @@ function EmployeeManagement() {
     useUpdateEmployeeMutation();
 
   const empData = isError ? [] : emp?.data?.employees || [];
+
+  
 
   const pagination = emp?.data?.pagination;
 
@@ -256,12 +261,14 @@ function EmployeeManagement() {
                       emptyState={
                         <div className="flex flex-col items-center gap-2">
                           <span>No employees found matching your search.</span>
-                          <button
-                            onClick={handleClearFilters}
-                            className="text-btn-100 text-sm underline"
-                          >
-                            Clear filters
-                          </button>
+                          {hasFilters && (
+                            <button
+                              onClick={handleClearFilters}
+                              className="text-btn-100 text-sm underline cursor-pointer"
+                            >
+                              Clear filters
+                            </button>
+                          )}
                         </div>
                       }
                     />
@@ -278,12 +285,14 @@ function EmployeeManagement() {
                       ) : (
                         <div className="text-center py-10 text-gray-500 flex flex-col items-center justify-center gap-2">
                           No employees found.
-                          <button
-                            onClick={handleClearFilters}
-                            className="text-btn-100 text-sm underline cursor-pointer"
-                          >
-                            Clear filters
-                          </button>
+                          {hasFilters && (
+                            <button
+                              onClick={handleClearFilters}
+                              className="text-btn-100 text-sm underline cursor-pointer"
+                            >
+                              Clear filters
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>

@@ -79,14 +79,27 @@ const SideBar = () => {
             href="/"
             className="flex items-center justify-center w-full h-20 overflow-hidden"
           >
-            <Image
-              src="/logo.png"
-              alt="Your App Logo"
-              width={240}
-              height={80}
-              priority
-              className="w-[50%] object-cover"
-            />
+            <div className="relative w-[50%]">
+              {/* Dark Mode Logo (Visible by default, hidden in light mode) */}
+              <Image
+                src="/logoDark.png"
+                alt="autobizz"
+                width={240}
+                height={80}
+                priority
+                className="object-cover block dark:hidden"
+              />
+
+              {/* Light Mode Logo (Hidden by default, visible in dark mode) */}
+              <Image
+                src="/logo.png"
+                alt="autobizz"
+                width={240}
+                height={80}
+                priority
+                className="object-cover hidden dark:block"
+              />
+            </div>
           </Link>
         </div>
         <hr className="border-gray-300 mb-5 mt-3" />

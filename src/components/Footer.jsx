@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="flex flex-col items-center xl:items-start space-y-3 shrink-0">
           <div className="group bg-white size-24 rounded-2xl shadow-2xl overflow-hidden transition-transform hover:scale-105">
             <Image
-              src="/logo.png"
+              src="/logoDark.png"
               width={200}
               height={200}
               alt="Logo"
@@ -98,7 +98,7 @@ const Footer = () => {
           ].map(({ Icon, color }, idx) => (
             <button
               key={idx}
-              className={`p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] ${color} cursor-pointer group`}
+              className={`p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:shadow-white hover:dark:shadow-gray-900 ${color} cursor-pointer group`}
             >
               <Icon className="size-5 text-white group-hover:scale-110 transition-transform" />
             </button>

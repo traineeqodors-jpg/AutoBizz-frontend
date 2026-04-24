@@ -18,9 +18,12 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
+
 import { useGoogleLogin } from "@react-oauth/google";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import tourData from "../../../Json data/tourData.json";
+import { startTour, setStepIndex } from "@/features/slices/tourSlice"; 
 
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
@@ -36,6 +39,7 @@ import DeleteDialog from "@/components/ui/DeleteDialog";
 import ReusableTable from "@/components/ui/ReusableTable";
 
 import { getSocket } from "@/lib/socket";
+
 
 function LeadManagement() {
   const dispatch = useDispatch();
@@ -83,6 +87,12 @@ function LeadManagement() {
 
   const leads = data?.data?.leads || [];
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
+
+  useEffect(() => {
+        if (tourData?.leads) {
+          dispatch(startTour(tourData.leads));
+        }
+      }, [dispatch]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -182,6 +192,25 @@ function LeadManagement() {
   const dismissSocketNotice = () => {
     setSocketNotice((prev) => ({ ...prev, visible: false }));
   };
+
+  const userOnboarding = me?.data?.onboarding?.leads;
+    
+  const shouldStart = userOnboarding?.status === "pending";
+  
+    
+    useEffect(() => {
+      
+      if (tourData?.myDocuments && me && shouldStart) {
+        dispatch(
+          startTour({
+            tourKey: "leads",
+            steps: tourData.leads,
+            stepIndex: userOnboarding?.lastStep ?? 0,
+            run: true,
+          }),
+        );
+      }
+    }, [dispatch, tourData, me, shouldStart]);
 
   useEffect(() => {
     if (!orgId) return;
@@ -449,6 +478,7 @@ function LeadManagement() {
             transition={{ duration: 0.2 }}
           >
             <div
+              id="lead-data"
               className="bg-white shadow-sm dark:bg-gray-900 shadow-text/5 rounded-3xl overflow-hidden border border-slate-100 dark:border-gray-900/90 relative"
               ref={scrollRef}
             >

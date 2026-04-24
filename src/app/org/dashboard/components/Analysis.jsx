@@ -57,7 +57,7 @@ function Analysis() {
   });
 
   return (
-    <div className="w-full h-full rounded-2xl p-5 flex flex-col">
+    <div id="visual" className="w-full h-full rounded-2xl p-5 flex flex-col">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-semibold text-gray-800 dark:text-white text-lg">
           Leads Analysis Graph

@@ -6,7 +6,11 @@ import {
   useGetMyDocumentsQuery,
 } from "@/features/slices/documentSlice";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import tourData from "../../../Json data/tourData.json";
+import { startTour, setStepIndex } from "@/features/slices/tourSlice"; 
+
 
 import DocumentSearch from "./components/DocumentSearch";
 import { IoSearchOutline } from "react-icons/io5";
@@ -15,8 +19,11 @@ import AnimatedWrapper from "@/components/AnimatedWrapper";
 import DocumentTable from "./components/DocuementTable";
 import Loading from "@/app/loading";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetMeQuery } from "@/features/slices/userSlice";
 
 export default function Documents() {
+  const dispatch = useDispatch();
   //states
   const [searchTerm, setSearchTerm] = useState(""); //search box
   const [targetDoc, setTargetDoc] = useState(null); //select doc
@@ -26,6 +33,26 @@ export default function Documents() {
 
   //fetch documents
   const { data, isLoading } = useGetMyDocumentsQuery();
+  const { data: user } = useGetMeQuery();
+
+  const userOnboarding = user?.data?.onboarding?.myDocuments;
+  
+  const shouldStart = userOnboarding?.status === "pending";
+
+  
+  useEffect(() => {
+    
+    if (tourData?.myDocuments && user && shouldStart) {
+      dispatch(
+        startTour({
+          tourKey: "myDocuments",
+          steps: tourData.myDocuments,
+          stepIndex: userOnboarding?.lastStep ?? 0,
+          run: true,
+        }),
+      );
+    }
+  }, [dispatch, tourData, user, shouldStart]);
 
   //delete documents
   const [deleteDocument, { isLoading: isDeleting }] =
@@ -38,6 +65,7 @@ export default function Documents() {
       doc.docUrl?.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [data?.data, searchTerm]);
+
 
   //open delete modal
   const openDeleteModal = (doc) => {
@@ -78,7 +106,10 @@ export default function Documents() {
             dialogRef={dialogRef}
           />
 
-          <div className="bg-surface shadow-sm shadow-text/5 rounded-3xl overflow-hidden border border-white dark:border-none">
+          <div
+            id="document-table"
+            className="bg-surface shadow-sm shadow-text/5 rounded-3xl overflow-hidden border border-white dark:border-none"
+          >
             <div className="overflow-x-auto">
               <table className="w-full text-center border-separate border-spacing-0 flex flex-col md:table">
                 <thead className="hidden md:table-header-group ">

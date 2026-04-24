@@ -37,6 +37,8 @@ const Navbar = () => {
           blurDataURL="/logo.png"
           className="w-full object-cover object-center"
         />
+
+
       </Link>
 
       <div className="flex items-center gap-7 text-lg">

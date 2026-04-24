@@ -28,6 +28,9 @@ function SetupPasswordPage() {
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
+  console.log(token);
+  
+
   const router = useRouter();
 
   const [setPassword, { isLoading }] = useSetupPasswordMutation();
@@ -49,16 +52,16 @@ function SetupPasswordPage() {
     if (!input.password.trim()) {
       newErrors.password = "Password is required";
     } else if (input.password.length < 7) {
-      newErrors.password = "must be atleast 7 Character Long";
+      newErrors.password = "Must be atleast 7 character Long";
     } else if (!passwordRegex.test(input.password)) {
       newErrors.password =
         "Password must contain at least one number and one special character";
     }
 
     if (!input.confirmpassword.trim()) {
-      newErrors.confirmpassword = "Confirm Password is required";
+      newErrors.confirmpassword = "Confirm password is required";
     } else if (input.confirmpassword.length < 7) {
-      newErrors.confirmpassword = "must be atleast 7 Character Long";
+      newErrors.confirmpassword = "Must be atleast 7 character Long";
     } else if (!passwordRegex.test(input.confirmpassword)) {
       newErrors.confirmpassword =
         "Password must contain at least one number and one special character";
@@ -66,7 +69,7 @@ function SetupPasswordPage() {
 
     if (input.password !== input.confirmpassword) {
       newErrors.confirmpassword =
-        "Pasword and Confirm Password doesn't match!!";
+        "Pasword and confirm password doesn't match!";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -83,11 +86,10 @@ function SetupPasswordPage() {
       confirmPassword: input.confirmpassword,
     };
 
-    console.log(formData);
+    
 
     try {
       const response = await setPassword(formData).unwrap();
-      console.log(response);
       setInput({
         password: "",
         confirmpassword: "",

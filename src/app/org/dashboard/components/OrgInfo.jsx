@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useRouter } from "next/navigation";
 
 import { useGetOrgDetailsQuery } from "@/features/slices/orgDetailsSlice";
@@ -11,7 +10,6 @@ import { FaEdit } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 
 import DocumentUploadDialog from "@/components/ui/DocumentUploadDialog";
-
 
 const OrgInfo = ({ user, isOwner }) => {
   const dialogRef = useRef(null);
@@ -34,6 +32,7 @@ const OrgInfo = ({ user, isOwner }) => {
               Welcome, <span className="text-text">{fullname ?? "User"}</span>
             </span>
             <FaEdit
+              id="edit-profile"
               className="text-btn-200 hover:scale-105 cursor-pointer"
               onClick={() => router.push("/org/profile")}
             />
@@ -47,6 +46,7 @@ const OrgInfo = ({ user, isOwner }) => {
         </h2>
         {isOwner && (
           <button
+            id="modal-upload"
             type="button"
             onClick={() => dialogRef.current?.showModal()}
             className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg text-xs bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"

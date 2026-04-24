@@ -26,6 +26,7 @@ const DocumentSearch = ({ setSearchTerm, searchTerm, dialogRef }) => {
             />
           </div>
           <button
+            id="upload-document"
             type="button"
             onClick={() => dialogRef.current?.showModal()}
             className="flex px-4 cursor-pointer py-3 rounded-xl text-sm font-semibold bg-btn-100 dark:bg-btn-200 text-white gap-1 hover:bg-btn-200 hover:inset-shadow-sm/40 justify-center items-center"

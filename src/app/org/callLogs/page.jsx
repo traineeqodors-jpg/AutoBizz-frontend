@@ -18,6 +18,7 @@ import MobileCallLogView from "./components/MobileCallLogView";
 import DetailModal from "./components/DetailModal";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 import DeleteDialog from "@/components/ui/DeleteDialog";
+import ReusableTable from "@/components/ui/ReusableTable";
 
 function CallLogsPage() {
   const [selectedLog, setSelectedLog] = useState(null);
@@ -53,6 +54,7 @@ function CallLogsPage() {
 
   const logs = data?.data?.logs || [];
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
+  const hasFilters = data?.data?.hasFilters || false;
 
   // 4. Handlers
   const handleStatusFilter = (status) => {
@@ -181,6 +183,7 @@ function CallLogsPage() {
             <EmptyCallLog
               setSearchTerm={setSearchTerm}
               setStatusFilter={handleStatusFilter}
+              hasFilters={hasFilters}
             />
           ) : (
             <AnimatePresence mode="wait">
@@ -205,29 +208,6 @@ function CallLogsPage() {
                     </div>
                   ) : (
                     <>
-                      {/* <ReusableTable
-                        columns={[
-                          "Call Detail",
-                          () => (
-                            <div onClick={() => toggleSort("createdAt")}>
-                              Date {filters.order === "ASC" ? "↑" : "↓"}
-                            </div>
-                          ),
-                          "Duration",
-                          "Status",
-                          "Actions",
-                        ]}
-                        data={logs}
-                        renderRow={(log) => (
-                          <CallLogTable
-                            key={log.id}
-                            log={log}
-                            setSelectedLog={setSelectedLog}
-                            openDeleteModal={openDeleteModal}
-                          />
-                        )}
-                        emptyState="No call logs found"
-                      /> */}
                       <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-center border-separate border-spacing-0">
                           <thead>

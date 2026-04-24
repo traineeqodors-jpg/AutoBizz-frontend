@@ -1,0 +1,85 @@
+{
+  "dashboard": [
+  {
+    "target": "#edit-profile",
+    "title": "Edit profile",
+    "content": "Edit your profile here.",
+    "spotlightClicks": true,
+    "disableBeacon": true,
+    "placement": "bottom"
+  },
+  {
+    "target": "#modal-upload",
+    "title": "File Upload",
+    "content": "Upload any document file related to your business.",
+    "placement": "bottom"
+  },
+  {
+    "target": "#generate-sop-card",
+    "title": "Generate Script for AI Video",
+    "content": "Once uploaded, use this section to convert documents into SOP videos.",
+    "placement": "left"
+  },
+  {
+    "target": "#leads-data",
+    "title": "Lead data",
+    "content": "Your most high scoring leads will appear here.",
+    "placement": "top"
+  },
+  {
+    "target": "#visual",
+    "title": "Analyze leads",
+    "content": "Analyze your leads with dynamic and interactive graph.",
+    "placement": "top"
+  }
+],
+  "myDocuments": [
+    {
+      "target": "#upload-document",
+      "title": "Upload documents",
+      "content": "Upload your business docuements here.",
+      "placement": "right"
+    },
+    {
+      "target": "#document-table",
+      "title": "Docuement Table",
+      "content": "Your docuements will appear here.",
+      "placement": "right"
+    }
+  ],
+
+  "leads": [
+    {
+      "target": "#upload-csv",
+      "title": "Upload leads csv",
+      "content": "Upload your leads csv file to make AI automatically cintact them.",
+      "placement": "right"
+    },
+    {
+      "target": "#lead-filter",
+      "title": "Analyze Leads",
+      "content": "Analyze your leads efficiently by applying filters.",
+      "placement": "bottom"
+    },
+    {
+      "target": "#lead-data",
+      "title": "Leads Table",
+      "content": "Your uploaded leads data will be displayed here.",
+      "placement": "top"
+    }
+  ],
+  "sop": [
+    {
+      "target": "#sop-videos",
+      "title": "SOP Videos",
+      "content": "View or generate your SOP Videos here.",
+      "placement": "down"
+    },
+    {
+      "target": "#filter-videos",
+      "title": "Filter videos",
+      "content": "Filter videos using different video status.",
+      "placement": "down"
+    }
+  ]
+}

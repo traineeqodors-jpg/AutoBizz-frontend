@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 
 import videoAvatar from "@/Json data/videoAvatar.json";
+import tourData from "@/Json data/tourData.json";
+import { startTour, setStepIndex } from "@/features/slices/tourSlice"; 
 
 import { useGenerateScriptMutation } from "@/features/slices/scriptGenerationSlice";
 import { useGetMyDocumentsQuery } from "@/features/slices/documentSlice";
@@ -17,9 +19,17 @@ import { FaPlay } from "react-icons/fa";
 import CustomToast from "./CustomToast";
 import GenerateScript from "./GenerateScript";
 import GenerateVideo from "./GenerateVideo";
+import { useDispatch } from "react-redux";
 
-function GenerateSOP({ isHome }) {
+function GenerateSOP({
+  isHome,
+  onSopGenerateClick,
+  onDocumentSelected,
+  onScriptGenerated,
+  onBrowseClicked,
+}) {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [aiContext, setAiContext] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState({
@@ -32,12 +42,17 @@ function GenerateSOP({ isHome }) {
   const genVideoRef = useRef(null);
   const genScriptRef = useRef(null);
 
+  useEffect(() => {
+        if (tourData?.myDocuments) {
+          dispatch(startTour(tourData.myDocuments));
+        }
+      }, [dispatch]);
+
   const [script, { isLoading, isFetching }] = useGenerateScriptMutation();
   const { data } = useGetMyDocumentsQuery();
   const documents = data?.data || [];
   const [generateVideo, { isLoading: videoLoading }] =
     useGenerateVideoMutation();
-
 
   useEffect(() => {
     const currentRequest = activeRequestRef.current;
@@ -77,10 +92,16 @@ function GenerateSOP({ isHome }) {
   }
 
   return (
-    <div className="w-full flex rounded-2xl lg:col-span-2 xl:col-span-1">
+    <div
+      id="generate-sop-card"
+      className="w-full flex rounded-2xl lg:col-span-2 xl:col-span-1"
+    >
       {isHome ? (
         <div
-          onClick={() => genScriptRef.current?.showModal()}
+          onClick={() => {
+            genScriptRef.current?.showModal();
+            onSopGenerateClick();
+          }}
           className="flex h-45 gap-3 items-center-safe p-3 sm:p-5 bg-linear-to-r from-blue-300 via-indigo-400 to-indigo-600 dark:bg-btn-200 text-white w-full rounded-2xl transition cursor-pointer shadow-sm"
         >
           <button className="p-3 h-fit rounded-full bg-white/30 flex justify-center-safe items-center-safe">
@@ -113,6 +134,9 @@ function GenerateSOP({ isHome }) {
         setAiContext={setAiContext}
         setVideoScript={setVideoScript}
         activeRequestRef={activeRequestRef}
+        onDocumentSelected={onDocumentSelected}
+        onScriptGenerated={onScriptGenerated}
+        onBrowseClicked={onBrowseClicked}
       />
 
       <GenerateVideo

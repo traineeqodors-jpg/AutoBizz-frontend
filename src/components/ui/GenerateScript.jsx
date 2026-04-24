@@ -40,6 +40,7 @@ function GenerateScript({
   const handleSelectAll = () => {
     setSelectedFiles(documents);
     setIsDropdownOpen(false);
+    onDocumentSelected();
   };
 
   async function handleScriptGeneration(e) {
@@ -91,7 +92,7 @@ function GenerateScript({
   return (
     <dialog
       ref={genScriptRef}
-      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-3 sm:p-7 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
+      className="w-lg rounded-3xl bg-back z-50 dark:bg-gray-900 m-auto p-3 sm:p-7 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
     >
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -119,7 +120,7 @@ function GenerateScript({
             </h1>
           </div>
           {/* Document Selection Section */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" id="select-document">
             <div className="flex justify-between items-center ml-1">
               <label className="text-sm font-bold text-gray-700 dark:text-gray-400">
                 Select Documents
@@ -129,7 +130,7 @@ function GenerateScript({
               </span>
             </div>
 
-            <div className="relative">
+            <div id="select-document" className="relative select-document">
               {/* Tag/Input Container */}
               <div className="min-h-13.75 p-2.5 flex flex-wrap gap-2 border-2 border-gray-200 rounded-2xl focus-within:border-btn-50 focus-within:dark:bg-gray-700 transition-all bg-gray-50/30 dark:bg-gray-800">
                 {selectedFiles.length > 0 ? (
@@ -175,7 +176,7 @@ function GenerateScript({
               {isDropdownOpen && (
                 <>
                   <div
-                    className="fixed flex flex-col inset-0 z-10"
+                    className="fixed flex flex-col inset-0 z-10 select-document"
                     onClick={() => setIsDropdownOpen(false)}
                   ></div>
                   <div className="absolute z-20 mt-2 w-full max-h-64 overflow-y-auto bg-white dark:bg-gray-700 border border-gray-200 shadow-2xl rounded-2xl p-2">
@@ -231,7 +232,7 @@ function GenerateScript({
           </div>
 
           {/* Query Input Section */}
-          <div className="flex flex-col gap-2">
+          <div id="enter-topic" className="flex flex-col gap-2">
             <label className="text-sm font-bold text-gray-700 dark:text-gray-400 ml-1 text-left">
               SOP Topic
             </label>

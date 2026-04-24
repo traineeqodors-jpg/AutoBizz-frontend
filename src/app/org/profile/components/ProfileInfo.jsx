@@ -22,7 +22,8 @@ const ProfileInfo = ({ user, onSave }) => {
     "profileImage",
     "googleRefreshToken",
     "isVerified",
-    "type"
+    "type",
+    "onboarding"
   ];
   
   const [isEditing, setIsEditing] = useState(false);

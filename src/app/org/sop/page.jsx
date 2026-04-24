@@ -1,7 +1,6 @@
 "use client";
 
-
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import {
   useDeleteVideoMutation,
@@ -12,22 +11,44 @@ import { useGetMeQuery } from "@/features/slices/userSlice";
 import toast from "react-hot-toast";
 import { IoSearchOutline } from "react-icons/io5";
 
+import tourData from "../../../Json data/tourData.json";
+import { startTour, setStepIndex } from "@/features/slices/tourSlice";
+
 import GenerateSOP from "@/components/ui/GenerateSOP";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 import SopVideoCard from "./components/SopVideoCard";
 import SopVideoCardSkeleton from "./components/SopVideoCardSkeleton";
 import SearchFilterVideos from "./components/SearchFilterVideos";
+import { useDispatch, useSelector } from "react-redux";
 
 function SopPage() {
+  const dispatch = useDispatch();
   // Filtering State
   const [statusFilter, setStatusFilter] = useState("all");
+
+  const { data: videos = [], isLoading } = useGetAllVideosQuery();
 
   const { data } = useGetMeQuery();
   const user = data?.data;
   const role = user?.role;
   const isOwner = role === "owner";
 
-  const { data: videos = [], isLoading } = useGetAllVideosQuery();
+  const userOnboarding = user?.onboarding?.sop;
+
+  const shouldStart = userOnboarding?.status === "pending";
+
+  useEffect(() => {
+    if (tourData?.sop && user && shouldStart) {
+      dispatch(
+        startTour({
+          tourKey: "sop",
+          steps: tourData.sop,
+          stepIndex: userOnboarding?.lastStep ?? 0,
+          run: true,
+        }),
+      );
+    }
+  }, [dispatch, tourData, user, shouldStart]);
 
   const [deleteVideo, { isLoading: deletingVideo }] = useDeleteVideoMutation();
 
@@ -87,14 +108,19 @@ function SopPage() {
           />
         </div>
 
-        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-8 justify-center bg-surface dark:border-0 py-5 px-3 rounded-3xl shadow-sm">
+        <div
+          id="sop-videos"
+          className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-8 justify-center bg-surface dark:border-0 py-5 px-3 rounded-3xl shadow-sm"
+        >
           {" "}
           {/* Video Card */}
           {isLoading ? (
             <>
-              {[...Array(4)].map((_, i) => (
-                <SopVideoCardSkeleton key={i} />
-              ))}
+
+                {[...Array(4)].map((_, i) => (
+                  <SopVideoCardSkeleton key={i} />
+                ))}
+
             </>
           ) : processedVideos?.length < 1 ? (
             <div className="py-20 lg:py-21 text-center px-4 col-span-full mx-auto">
@@ -107,11 +133,13 @@ function SopPage() {
               <p className="text-text/40 dark:text-gray-50/40 text-sm mt-1">
                 Try adjusting your search filters or Generate new video.
               </p>
-              {isOwner && (
-                <div className="mt-3">
-                  <GenerateSOP />
-                </div>
-              )}
+              {isOwner &&
+                processedVideos.length === 0 &&
+                videos.length === 0 && (
+                  <div className="mt-3">
+                    <GenerateSOP />
+                  </div>
+                )}
             </div>
           ) : (
             processedVideos?.map((video) => (

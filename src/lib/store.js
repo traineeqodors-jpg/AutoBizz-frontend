@@ -8,6 +8,7 @@ import { resetPasswordApi } from "@/features/slices/resetPasswordSlice";
 import { scriptGenerationApi } from "@/features/slices/scriptGenerationSlice";
 import { videoGenerationApi } from "@/features/slices/videoGenerationSlice";
 import leadFilterReducer from "@/features/extraSlice/leadFIlterSlice";
+import tourReducer from "@/features/slices/tourSlice"
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import { employeeApi } from "@/features/slices/employeeSlice";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   [leadsApi.reducerPath]: leadsApi.reducer,
   [meetingsApi.reducerPath]: meetingsApi.reducer,
   leadFilters: leadFilterReducer,
+  tour: tourReducer,
   [userApi.reducerPath]: userApi.reducer,
   [employeeApi.reducerPath]: employeeApi.reducer,
 });

@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useRouter } from "next/navigation";
 
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +14,6 @@ import { toast } from "react-hot-toast";
 import { FaExclamationCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CustomToast from "./CustomToast";
-
 
 function DocumentUploadDialog({ dialogRef }) {
   const [docFile, setDocFile] = useState(null);
@@ -112,7 +110,7 @@ function DocumentUploadDialog({ dialogRef }) {
   return (
     <dialog
       ref={dialogRef}
-      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5 space-y-5"
+      className="w-lg rounded-3xl bg-back dark:bg-gray-900 m-auto p-5 space-y-5 "
     >
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -130,7 +128,9 @@ function DocumentUploadDialog({ dialogRef }) {
           </div>
 
           {/* Heading */}
-          <h1 className="text-xl font-bold text-center">Business Upload Document</h1>
+          <h1 className="text-xl font-bold text-center">
+            Business Upload Document
+          </h1>
 
           {/* File */}
           <label className="block cursor-pointer border p-3 rounded-xl">

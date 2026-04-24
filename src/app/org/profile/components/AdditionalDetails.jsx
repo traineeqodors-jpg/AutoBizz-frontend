@@ -13,6 +13,7 @@ import { useRef, useState } from "react";
 import { TbInfoCircleFilled } from "react-icons/tb";
 import { DatePicker } from "react-datepicker";
 import { toast } from "react-hot-toast";
+import YearPicker from "@/components/ui/YearPicker";
 
 function AdditionalDetails() {
   const [status, setStatus] = useState("");
@@ -55,24 +56,25 @@ function AdditionalDetails() {
     }
   }
 
-  async function handleYearChange(year) {
-    const dateObj = new Date(year);
-    const date = dateObj.getFullYear();
+async function handleYearChange(year) {
+  const yearToSave = Number(year);
 
-    try {
-      const response = await updateInfo({ startedInYear: Number(date) });
-      console.log(response);
+  try {
+    const response = await updateInfo({ startedInYear: yearToSave });
 
-      if (!updateLoading && !response?.data?.success) {
-        toast.error("Failed to update!");
-      }
-      setYear(date);
-
+    if (response?.data?.success || response?.success) {
+      setYear(yearToSave);
       toast.success("Started year updated!");
-    } catch (error) {
-      toast.error("Failed to update!", error);
+    } else {
+      toast.error("Failed to update!");
     }
+
+    console.log("API Response:", response);
+  } catch (error) {
+    console.error("Update Error:", error);
+    toast.error("Failed to update!");
   }
+}
 
   return (
     <div className="w-full bg-white dark:bg-gray-900 rounded-2xl shadow-md/10 gap-5 overflow-hidden">
@@ -87,7 +89,7 @@ function AdditionalDetails() {
           <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div className="p-5 flex flex-col">
+        <div className="p-5 flex flex-col text-sm sm:text-base font-medium">
           <form className="space-y-4">
             <div className="relative w-full">
               <textarea
@@ -116,7 +118,7 @@ function AdditionalDetails() {
                 )}
               </div>
             </div>
-            <div className="flex md:flex-row flex-col gap-3">
+            <div className="flex md:flex-row flex-col gap-3 ">
               <div className="flex flex-col flex-2 gap-1">
                 <label className="text-xs text-text/60 dark:text-gray-300">
                   Business Category
@@ -140,29 +142,13 @@ function AdditionalDetails() {
                 </select>
               </div>
 
-              <div className="flex flex-col flex-1 gap-1">
+              <div className="flex flex-col flex-1 gap-1 relative">
                 <label className="text-xs text-text/60 dark:text-gray-300">
                   Started in year
                 </label>
-                <DatePicker
-                  calendarClassName="custom-calendar-style"
-                  className="w-full bg-transparent border px-4 border-gray-300 dark:bg-gray-800 dark:text-white focus:outline-none focus:border-btn-100 font-medium py-2 rounded-lg"
-                  selected={
-                    new Date(
-                      year ||
-                        data?.data?.startedInYear ||
-                        new Date().getFullYear(),
-                      0,
-                      1,
-                    )
-                  }
-                  maxDate={new Date()}
-                  filterDate={(date) =>
-                    date.getFullYear() <= new Date().getFullYear()
-                  }
-                  onChange={(date) => handleYearChange(date)}
-                  showYearPicker
-                  dateFormat="yyyy"
+                <YearPicker
+                  selectedYear={year || data?.data?.startedInYear}
+                  onChange={(year) => handleYearChange(year)}
                 />
               </div>
             </div>

@@ -14,7 +14,7 @@ const SupportCard = () => {
             AI Agent Support
           </h1>
           <div className="flex items-center gap-2">
-            <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />
+            <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shrink-0 z-0"  />
             <span className="text-text/60 text-[10px] sm:text-xs font-medium dark:text-gray-400">
               Agent Online
             </span>

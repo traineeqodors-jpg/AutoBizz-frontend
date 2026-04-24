@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import ToasterProvider from "@/components/ToasterProvider";
 import AuthGuard from "@/components/AuthGuard";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import TourHandler from "@/components/TourHandler";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
           <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
             <Providers>
               <AuthGuard>{children}</AuthGuard>
+              
             </Providers>
           </GoogleOAuthProvider>
         </ThemeProvider>

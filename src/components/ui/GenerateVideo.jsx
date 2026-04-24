@@ -25,6 +25,7 @@ function GenerateVideo({
   return (
     <dialog
       ref={genVideoRef}
+      id="sop-script"
       className="w-lg rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
     >
       {/* Form  */}
@@ -39,7 +40,7 @@ function GenerateVideo({
             onClick={() => {
               genVideoRef.current?.close();
               activeRequestRef.current?.abort();
-              genScriptRef.current?.showModal();
+              genScriptRef.current?.show();
             }}
             type="button"
           >

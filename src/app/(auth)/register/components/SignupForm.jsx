@@ -3,6 +3,13 @@ import { IoEyeSharp } from "react-icons/io5";
 // import SocialLogin from "./SocialLogin";
 import countries from "../../../../Json data/country.json";
 import Link from "next/link";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 const SignupForm = ({
   input,
