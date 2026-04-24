@@ -73,7 +73,7 @@ function EditOrgDetails() {
         <div className="grid w-full gap-4 sm:gap-7 py-3 sm:py-5">
           {/* Header Card */}
           {orgDetailsLoading ? (
-            <div className="h-45 w-full bg-btn-100/10 dark:bg-gray-700 animate-pulse rounded-2xl"></div>
+            <div className="h-45 w-full bg-gray-300 dark:bg-gray-700 animate-pulse rounded-2xl"></div>
           ) : (
             <div className="w-full bg-surface dark:shadow-md dark:shadow-gray-700/30 rounded-2xl shadow-sm border dark:border-none border-slate-100 p-5 flex flex-col flex-wrap sm:flex-row items-center gap-5 text-center sm:text-left">
               {/* PROFILE IMAGE SECTION */}
@@ -188,7 +188,7 @@ function EditOrgDetails() {
           <AnimatePresence>
             {isPreviewOpen && (
               <div
-                className="fixed inset-0 z-999 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+                className="fixed inset-0 z-999 flex items-center justify-center bg-black/40 p-4 "
                 onClick={() => setIsPreviewOpen(false)}
               >
                 <motion.div
@@ -209,7 +209,7 @@ function EditOrgDetails() {
                     <Image
                       src={profileImageUrl}
                       alt="Profile"
-                      className="max-w-full max-h-full object-contain rounded-xl"
+                      className="w-full h-auto object-contain rounded-xl"
                       width={300}
                       height={300}
                     />

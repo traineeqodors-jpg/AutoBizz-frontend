@@ -63,6 +63,8 @@ const DatePicker = ({ label, field, value, updateFilter, minDate }) => {
           </Button>
         </PopoverTrigger>
 
+        {/* Prevent rendering when disabled */}
+
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             mode="single"
@@ -71,7 +73,6 @@ const DatePicker = ({ label, field, value, updateFilter, minDate }) => {
             initialFocus
             disabled={(d) => {
               if (!minDate) return false;
-
               const min = parseLocalDate(minDate);
               return d < min;
             }}

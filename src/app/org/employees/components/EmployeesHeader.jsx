@@ -2,12 +2,14 @@ import { IoMdAdd } from "react-icons/io";
 import AddEmployeeDialog from "./AddEmployeeDialog";
 
 function EmployessHeader({
-  dialogRef,
   input,
   handleChange,
   handleSubmit,
   errors,
   createLoading,
+  setInput,
+  openModal,
+  setOpenModal,
 }) {
   return (
     <>
@@ -22,7 +24,7 @@ function EmployessHeader({
         </div>
 
         <button
-          onClick={() => dialogRef.current?.showModal()}
+          onClick={() => setOpenModal(true)}
           className="flex px-4 cursor-pointer py-3 rounded-xl text-sm font-semibold bg-btn-100 dark:bg-btn-200 text-white gap-1 hover:bg-btn-200 hover:inset-shadow-sm/40 justify-center items-center"
         >
           Add Employee
@@ -31,8 +33,10 @@ function EmployessHeader({
       </div>
 
       <AddEmployeeDialog
-        dialogRef={dialogRef}
+        open={openModal}
+        setOpen={setOpenModal}
         input={input}
+        setInput={setInput}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         errors={errors}

@@ -39,6 +39,8 @@ function LeadManagement() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const hideNoticeTimerRef = useRef(null);
 
+  const [hasData, setHasData] = useState(true);
+
   const deleteModalRef = useRef(null);
   const scrollRef = useRef(null);
 
@@ -67,14 +69,23 @@ function LeadManagement() {
     isLoading: leadsLoading,
     isFetching,
   } = useGetAllLeadsQuery(memoizedFilters, {
-    skip: !isGoogleLinked,
+    skip: !isGoogleLinked || !hasData,
   });
+
+  useEffect(() => {
+    if (data?.data?.hasAnyData === false) {
+      setHasData(false);
+    }
+  }, [data]);
 
   const { data: me } = useGetMeQuery();
 
   const orgId = me?.data?.orgId || me?.data?.id;
 
   const leads = data?.data?.leads || [];
+  const hasFilters = data?.data?.hasFilters;
+  const hasAnyData = data?.data?.hasAnyData;
+
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
 
   useEffect(() => {
@@ -124,6 +135,7 @@ function LeadManagement() {
       try {
         const response = await uploadCSV(formData).unwrap();
         toast.success(response?.message);
+        setHasData(true);
       } catch (error) {
         setFileName("");
         toast.error(error?.data?.message || "Upload failed");
@@ -280,7 +292,7 @@ function LeadManagement() {
       socket.off(scoreKey, scoreHandler);
     };
   }, [orgId, dispatch]);
-
+  
   return (
     <AnimatedWrapper>
       <div className="min-h-screen w-full mx-auto space-y-6 py-3 sm:py-6 lg:py-8 relative">
@@ -317,6 +329,7 @@ function LeadManagement() {
           filters={filters}
           updateFilter={onUpdateFilter}
           resetFilters={onResetFilters}
+          disabled={!hasAnyData}
         />
 
         {/* Live Socket Status Banner */}

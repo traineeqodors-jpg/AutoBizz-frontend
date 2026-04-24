@@ -23,6 +23,7 @@ import DatePicker from "@/components/ui/DatePicker";
 function CallLogsPage() {
   const [selectedLog, setSelectedLog] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [hasData, setHasData] = useState(true);
 
   // State for Backend Filtering (Updated with Dates)
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,22 +41,38 @@ function CallLogsPage() {
   const deleteModalRef = useRef(null);
 
   // RTK Query Hook
-  const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters);
+  const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters, {
+    skip: !hasData,
+  });
+
+  useEffect(() => {
+    if (data?.data?.hasAnyData === false) {
+      setHasData(false);
+    }
+  }, [data]);
+
   const [deleteCallLog, { isLoading: isDeleting }] = useDeleteCallLogMutation();
+
+  const logs = data?.data?.logs || [];
+  const pagination = data?.data?.pagination || {
+    totalPages: 1,
+    totalItems: 0,
+  };
+  const hasFilters = data?.data?.hasFilters || false;
+  const hasAnyData = data?.data?.hasAnyData ?? true;
 
   // Debounce Search Logic
   useEffect(() => {
+    if (!hasAnyData) return;
+
     const delayDebounceFn = setTimeout(() => {
       setFilters((prev) => ({ ...prev, search: searchTerm, page: 1 }));
     }, 700);
+
     return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm]);
+  }, [searchTerm, hasAnyData]);
 
-  const logs = data?.data?.logs || [];
-  const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
-  const hasFilters = data?.data?.hasFilters || false;
-
-  // 4. Handlers
+  // Handlers
   const handleStatusFilter = (status) => {
     const backendStatus = status === "all" ? "" : status;
     setFilters((prev) => ({ ...prev, status: backendStatus, page: 1 }));
@@ -84,8 +101,6 @@ function CallLogsPage() {
       page: 1,
     }));
   };
-
-  console.log(filters);
 
   const toggleSort = (key) => {
     setFilters((prev) => ({
@@ -146,7 +161,7 @@ function CallLogsPage() {
             </div>
 
             {/* Date Filter Bar */}
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 px-4 py-4 bg-slate-50/70 dark:bg-gray-800/60 rounded-2xl border border-slate-100 dark:border-gray-700">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 px-4 py-4 bg-back/20 dark:bg-gray-800/50 rounded-2xl border border-slate-100 dark:border-gray-700">
               <div className="flex flex-col sm:flex-row items-center gap-4 w-fit sm:w-full mx-auto sm:mx-0 lg:w-auto">
                 <DatePicker
                   label="From Date"

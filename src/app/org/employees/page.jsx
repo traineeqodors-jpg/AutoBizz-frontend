@@ -18,7 +18,7 @@ import {
 import ReusableTable from "@/components/ui/ReusableTable";
 
 function EmployeeManagement() {
-  const dialogRef = useRef(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const [input, setInput] = useState({
     firstName: "",
@@ -32,9 +32,53 @@ function EmployeeManagement() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
   const [page, setPage] = useState(1);
+  const [targetEmp, setTargetEmp] = useState(null);
+  const [hasData, setHasData] = useState(true);
+
+  const deleteModalRef = useRef(null);
+
+  // Pass filters directly to the query
+  const {
+    data: emp,
+    isLoading: empLoading,
+    isFetching: empFetching,
+    isError,
+    refetch,
+  } = useGetAllEmployeeQuery(
+    {
+      search: debouncedSearch || undefined,
+      role: roleFilter || undefined,
+      page: page,
+      limit: 10,
+    },
+    {
+      skip: !hasData,
+    },
+  );
+
+  useEffect(() => {
+    if (emp?.data?.hasAnyData === false) {
+      setHasData(false);
+    }
+  }, [emp]);
+
+  const [createEmp, { isLoading: createLoading }] = useCreateEmployeeMutation();
+
+  const [deleteEmployee, { isLoading: deleteLoading }] =
+    useDeleteEmployeeMutation();
+
+  const [editEmployee, { isLoading: updateLoading }] =
+    useUpdateEmployeeMutation();
+
+  const empData = isError ? [] : emp?.data?.employees || [];
+  const pagination = emp?.data?.pagination;
+  const hasFilters = emp?.data?.hasFilters;
+  const hasAnyData = emp?.data?.hasAnyData ?? true;
 
   // Wait 500ms after the user stops typing to update debouncedSearch
   useEffect(() => {
+    if (!hasAnyData) return;
+
     const handler = setTimeout(() => {
       setDebouncedSearch(searchTerm);
     }, 500);
@@ -52,38 +96,6 @@ function EmployeeManagement() {
   useEffect(() => {
     setPage(1);
   }, [debouncedSearch, roleFilter]);
-
-  const [targetEmp, setTargetEmp] = useState(null);
-
-  const deleteModalRef = useRef(null);
-
-  const [createEmp, { isLoading: createLoading }] = useCreateEmployeeMutation();
-
-  // Pass filters directly to the query
-  const {
-    data: emp,
-    isLoading: empLoading,
-    isFetching: empFetching,
-    isError,
-    refetch,
-  } = useGetAllEmployeeQuery({
-    search: debouncedSearch || undefined,
-    role: roleFilter || undefined,
-    page: page,
-    limit: 10,
-  });
-
-  const hasFilters = emp?.data?.hasFilters;
-
-  const [deleteEmployee, { isLoading: deleteLoading }] =
-    useDeleteEmployeeMutation();
-
-  const [editEmployee, { isLoading: updateLoading }] =
-    useUpdateEmployeeMutation();
-
-  const empData = isError ? [] : emp?.data?.employees || [];
-
-  const pagination = emp?.data?.pagination;
 
   // Clear filters handler
   const handleClearFilters = () => {
@@ -155,13 +167,14 @@ function EmployeeManagement() {
       return;
     }
 
-    console.log("submitted", input);
+    setErrors({});
 
     try {
       const response = await createEmp(input).unwrap();
       console.log(response);
       toast.success(response?.message);
-      dialogRef?.current?.close();
+      setHasData(true);
+      setOpenModal(false);
       setInput({
         firstName: "",
         lastName: "",
@@ -201,8 +214,10 @@ function EmployeeManagement() {
     <AnimatedWrapper>
       <div className="min-h-screen mx-auto space-y-6 w-full py-3 sm:py-6 lg:py-8 relative">
         <EmployessHeader
-          dialogRef={dialogRef}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
           input={input}
+          setInput={setInput}
           errors={errors}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
@@ -252,15 +267,29 @@ function EmployeeManagement() {
                         />
                       )}
                       emptyState={
-                        <div className="flex flex-col items-center gap-2">
-                          <span>No employees found matching your search.</span>
-                          {hasFilters && (
-                            <button
-                              onClick={handleClearFilters}
-                              className="text-btn-100 text-sm underline cursor-pointer"
-                            >
-                              Clear filters
-                            </button>
+                        <div className="flex flex-col items-center gap-2 py-10">
+                          {!hasAnyData ? (
+                            <>
+                              <span>No employees yet.</span>
+                              <button
+                                onClick={() => setOpenModal(true)}
+                                className="text-btn-100 underline"
+                              >
+                                Add your first employee
+                              </button>
+                            </>
+                          ) : hasFilters ? (
+                            <>
+                              <span>No results match your filters.</span>
+                              <button
+                                onClick={handleClearFilters}
+                                className="text-btn-100 underline"
+                              >
+                                Clear filters
+                              </button>
+                            </>
+                          ) : (
+                            <span>No employees found.</span>
                           )}
                         </div>
                       }

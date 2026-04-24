@@ -10,15 +10,9 @@ import { MdDarkMode, MdSunny } from "react-icons/md";
 const LandingNavbar = () => {
   const { theme, setTheme } = useTheme();
 
-  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
-
-  useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 0);
-    return () => clearTimeout(timer);
-  }, []);
 
   const isDark = theme === "dark";
 
@@ -80,17 +74,16 @@ const LandingNavbar = () => {
             </ul>
 
             {/* Theme Toggle Button */}
+            {/* Theme Toggle Button */}
             <button
-              className="p-2 bg-gray-300 text-text dark:bg-gray-700 rounded-full flex justify-center items-center cursor-pointer min-w-10 min-h-10"
+              className="p-2 bg-gray-300 text-text dark:text-white dark:bg-gray-700 rounded-full flex justify-center items-center cursor-pointer min-w-10 min-h-10"
               onClick={() => setTheme(isDark ? "light" : "dark")}
             >
-              {!mounted ? (
-                <div className="size-6" />
-              ) : isDark ? (
-                <MdDarkMode className="size-6 animate-[spin_0.5s_ease-in-out_1]" />
-              ) : (
-                <MdSunny className="size-6 animate-[spin_0.8s_ease-in-out_1]" />
-              )}
+              {/* Dark Icon: Only visible when 'dark' class exists on <html> */}
+              <MdDarkMode className="hidden dark:block size-6 animate-[spin_0.5s_ease-in-out_1]" />
+
+              {/* Light Icon: Only visible when 'dark' class is missing */}
+              <MdSunny className="block dark:hidden size-6 animate-[spin_0.8s_ease-in-out_1]" />
             </button>
 
             {/* Menu Buttons */}

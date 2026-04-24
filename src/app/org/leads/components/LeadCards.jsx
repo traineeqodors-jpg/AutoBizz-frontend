@@ -6,7 +6,7 @@ function LeadCards({ data }) {
       {[
         {
           label: "Total Leads",
-          count: data?.data?.pagination?.totalItems,
+          count: data?.data?.totalUnfilteredCount || 0,
           icon: Users,
           color: "text-blue-600",
         },

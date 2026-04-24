@@ -84,17 +84,22 @@ function GenerateSOP({ isHome }) {
       {isHome ? (
         <div
           onClick={() => genScriptRef.current?.showModal()}
-          className="flex h-45 gap-3 items-center-safe p-3 sm:p-5 bg-linear-to-r from-blue-300 via-indigo-400 to-indigo-600 dark:bg-btn-200 text-white w-full rounded-2xl transition cursor-pointer shadow-sm"
+          className="flex xl:h-45 items-center gap-4 p-4 sm:p-6 bg-surface text-text group w-full rounded-2xl transition cursor-pointer shadow-sm hover:shadow-md border border-slate-100 dark:border-gray-800 hover:border-btn-100/30"
         >
-          <button className="p-3 h-fit rounded-full bg-white/30 flex justify-center-safe items-center-safe">
-            <FaPlay className="size-8" />
-          </button>
-          <div className="px-2 py-3 text-sm">
-            <h2 className="flex items-center-safe gap-3 text-left text-lg font-bold">
+          {/* Icon */}
+          <div className="p-4 rounded-full bg-linear-to-r from-blue-300 via-indigo-400 to-indigo-600 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+            <FaPlay className="text-white text-xl sm:text-2xl" />
+          </div>
+
+          {/* Content */}
+          <div className="flex flex-col justify-center space-y-1 sm:space-y-2">
+            <h2 className="flex items-center gap-2 text-base sm:text-lg font-bold">
               Generate SOP Video <GrMagic />
             </h2>
-            <p className="text-xs">
-              Turn Uploaded Document into Training Videos
+
+            <p className="text-xs sm:text-sm text-text/70 max-w-md">
+              Turn your uploaded documents into engaging training videos using
+              AI avatars.
             </p>
           </div>
         </div>

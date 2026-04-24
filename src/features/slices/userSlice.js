@@ -70,6 +70,16 @@ export const userApi = createApi({
       invalidatesTags: (result, error) => (error ? [] : ["User"]),
     }),
 
+    updateOnboarding: build.mutation({
+      query: (input) => ({
+        url: "/org/updateonboard",
+        method: "put",
+        body: input,
+        credentials: "include",
+      }),
+      invalidatesTags: (result, error) => (error ? [] : ["User"]),
+    }),
+
     logout: build.mutation({
       query: () => ({
         url: "/user/logout",
@@ -88,4 +98,5 @@ export const {
   useGoogleTokenMutation,
   useUpdateOrgMutation,
   useEmployeeLoginMutation,
+  useUpdateOnboardingMutation,
 } = userApi;
