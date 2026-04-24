@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
-// ✅ Convert "YYYY-MM-DD" → local Date (NO timezone shift)
+// Convert "YYYY-MM-DD" → local Date (NO timezone shift)
 const parseLocalDate = (dateString) => {
   if (!dateString) return undefined;
   const [year, month, day] = dateString.split("-");
   return new Date(year, month - 1, day);
 };
 
-// ✅ Convert Date → "YYYY-MM-DD" (NO UTC conversion)
+//Convert Date → "YYYY-MM-DD" (NO UTC conversion)
 const formatLocalDate = (date) => {
   if (!date) return "";
   const year = date.getFullYear();
@@ -31,7 +31,7 @@ const formatLocalDate = (date) => {
 const DatePicker = ({ label, field, value, updateFilter, minDate }) => {
   const [date, setDate] = useState(parseLocalDate(value));
 
-  // ✅ Sync with parent (fixes clear button issue)
+  // Sync with parent (fixes clear button issue)
   useEffect(() => {
     setDate(parseLocalDate(value));
   }, [value]);
