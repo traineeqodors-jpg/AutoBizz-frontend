@@ -4,7 +4,7 @@ import {
   useDeleteDocumentMutation,
   useGetMyDocumentsQuery,
 } from "@/features/slices/documentSlice";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import DocumentSearch from "./components/DocumentSearch";
 import { IoSearchOutline } from "react-icons/io5";
 import DeleteDialog from "@/components/ui/DeleteDialog";
@@ -12,10 +12,14 @@ import AnimatedWrapper from "@/components/AnimatedWrapper";
 import DocumentTable from "./components/DocuementTable";
 import Loading from "@/app/loading";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useGetMeQuery } from "@/features/slices/userSlice";
+
+import { startTour } from "@/features/slices/tourSlice";
+import tourData from "../../../Json data/tourData.json";
 
 export default function Documents() {
-  //fetch documents
-  const { data, isLoading } = useGetMyDocumentsQuery();
+  const dispatch = useDispatch();
 
   //delete documents
   const [deleteDocument, { isLoading: isDeleting }] =
@@ -27,6 +31,27 @@ export default function Documents() {
 
   const deleteModalRef = useRef(null); //delete dialog ref
   const dialogRef = useRef(null);
+
+  //fetch documents
+  const { data, isLoading } = useGetMyDocumentsQuery();
+  const { data: user } = useGetMeQuery();
+
+  const userOnboarding = user?.data?.onboarding?.myDocuments;
+
+  const shouldStart = userOnboarding?.status === "pending";
+
+  useEffect(() => {
+    if (tourData?.myDocuments && user && shouldStart) {
+      dispatch(
+        startTour({
+          tourKey: "myDocuments",
+          steps: tourData.myDocuments,
+          stepIndex: userOnboarding?.lastStep ?? 0,
+          run: true,
+        }),
+      );
+    }
+  }, [dispatch, tourData, user, shouldStart]);
 
   // Filter logic for search
   const filteredDocs = useMemo(() => {
@@ -75,7 +100,10 @@ export default function Documents() {
             dialogRef={dialogRef}
           />
 
-          <div className="bg-surface shadow-sm shadow-text/5 rounded-3xl overflow-hidden border border-white dark:border-none">
+          <div
+            id="document-table"
+            className="bg-surface shadow-sm shadow-text/5 rounded-3xl overflow-hidden border border-white dark:border-none"
+          >
             <div className="overflow-x-auto">
               <table className="w-full text-center border-separate border-spacing-0 flex flex-col md:table">
                 <thead className="hidden md:table-header-group ">

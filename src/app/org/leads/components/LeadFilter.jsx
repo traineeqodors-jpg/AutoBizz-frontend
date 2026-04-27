@@ -20,7 +20,10 @@ const LeadFilter = ({
   return (
     <>
       <div className="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-900 space-y-6 dark:shadow-sm dark:shadow-gray-700/30">
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div
+          id="lead-filter"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5"
+        >
           <div className="col-span-2 md:col-span-2 space-y-2">
             <label className="text-sm font-semibold text-text/90 dark:text-white ml-1">
               Search Leads

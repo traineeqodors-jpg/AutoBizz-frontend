@@ -30,6 +30,7 @@ const OrgInfo = ({ user, isOwner }) => {
               Welcome, <span className="text-text">{fullname ?? "User"}</span>
             </span>
             <FaEdit
+              id="edit-profile"
               className="text-btn-200 hover:scale-105 cursor-pointer"
               onClick={() => router.push("/org/profile")}
             />
@@ -44,6 +45,7 @@ const OrgInfo = ({ user, isOwner }) => {
         {isOwner && (
           <button
             type="button"
+            id="modal-upload"
             onClick={() => dialogRef.current?.showModal()}
             className="flex flex-wrap md:px-4 cursor-pointer md:py-2 p-3 rounded-2xl md:text-lg text-xs bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 text-white gap-1 hover:inset-shadow-sm/40 justify-center items-center"
           >

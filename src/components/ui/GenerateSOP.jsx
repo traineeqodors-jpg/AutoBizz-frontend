@@ -83,6 +83,7 @@ function GenerateSOP({ isHome }) {
     <div className="w-full flex rounded-2xl lg:col-span-2 xl:col-span-1">
       {isHome ? (
         <div
+          id="generate-sop-card"
           onClick={() => genScriptRef.current?.showModal()}
           className="flex xl:h-45 items-center gap-4 p-4 sm:p-6 bg-surface text-text group w-full rounded-2xl transition cursor-pointer shadow-sm hover:shadow-md border border-slate-100 dark:border-gray-800 hover:border-btn-100/30"
         >

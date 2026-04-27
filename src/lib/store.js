@@ -12,6 +12,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import { employeeApi } from "@/features/slices/employeeSlice";
 import { userApi } from "@/features/slices/userSlice";
+import tourReducer from "@/features/slices/tourSlice";
 
 const rootReducer = combineReducers({
   [ContactUsApi.reducerPath]: ContactUsApi.reducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   leadFilters: leadFilterReducer,
   [userApi.reducerPath]: userApi.reducer,
   [employeeApi.reducerPath]: employeeApi.reducer,
+  tour: tourReducer,
 });
 
 export const store = configureStore({

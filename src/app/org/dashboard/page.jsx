@@ -6,16 +6,39 @@ import SupportCard from "./components/SupportCard";
 import GenerateSOP from "@/components/ui/GenerateSOP";
 import AnimatedWrapper from "@/components/AnimatedWrapper";
 import Leads from "./components/Leads";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import Analysis from "./components/Analysis";
 import { useGetMeQuery } from "@/features/slices/userSlice";
 import EmployeeSOPBanner from "./components/EmployeeSOPBanner";
 
+import tourData from "../../../Json data/tourData.json";
+import { startTour } from "@/features/slices/tourSlice";
+import { useDispatch } from "react-redux";
+
 export default function Dashboard() {
   const { data } = useGetMeQuery();
 
+  const dispatch = useDispatch();
+
   const user = data?.data;
   const role = user?.role;
+
+  const shouldStart = user?.onboarding?.dashboard?.status === "pending";
+
+  useEffect(() => {
+    if (tourData?.dashboard && user && shouldStart) {
+      console.log("here");
+
+      dispatch(
+        startTour({
+          tourKey: "dashboard",
+          steps: tourData.dashboard,
+          stepIndex: user?.onboarding?.dashboard?.lastStep ?? 0,
+          run: true,
+        }),
+      );
+    }
+  }, [dispatch, tourData, user, shouldStart]);
 
   // Role check helpers
   const isOwnerOrSales = role === "owner" || role === "sales";

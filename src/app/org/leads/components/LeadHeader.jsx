@@ -13,7 +13,10 @@ function LeadHeader({ handleFileUpload, fileName, setFileName }) {
         </p>
       </div>
 
-      <div className="flex items-center flex-col justify-center">
+      <div
+        id="upload-csv"
+        className="flex items-center flex-col justify-center"
+      >
         <label className="flex items-center gap-2 px-4 py-2 bg-btn-100 dark:bg-btn-200 hover:bg-btn-200 hover:inset-shadow-sm/40 text-white rounded-xl cursor-pointer transition-all shadow-sm">
           <Upload size={18} />
           <span className="text-sm font-medium">Upload CSV</span>

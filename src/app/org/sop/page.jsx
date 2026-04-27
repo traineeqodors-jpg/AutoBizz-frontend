@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import {
   useDeleteVideoMutation,
@@ -16,17 +16,40 @@ import AnimatedWrapper from "@/components/AnimatedWrapper";
 import SopVideoCard from "./components/SopVideoCard";
 import SopVideoCardSkeleton from "./components/SopVideoCardSkeleton";
 import SearchFilterVideos from "./components/SearchFilterVideos";
+import { useDispatch } from "react-redux";
+
+import tourData from "../../../Json data/tourData.json";
+import { startTour } from "@/features/slices/tourSlice";
 
 function SopPage() {
+  const dispatch = useDispatch();
+
   // Filtering State
   const [statusFilter, setStatusFilter] = useState("all");
+
+  const { data: videos = [], isLoading } = useGetAllVideosQuery();
 
   const { data } = useGetMeQuery();
   const user = data?.data;
   const role = user?.role;
   const isOwner = role === "owner";
 
-  const { data: videos = [], isLoading } = useGetAllVideosQuery();
+  const userOnboarding = user?.onboarding?.sop;
+
+  const shouldStart = userOnboarding?.status === "pending";
+
+  useEffect(() => {
+    if (tourData?.sop && user && shouldStart) {
+      dispatch(
+        startTour({
+          tourKey: "sop",
+          steps: tourData.sop,
+          stepIndex: userOnboarding?.lastStep ?? 0,
+          run: true,
+        }),
+      );
+    }
+  }, [dispatch, tourData, user, shouldStart]);
 
   const [deleteVideo, { isLoading: deletingVideo }] = useDeleteVideoMutation();
 
@@ -86,7 +109,10 @@ function SopPage() {
           />
         </div>
 
-        <div className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-8 justify-center bg-surface dark:border-0 py-5 px-3 rounded-3xl shadow-sm">
+        <div
+          id="sop-videos"
+          className="h-full w-full grid grid-cols-[repeat(auto-fill,minmax(282px,282px))] gap-8 justify-center bg-surface dark:border-0 py-5 px-3 rounded-3xl shadow-sm"
+        >
           {" "}
           {/* Video Card */}
           {isLoading ? (

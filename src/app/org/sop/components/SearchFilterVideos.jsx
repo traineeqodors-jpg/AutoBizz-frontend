@@ -26,6 +26,7 @@ const SearchFilterVideos = ({ setStatusFilter, statusFilter }) => {
         </div>
 
         <Select
+          id="filter-videos"
           value={statusFilter}
           onValueChange={(value) => setStatusFilter(value)}
         >
