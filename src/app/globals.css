@@ -111,6 +111,10 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+*::-webkit-scrollbar{
+  display: none;
+}
+
 :root {
   --border: oklch(0.922 0 0);
   /* Base Colors */
@@ -338,6 +342,196 @@
       -20px 0 #000;
     background: #000;
   }
+}
+
+/* ===== FULLCALENDAR THEME (MATCHES YOUR DESIGN SYSTEM) ===== */
+
+.fc {
+  font-family: var(--font-sans);
+  color: var(--text);
+  border: none !important;
+}
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+/* Remove table borders */
+.fc .fc-scrollgrid {
+  border: none !important;
+}
+
+/* Add consistent borders manually */
+.fc .fc-daygrid-body {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fc-theme-standard td {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.dark .fc-theme-standard td {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+/* ================= TOOLBAR ================= */
+.fc-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.fc-toolbar-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text);
+  border-bottom: 3px solid color-mix(in srgb, var(--btn-100), transparent 70%);
+  padding: 4px 10px;
+}
+
+/* ================= BUTTONS ================= */
+.fc-button {
+  background: var(--back) !important;
+  color: var(--text) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 6px 12px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: none !important;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+  transition: all 0.2s ease;
+}
+
+.fc-button:hover {
+  background: var(--btn-100) !important;
+  color: white !important;
+}
+
+.fc-button-active {
+  background: linear-gradient(to right,
+      var(--btn-100),
+      var(--btn-200)) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+}
+
+.fc-today-button {
+  border-radius: var(--radius-2xl) !important;
+}
+
+/* ================= GRID ================= */
+.fc-scrollgrid {
+  border: none !important;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+}
+
+/* Day cells */
+.fc-daygrid-day {
+  border: 1px solid color-mix(in srgb, var(--border), transparent 50%);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.fc-daygrid-day:hover {
+  background: color-mix(in srgb, var(--btn-100), transparent 92%);
+}
+
+/* ================= HEADER ================= */
+.fc-col-header-cell {
+  font-size: 12px;
+  /* ⬆️ increased */
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: color-mix(in srgb, var(--btn-100), transparent 85%);
+  color: var(--text);
+  border: none !important;
+  padding: 12px 0;
+  width: 100%;
+  /* ⬆️ more height */
+}
+
+/* ================= TODAY ================= */
+.fc-day-today {
+  background: color-mix(in srgb, var(--btn-100), transparent 85%) !important;
+}
+
+/* ================= EVENTS ================= */
+.fc-event {
+  border: none !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 2px !important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  transition: all 0.2s ease;
+}
+
+.fc-col-header-cell-cushion {
+  padding: 8px 0;
+  display: block;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.fc .fc-col-header-cell {
+  padding: 10px 0;
+  font-size: 13px;
+}
+
+.fc .fc-daygrid-day-frame {
+  padding: 4px;
+}
+
+/* Month view date cells */
+.fc .fc-daygrid-day-frame {
+  cursor: pointer;
+}
+
+/* Week/Day view time slots */
+.fc .fc-timegrid-slot {
+  cursor: pointer;
+}
+
+
+.fc-event:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.15);
+}
+
+/* Remove default styles */
+.fc-event-main {
+  background: transparent !important;
+}
+
+/* ================= TIME GRID ================= */
+.fc-timegrid-slot {
+  border-top: 1px dashed color-mix(in srgb, var(--border), transparent 50%);
+}
+
+.fc-timegrid-now-indicator-line {
+  background: var(--btn-100);
+  height: 3px;
+  border-radius: 10px;
+}
+
+/* ================= SCROLL ================= */
+.fc-scroller {
+  scrollbar-width: thin;
+}
+
+/* ================= SMOOTH TRANSITIONS ================= */
+.fc * {
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 /* For browsers that support mask-image (Safari/Chrome) */

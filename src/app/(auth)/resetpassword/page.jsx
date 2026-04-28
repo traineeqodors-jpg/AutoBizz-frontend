@@ -54,8 +54,7 @@ const ResetPassword = ({}) => {
               </p>
             ) : (
               <p className="text-sm text-gray-400">
-                Enter your email associated with your account and we'll email
-                you link to reset your password.
+                  {"Enter your email associated with your account and we'll email you link to reset your password."}
               </p>
             )}
           </div>

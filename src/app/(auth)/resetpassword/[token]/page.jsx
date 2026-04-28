@@ -21,6 +21,8 @@ function UpdatePassword() {
     confirmPassword: "",
   });
 
+  const [resetPass, { isLoading }] = useResetPasswordMutation();
+
   const router = useRouter();
 
   // Getting Token From URL Params
@@ -32,7 +34,7 @@ function UpdatePassword() {
     return;
   }
 
-  const [resetPass, { isLoading }] = useResetPasswordMutation();
+  
 
   //   Handling Form Change
   const handleChange = (e) => {

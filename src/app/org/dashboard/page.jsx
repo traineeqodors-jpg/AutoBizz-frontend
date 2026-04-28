@@ -38,7 +38,7 @@ export default function Dashboard() {
         }),
       );
     }
-  }, [dispatch, tourData, user, shouldStart]);
+  }, [dispatch, user, shouldStart]);
 
   // Role check helpers
   const isOwnerOrSales = role === "owner" || role === "sales";

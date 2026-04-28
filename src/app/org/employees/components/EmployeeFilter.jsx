@@ -15,6 +15,7 @@ const EmployeeFilter = ({
   roleFilter,
   setRoleFilter,
   handleClearFilters,
+  canGoNext,
 }) => {
   // Define a shared height and padding class to ensure exact matching
   const inputBase =
@@ -28,6 +29,7 @@ const EmployeeFilter = ({
           <label className="text-sm font-semibold ml-1">Search Employees</label>
           <div className="relative">
             <input
+              disabled={!canGoNext}
               type="text"
               placeholder="Name or email"
               className={`${inputBase} pl-11`}
@@ -45,6 +47,7 @@ const EmployeeFilter = ({
           <label className="text-sm font-semibold ml-1">Role</label>
 
           <Select
+            disabled={!canGoNext}
             value={roleFilter}
             onValueChange={(value) =>
               setRoleFilter(value === "all" ? "" : value)

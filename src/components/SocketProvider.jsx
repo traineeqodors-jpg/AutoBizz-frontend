@@ -5,9 +5,6 @@ import { getSocket } from "@/lib/socket";
 
 export default function SocketProvider({ user, children }) {
   const userId = user?.orgId || user?.id;
-
-  if (user?.role === "employee") return children;
-
   const hasJoined = useRef(false);
 
   useEffect(() => {
@@ -21,7 +18,10 @@ export default function SocketProvider({ user, children }) {
 
       console.log("Joined room:", userId);
     }
-  }, [userId]);
+  }, [userId, user]);
+
+  if (user?.role === "employee") return children;
+
 
   return children;
 }

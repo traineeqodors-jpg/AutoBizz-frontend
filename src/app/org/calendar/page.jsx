@@ -1,105 +1,30 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import {
-  IoChevronBack,
-  IoChevronForward,
-  IoCalendarOutline,
-} from "react-icons/io5";
-import { motion, AnimatePresence } from "framer-motion";
-import { useGoogleLogin } from "@react-oauth/google";
-import { FaGoogle } from "react-icons/fa";
-import toast from "react-hot-toast";
 import { useGetAllMeetingsQuery } from "@/features/slices/meetingSlice";
-import AnimatedWrapper from "@/components/AnimatedWrapper";
 import {
   useGetMeQuery,
   useGoogleTokenMutation,
 } from "@/features/slices/userSlice";
 
-const localizer = momentLocalizer(moment);
+import { useMemo, useState } from "react";
 
-// Animation Variants for the whole Calendar View
-const viewVariants = {
-  initial: (direction) => ({
-    opacity: 0,
-    x: direction > 0 ? 50 : -50,
-    filter: "blur(10px)",
-  }),
-  animate: {
-    opacity: 1,
-    x: 0,
-    filter: "blur(0px)",
-    transition: { type: "spring", stiffness: 300, damping: 30 },
-  },
-  exit: (direction) => ({
-    opacity: 0,
-    x: direction > 0 ? -50 : 50,
-    filter: "blur(10px)",
-    transition: { duration: 0.1 },
-  }),
-};
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
-const CustomToolbar = (toolbar) => (
-  <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => toolbar.onNavigate("TODAY")}
-        className="px-5 py-2.5 bg-back rounded-2xl text-[10px] font-black uppercase tracking-widest text-text hover:bg-btn-100 hover:text-white transition-all active:scale-95 shadow-sm"
-      >
-        Today
-      </button>
-      <div className="flex bg-back rounded-2xl overflow-hidden shadow-inner border border-white">
-        <button
-          onClick={() => toolbar.onNavigate("PREV")}
-          className="p-2.5 hover:bg-btn-100 dark:text-text hover:text-white transition-colors active:bg-btn-200"
-        >
-          <IoChevronBack size={18} />
-        </button>
-        <div className="w-px h-4 bg-gray-200 self-center" />
-        <button
-          onClick={() => toolbar.onNavigate("NEXT")}
-          className="p-2.5 hover:bg-btn-100 dark:text-text hover:text-white transition-colors active:bg-btn-200"
-        >
-          <IoChevronForward size={18} />
-        </button>
-      </div>
-    </div>
+import { useGoogleLogin } from "@react-oauth/google";
 
-    <motion.h3
-      key={toolbar.label}
-      initial={{ y: -10, opacity: 0 }}
-      transition={{ duration: 0.1 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="text-sm font-extrabold uppercase tracking-[0.25em] text-text border-b-4 border-btn-100/30 px-4 pb-1"
-    >
-      {toolbar.label}
-    </motion.h3>
+import { motion } from "framer-motion";
+import { FaGoogle } from "react-icons/fa";
+import { IoCalendarOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
 
-    <div className="flex bg-back p-1.5 rounded-2xl gap-1 shadow-inner border border-white">
-      {["month", "week", "day", "agenda"].map((v) => (
-        <button
-          key={v}
-          onClick={() => toolbar.onView(v)}
-          className={`px-4 py-2 text-[9px] font-extrabold uppercase rounded-xl transition-all active:scale-95 cursor-pointer ${
-            toolbar.view === v
-              ? "bg-btn-100 text-white shadow-lg -translate-y-px"
-              : "text-text hover:bg-white/60"
-          }`}
-        >
-          {v}
-        </button>
-      ))}
-    </div>
-  </div>
-);
+import AnimatedWrapper from "@/components/AnimatedWrapper";
 
 function LeadCalendar() {
+  const [selectedSlot, setSelectedSlot] = useState(null);
   const { data: user } = useGetMeQuery();
-
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
 
   const { data, isLoading } = useGetAllMeetingsQuery(undefined, {
@@ -108,60 +33,39 @@ function LeadCalendar() {
 
   const [googleToken] = useGoogleTokenMutation();
 
-  // Track state to trigger animations on change
-  const [view, setView] = useState("month");
-  const [date, setDate] = useState(new Date());
-  const [direction, setDirection] = useState(1);
-
+  // ✅ Convert events for FullCalendar
   const events = useMemo(() => {
     const meetings = data?.data?.meetings || [];
     return meetings.map((m) => ({
       id: m.id,
       title: m.title,
-      start: new Date(m.startTime),
-      end: new Date(m.endTime),
-      meetLink: m.meetLink,
-      leadName: m.lead?.name,
+      start: m.startTime,
+      end: m.endTime,
+      extendedProps: {
+        meetLink: m.meetLink,
+        leadName: m.lead?.name,
+      },
     }));
   }, [data]);
-
-  const onNavigate = useCallback((newDate, action) => {
-    if (action === "PREV") setDirection(-1);
-    else if (action === "NEXT") setDirection(1);
-    else setDirection(0);
-    setDate(newDate);
-  }, []);
-
-  const onView = useCallback((newView) => {
-    setDirection(0);
-    setView(newView);
-  }, []);
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (response) => {
       try {
-        console.log("Send this to BackEnd : ", response.code);
         const res = await googleToken(response.code).unwrap();
-        console.log(res);
-
         toast.success(res?.message);
       } catch (error) {
-        console.log(error);
-
         toast.error(error?.data?.message);
       }
     },
     flow: "auth-code",
     scope: "https://www.googleapis.com/auth/calendar.events",
-    onError: (error) => {
-      console.log(error);
-    },
   });
 
   return (
     <AnimatedWrapper>
-      <div className="min-h-screen w-full py-3 sm:py-6 lg:py-8 relative mx-auto space-y-6">
-        {/* If Not Connceted to Google */}
+      <div className="min-h-screen w-full px-2 sm:px-4 lg:px-6 py-4 space-y-4">
+        {" "}
+        {/* 🔒 Google Not Connected Overlay */}
         {!isGoogleLinked && (
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/40 dark:bg-gray-800/40 backdrop-blur-md p-2">
             <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
@@ -173,75 +77,167 @@ function LeadCalendar() {
               </p>
               <button
                 onClick={handleGoogleLogin}
-                className="bg-btn-100 text-white px-6 py-3 rounded-xl flex items-center gap-2 mx-auto font-semibold tracking-wide cursor-pointer"
+                className="bg-btn-100 text-white px-6 py-3 rounded-xl flex items-center gap-2 mx-auto font-semibold tracking-wide"
               >
                 <FaGoogle /> Link Google
               </button>
             </div>
           </div>
         )}
-        <div className="h-[88vh] bg-back dark:bg-gray-900 p-2 sm:p-10 rounded-3xl border-2 border-white dark:border-0 shadow-lg flex flex-col overflow-hidden">
-          <div className="flex items-center gap-5 mb-8 p-2">
+        {/* 📅 Header */}
+        <div className="h-[90vh] bg-back dark:bg-gray-900 rounded-3xl shadow-lg flex flex-col overflow-hidden">
+          {" "}
+          <div className="flex items-center gap-4 px-4 sm:px-6 py-4 border-b border-border/40">
+            {" "}
             <div className="bg-btn-100 p-4 rounded-3xl shadow-2xl shadow-cyan-500/30">
               <IoCalendarOutline className="text-white" size={28} />
             </div>
             <div>
-              <h2 className="text-3xl font-extrabold text-heading dark:text-white tracking-tighter leading-none">
+              <h2 className="text-3xl font-extrabold text-heading dark:text-white">
                 Calendar
               </h2>
-              <p className="text-[11px] font-extrabold text-btn-100 uppercase tracking-wider mt-1.5">
+              <p className="text-[11px] font-extrabold text-btn-100 uppercase">
                 Lead Meetings Schedule
               </p>
             </div>
           </div>
-
-          <div className="flex-1 bg-surface/70 dark:bg-surface/80 backdrop-blur-sm rounded-2xl p-2 sm:p-4 inset-shadow-sm/10 shadow-sm border border-white/50 dark:border-border overflow-hidden relative">
-            <AnimatePresence mode="wait" custom={direction}>
-              {isLoading ? (
-                <motion.div
-                  key="loader"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-50 bg-white/40 dark:bg-black/40 backdrop-blur-xl flex items-center justify-center"
-                >
-                  <div className="w-12 h-12 border-6 border-btn-100/20 border-t-btn-100 rounded-full animate-spin" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key={`${view}-${date.getTime()}`}
-                  custom={direction}
-                  variants={viewVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className="h-full "
-                >
-                  <Calendar
-                    localizer={localizer}
+          {/* 📆 Calendar */}
+          <div className="flex-1 w-full min-w-0 bg-surface rounded-2xl p-6 border-2 border-border overflow-hidden">
+            {" "}
+            {isLoading ? (
+              <div className="absolute inset-0 z-50 flex items-center justify-center">
+                <div className="w-12 h-12 border-4 border-btn-100/20 border-t-btn-100 rounded-full animate-spin" />
+              </div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="h-full "
+              >
+                <FullCalendar
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                  initialView="dayGridMonth"
+                  headerToolbar={{
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,timeGridDay",
+                  }}
                     events={events}
-                    view={view}
-                    date={date}
-                    onNavigate={onNavigate}
-                    onView={onView}
-                    startAccessor="start"
-                    endAccessor="end"
-                    components={{
-                      toolbar: CustomToolbar,
-                    }}
-                    eventPropGetter={() => ({
-                      className:
-                        "!bg-gradient-to-r from-btn-100 to-btn-200 !text-white !rounded-lg !border-0 shadow-md hover:scale-[1.02] transition-all",
-                    })}
-                    onSelectEvent={(e) =>
-                      e.meetLink && window.open(e.meetLink, "_blank")
+                    themeSystem="Litera"
+                  height="100%"
+                  expandRows={true}
+                  handleWindowResize={true}
+                  selectMirror={true}
+                  longPressDelay={150}
+                  selectable={true}
+                  select={(info) => {
+                    const padding = 16;
+                    const tooltipWidth = 220;
+                    const tooltipHeight = 140;
+
+                    let x = info.jsEvent?.clientX || window.innerWidth / 2;
+                    let y = info.jsEvent?.clientY || window.innerHeight / 2;
+
+                    // Clamp horizontally
+                    if (x + tooltipWidth > window.innerWidth - padding) {
+                      x = window.innerWidth - tooltipWidth - padding;
                     }
-                    style={{ height: "100%" }}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
+
+                    // Clamp vertically
+                    if (y + tooltipHeight > window.innerHeight - padding) {
+                      y = window.innerHeight - tooltipHeight - padding;
+                    }
+
+                    setSelectedSlot({
+                      start: info.start,
+                      x,
+                      y,
+                    });
+                  }}
+                  // ✅ click event
+                  eventClick={(info) => {
+                    const link = info.event.extendedProps.meetLink;
+                    if (link) window.open(link, "_blank");
+                  }}
+                  // ✅ better event UI
+                  eventContent={(arg) => (
+                    <div className="bg-linear-to-r from-btn-100 to-btn-200 text-white px-2 py-0.5 rounded-md text-[11px] leading-tight shadow-sm">
+                      <div className="font-semibold truncate">
+                        {arg.event.title}
+                      </div>
+                      <div className="opacity-80 truncate">
+                        {arg.event.extendedProps.leadName}
+                      </div>
+                    </div>
+                  )}
+                />
+              </motion.div>
+            )}
           </div>
+          {selectedSlot && (
+            <>
+              {/* Overlay */}
+              <div
+                className="fixed inset-0 bg-black/30 z-40"
+                onClick={() => setSelectedSlot(null)}
+              />
+
+              {/* Desktop Tooltip */}
+              <div
+                className="hidden sm:block fixed z-50 bg-surface border border-border rounded-xl shadow-xl p-3 w-56"
+                style={{
+                  top: selectedSlot.y,
+                  left: selectedSlot.x,
+                }}
+              >
+                <p className="text-xs font-semibold text-text mb-2">
+                  New Event
+                </p>
+
+                <p className="text-[11px] text-muted-foreground mb-3">
+                  {selectedSlot.start.toLocaleString()}
+                </p>
+
+                <button
+                  className="w-full bg-btn-100 text-white text-xs py-2 rounded-lg font-semibold"
+                  onClick={() => {
+                    console.log("Create event:", selectedSlot.start);
+                    setSelectedSlot(null);
+                  }}
+                >
+                  + Add Meeting
+                </button>
+              </div>
+
+              {/* 📱 Mobile Bottom Sheet */}
+              <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-border rounded-t-2xl p-4 shadow-2xl">
+                <p className="text-sm font-semibold text-text mb-2">
+                  New Event
+                </p>
+
+                <p className="text-xs text-muted-foreground mb-4">
+                  {selectedSlot.start.toLocaleString()}
+                </p>
+
+                <button
+                  className="w-full bg-btn-100 text-white py-3 rounded-xl font-semibold"
+                  onClick={() => {
+                    console.log("Create event:", selectedSlot.start);
+                    setSelectedSlot(null);
+                  }}
+                >
+                  + Add Meeting
+                </button>
+
+                <button
+                  className="w-full mt-2 text-sm text-muted-foreground"
+                  onClick={() => setSelectedSlot(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </AnimatedWrapper>

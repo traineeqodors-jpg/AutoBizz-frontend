@@ -4,6 +4,7 @@ import DeleteDialog from "@/components/ui/DeleteDialog";
 import {
   leadsApi,
   useAddLeadCsvMutation,
+  useCallSelectedLeadsMutation,
   useDeleteLeadMutation,
   useGetAllLeadsQuery,
 } from "@/features/slices/leadSlice";
@@ -36,13 +37,25 @@ import { startTour } from "@/features/slices/tourSlice";
 function LeadManagement() {
   const dispatch = useDispatch();
 
+  const [openModal, setOpenModal] = useState(false);
+
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [selectedLeads, setSelectedLeads] = useState(new Set());
+
+  const [input, setInput] = useState({
+    name: "",
+    companyName: "",
+    phone: "",
+    email: "",
+  });
+  const [errors, setErrors] = useState({});
+
   const filters = useSelector((state) => state.leadFilters);
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [fileName, setFileName] = useState("");
   const [deleteTarget, setDeleteTarget] = useState(null);
   const hideNoticeTimerRef = useRef(null);
 
-  const [hasData, setHasData] = useState(true);
 
   const deleteModalRef = useRef(null);
   const scrollRef = useRef(null);
@@ -61,7 +74,8 @@ function LeadManagement() {
   const { data: user } = useGetMeQuery();
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
 
-  const [uploadCSV] = useAddLeadCsvMutation();
+  const [addLead, { isLoading: addingLeads }] = useAddLeadCsvMutation();
+  const [callSelectedLeads, { isLoading: callingSelectedLeads }] = useCallSelectedLeadsMutation();
   const [googleToken] = useGoogleTokenMutation();
   const [deleteLead, { isLoading: isDeleting }] = useDeleteLeadMutation();
 
@@ -72,14 +86,12 @@ function LeadManagement() {
     isLoading: leadsLoading,
     isFetching,
   } = useGetAllLeadsQuery(memoizedFilters, {
-    skip: !isGoogleLinked || !hasData,
+    skip: !isGoogleLinked
   });
 
-  useEffect(() => {
-    if (data?.data?.hasAnyData === false) {
-      setHasData(false);
-    }
-  }, [data]);
+  const hasData = data?.data?.hasAnyData !== false;
+  const canGoNext = hasData;
+
 
   const { data: me } = useGetMeQuery();
 
@@ -90,6 +102,31 @@ function LeadManagement() {
   const hasAnyData = data?.data?.hasAnyData;
 
   const pagination = data?.data?.pagination || { totalPages: 1, totalItems: 0 };
+
+  const toggleSelectLead = (id) => {
+    setSelectedLeads((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
+
+  const clearSelection = () => setSelectedLeads(new Set());
+
+  const isAllSelected =
+    leads?.length > 0 && leads.every((l) => selectedLeads.has(l.id));
+
+  const toggleSelectAll = () => {
+    if (isAllSelected) {
+      clearSelection();
+    } else {
+      setSelectedLeads(new Set(leads.map((l) => l.id)));
+    }
+  };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -108,6 +145,98 @@ function LeadManagement() {
       }
     }, 50);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "phone") {
+      const phonePattern = /^\+?\d*$/;
+      const digitsOnly = value.replace(/\D/g, "");
+      if (!phonePattern.test(value) || digitsOnly.length > 15) return;
+    }
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let newErrors = {};
+
+    // Name validation
+    const nameRegex = /^[a-zA-Z0-9 ]+$/;
+    if (!input.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (input.name.length < 2) {
+      newErrors.name = "must be atleast 2 Character Long!";
+    } else if (!isNaN(input.name) || !nameRegex.test(input.name)) {
+      newErrors.name = "Invalid Name!";
+    }
+
+    // Comapnay Name validation
+    if (!input.companyName.trim()) {
+      newErrors.companyName = "Company Name is required";
+    } else if (input.companyName.length < 2) {
+      newErrors.companyName = "must be atleast 2 Character Long!";
+    } else if (
+      !isNaN(input.companyName) ||
+      !nameRegex.test(input.companyName)
+    ) {
+      newErrors.companyName = "Invalid Name!";
+    }
+
+    // Phone Number Validation
+    if (!input.phone.trim()) {
+      newErrors.phone = "Number is required";
+    } 
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!input.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(input.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+
+    try {
+      const response = await addLead(input).unwrap();
+      console.log(response);
+      toast.success(response?.message);
+      setOpenModal(false);
+      setInput({
+        name: "",
+        companyName: "",
+        phone: "",
+        email: "",
+      });
+    } catch (error) {
+      toast.error(error?.data?.message || "Error Occured!!");
+    }
+  };
+
+  const handleCallSelectedLeads = async (e) => {
+    const selected = Array.from(selectedLeads);
+
+    if (selected.length > 3) {
+      toast.error("You can only call 3 leads at a time.");
+      return;
+    }
+    
+    try {
+      const response = await callSelectedLeads(selected).unwrap();
+      console.log(response);
+      toast.success(`Successfully initialized calling leads!`);
+      setSelectedLeads(new Set());
+      setIsSelectionMode(false);
+    } catch (error) {
+      toast.error("Failed to call.")
+    }
+  }
 
   const onUpdateFilter = (name, value) => {
     if (name === "minScore") {
@@ -136,7 +265,7 @@ function LeadManagement() {
       const formData = new FormData();
       formData.append("file", file);
       try {
-        const response = await uploadCSV(formData).unwrap();
+        const response = await addLead(formData).unwrap();
         toast.success(response?.message);
         setHasData(true);
       } catch (error) {
@@ -202,7 +331,7 @@ function LeadManagement() {
         }),
       );
     }
-  }, [dispatch, tourData, me, shouldStart]);
+  }, [dispatch, me, shouldStart, userOnboarding?.lastStep]);
 
   useEffect(() => {
     if (!orgId) return;
@@ -337,11 +466,27 @@ function LeadManagement() {
         )}
 
         <LeadHeader
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          input={input}
+          setInput={setInput}
+          errors={errors}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
           handleFileUpload={handleFileUpload}
           fileName={fileName}
           setFileName={setFileName}
         />
-        <LeadCards data={data} />
+        <LeadCards
+          data={data}
+          handleCallSelectedLeads={handleCallSelectedLeads}
+          onSelectLeadsClick={() => {
+            setIsSelectionMode(true);
+            setTimeout(() => {
+              scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+          }}
+        />
 
         <LeadFilter
           searchTerm={searchTerm}
@@ -350,6 +495,7 @@ function LeadManagement() {
           updateFilter={onUpdateFilter}
           resetFilters={onResetFilters}
           disabled={!hasAnyData}
+          canGoNext={canGoNext}
         />
 
         {/* Live Socket Status Banner */}
@@ -488,7 +634,9 @@ function LeadManagement() {
                       "Contacts",
                       "Status",
                       "Score",
-                      "Actions",
+                      <span key="actions-column" className={`${isSelectionMode ? "opacity-0" : ""}`}>
+                        Actions
+                      </span>,
                     ]}
                     data={isGoogleLinked ? leads : []}
                     renderRow={(lead) => (
@@ -496,6 +644,9 @@ function LeadManagement() {
                         key={lead.id}
                         lead={lead}
                         openDeleteModal={openDeleteModal}
+                        isSelectionMode={isSelectionMode}
+                        isSelected={selectedLeads.has(lead.id)}
+                        onSelect={toggleSelectLead}
                       />
                     )}
                     emptyState={
@@ -520,6 +671,9 @@ function LeadManagement() {
                           key={lead?.id}
                           lead={lead}
                           openDeleteModal={openDeleteModal}
+                          isSelectionMode={isSelectionMode}
+                          isSelected={selectedLeads.has(lead.id)}
+                          onSelect={toggleSelectLead}
                         />
                       ))
                     )}
@@ -562,6 +716,32 @@ function LeadManagement() {
                       </button>
                     </div>
                   </div>
+                  {isSelectionMode && (
+                    <div className="fixed z-50 bg-white dark:bg-gray-900 border shadow-2xl px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between bottom-0 left-0 w-full rounded-none sm:bottom-4 sm:left-1/2 sm:-translate-x-1/2 sm:w-175 sm:max-w-[90%] sm:rounded-2xl">
+                      <div className="text-sm font-medium dark:text-white">
+                        {selectedLeads.size} leads selected
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={handleCallSelectedLeads}
+                          disabled={selectedLeads.size === 0}
+                          className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 cursor-pointer rounded-xl font-semibold disabled:opacity-50"
+                        >
+                          Call Now
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setIsSelectionMode(false);
+                            setSelectedLeads(new Set());
+                          }}
+                          className="text-gray-800 hover:text-black cursor-pointer dark:hover:text-white"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
             </div>

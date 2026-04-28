@@ -64,7 +64,7 @@ export default function TourHandler() {
         }
       }
     },
-    [dispatch, tourKey],
+    [dispatch, tourKey, updateOnboarding],
   );
 
   if (!run || !steps || steps.length === 0) {

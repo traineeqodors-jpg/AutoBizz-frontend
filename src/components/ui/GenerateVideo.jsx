@@ -19,7 +19,7 @@ function GenerateVideo({
   videoAvatar,
 }) {
   const isDisabled =
-    videoLoading || !videoScript.trim() || videoScript.trim().length < 400;
+    videoLoading || !videoScript?.trim() || videoScript?.trim().length < 400;
   return (
     <dialog
       ref={genVideoRef}

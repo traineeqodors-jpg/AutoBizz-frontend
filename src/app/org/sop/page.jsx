@@ -49,7 +49,7 @@ function SopPage() {
         }),
       );
     }
-  }, [dispatch, tourData, user, shouldStart]);
+  }, [dispatch, user, shouldStart, userOnboarding?.lastStep]);
 
   const [deleteVideo, { isLoading: deletingVideo }] = useDeleteVideoMutation();
 

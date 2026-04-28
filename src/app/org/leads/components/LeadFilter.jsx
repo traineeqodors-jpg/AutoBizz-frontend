@@ -16,6 +16,7 @@ const LeadFilter = ({
   filters,
   updateFilter,
   resetFilters,
+  canGoNext,
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ const LeadFilter = ({
             </label>
             <div className="relative">
               <input
+                disabled={!canGoNext}
                 type="text"
                 placeholder="Name, email, or company..."
                 className="w-full py-3 px-4 pl-11 rounded-xl bg-gray-50 border border-gray-200 dark:border-0 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 dark:text-white focus:ring-2 focus:ring-btn-200 outline-none transition-all"
@@ -48,6 +50,7 @@ const LeadFilter = ({
               Status
             </label>
             <Select
+              disabled={!canGoNext}
               value={filters?.status || ""}
               onValueChange={(value) =>
                 updateFilter("status", value === "all" ? "" : value)
@@ -74,6 +77,7 @@ const LeadFilter = ({
               Min Score
             </label>
             <input
+              disabled={!canGoNext}
               type="number"
               name="minScore"
               min="0"
@@ -92,6 +96,7 @@ const LeadFilter = ({
 
           {/* From Date */}
           <DatePicker
+            canGoNext={canGoNext}
             label="From Date"
             field="startDate"
             value={filters?.startDate}
@@ -100,6 +105,7 @@ const LeadFilter = ({
 
           {/* TO Date */}
           <DatePicker
+            canGoNext={canGoNext}
             label="To Date"
             field="endDate"
             value={filters?.endDate}
@@ -113,6 +119,7 @@ const LeadFilter = ({
               Sort By
             </label>
             <Select
+              disabled={!canGoNext}
               value={filters?.sortBy || ""}
               onValueChange={(value) => updateFilter("sortBy", value)}
             >

@@ -14,6 +14,7 @@ const SearchFilterCallLog = ({
   setStatusFilter,
   searchTerm,
   statusFilter,
+  canGoNext,
 }) => {
   return (
     <>
@@ -33,6 +34,7 @@ const SearchFilterCallLog = ({
         </div>
 
         <Select
+          disabled={!canGoNext}
           value={statusFilter}
           onValueChange={(value) => setStatusFilter(value)}
         >

@@ -28,7 +28,7 @@ const formatLocalDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-const DatePicker = ({ label, field, value, updateFilter, minDate }) => {
+const DatePicker = ({ label, field, value, updateFilter, minDate, canGoNext = false }) => {
   const [date, setDate] = useState(parseLocalDate(value));
 
   // Sync with parent (fixes clear button issue)
@@ -55,6 +55,7 @@ const DatePicker = ({ label, field, value, updateFilter, minDate }) => {
       <Popover>
         <PopoverTrigger asChild>
           <Button
+            disabled={!canGoNext}
             variant="outline"
             className="w-full justify-between p-2 sm:py-3 sm:px-4 text-sm rounded-xl border border-gray-200 dark:border-0 bg-gray-50 dark:bg-gray-800 text-text dark:text-white hover:bg-white dark:hover:bg-gray-700"
           >

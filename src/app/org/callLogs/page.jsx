@@ -23,7 +23,6 @@ import DatePicker from "@/components/ui/DatePicker";
 function CallLogsPage() {
   const [selectedLog, setSelectedLog] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
-  const [hasData, setHasData] = useState(true);
 
   // State for Backend Filtering (Updated with Dates)
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,16 +41,13 @@ function CallLogsPage() {
 
   // RTK Query Hook
   const { data, isLoading, isFetching } = useGetAllCallLogsQuery(filters, {
-    skip: !hasData,
+    skip: filters.page === 0,
   });
 
-  useEffect(() => {
-    if (data?.data?.hasAnyData === false) {
-      setHasData(false);
-    }
-  }, [data]);
-
   const [deleteCallLog, { isLoading: isDeleting }] = useDeleteCallLogMutation();
+
+  const hasData = data?.data?.hasAnyData !== false;
+  const canGoNext = hasData;
 
   const logs = data?.data?.logs || [];
   const pagination = data?.data?.pagination || {
@@ -157,6 +153,7 @@ function CallLogsPage() {
                 setStatusFilter={handleStatusFilter}
                 searchTerm={searchTerm}
                 statusFilter={filters.status || "all"}
+                canGoNext={canGoNext}
               />
             </div>
 
@@ -164,6 +161,7 @@ function CallLogsPage() {
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 px-4 py-4 bg-back/20 dark:bg-gray-800/50 rounded-2xl border border-slate-100 dark:border-gray-700">
               <div className="flex flex-col sm:flex-row items-center gap-4 w-fit sm:w-full mx-auto sm:mx-0 lg:w-auto">
                 <DatePicker
+                  disabled={!canGoNext}
                   label="From Date"
                   field="startDate"
                   value={filters.startDate}

@@ -33,7 +33,6 @@ function EmployeeManagement() {
   const [roleFilter, setRoleFilter] = useState("");
   const [page, setPage] = useState(1);
   const [targetEmp, setTargetEmp] = useState(null);
-  const [hasData, setHasData] = useState(true);
 
   const deleteModalRef = useRef(null);
 
@@ -51,16 +50,8 @@ function EmployeeManagement() {
       page: page,
       limit: 10,
     },
-    {
-      skip: !hasData,
-    },
+    
   );
-
-  useEffect(() => {
-    if (emp?.data?.hasAnyData === false) {
-      setHasData(false);
-    }
-  }, [emp]);
 
   const [createEmp, { isLoading: createLoading }] = useCreateEmployeeMutation();
 
@@ -69,7 +60,8 @@ function EmployeeManagement() {
 
   const [editEmployee, { isLoading: updateLoading }] =
     useUpdateEmployeeMutation();
-
+  const hasData = emp?.data?.hasAnyData !== false;
+  const canGoNext = hasData;
   const empData = isError ? [] : emp?.data?.employees || [];
   const pagination = emp?.data?.pagination;
   const hasFilters = emp?.data?.hasFilters;
@@ -84,7 +76,7 @@ function EmployeeManagement() {
     }, 500);
 
     return () => clearTimeout(handler);
-  }, [searchTerm]);
+  }, [searchTerm, hasAnyData]);
 
   // Logic to change page
   const handlePageChange = (newPage) => {
@@ -93,9 +85,9 @@ function EmployeeManagement() {
   };
 
   // Reset to page 1 whenever search or role changes
-  useEffect(() => {
-    setPage(1);
-  }, [debouncedSearch, roleFilter]);
+  // useEffect(() => {
+  //   setPage(1);
+  // }, [debouncedSearch, roleFilter]);
 
   // Clear filters handler
   const handleClearFilters = () => {
@@ -230,6 +222,7 @@ function EmployeeManagement() {
           roleFilter={roleFilter}
           setRoleFilter={setRoleFilter}
           handleClearFilters={handleClearFilters}
+          canGoNext={canGoNext}
         />
 
         {/* Main Content Area */}

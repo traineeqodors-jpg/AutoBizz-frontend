@@ -51,7 +51,7 @@ export default function Documents() {
         }),
       );
     }
-  }, [dispatch, tourData, user, shouldStart]);
+  }, [dispatch, user, shouldStart, userOnboarding?.lastStep]);
 
   // Filter logic for search
   const filteredDocs = useMemo(() => {

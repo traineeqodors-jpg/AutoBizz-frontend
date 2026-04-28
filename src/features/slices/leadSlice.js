@@ -48,6 +48,16 @@ export const leadsApi = createApi({
       }),
       invalidatesTags: (result, error) => (error ? [] : ["Leads"]),
     }),
+
+    callSelectedLeads: build.mutation({
+      query: (leadIds) => ({
+        url: `/call`,
+        method: "POST",
+        body: {leadIds},
+        credentials: "include",
+      }),
+      invalidatesTags: (result, error) => (error ? [] : ["Leads"]),
+    }),
   }),
 });
 
@@ -56,4 +66,5 @@ export const {
   useGetAllLeadsQuery,
   useDeleteLeadMutation,
   useAddLeadFormMutation,
+  useCallSelectedLeadsMutation
 } = leadsApi;

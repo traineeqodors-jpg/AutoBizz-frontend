@@ -1,6 +1,12 @@
 import { IoTrashOutline } from "react-icons/io5";
 
-const LeadTable = ({ lead, openDeleteModal, isSelected }) => {
+const LeadTable = ({
+  lead,
+  openDeleteModal,
+  isSelected,
+  onSelect,
+  isSelectionMode,
+}) => {
   const getStatusBadge = (score) => {
     if (score >= 100) return "Hot";
     if (score >= 50) return "Warm";
@@ -10,11 +16,25 @@ const LeadTable = ({ lead, openDeleteModal, isSelected }) => {
 
   return (
     <tr
-      className={`transition-all group border border-gray-100 cursor-default text-text/90 dark:text-gray-300 font-medium
-      ${isSelected ? "bg-sidebar" : "bg-white dark:bg-gray-900 hover:bg-slate-50/50 dark:hover:bg-gray-700/40"}`}
+      onClick={() => isSelectionMode && onSelect(lead.id)}
+      className={`
+    cursor-pointer transition-all group border border-gray-100  text-text/90 dark:text-gray-300 font-medium
+    ${isSelected ? "bg-sidebar" : "bg-white dark:bg-gray-900 hover:bg-slate-50/50 dark:hover:bg-gray-700/40"}
+    ${isSelectionMode ? "hover:bg-slate-50 dark:hover:bg-gray-800" : ""}
+  `}
     >
-      <td className="px-6 py-5 rounded-l-3xl dark:rounded-none border-y border-l border-gray-100 dark:border-none text-sm">
-        {lead?.name}
+      <td className="px-6 py-5 rounded-l-3xl flex items-center gap-3 dark:rounded-none border-y border-l border-gray-100 dark:border-none text-sm">
+        {isSelectionMode && (
+          <input
+            type="checkbox"
+            checked={isSelected}
+            onChange={() => onSelect(lead.id)}
+            onClick={(e) => e.stopPropagation()}
+          />
+        )}
+
+        {/* Lead Name */}
+        <span className="font-medium">{lead?.name}</span>
       </td>
 
       <td className="px-6 py-5 border-y border-gray-100 dark:border-none text-sm">
@@ -47,16 +67,18 @@ const LeadTable = ({ lead, openDeleteModal, isSelected }) => {
 
       <td className="px-6 py-5 rounded-r-3xl dark:rounded-none border-y border-r border-gray-100 dark:border-none">
         {/* DELETE BUTTON */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            openDeleteModal(lead?.id);
-          }}
-          className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
-          title="Delete Log"
-        >
-          <IoTrashOutline size={20} />
-        </button>
+        {!isSelectionMode && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              openDeleteModal(lead?.id);
+            }}
+            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
+            title="Delete Log"
+          >
+            <IoTrashOutline size={20} />
+          </button>
+        )}
       </td>
     </tr>
   );
