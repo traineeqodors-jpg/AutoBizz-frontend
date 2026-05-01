@@ -104,7 +104,7 @@ const ProfileInfo = ({ user, onSave }) => {
         value={value || ""}
         onChange={handleChange}
         className={baseClass}
-        disabled={key === "country"}
+        disabled={key === "country" || key === "email" || key === "id" || key === "phoneNumber"} // Make country and email non-editable
       />
     );
   };

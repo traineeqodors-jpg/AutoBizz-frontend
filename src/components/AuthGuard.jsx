@@ -43,11 +43,20 @@ export default function AuthGuard({ children }) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const shouldSkip = useMemo(() => {
+    return (
+      ROUTE_CONFIG.public.some((route) => pathname.startsWith(route)) ||
+      ROUTE_CONFIG.authOnlyExact.includes(pathname) ||
+      ROUTE_CONFIG.publicSafe.some((route) => pathname.startsWith(route))
+    );
+  }, [pathname]);
+
   const {
     data: user,
     isLoading,
     isError,
   } = useGetMeQuery(undefined, {
+    skip: shouldSkip,
     refetchOnMountOrArgChange: false,
     retry: false,
   });

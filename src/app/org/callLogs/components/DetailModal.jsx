@@ -1,4 +1,4 @@
-import { IoClose } from "react-icons/io5";
+import { IoCloseSharp } from "react-icons/io5";
 
 const DetailModal = ({ setSelectedLog, selectedLog }) => {
   return (
@@ -16,9 +16,10 @@ const DetailModal = ({ setSelectedLog, selectedLog }) => {
           </h2>
           <button
             onClick={() => setSelectedLog(null)}
-            className="p-2 text-gray-400 hover:bg-white rounded-full transition-all"
+            type="button"
+            className="hover:bg-gray-200 p-2 rounded-full dark:hover:text-black dark:text-white cursor-pointer text-black transition-all"
           >
-            <IoClose size={24} />
+            <IoCloseSharp className="size-5" />
           </button>
         </div>
 
@@ -56,7 +57,9 @@ const DetailModal = ({ setSelectedLog, selectedLog }) => {
               </div>
             )}
           </div>
+        </div>
 
+        <div className="p-5">
           <button
             onClick={() => setSelectedLog(null)}
             className="w-full bg-btn-100 dark:bg-btn-200 dark:hover:bg-btn-200  hover:bg-btn-200 hover:inset-shadow-sm/40 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95"

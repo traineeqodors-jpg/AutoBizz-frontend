@@ -25,6 +25,7 @@ const SearchFilterCallLog = ({
             size={18}
           />
           <input
+            disabled={!canGoNext}
             type="text"
             value={searchTerm}
             placeholder="Search number..."

@@ -56,7 +56,6 @@ function LeadManagement() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const hideNoticeTimerRef = useRef(null);
 
-
   const deleteModalRef = useRef(null);
   const scrollRef = useRef(null);
 
@@ -75,7 +74,8 @@ function LeadManagement() {
   const isGoogleLinked = !!user?.data?.googleRefreshToken;
 
   const [addLead, { isLoading: addingLeads }] = useAddLeadCsvMutation();
-  const [callSelectedLeads, { isLoading: callingSelectedLeads }] = useCallSelectedLeadsMutation();
+  const [callSelectedLeads, { isLoading: callingSelectedLeads }] =
+    useCallSelectedLeadsMutation();
   const [googleToken] = useGoogleTokenMutation();
   const [deleteLead, { isLoading: isDeleting }] = useDeleteLeadMutation();
 
@@ -86,12 +86,11 @@ function LeadManagement() {
     isLoading: leadsLoading,
     isFetching,
   } = useGetAllLeadsQuery(memoizedFilters, {
-    skip: !isGoogleLinked
+    skip: !isGoogleLinked,
   });
 
   const hasData = data?.data?.hasAnyData !== false;
   const canGoNext = hasData;
-
 
   const { data: me } = useGetMeQuery();
 
@@ -186,7 +185,7 @@ function LeadManagement() {
     // Phone Number Validation
     if (!input.phone.trim()) {
       newErrors.phone = "Number is required";
-    } 
+    }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -226,17 +225,16 @@ function LeadManagement() {
       toast.error("You can only call 3 leads at a time.");
       return;
     }
-    
+
     try {
       const response = await callSelectedLeads(selected).unwrap();
-      console.log(response);
       toast.success(`Successfully initialized calling leads!`);
       setSelectedLeads(new Set());
       setIsSelectionMode(false);
     } catch (error) {
-      toast.error("Failed to call.")
+      toast.error("Failed to call.");
     }
-  }
+  };
 
   const onUpdateFilter = (name, value) => {
     if (name === "minScore") {
@@ -477,16 +475,6 @@ function LeadManagement() {
           fileName={fileName}
           setFileName={setFileName}
         />
-        <LeadCards
-          data={data}
-          handleCallSelectedLeads={handleCallSelectedLeads}
-          onSelectLeadsClick={() => {
-            setIsSelectionMode(true);
-            setTimeout(() => {
-              scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, 100);
-          }}
-        />
 
         <LeadFilter
           searchTerm={searchTerm}
@@ -496,6 +484,16 @@ function LeadManagement() {
           resetFilters={onResetFilters}
           disabled={!hasAnyData}
           canGoNext={canGoNext}
+        />
+        <LeadCards
+          data={data}
+          handleCallSelectedLeads={handleCallSelectedLeads}
+          onSelectLeadsClick={() => {
+            setIsSelectionMode(true);
+            setTimeout(() => {
+              scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+          }}
         />
 
         {/* Live Socket Status Banner */}
@@ -634,9 +632,8 @@ function LeadManagement() {
                       "Contacts",
                       "Status",
                       "Score",
-                      <span key="actions-column" className={`${isSelectionMode ? "opacity-0" : ""}`}>
-                        Actions
-                      </span>,
+                      "Actions"
+
                     ]}
                     data={isGoogleLinked ? leads : []}
                     renderRow={(lead) => (
@@ -721,7 +718,7 @@ function LeadManagement() {
                       <div className="text-sm font-medium dark:text-white">
                         {selectedLeads.size} leads selected
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex sm:flex-row flex-col items-center gap-3">
                         <button
                           onClick={handleCallSelectedLeads}
                           disabled={selectedLeads.size === 0}
@@ -735,7 +732,7 @@ function LeadManagement() {
                             setIsSelectionMode(false);
                             setSelectedLeads(new Set());
                           }}
-                          className="text-gray-800 hover:text-black cursor-pointer dark:hover:text-white"
+                          className="text-text hover:text-black cursor-pointer dark:hover:text-white"
                         >
                           Cancel
                         </button>

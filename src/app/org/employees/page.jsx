@@ -266,7 +266,7 @@ function EmployeeManagement() {
                               <span>No employees yet.</span>
                               <button
                                 onClick={() => setOpenModal(true)}
-                                className="text-btn-100 underline"
+                                className="text-btn-100 underline cursor-pointer"
                               >
                                 Add your first employee
                               </button>

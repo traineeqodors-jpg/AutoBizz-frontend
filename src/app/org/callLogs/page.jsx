@@ -161,7 +161,7 @@ function CallLogsPage() {
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 px-4 py-4 bg-back/20 dark:bg-gray-800/50 rounded-2xl border border-slate-100 dark:border-gray-700">
               <div className="flex flex-col sm:flex-row items-center gap-4 w-fit sm:w-full mx-auto sm:mx-0 lg:w-auto">
                 <DatePicker
-                  disabled={!canGoNext}
+                  canGoNext={canGoNext}
                   label="From Date"
                   field="startDate"
                   value={filters.startDate}
@@ -169,6 +169,7 @@ function CallLogsPage() {
                 />
 
                 <DatePicker
+                  canGoNext={canGoNext}
                   label="To Date"
                   field="endDate"
                   value={filters.endDate}
