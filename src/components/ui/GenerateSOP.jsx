@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { GrMagic } from "react-icons/gr";
-import videoAvatar from "@/Json data/videoAvatar.json";
+import videoAvatar from "@/Json data/simliAvatars.json";
 import { toast } from "react-hot-toast";
 import { FaPlay } from "react-icons/fa";
 import { useRouter } from "next/navigation";

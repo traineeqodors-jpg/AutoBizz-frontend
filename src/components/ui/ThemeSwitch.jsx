@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 
 const ThemeSwitch = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   // Prevent hydration mismatch
   useEffect(() => {

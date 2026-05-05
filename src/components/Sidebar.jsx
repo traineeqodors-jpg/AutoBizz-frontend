@@ -76,7 +76,7 @@ const SideBar = () => {
             className="flex items-center justify-center w-full h-20 overflow-hidden"
           >
             <Image
-              src="/logoDark.png"
+              src="https://res.cloudinary.com/dkbcqq9e5/image/upload/v1777964588/logoDark_ff5ydq.png"
               alt="Your App Logo"
               width={240}
               height={80}
