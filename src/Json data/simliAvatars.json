@@ -4,27 +4,62 @@
       "talking_photo_id": "1c6aa65c-d858-4721-a4d9-bda9fde03141",
       "talking_photo_name": "Fred",
       "preview_image_url": "/avatars/Fred.webp",
-      "voice_id": "b8fdc6e521ff4c4db4ef9db433fbccd7"
+      "voice_id": "a5136bf9-224c-4d76-b823-52bd5efcffcc",
+      "gender": "male"
     },
 
     {
       "talking_photo_id": "dd10cb5a-d31d-4f12-b69f-6db3383c006e",
       "talking_photo_name": "Hank",
       "preview_image_url": "/avatars/Hank.webp",
-      "voice_id": "35ecafdadd57499eabd644eea50f849d"
+      "voice_id": "9fb269e7-70fe-4cbe-aa3f-28bdb67e3e84",
+      "gender": "male"
     },
     {
       "talking_photo_id": "804c347a-26c9-4dcf-bb49-13df4bed61e8",
       "talking_photo_name": "Mark",
       "preview_image_url": "/avatars/Mark.webp",
-      "voice_id": "bcdcc5866ae94539b1a8101508552b98"
+      "voice_id": "00967b2f-88a6-4a31-8153-110a92134b9f",
+      "gender": "male"
     },
 
     {
       "talking_photo_id": "7e74d6e7-d559-4394-bd56-4923a3ab75ad",
       "talking_photo_name": "Sabour",
       "preview_image_url": "/avatars/Sabour.webp",
-      "voice_id": "4dc92f5998b54b159b3b35d59500ccd0"
+      "voice_id": "638efaaa-4d0c-442e-b701-3fae16aad012",
+      "gender": "male"
+    },
+
+    {
+      "talking_photo_id": "b9e5fba3-071a-4e35-896e-211c4d6eaa7b",
+      "talking_photo_name": "Lina",
+      "preview_image_url": "/avatars/Lina.webp",
+      "voice_id": "f8f5f1b2-f02d-4d8e-a40d-fd850a487b3d",
+      "gender": "female"
+    },
+
+    {
+      "talking_photo_id": "cace3ef7-a4c4-425d-a8cf-a5358eb0c427",
+      "talking_photo_name": "Tina",
+      "preview_image_url": "/avatars/Tina.webp",
+      "voice_id": "db6b0ed5-d5d3-463d-ae85-518a07d3c2b4",
+      "gender": "female"
+    },
+    {
+      "talking_photo_id": "d2a5c7c6-fed9-4f55-bcb3-062f7cd20103",
+      "talking_photo_name": "Kate",
+      "preview_image_url": "/avatars/Kate.webp",
+      "voice_id": "62ae83ad-4f6a-430b-af41-a9bede9286ca",
+      "gender": "female"
+    },
+
+    {
+      "talking_photo_id": "5fc23ea5-8175-4a82-aaaf-cdd8c88543dc",
+      "talking_photo_name": "Madison",
+      "preview_image_url": "/avatars/Madison.webp",
+      "voice_id": "134838f5-ce7e-4876-ac32-6367b99daf83",
+      "gender": "female"
     }
   ]
 }

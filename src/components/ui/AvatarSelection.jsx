@@ -6,6 +6,12 @@ import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 
 function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [gender, setGender] = useState("male"); // 👈 new state
+
+  // 👇 filter avatars based on gender
+  const filteredAvatars = videoAvatar.avatars.filter(
+    (avatar) => avatar.gender === gender,
+  );
 
   return (
     <div className="w-full flex-1 bg-surface/60 md:mt-0 mt-4 rounded-xl p-1 flex flex-col gap-2 shadow-sm dark:border dark:border-gray-500">
@@ -15,10 +21,10 @@ function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
         onClick={() => setIsOpen(!isOpen)}
         className="font-medium p-2 text-black dark:text-white text-left cursor-pointer flex gap-2 items-center-safe"
       >
-        {!isOpen ? <IoMdArrowDropright /> : <IoMdArrowDropdown />}Select Avatar
+        {!isOpen ? <IoMdArrowDropright /> : <IoMdArrowDropdown />}
+        Select Avatar
       </button>
 
-      {/* Animated Content */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
@@ -29,8 +35,27 @@ function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="grid  sm:grid-cols-2 gap-4 p-4 bg-surface rounded-lg">
-              {videoAvatar.avatars.map((avatar) => (
+            {/* 👇 Gender Switch */}
+            <div className="flex gap-2 px-4 pt-4">
+              {["male", "female"].map((g) => (
+                <button
+                  type="button"
+                  key={g}
+                  onClick={() => setGender(g)}
+                  className={`px-3 py-1 rounded-full text-sm capitalize transition ${
+                    gender === g
+                      ? "bg-btn-100 text-white"
+                      : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+                  }`}
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+
+            {/* Avatars Grid */}
+            <div className="grid sm:grid-cols-2 gap-4 p-4 bg-surface rounded-lg">
+              {filteredAvatars.map((avatar) => (
                 <div
                   key={avatar.talking_photo_id}
                   onClick={() =>

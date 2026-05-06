@@ -23,7 +23,7 @@ function GenerateVideo({
   return (
     <dialog
       ref={genVideoRef}
-      className="md:w-3xl w-lg rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
+      className={`${isLoading ? 'w-lg' : 'md:w-3xl w-lg'} rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5`}
     >
       {/* Form  */}
       <form
@@ -73,7 +73,7 @@ function GenerateVideo({
               <div className="w-full flex md:flex-row flex-col gap-2">
                 <textarea
                   rows={13}
-                  className="w-full flex-[1.5] hideScrollBar py-3 px-4 text-text dark:text-gray-200 rounded-xl border border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all pr-12"
+                  className="w-full text-justify flex-[1.5] hideScrollBar py-3 px-4 text-text dark:text-gray-200 rounded-xl border border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all pr-12"
                   placeholder="Your SOP Script"
                   value={videoScript}
                   onChange={(e) => setVideoScript(e.target.value)}
