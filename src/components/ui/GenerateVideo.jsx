@@ -23,7 +23,7 @@ function GenerateVideo({
   return (
     <dialog
       ref={genVideoRef}
-      className="w-lg rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
+      className="md:w-3xl w-lg rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5"
     >
       {/* Form  */}
       <form
@@ -70,18 +70,20 @@ function GenerateVideo({
             </div>
           ) : (
             <>
-              <textarea
-                rows={13}
-                className="w-full hideScrollBar py-3 px-4 text-text dark:text-gray-200 rounded-xl border border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all pr-12"
-                placeholder="Your SOP Script"
-                value={videoScript}
-                onChange={(e) => setVideoScript(e.target.value)}
-              />
-              <AvatarSelection
-                selectedAvatar={selectedAvatar}
-                setSelectedAvatar={setSelectedAvatar}
-                videoAvatar={videoAvatar}
-              />
+              <div className="w-full flex md:flex-row flex-col gap-2">
+                <textarea
+                  rows={13}
+                  className="w-full flex-[1.5] hideScrollBar py-3 px-4 text-text dark:text-gray-200 rounded-xl border border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-btn-100 outline-none transition-all pr-12"
+                  placeholder="Your SOP Script"
+                  value={videoScript}
+                  onChange={(e) => setVideoScript(e.target.value)}
+                />
+                <AvatarSelection
+                  selectedAvatar={selectedAvatar}
+                  setSelectedAvatar={setSelectedAvatar}
+                  videoAvatar={videoAvatar}
+                />
+              </div>
             </>
           )}
         </div>
@@ -89,7 +91,7 @@ function GenerateVideo({
           <button
             type="submit"
             disabled={isDisabled}
-            className={`w-full  py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg dark:shadow-sm dark:hover:shadow-md shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all  ${isDisabled && "opacity-60 cursor-not-allowed hover:shadow-none hover:transform-none"}`}
+            className={`w-full sticky bottom-2 py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg dark:shadow-sm dark:hover:shadow-md shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all  ${isDisabled && "opacity-60 cursor-not-allowed hover:shadow-none hover:transform-none"}`}
           >
             {videoLoading ? `Generating Video` : `Generate Video`} <GrMagic />
           </button>

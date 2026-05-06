@@ -8,7 +8,7 @@ function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full bg-surface/60 mt-4 rounded-xl p-1 flex flex-col gap-2 shadow-sm dark:border dark:border-gray-500">
+    <div className="w-full flex-1 bg-surface/60 md:mt-0 mt-4 rounded-xl p-1 flex flex-col gap-2 shadow-sm dark:border dark:border-gray-500">
       {/* Header */}
       <button
         type="button"
@@ -29,7 +29,7 @@ function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="grid md:grid-cols-2 gap-4 p-4 bg-surface rounded-lg">
+            <div className="grid  sm:grid-cols-2 gap-4 p-4 bg-surface rounded-lg">
               {videoAvatar.avatars.map((avatar) => (
                 <div
                   key={avatar.talking_photo_id}

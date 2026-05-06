@@ -20,7 +20,7 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo, isOwner }) => {
       >
         <button
           type="button"
-          className="cursor-pointer rounded-full hover:ring ring-gray-400"
+          className="cursor-pointer rounded-full hover:ring ring-gray-400 ml-2"
         >
           <BsThreeDotsVertical className="size-5 dark:text-white" />
         </button>

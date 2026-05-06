@@ -47,10 +47,6 @@ function EditOrgDetails() {
 
   const isOwner = role === "owner";
 
-  const profileImageUrl = user?.profileImage
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${encodeURI(user.profileImage)}`
-    : null;
-
   const businessName = user?.businessName;
   const fullname = user?.firstName
     ? `${user.firstName} ${user.lastName}`
@@ -87,7 +83,7 @@ function EditOrgDetails() {
                     <AiOutlineLoading3Quarters className="size-8 animate-spin text-blue-500" />
                   ) : user?.profileImage ? (
                     <Image
-                      src={profileImageUrl}
+                      src={user?.profileImage}
                       alt="Profile"
                       className="w-full h-full object-cover"
                       width={300}
@@ -207,7 +203,7 @@ function EditOrgDetails() {
 
                   <div className="w-full aspect-square bg-slate-50 dark:bg-gray-800 flex items-center justify-center p-6">
                     <Image
-                      src={profileImageUrl}
+                      src={user?.profileImage}
                       alt="Profile"
                       className="w-full h-auto object-contain rounded-xl"
                       width={300}

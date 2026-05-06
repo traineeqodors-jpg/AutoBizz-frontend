@@ -137,12 +137,7 @@ function GenerateScript({
                     >
                       <IoMdDocument />
                       <span className="max-w-37.5 truncate">
-                        {file.docUrl
-                          ?.split("/")
-                          .pop()
-                          ?.split("-")
-                          .slice(0, -2)
-                          .join("-") || "Untitled Document"}
+                        {file.originalName || "Untitled Document"}
                       </span>
                       <button
                         type="button"
@@ -206,12 +201,7 @@ function GenerateScript({
                                 size={20}
                               />
                               <span className="text-gray-700 dark:text-white font-medium">
-                                {doc?.docUrl
-                                  ?.split("/")
-                                  .pop()
-                                  ?.split("-")
-                                  .slice(0, -2)
-                                  .join("-") || "Untitled Document"}
+                                {doc?.originalName || "Untitled Document"}
                               </span>
                             </div>
                             {selectedFiles.find((f) => f.id === doc.id) && (

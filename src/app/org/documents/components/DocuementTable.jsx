@@ -41,10 +41,13 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
 
   const { icon, color, label } = getFileIcon(doc?.docType || "");
 
-  // Clean filename: Remove path and complex timestamps
-  const cleanName =
-    doc?.docUrl?.split("/").pop()?.split("-").slice(0, -2).join("-") ||
-    "Untitled Document";
+  console.log(doc);
+  
+
+  // // Clean filename: Remove path and complex timestamps
+  // const cleanName =
+  //   doc?.docUrl?.split("/").pop()?.split("-").slice(0, -2).join("-") ||
+  //   "Untitled Document";
 
   return (
     <tr className="flex flex-col md:table-row group hover:bg-slate-50/80 dark:hover:bg-gray-700/40 transition-all duration-200 border-b border-gray-100 md:border-gray-50 last:border-0 p-4 md:p-0">
@@ -80,7 +83,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
             target="_blank"
             className="text-[15px] cursor-pointer font-bold text-text dark:text-white/80 group-hover:text-btn-100 transition-colors truncate text-left md:text-center"
           >
-            {cleanName}
+            {doc?.originalName}
           </a>
           <div className="flex items-center gap-2 mt-1 md:mx-auto">
             <span

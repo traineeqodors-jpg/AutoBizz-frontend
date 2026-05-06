@@ -37,59 +37,12 @@ const LeadTable = ({
       `
     }
 
-    ${isSelectionMode ? "hover:scale-[1.005]" : ""}
+    ${isSelectionMode ? "hover:scale-[1.01]" : ""}
   `}
     >
-      <td className="px-6 py-5 rounded-l-3xl dark:rounded-none dark:border-none text-sm">
-        <span className="flex items-center justify-center gap-3">
-          {isSelectionMode && (
-            <span>
-              <label className="flex items-center cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={() => onSelect(lead.id)}
-                  onClick={(e) => e.stopPropagation()}
-                  className="peer hidden"
-                />
+      <td className="px-6 py-5  dark:rounded-none dark:border-none text-sm">
+        <span className="flex items-center justify-around gap-3">
 
-                <div
-                  className="relative w-5 h-5 flex items-center justify-center rounded-md border 
-                  border-gray-300 bg-white shadow-sm
-                  transition-all duration-300 ease-out
-                  peer-checked:bg-blue-600 peer-checked:border-blue-600
-                  hover:border-blue-500
-                  
-                  peer-active:scale-90 peer-checked:scale-105"
-                >
-                  {/* Ripple effect */}
-                  <span
-                    className="absolute w-full h-full rounded-md 
-                     bg-blue-400 opacity-0 scale-0
-                     peer-checked:animate-ping peer-checked:opacity-30"
-                  ></span>
-
-                  {/* Checkmark */}
-                  <svg
-                    className="w-3 h-3 text-white relative z-10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                  >
-                    <path
-                      d="M5 13l4 4L19 7"
-                      className="stroke-dasharray-[24] stroke-dashoffset-[24] 
-                   peer-checked:stroke-dashoffset-0
-                   transition-all duration-300 ease-out"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </label>
-            </span>
-          )}
 
           {/* Lead Name */}
           <span className="font-medium">{lead?.name}</span>
@@ -124,20 +77,67 @@ const LeadTable = ({
         {lead?.confidence_score || 0}
       </td>
 
-      <td className="px-6 py-5 rounded-r-3xl dark:rounded-none border-y border-r border-gray-100 dark:border-none">
+      <td className="px-6 py-5  dark:rounded-none border-y border-r border-gray-100 dark:border-none">
         {/* DELETE BUTTON */}
+        {isSelectionMode ? (
+          <span>
+            <label className="flex items-center justify-center cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={isSelected}
+                onChange={() => onSelect(lead.id)}
+                className="peer hidden"
+              />
 
-        <button
-          disabled={isSelectionMode}
-          onClick={(e) => {
-            e.stopPropagation();
-            openDeleteModal(lead?.id);
-          }}
-          className={`p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all ${isSelectionMode ? "opacity-60 cursor-not-allowed" : " cursor-pointer"}`}
-          title="Delete Log"
-        >
-          <IoTrashOutline size={20} />
-        </button>
+              <div
+                className="relative w-5 h-5 flex items-center justify-center rounded-md border 
+                  border-gray-300 bg-white shadow-sm
+                  transition-all duration-300 ease-out
+                  peer-checked:bg-blue-600 peer-checked:border-blue-600
+                  hover:border-blue-500
+                  
+                  peer-active:scale-90 peer-checked:scale-105"
+              >
+                {/* Ripple effect */}
+                <span
+                  className="absolute w-full h-full 
+                     bg-blue-400 opacity-0 scale-0
+                     peer-checked:animate-ping peer-checked:opacity-30"
+                ></span>
+
+                {/* Checkmark */}
+                <svg
+                  className="w-3 h-3 text-white relative z-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                >
+                  <path
+                    d="M5 13l4 4L19 7"
+                    className="stroke-dasharray-[24] stroke-dashoffset-[24] 
+                   peer-checked:stroke-dashoffset-0
+                   transition-all duration-300 ease-out"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </label>
+          </span>
+        ) : (
+          <button
+            disabled={isSelectionMode}
+            onClick={(e) => {
+              e.stopPropagation();
+              openDeleteModal(lead?.id);
+            }}
+            className={`p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all ${isSelectionMode ? "opacity-60 cursor-not-allowed" : " cursor-pointer"}`}
+            title="Delete Log"
+          >
+            <IoTrashOutline size={20} />
+          </button>
+        )}
       </td>
     </tr>
   );

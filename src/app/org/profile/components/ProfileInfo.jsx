@@ -32,6 +32,7 @@ const ProfileInfo = ({ user, onSave }) => {
     "isVerified",
     "type",
     "onboarding",
+    "profileImagePublicId",
   ];
   const [isEditing, setIsEditing] = useState(false);
   const [formFields, setFormFields] = useState(user);
