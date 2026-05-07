@@ -16,9 +16,10 @@ function GenerateScript({
   script,
   setVideoScript,
   activeRequestRef,
+  query,
+  setQuery,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [query, setQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -75,7 +76,6 @@ function GenerateScript({
 
       // Check if the error was a manual cancellation
       if (error.name === "AbortError" || error.status === "FETCH_ERROR") {
-        console.log("Request was cancelled");
         return;
       }
 
@@ -236,7 +236,12 @@ function GenerateScript({
           {errorMsg && (
             <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl animate-in fade-in slide-in-from-top-1">
               <FaExclamationCircle className="shrink-0" />
-              <p className="text-sm font-medium">{errorMsg}</p>
+              <p
+                className="text-sm font-medium line-clamp-4
+"
+              >
+                {errorMsg}
+              </p>
             </div>
           )}
 

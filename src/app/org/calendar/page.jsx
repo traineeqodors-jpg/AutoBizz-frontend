@@ -201,7 +201,6 @@ function LeadCalendar() {
                 <button
                   className="w-full bg-btn-100 text-white text-xs py-2 rounded-lg font-semibold"
                   onClick={() => {
-                    console.log("Create event:", selectedSlot.start);
                     setSelectedSlot(null);
                   }}
                 >
@@ -222,7 +221,6 @@ function LeadCalendar() {
                 <button
                   className="w-full bg-btn-100 text-white py-3 rounded-xl font-semibold"
                   onClick={() => {
-                    console.log("Create event:", selectedSlot.start);
                     setSelectedSlot(null);
                   }}
                 >

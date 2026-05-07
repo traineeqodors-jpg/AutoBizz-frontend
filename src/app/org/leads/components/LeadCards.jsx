@@ -1,6 +1,6 @@
 import { PhoneForwardedIcon, Users, PhoneIcon } from "lucide-react";
 
-function LeadCards({ data, onSelectLeadsClick }) {
+function LeadCards({ data, onSelectLeadsClick, isSelectionMode }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {/* Card 1 */}
@@ -47,18 +47,33 @@ function LeadCards({ data, onSelectLeadsClick }) {
 
       {/* Card 3 */}
       <div
-        title="Call selected"
-        onClick={onSelectLeadsClick}
-        className="group bg-surface p-4 rounded-2xl border border-slate-100 dark:border-gray-900 shadow-sm dark:shadow-gray-700/30 cursor-pointer"
+        title={
+          isSelectionMode
+            ? "Disabled while selection mode is active"
+            : "Call selected"
+        }
+        onClick={!isSelectionMode ? onSelectLeadsClick : undefined}
+        className={`group bg-surface p-4 rounded-2xl border border-slate-100 dark:border-gray-900 shadow-sm dark:shadow-gray-700/30 transition-all ${
+          isSelectionMode
+            ? "opacity-50 cursor-not-allowed pointer-events-none"
+            : "cursor-pointer"
+        }`}
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-slate-100 rounded-lg text-purple-600 group-hover:ring ring-purple-600/30 group-hover:scale-110 transition-all">
+          <div
+            className={`p-2 bg-slate-100 rounded-lg text-purple-600 transition-all ${
+              !isSelectionMode &&
+              "group-hover:ring ring-purple-600/30 group-hover:scale-110"
+            }`}
+          >
             <PhoneIcon size={20} />
           </div>
+
           <div>
             <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">
               Call selected leads
             </p>
+
             <p className="text-base sm:text-lg font-semibold dark:text-white">
               Select leads to call
             </p>

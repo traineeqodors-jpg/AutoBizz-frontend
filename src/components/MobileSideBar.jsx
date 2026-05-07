@@ -73,7 +73,6 @@ const MobileSideBar = ({ isDialogOpen, setIsDialogOpen }) => {
       dispatch(userApi.util.resetApiState());
       toast.success(response?.message);
     } catch (error) {
-      console.log(error);
       console.warn("Server logout failed, cleaning up locally.", error);
     }
   };

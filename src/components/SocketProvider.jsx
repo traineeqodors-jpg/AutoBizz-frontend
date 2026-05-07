@@ -4,24 +4,41 @@ import { useEffect, useRef } from "react";
 import { getSocket } from "@/lib/socket";
 
 export default function SocketProvider({ user, children }) {
-  const userId = user?.orgId || user?.id;
   const hasJoined = useRef(false);
 
   useEffect(() => {
+    if (!user) return;
+
+    const userId = user?.orgId || user?.id;
+
     if (!userId) return;
 
     const socket = getSocket(user);
 
-    if (!hasJoined.current) {
+    if (!socket) return;
+
+    const joinRoom = () => {
+      if (hasJoined.current) return;
+
       socket.emit("join-room", userId);
+
       hasJoined.current = true;
 
       console.log("Joined room:", userId);
+    };
+
+    // already connected
+    if (socket.connected) {
+      joinRoom();
+    } else {
+      // wait for connection
+      socket.once("connect", joinRoom);
     }
-  }, [userId, user]);
 
-  if (user?.role === "employee") return children;
-
+    return () => {
+      socket.off("connect", joinRoom);
+    };
+  }, [user]);
 
   return children;
 }

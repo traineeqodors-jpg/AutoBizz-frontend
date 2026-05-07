@@ -163,9 +163,7 @@ function EmployeeManagement() {
 
     try {
       const response = await createEmp(input).unwrap();
-      console.log(response);
       toast.success(response?.message);
-      setHasData(true);
       setOpenModal(false);
       setInput({
         firstName: "",

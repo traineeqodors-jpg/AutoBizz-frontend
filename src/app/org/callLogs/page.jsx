@@ -86,7 +86,6 @@ function CallLogsPage() {
       page: 1,
     }));
 
-    console.log(filters);
   };
 
   const clearDateFilters = () => {

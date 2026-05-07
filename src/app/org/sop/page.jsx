@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import {
   useDeleteVideoMutation,
+  useEditVideoMutation,
   useGetAllVideosQuery,
 } from "@/features/slices/videoGenerationSlice";
 import { useGetMeQuery } from "@/features/slices/userSlice";
@@ -28,6 +29,7 @@ function SopPage() {
   const [statusFilter, setStatusFilter] = useState("all");
 
   const { data: videos = [], isLoading } = useGetAllVideosQuery();
+  const [editVideoTitle, {isLoading: editingTitle}] = useEditVideoMutation();
 
   const { data } = useGetMeQuery();
   const user = data?.data;
@@ -88,6 +90,20 @@ function SopPage() {
     }
   }
 
+  async function handleEditVideoTitle(videoId, oldTitle, newTitle) {
+    if (oldTitle.trim() === newTitle.trim()) {
+      toast.success("Title is unchanged!");
+      return;
+    }
+    try {
+      const response = await editVideoTitle({ videoId, newTitle }).unwrap();
+      toast.success(response?.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message || "Error Occured!!");
+    }
+  }
+
   return (
     <AnimatedWrapper>
       <div className="min-h-screen w-full py-3 sm:py-6 lg:py-8 mx-auto space-y-6">
@@ -143,6 +159,7 @@ function SopPage() {
           ) : (
             processedVideos?.map((video) => (
               <SopVideoCard
+                handleEditVideoTitle={handleEditVideoTitle}
                 key={video.id}
                 video={video}
                 handleDeleteVideo={handleDeleteVideo}

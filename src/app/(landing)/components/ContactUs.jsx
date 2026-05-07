@@ -72,8 +72,6 @@ const ContactUs = () => {
     // Clear errors on success
     setErrors({});
 
-    // Success Logic
-    console.log("Contact Form Data:", input);
 
     try {
       const response = await contactUs(input).unwrap();

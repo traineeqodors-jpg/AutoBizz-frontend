@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
@@ -8,7 +8,21 @@ function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
   const [isOpen, setIsOpen] = useState(false);
   const [gender, setGender] = useState("male"); // 👈 new state
 
-  // 👇 filter avatars based on gender
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsOpen(window.innerWidth >= 768);
+    };
+
+    checkScreen();
+
+    window.addEventListener("resize", checkScreen);
+
+    return () => {
+      window.removeEventListener("resize", checkScreen);
+    };
+  }, []);
+
   const filteredAvatars = videoAvatar.avatars.filter(
     (avatar) => avatar.gender === gender,
   );
@@ -35,7 +49,6 @@ function AvatarSelection({ selectedAvatar, setSelectedAvatar, videoAvatar }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            {/* 👇 Gender Switch */}
             <div className="flex gap-2 px-4 pt-4">
               {["male", "female"].map((g) => (
                 <button

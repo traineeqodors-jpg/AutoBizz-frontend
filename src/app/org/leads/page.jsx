@@ -204,7 +204,6 @@ function LeadManagement() {
 
     try {
       const response = await addLead(input).unwrap();
-      console.log(response);
       toast.success(response?.message);
       setOpenModal(false);
       setInput({
@@ -487,6 +486,7 @@ function LeadManagement() {
         />
         <LeadCards
           data={data}
+          isSelectionMode={isSelectionMode}
           handleCallSelectedLeads={handleCallSelectedLeads}
           onSelectLeadsClick={() => {
             setIsSelectionMode(true);
@@ -632,8 +632,7 @@ function LeadManagement() {
                       "Contacts",
                       "Status",
                       "Score",
-                      "Actions"
-
+                      "Actions",
                     ]}
                     data={isGoogleLinked ? leads : []}
                     renderRow={(lead) => (

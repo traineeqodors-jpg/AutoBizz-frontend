@@ -79,7 +79,6 @@ function AdditionalDetails() {
         toast.error("Failed to update!");
       }
 
-      console.log("API Response:", response);
     } catch (error) {
       console.error("Update Error:", error);
       toast.error("Failed to update!");

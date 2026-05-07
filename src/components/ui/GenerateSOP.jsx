@@ -15,6 +15,7 @@ import GenerateVideo from "./GenerateVideo";
 
 function GenerateSOP({ isHome }) {
   const [aiContext, setAiContext] = useState(null);
+  const [query, setQuery] = useState("");
 
   const [script, { isLoading, isFetching }] = useGenerateScriptMutation();
 
@@ -57,6 +58,7 @@ function GenerateSOP({ isHome }) {
       return toast.error("No Scirpt Found");
     }
     const requestBody = {
+      videoTitle: query || "SOP Training Video",
       script: videoScript,
       avatar_id: selectedAvatar.avatar_id,
       voice_id: selectedAvatar.voice_id,
@@ -115,6 +117,8 @@ function GenerateSOP({ isHome }) {
 
       <GenerateScript
         genScriptRef={genScriptRef}
+        query={query}
+        setQuery={setQuery}
         genVideoRef={genVideoRef}
         script={script}
         documents={documents}
@@ -127,6 +131,8 @@ function GenerateSOP({ isHome }) {
       <GenerateVideo
         genVideoRef={genVideoRef}
         genScriptRef={genScriptRef}
+        query={query}
+        setQuery={setQuery}
         isLoading={isLoading}
         isFetching={isFetching}
         videoScript={videoScript}

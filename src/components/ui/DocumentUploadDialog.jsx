@@ -7,15 +7,21 @@ import { FaExclamationCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import CustomToast from "./CustomToast";
-import { useUploadDocumentsMutation } from "@/features/slices/documentSlice";
-import { getSocket } from "@/lib/socket";
+import {
+  documentApi,
+  useUploadDocumentsMutation,
+} from "@/features/slices/documentSlice";
+import { ensureSocketRoom, getSocket } from "@/lib/socket";
 import { useGetMeQuery } from "@/features/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 function DocumentUploadDialog({ dialogRef }) {
   const [docFile, setDocFile] = useState(null);
   const [localError, setLocalError] = useState("");
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   // store current upload info
   const activeUpload = useRef({
@@ -45,6 +51,8 @@ function DocumentUploadDialog({ dialogRef }) {
 
       if (data.status === "completed") {
         toast.success(data.message);
+
+        dispatch(documentApi.util.invalidateTags(["documents"]));
       } else {
         toast.error(data.message);
       }
@@ -68,6 +76,8 @@ function DocumentUploadDialog({ dialogRef }) {
       setLocalError("Please select a file.");
       return;
     }
+
+    await ensureSocketRoom(user);
 
     const formData = new FormData();
     formData.append("file", docFile);

@@ -27,7 +27,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (tourData?.dashboard && user && shouldStart) {
-      console.log("here");
 
       dispatch(
         startTour({

@@ -25,7 +25,6 @@ const ResetPassword = ({}) => {
 
     try {
       const response = await forgotPassword(email).unwrap();
-      console.log(response);
       toast.success(response?.message);
     } catch (error) {
       console.log(error);

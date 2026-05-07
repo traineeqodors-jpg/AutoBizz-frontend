@@ -78,11 +78,8 @@ function SetupPasswordPage() {
       confirmPassword: input.confirmpassword,
     };
 
-    console.log(formData);
-
     try {
       const response = await setPassword(formData).unwrap();
-      console.log(response);
       setInput({
         password: "",
         confirmpassword: "",

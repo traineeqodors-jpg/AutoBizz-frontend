@@ -2,9 +2,18 @@ import { IoIosWarning } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRef, useState } from "react";
 import ViewScript from "./ViewScript";
+import { RiEditCircleFill } from "react-icons/ri";
 
-const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo, isOwner }) => {
+const SopVideoCard = ({
+  video,
+  handleDeleteVideo,
+  deletingVideo,
+  isOwner,
+  handleEditVideoTitle,
+}) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(video?.videoTitle || "SOP Video");
 
   const viewScriptRef = useRef(null);
 
@@ -77,10 +86,46 @@ const SopVideoCard = ({ video, handleDeleteVideo, deletingVideo, isOwner }) => {
       )}
 
       {video?.videoUrl !== "failed" && video?.videoUrl && (
-        <div className="px-2 w-full flex flex-col gap-1 py-2">
-          <h3 className="text-sm font-semibold tracking-widest line-clamp-1 text-text/90 dark:text-white/90">
-            {video?.videoScript?.split("\n")[0] || "SOP Video"}
-          </h3>
+        <div className="group px-2 w-full flex flex-col gap-1 py-2">
+          <div className="flex items-center justify-between gap-2">
+            {isEditing ? (
+              <>
+                <input
+                  type="text"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  className="flex-1 w-full text-sm px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-text dark:text-white outline-none"
+                />
+
+                <button
+                  onClick={() => {
+                    handleEditVideoTitle(
+                      video.id,
+                      video.videoTitle || "SOP Video",
+                      newTitle,
+                    );
+                    setIsEditing(false);
+                  }}
+                  className="text-xs px-2 py-1 rounded-md bg-btn-100 text-white hover:opacity-90"
+                >
+                  Save
+                </button>
+              </>
+            ) : (
+              <>
+                <h3 className="text-sm font-semibold tracking-widest line-clamp-1 text-text/90 dark:text-white/90">
+                  {newTitle || "SOP Video"}
+                </h3>
+
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200 text-text/70 dark:text-white/70 hover:text-primary"
+                >
+                  <RiEditCircleFill size={16} />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>

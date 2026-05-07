@@ -60,6 +60,16 @@ export const videoGenerationApi = createApi({
       invalidatesTags: ["video"],
     }),
 
+    editVideo: build.mutation({
+      query: ({ videoId, newTitle }) => ({
+        url: `/${videoId}`,
+        method: "put",
+        credentials: "include",
+        body: { newTitle },
+      }),
+      invalidatesTags: ["video"],
+    }),
+
     generateVideo: build.mutation({
       query: (script) => ({
         url: "/generateSOP",
@@ -77,4 +87,5 @@ export const {
   useGenerateVideoMutation,
   useGetAllVideosQuery,
   useDeleteVideoMutation,
+  useEditVideoMutation
 } = videoGenerationApi;

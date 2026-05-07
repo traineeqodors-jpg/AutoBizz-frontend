@@ -40,8 +40,6 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
   };
 
   const { icon, color, label } = getFileIcon(doc?.docType || "");
-
-  console.log(doc);
   
 
   // // Clean filename: Remove path and complex timestamps
@@ -60,7 +58,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
 
         <div className="flex md:hidden gap-3">
           <a
-            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}${doc?.docUrl}`}
+            href={doc?.docUrl}
             target="_blank"
             rel="noreferrer"
             className="p-2.5 bg-white dark:bg-gray-800 border border-gray-100 text-btn-100 rounded-xl shadow-sm active:scale-95"
@@ -79,7 +77,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
       <td className="px-0 md:px-4 py-2 md:py-4 ">
         <div className="flex flex-col">
           <a
-            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}${doc?.docUrl}`}
+            href={doc?.docUrl}
             target="_blank"
             className="text-[15px] cursor-pointer font-bold text-text dark:text-white/80 group-hover:text-btn-100 transition-colors truncate text-left md:text-center"
           >
@@ -101,7 +99,7 @@ const DocumentTable = ({ doc, openDeleteModal }) => {
       <td className="hidden md:table-cell px-6 py-4 text-right">
         <div className="flex justify-end gap-3 transition-opacity duration-300 md:justify-center-safe">
           <a
-            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}${doc?.docUrl}`}
+            href={doc?.docUrl}
             target="_blank"
             rel="noreferrer"
             className="p-2.5 bg-white border border-gray-100 text-btn-100 shadow-sm hover:bg-btn-100 hover:text-white rounded-xl transition-all active:scale-95"

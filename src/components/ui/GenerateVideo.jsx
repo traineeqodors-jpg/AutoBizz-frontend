@@ -23,11 +23,11 @@ function GenerateVideo({
   return (
     <dialog
       ref={genVideoRef}
-      className={`${isLoading ? 'w-lg' : 'md:w-3xl w-lg'} rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5`}
+      className={`${isLoading ? "w-lg" : "md:w-3xl w-lg"} rounded-3xl bg-back dark:bg-gray-900 hideScrollBar m-auto  p-5 pb-0 backdrop:bg-text/40 dark:backdrop:bg-gray-700/40 space-y-5`}
     >
       {/* Form  */}
       <form
-        onSubmit={(e) => handleSOPVideoGeneration(e)}
+        // onSubmit={(e) => handleSOPVideoGeneration(e)}
         className="w-full space-y-6 p-2"
       >
         {/* Heading Container */}
@@ -87,16 +87,19 @@ function GenerateVideo({
             </>
           )}
         </div>
-        {isLoading || isFetching ? null : (
+      </form>
+      {isLoading || isFetching ? null : (
+        <div className="sticky md:bottom-2 bottom-0 w-full bg-back dark:bg-gray-900 p-2">
           <button
+            onClick={(e) => handleSOPVideoGeneration(e)}
             type="submit"
             disabled={isDisabled}
-            className={`w-full sticky bottom-2 py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg dark:shadow-sm dark:hover:shadow-md shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all  ${isDisabled && "opacity-60 cursor-not-allowed hover:shadow-none hover:transform-none"}`}
+            className={`w-full  py-3 bg-btn-100 hover:bg-btn-200 ${isLoading ? `hidden` : null} text-white font-bold flex justify-center items-center gap-2  rounded-xl shadow-lg dark:shadow-sm dark:hover:shadow-md shadow-btn-50/30 hover:shadow-xl hover:shadow-btn-200/40 transform hover:-translate-y-0.5 transition-all  ${isDisabled && "opacity-60 cursor-not-allowed hover:shadow-none hover:transform-none"}`}
           >
             {videoLoading ? `Generating Video` : `Generate Video`} <GrMagic />
           </button>
-        )}
-      </form>
+        </div>
+      )}
     </dialog>
   );
 }

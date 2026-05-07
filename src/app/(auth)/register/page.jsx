@@ -143,7 +143,6 @@ const Register = () => {
       phone: formattedPhone,
     };
 
-    console.log(formData);
 
     // Register API call
     try {
@@ -151,7 +150,6 @@ const Register = () => {
       toast.success(response?.message);
       router.push("/org/dashboard");
     } catch (error) {
-      console.log(error);
       toast.error(
         error?.data?.message || "Registration failed. Please try again.",
       );
